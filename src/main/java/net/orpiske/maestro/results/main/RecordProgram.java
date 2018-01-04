@@ -1,6 +1,7 @@
 package net.orpiske.maestro.results.main;
 
 import net.orpiske.maestro.results.main.actions.record.TestFailConditionAction;
+import net.orpiske.maestro.results.main.actions.record.TestMsgPropertyAction;
 import net.orpiske.maestro.results.main.actions.record.TestParameterAction;
 
 import static java.util.Arrays.copyOfRange;
@@ -40,6 +41,10 @@ public class RecordProgram implements Program {
         switch (first) {
             case "test-fail-condition": {
                 action = new TestFailConditionAction(newArgs);
+                break;
+            }
+            case "test-msg-property": {
+                action = new TestMsgPropertyAction(newArgs);
                 break;
             }
             case "test-parameter": {

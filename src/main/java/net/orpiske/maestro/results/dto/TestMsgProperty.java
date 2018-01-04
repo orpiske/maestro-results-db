@@ -3,8 +3,8 @@ package net.orpiske.maestro.results.dto;
 @SuppressWarnings("unused")
 public class TestMsgProperty {
     private int testParameterId;
-    private String testMsgPropertiesName;
-    private String testMsgPropertiesValue;
+    private String testMsgPropertyName;
+    private String testMsgPropertyValue;
 
 
     public int getTestParameterId() {
@@ -15,28 +15,28 @@ public class TestMsgProperty {
         this.testParameterId = testParameterId;
     }
 
-    public String getTestMsgPropertiesName() {
-        return testMsgPropertiesName;
+    public String getTestMsgPropertyName() {
+        return testMsgPropertyName;
     }
 
-    public void setTestMsgPropertiesName(String testMsgPropertiesName) {
-        this.testMsgPropertiesName = testMsgPropertiesName;
+    public void setTestMsgPropertyName(String testMsgPropertyName) {
+        this.testMsgPropertyName = testMsgPropertyName;
     }
 
-    public String getTestMsgPropertiesValue() {
-        return testMsgPropertiesValue;
+    public String getTestMsgPropertyValue() {
+        return testMsgPropertyValue;
     }
 
-    public void setTestMsgPropertiesValue(String testMsgPropertiesValue) {
-        this.testMsgPropertiesValue = testMsgPropertiesValue;
+    public void setTestMsgPropertyValue(String testMsgPropertyValue) {
+        this.testMsgPropertyValue = testMsgPropertyValue;
     }
 
     @Override
     public String toString() {
         return "TestMsgProperty{" +
                 "testParameterId=" + testParameterId +
-                ", testMsgPropertiesName='" + testMsgPropertiesName + '\'' +
-                ", testMsgPropertiesValue='" + testMsgPropertiesValue + '\'' +
+                ", testMsgPropertyName='" + testMsgPropertyName + '\'' +
+                ", testMsgPropertyValue='" + testMsgPropertyValue + '\'' +
                 '}';
     }
 }

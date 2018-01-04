@@ -1,19 +1,17 @@
 package net.orpiske.maestro.results.main.actions.record;
 
-import net.orpiske.maestro.results.dao.TestFailConditionDao;
-import net.orpiske.maestro.results.dao.TestParameterDao;
-import net.orpiske.maestro.results.dto.TestFailCondition;
-import net.orpiske.maestro.results.dto.TestParameter;
+import net.orpiske.maestro.results.dao.TestMsgPropertyDao;
+import net.orpiske.maestro.results.dto.TestMsgProperty;
 import net.orpiske.maestro.results.main.Action;
 import org.apache.commons.cli.*;
 
 import java.util.List;
 
-public class TestParameterAction extends Action {
+public class TestMsgPropertyAction extends Action {
     private CommandLine cmdLine;
     private Options options;
 
-    public TestParameterAction(String[] args) {
+    public TestMsgPropertyAction(String[] args) {
         processCommand(args);
     }
 
@@ -25,10 +23,9 @@ public class TestParameterAction extends Action {
 
         options.addOption("h", "help", false, "prints the help");
         options.addOption("a", "action", true, "action (one of: insert, delete, update, view)");
-        options.addOption("i", "id", true, "test parameter id");
-        options.addOption("t", "rate", true, "test target rate");
-        options.addOption("s", "sender-count", true, "test sender count");
-        options.addOption("r", "receiver-count", true, "test receiver count");
+        options.addOption("i", "id", true, "test message property id");
+        options.addOption("n", "name", true, "test message property name");
+        options.addOption("v", "value", true, "test message property value");
 
         try {
             cmdLine = parser.parse(options, args);
@@ -43,30 +40,27 @@ public class TestParameterAction extends Action {
     }
 
     private int add() {
-        TestParameterDao dao = new TestParameterDao();
-        TestParameter dto = new TestParameter();
+        TestMsgPropertyDao dao = new TestMsgPropertyDao();
+        TestMsgProperty tc = new TestMsgProperty();
 
         int parameterId = Integer.parseInt(cmdLine.getOptionValue("id"));
-        dto.setTestParameterId(parameterId);
+        tc.setTestParameterId(parameterId);
 
-        int rate = Integer.parseInt(cmdLine.getOptionValue("rate"));
-        dto.setTestTargetRate(rate);
+        final String failConditionName = cmdLine.getOptionValue("name");
+        tc.setTestMsgPropertyName(failConditionName);
 
-        int senderCount = Integer.parseInt(cmdLine.getOptionValue("sender-count"));
-        dto.setTestSenderCount(senderCount);
+        final String failConditionValue = cmdLine.getOptionValue("value");
+        tc.setTestMsgPropertyValue(failConditionValue);
 
-        int receiverCount = Integer.parseInt(cmdLine.getOptionValue("receiver-count"));
-        dto.setTestReceiverCount(receiverCount);
-
-        dao.insert(dto);
+        dao.insert(tc);
         return 0;
     }
 
     private int view() {
-        TestParameterDao dao = new TestParameterDao();
-        List<TestParameter> parameters = dao.fetch();
+        TestMsgPropertyDao dao = new TestMsgPropertyDao();
+        List<TestMsgProperty> failConditions = dao.fetch();
 
-        parameters.stream().forEach(item -> System.out.println("Test parameters: " + item));
+        failConditions.stream().forEach(item -> System.out.println("Fail condition: " + item));
         return 0;
     }
 

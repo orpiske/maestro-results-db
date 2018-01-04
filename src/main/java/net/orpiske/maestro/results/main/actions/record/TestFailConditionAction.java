@@ -10,7 +10,6 @@ import java.util.List;
 public class TestFailConditionAction extends Action {
     private CommandLine cmdLine;
     private Options options;
-    // private int
 
     public TestFailConditionAction(String[] args) {
         processCommand(args);
