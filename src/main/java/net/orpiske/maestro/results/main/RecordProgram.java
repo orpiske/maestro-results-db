@@ -51,6 +51,10 @@ public class RecordProgram implements Program {
                 action = new TestParameterAction(newArgs);
                 break;
             }
+            case "env-resource": {
+//                action = new TestParameterAction(newArgs);
+//                break;
+            }
             default: {
                 help(1);
                 return 0;
