@@ -61,6 +61,10 @@ public class RecordProgram implements Program {
                 action = new ResultsAction(newArgs);
                 break;
             }
+            case "test": {
+                action = new TestAction(newArgs);
+                break;
+            }
             default: {
                 help(1);
                 return 0;
