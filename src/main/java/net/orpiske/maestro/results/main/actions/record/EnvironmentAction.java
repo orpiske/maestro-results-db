@@ -22,10 +22,9 @@ public class EnvironmentAction extends Action {
         options = new Options();
 
         options.addOption("h", "help", false, "prints the help");
-        options.addOption("a", "action", true, "action (one of: create-resource, view-resource)");
+        options.addOption("a", "action", true, "action (one of: insert, view)");
         options.addOption("i", "id", true, "env resource id");
         options.addOption(null, "resource-name", true, "env resource name");
-        options.addOption(null, "resource-type", true, "env resource type");
         options.addOption(null, "os-name", true, "env resource os name");
         options.addOption(null, "os-arch", true, "env resource os arch");
         options.addOption(null, "os-version", true, "env resource os version");
@@ -48,12 +47,11 @@ public class EnvironmentAction extends Action {
         }
     }
 
-    private int addResource() {
+    private int add() {
         EnvResourceDao dao = new EnvResourceDao();
         EnvResource dto = new EnvResource();
 
         dto.setEnvResourceName(cmdLine.getOptionValue("resource-name"));
-        dto.setEnvResourceType(cmdLine.getOptionValue("resource-type"));
         dto.setEnvResourceOsName(cmdLine.getOptionValue("resource-name"));
         dto.setEnvResourceOsArch(cmdLine.getOptionValue("os-name"));
         dto.setEnvResourceOsVersion(cmdLine.getOptionValue("os-version"));
@@ -88,10 +86,10 @@ public class EnvironmentAction extends Action {
         final String action = cmdLine.getOptionValue("action");
 
         switch (action) {
-            case "create-resource": {
-                return addResource();
+            case "insert": {
+                return add();
             }
-            case "view-resource": {
+            case "view": {
                 return view();
             }
         }

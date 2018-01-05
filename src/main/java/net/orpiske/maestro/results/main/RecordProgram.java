@@ -52,7 +52,7 @@ public class RecordProgram implements Program {
                 action = new TestParameterAction(newArgs);
                 break;
             }
-            case "environment": {
+            case "env-resource": {
                 action = new EnvironmentAction(newArgs);
                 break;
             }

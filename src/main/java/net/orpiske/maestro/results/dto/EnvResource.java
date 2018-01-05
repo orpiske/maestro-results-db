@@ -4,7 +4,6 @@ package net.orpiske.maestro.results.dto;
 public class EnvResource {
     private int envResourceId;
     private String envResourceName;
-    private String envResourceType;
     private String envResourceOsName;
     private String envResourceOsArch;
     private String envResourceOsVersion;
@@ -30,14 +29,6 @@ public class EnvResource {
 
     public void setEnvResourceName(String envResourceName) {
         this.envResourceName = envResourceName;
-    }
-
-    public String getEnvResourceType() {
-        return envResourceType;
-    }
-
-    public void setEnvResourceType(String envResourceType) {
-        this.envResourceType = envResourceType;
     }
 
     public String getEnvResourceOsName() {
@@ -125,7 +116,6 @@ public class EnvResource {
         return "EnvResource{" +
                 "envResourceId=" + envResourceId +
                 ", envResourceName=" + envResourceName +
-                ", envResourceType='" + envResourceType + '\'' +
                 ", envResourceOsName='" + envResourceOsName + '\'' +
                 ", envResourceOsArch='" + envResourceOsArch + '\'' +
                 ", envResourceOsVersion='" + envResourceOsVersion + '\'' +
