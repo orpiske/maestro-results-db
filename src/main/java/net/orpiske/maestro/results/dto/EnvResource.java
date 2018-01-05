@@ -3,7 +3,7 @@ package net.orpiske.maestro.results.dto;
 @SuppressWarnings("unused")
 public class EnvResource {
     private int envResourceId;
-    private int envResourceName;
+    private String envResourceName;
     private String envResourceType;
     private String envResourceOsName;
     private String envResourceOsArch;
@@ -24,11 +24,11 @@ public class EnvResource {
         this.envResourceId = envResourceId;
     }
 
-    public int getEnvResourceName() {
+    public String getEnvResourceName() {
         return envResourceName;
     }
 
-    public void setEnvResourceName(int envResourceName) {
+    public void setEnvResourceName(String envResourceName) {
         this.envResourceName = envResourceName;
     }
 

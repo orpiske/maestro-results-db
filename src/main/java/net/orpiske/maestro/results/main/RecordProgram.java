@@ -1,5 +1,6 @@
 package net.orpiske.maestro.results.main;
 
+import net.orpiske.maestro.results.main.actions.record.EnvironmentAction;
 import net.orpiske.maestro.results.main.actions.record.TestFailConditionAction;
 import net.orpiske.maestro.results.main.actions.record.TestMsgPropertyAction;
 import net.orpiske.maestro.results.main.actions.record.TestParameterAction;
@@ -51,9 +52,9 @@ public class RecordProgram implements Program {
                 action = new TestParameterAction(newArgs);
                 break;
             }
-            case "env-resource": {
-//                action = new TestParameterAction(newArgs);
-//                break;
+            case "environment": {
+                action = new EnvironmentAction(newArgs);
+                break;
             }
             default: {
                 help(1);
