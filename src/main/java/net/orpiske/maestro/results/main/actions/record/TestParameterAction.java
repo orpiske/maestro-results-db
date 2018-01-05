@@ -26,9 +26,9 @@ public class TestParameterAction extends Action {
         options.addOption("h", "help", false, "prints the help");
         options.addOption("a", "action", true, "action (one of: insert, delete, update, view)");
         options.addOption("i", "id", true, "test parameter id");
-        options.addOption("t", "rate", true, "test target rate");
-        options.addOption("s", "sender-count", true, "test sender count");
-        options.addOption("r", "receiver-count", true, "test receiver count");
+        options.addOption("t", "test-target-rate", true, "test target rate");
+        options.addOption("s", "test-sender-count", true, "test sender count");
+        options.addOption("r", "test-receiver-count", true, "test receiver count");
 
         try {
             cmdLine = parser.parse(options, args);
@@ -46,16 +46,13 @@ public class TestParameterAction extends Action {
         TestParameterDao dao = new TestParameterDao();
         TestParameter dto = new TestParameter();
 
-        int parameterId = Integer.parseInt(cmdLine.getOptionValue("id"));
-        dto.setTestParameterId(parameterId);
-
-        int rate = Integer.parseInt(cmdLine.getOptionValue("rate"));
+        int rate = Integer.parseInt(cmdLine.getOptionValue("test-target-rate"));
         dto.setTestTargetRate(rate);
 
-        int senderCount = Integer.parseInt(cmdLine.getOptionValue("sender-count"));
+        int senderCount = Integer.parseInt(cmdLine.getOptionValue("test-sender-count"));
         dto.setTestSenderCount(senderCount);
 
-        int receiverCount = Integer.parseInt(cmdLine.getOptionValue("receiver-count"));
+        int receiverCount = Integer.parseInt(cmdLine.getOptionValue("test-receiver-count"));
         dto.setTestReceiverCount(receiverCount);
 
         dao.insert(dto);
