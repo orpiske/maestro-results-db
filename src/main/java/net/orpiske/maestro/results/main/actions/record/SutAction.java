@@ -25,7 +25,7 @@ public class SutAction extends Action {
 
         options.addOption("h", "help", false, "prints the help");
         options.addOption("a", "action", true, "action (one of: insert, delete, update, view)");
-        options.addOption("i", "id", true, "test message property id");
+        options.addOption("i", "id", true, "sut id");
         options.addOption("n", "sut-name", true, "sut name");
         options.addOption("v", "sut-version", true, "sut version");
         options.addOption("j", "sut-jvm-info", true, "sut jvm information");
