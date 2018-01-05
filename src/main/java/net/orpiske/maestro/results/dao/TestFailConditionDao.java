@@ -6,10 +6,6 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import java.util.List;
 
 public class TestFailConditionDao extends AbstractDao {
-    public TestFailConditionDao() {
-        super();
-    }
-
     public int insert(TestFailCondition testFailCondition) {
         return runUpdate(
                 "insert into test_fail_condition(test_parameter_id, test_fail_condition_name, test_fail_condition_value) values(?, ?, ?)",
