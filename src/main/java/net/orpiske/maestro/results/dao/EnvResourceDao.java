@@ -8,8 +8,8 @@ import java.util.List;
 public class EnvResourceDao extends AbstractDao {
     public int insert(EnvResource dto) {
         return runUpdate(
-                "insert into env_resource(env_resource_name, env_resource_type, env_resource_os_name, env_resource_os_arch, env_resource_os_version,env_resource_os_other, env_resource_hw_name, env_resource_hw_model, env_resource_hw_cpu, env_resource_hw_ram, env_resource_disk_type, env_resource_hw_other) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                dto.getEnvResourceName(), dto.getEnvResourceType(), dto.getEnvResourceOsName(),
+                "insert into env_resource(env_resource_name, env_resource_os_name, env_resource_os_arch, env_resource_os_version,env_resource_os_other, env_resource_hw_name, env_resource_hw_model, env_resource_hw_cpu, env_resource_hw_ram, env_resource_disk_type, env_resource_hw_other) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
+                dto.getEnvResourceName(), dto.getEnvResourceOsName(),
                 dto.getEnvResourceOsArch(), dto.getEnvResourceOsVersion(), dto.getEnvResourceOsOther(),
                 dto.getEnvResourceHwName(), dto.getEnvResourceHwModel(), dto.getEnvResourceHwCpu(),
                 dto.getEnvResourceHwRam(), dto.getEnvResourceHwDiskType(), dto.getEnvResourceHwOther());
