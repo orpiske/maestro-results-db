@@ -2,7 +2,6 @@ package net.orpiske.maestro.results.main.actions.record;
 
 import net.orpiske.maestro.results.dao.TestDao;
 import net.orpiske.maestro.results.dto.Test;
-import net.orpiske.maestro.results.dto.TestResult;
 import net.orpiske.maestro.results.main.Action;
 import org.apache.commons.cli.*;
 
@@ -27,14 +26,13 @@ public class TestAction extends Action {
         options.addOption("h", "help", false, "prints the help");
         options.addOption("a", "action", true, "action (one of: insert, delete, update, view)");
         options.addOption("i", "id", true, "test id");
-        options.addOption(null, "test-name", true, "test name");
-        options.addOption(null, "test-result", true, "test result (one of: success, failed, error)");
-        options.addOption(null, "test-env-results-id", true, "test env results id");
-        options.addOption(null, "test-parameter-id", true, "test parameter id");
-        options.addOption(null, "sut-id", true, "sut id");
-        options.addOption(null, "test-report-link", true, "test report link");
-        options.addOption(null, "test-data-storage-info", true, "test data storage info");
-        options.addOption(null, "test-tags", true, "test tags");
+        options.addOption("n", "test-name", true, "test name");
+        options.addOption("r", "test-result", true, "test result (one of: success, failed, error)");
+        options.addOption("p", "test-parameter-id", true, "test parameter id");
+        options.addOption("s", "sut-id", true, "sut id");
+        options.addOption("l", "test-report-link", true, "test report link");
+        options.addOption("d", "test-data-storage-info", true, "test data storage info");
+        options.addOption("t", "test-tags", true, "test tags");
 
 
         try {
@@ -54,8 +52,7 @@ public class TestAction extends Action {
         Test dto = new Test();
 
         dto.setTestName(cmdLine.getOptionValue("test-name"));
-        dto.setTestResult(TestResult.valueOf(cmdLine.getOptionValue("test-result")));
-        dto.setTestEnvResultsId(Integer.parseInt(cmdLine.getOptionValue("test-env-results-id")));
+        dto.setTestResult(cmdLine.getOptionValue("test-result"));
         dto.setTestParameterId(Integer.parseInt(cmdLine.getOptionValue("test-parameter-id")));
         dto.setSutId(Integer.parseInt(cmdLine.getOptionValue("sut-id")));
         dto.setTestReportLink(cmdLine.getOptionValue("test-report-link"));

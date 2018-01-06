@@ -57,7 +57,7 @@ public class RecordProgram implements Program {
                 action = new SutAction(newArgs);
                 break;
             }
-            case "results": {
+            case "env-results": {
                 action = new ResultsAction(newArgs);
                 break;
             }

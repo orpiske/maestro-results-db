@@ -2,9 +2,11 @@ package net.orpiske.maestro.results.dto;
 
 public class EnvResults {
     private int envResultsId;
-    private String envName;
     private int envResourceId;
-    private EnvResourceRole envResourceRole;
+    private int testId;
+
+    private String envName;
+    private String envResourceRole;
     private int testRateMin;
     private int testRateMax;
     private int testRateErrorCount;
@@ -23,6 +25,14 @@ public class EnvResults {
         this.envResultsId = envResultsId;
     }
 
+    public int getTestId() {
+        return testId;
+    }
+
+    public void setTestId(int testId) {
+        this.testId = testId;
+    }
+
     public String getEnvName() {
         return envName;
     }
@@ -39,11 +49,11 @@ public class EnvResults {
         this.envResourceId = envResourceId;
     }
 
-    public EnvResourceRole getEnvResourceRole() {
+    public String getEnvResourceRole() {
         return envResourceRole;
     }
 
-    public void setEnvResourceRole(EnvResourceRole envResourceRole) {
+    public void setEnvResourceRole(final String envResourceRole) {
         this.envResourceRole = envResourceRole;
     }
 
