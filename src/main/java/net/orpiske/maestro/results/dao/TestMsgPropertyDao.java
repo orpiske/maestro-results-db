@@ -8,11 +8,8 @@ import java.util.List;
 
 public class TestMsgPropertyDao extends AbstractDao {
     public int insert(TestMsgProperty dto) {
-        return runUpdate(
-                "insert into test_msg_property(test_parameter_id, test_msg_property_name, test_msg_property_value) values(?, ?, ?)",
-                dto.getTestParameterId(),
-                dto.getTestMsgPropertyName(),
-                dto.getTestMsgPropertyValue());
+        return runInsert("insert into test_msg_property(test_parameter_id, test_msg_property_name, test_msg_property_value) "
+                + "values(:testParameterId, :testMsgPropertyName, :testMsgPropertyValue)", dto);
     }
 
     public List<TestMsgProperty> fetchById(int id) {

@@ -3,19 +3,24 @@ package net.orpiske.maestro.results.dao;
 import net.orpiske.maestro.results.dao.exceptions.DataNotFoundException;
 import net.orpiske.mpt.common.ConfigurationWrapper;
 import org.apache.commons.configuration.AbstractConfiguration;
-import org.apache.commons.configuration.PropertiesConfiguration;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
+import org.springframework.jdbc.core.namedparam.SqlParameterSource;
 import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+import org.springframework.jdbc.support.GeneratedKeyHolder;
+import org.springframework.jdbc.support.KeyHolder;
 
 import java.sql.Connection;
 import java.sql.SQLException;
 
-public abstract class AbstractDao {
+public abstract class AbstractDao extends NamedParameterJdbcDaoSupport {
     protected JdbcTemplate jdbcTemplate;
 
     protected AbstractDao() {
+        super();
         AbstractConfiguration config = ConfigurationWrapper.getConfig();
         SimpleDriverDataSource ds = new SimpleDriverDataSource();
 
@@ -34,6 +39,7 @@ public abstract class AbstractDao {
             Connection conn = ds.getConnection();
 
             jdbcTemplate = new JdbcTemplate(ds);
+            super.setJdbcTemplate(jdbcTemplate);
         } catch (SQLException e) {
             e.printStackTrace();
         }
@@ -55,7 +61,17 @@ public abstract class AbstractDao {
         return ret;
     }
 
-    protected int runUpdate(String query, Object...args) {
+    protected int runUpdate(final String query, Object...args) {
         return jdbcTemplate.update(query, args);
     }
+
+
+    protected int runInsert(final String query, Object o) {
+        SqlParameterSource beanParameters = new BeanPropertySqlParameterSource(o);
+        KeyHolder keyHolder = new GeneratedKeyHolder();
+
+        getNamedParameterJdbcTemplate().update(query, beanParameters, keyHolder);
+        return keyHolder.getKey().intValue();
+    }
+
 }

@@ -7,16 +7,11 @@ import java.util.List;
 
 public class TestDao extends AbstractDao {
     public int insert(Test dto) {
-        return runUpdate(
-                "insert into test(test_name, test_result, env_results_id, test_parameter_id, sut_id, test_report_link, test_data_storage_info, test_tags, test_date) values(?, ?, ?, ?, ?, now())",
-                dto.getTestName(),
-                dto.getTestResult(),
-                dto.getTestEnvResultsId(),
-                dto.getTestParameterId(),
-                dto.getSutId(),
-                dto.getTestReportLink(),
-                dto.getTestDataStorageInfo(),
-                dto.getTestTags());
+        return runInsert(
+                "insert into test(test_name, test_result, env_results_id, test_parameter_id, sut_id, " +
+                        "test_report_link, test_data_storage_info, test_tags, test_date) " +
+                        "values(:testName, :testResult, :envResultsId, :testParameterId, :sutId, :testReportLink," +
+                        ":testDataStorageInfo, :testTags, now())", dto);
     }
 
     public List<Test> fetchById(int id) {

@@ -7,13 +7,9 @@ import java.util.List;
 
 public class SutDao extends AbstractDao {
     public int insert(Sut dto) {
-        return runUpdate(
-                "insert into sut(sut_name, sut_version, sut_jvm_info, sut_other, sut_tags) values(?, ?, ?, ?, ?, ?)",
-                dto.getSutName(),
-                dto.getSutVersion(),
-                dto.getSutJvmInfo(),
-                dto.getSutOther(),
-                dto.getSutTags());
+        return runInsert(
+                "insert into sut(sut_name, sut_version, sut_jvm_info, sut_other, sut_tags) " +
+                        "values(:sutName, :sutVersion, :sutJvmInfo, :sutOther, :sutTags)", dto);
     }
 
     public List<Sut> fetchById(int id) {

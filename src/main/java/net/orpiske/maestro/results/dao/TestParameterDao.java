@@ -8,11 +8,8 @@ import java.util.List;
 public class TestParameterDao extends AbstractDao {
 
     public int insert(TestParameter testParameter) {
-        return runUpdate(
-                "insert into test_parameter(test_target_rate, test_sender_count, test_receiver_count) values(?, ?, ?)",
-                testParameter.getTestTargetRate(),
-                testParameter.getTestSenderCount(),
-                testParameter.getTestReceiverCount());
+        return runInsert("insert into test_parameter(test_target_rate, test_sender_count, test_receiver_count) " +
+                "values(:testTargetRate, :testSenderCount, :testReceiverCount)", testParameter);
     }
 
     public List<TestParameter> fetchById(int id) {

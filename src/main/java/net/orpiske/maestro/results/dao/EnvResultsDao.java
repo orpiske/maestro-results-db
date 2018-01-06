@@ -8,12 +8,14 @@ import java.util.List;
 
 public class EnvResultsDao extends AbstractDao {
     public int insert(EnvResults dto) {
-        return runUpdate(
-                "insert into env_results(env_name, env_resource_id, env_resource_role, test_rate_min, test_rate_max, test_rate_error_count, test_rate_samples, test_rate_geometric_mean, test_rate_standard_deviation, error) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
-                dto.getEnvName(), dto.getEnvResourceId(), dto.getEnvResourceRole(),
-                dto.getTestRateMin(), dto.getTestRateMax(), dto.getTestRateErrorCount(),
-                dto.getTestRateSamples(), dto.getTestRateGeometricMean(), dto.getTestRateStandardDeviation(),
-                dto.isError());
+        return runInsert(
+                "insert into env_results(env_name, env_resource_id, env_resource_role, test_rate_min, " +
+                        "test_rate_max, test_rate_error_count, test_rate_samples, test_rate_geometric_mean, " +
+                        "test_rate_standard_deviation, error) " +
+                        "values(:envName, :envResourceId, :envResourceRole, :testRateMin, :testRateMax, " +
+                        ":testRateErrorCount, :testRateSamples, :testRateGeometricMean, :testRateStandardDeviation, " +
+                        ":error)",
+                dto);
     }
 
     public List<EnvResults> fetchById(int id) {
