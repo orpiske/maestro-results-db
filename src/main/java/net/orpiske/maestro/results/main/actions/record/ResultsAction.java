@@ -29,7 +29,7 @@ public class ResultsAction extends Action {
         options.addOption(null, "env-resource-id", true, "env resource id");
         options.addOption(null, "test-id", true, "test id");
         options.addOption(null, "env-name", true, "sut name");
-        options.addOption(null, "env-resource-role", true, "env resource role (one of: sender, receiver, inspector or other" );
+        options.addOption(null, "env-resource-role", true, "env resource role (one of: sender, receiver, inspector or other)" );
         options.addOption(null, "test-rate-min", true, "minimum rate achieved during the test");
         options.addOption(null, "test-rate-max", true, "maximum rate achieved during the test");
         options.addOption(null, "test-rate-error-count", true, "test rate error count");
