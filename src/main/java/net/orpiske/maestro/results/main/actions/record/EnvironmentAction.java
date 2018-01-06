@@ -54,8 +54,8 @@ public class EnvironmentAction extends Action {
         EnvResource dto = new EnvResource();
 
         dto.setEnvResourceName(cmdLine.getOptionValue("resource-name"));
-        dto.setEnvResourceOsName(cmdLine.getOptionValue("resource-name"));
-        dto.setEnvResourceOsArch(cmdLine.getOptionValue("os-name"));
+        dto.setEnvResourceOsName(cmdLine.getOptionValue("os-name"));
+        dto.setEnvResourceOsArch(cmdLine.getOptionValue("os-arch"));
         dto.setEnvResourceOsVersion(cmdLine.getOptionValue("os-version"));
         dto.setEnvResourceOsOther(cmdLine.getOptionValue("os-other"));
         dto.setEnvResourceHwName(cmdLine.getOptionValue("hw-name"));
@@ -65,8 +65,7 @@ public class EnvironmentAction extends Action {
         dto.setEnvResourceHwDiskType(cmdLine.getOptionValue("hw-disk-type"));
         dto.setEnvResourceHwOther(cmdLine.getOptionValue("hw-other"));
 
-        dao.insert(dto);
-        return 0;
+        return dao.insert(dto);
     }
 
     private int view() {

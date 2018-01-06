@@ -10,10 +10,10 @@ public class EnvResourceDao extends AbstractDao {
         return runInsert(
                 "insert into env_resource(env_resource_name, env_resource_os_name, env_resource_os_arch, " +
                         "env_resource_os_version, env_resource_os_other, env_resource_hw_name, env_resource_hw_model, " +
-                        "env_resource_hw_cpu, env_resource_hw_ram, env_resource_disk_type, env_resource_hw_other) " +
+                        "env_resource_hw_cpu, env_resource_hw_ram, env_resource_hw_disk_type, env_resource_hw_other) " +
                         "values(:envResourceName, :envResourceOsName, :envResourceOsArch, :envResourceOsVersion, " +
                         ":envResourceOsOther, :envResourceHwName, :envResourceHwModel, :envResourceHwCpu, " +
-                        ":envResourceHwRam, :envResourceDiskType, :envResourceHwOther)",
+                        ":envResourceHwRam, :envResourceHwDiskType, :envResourceHwOther)",
                 dto);
     }
 
