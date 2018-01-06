@@ -2,17 +2,17 @@ package net.orpiske.maestro.results.dto;
 
 @SuppressWarnings("unused")
 public class TestMsgProperty {
-    private int testParameterId;
+    private int testId;
     private String testMsgPropertyName;
     private String testMsgPropertyValue;
 
 
-    public int getTestParameterId() {
-        return testParameterId;
+    public int getTestId() {
+        return testId;
     }
 
-    public void setTestParameterId(int testParameterId) {
-        this.testParameterId = testParameterId;
+    public void setTestId(int testId) {
+        this.testId = testId;
     }
 
     public String getTestMsgPropertyName() {
@@ -34,7 +34,7 @@ public class TestMsgProperty {
     @Override
     public String toString() {
         return "TestMsgProperty{" +
-                "testParameterId=" + testParameterId +
+                "testId=" + testId +
                 ", testMsgPropertyName='" + testMsgPropertyName + '\'' +
                 ", testMsgPropertyValue='" + testMsgPropertyValue + '\'' +
                 '}';

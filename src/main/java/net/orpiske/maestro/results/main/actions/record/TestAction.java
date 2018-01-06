@@ -33,7 +33,8 @@ public class TestAction extends Action {
         options.addOption("l", "test-report-link", true, "test report link");
         options.addOption("d", "test-data-storage-info", true, "test data storage info");
         options.addOption("t", "test-tags", true, "test tags");
-
+        options.addOption("d", "test-duration", true, "test duration (in seconds)");
+        options.addOption("R", "test-target-rate", true, "test target rate");
 
         try {
             cmdLine = parser.parse(options, args);
@@ -58,6 +59,8 @@ public class TestAction extends Action {
         dto.setTestReportLink(cmdLine.getOptionValue("test-report-link"));
         dto.setTestDataStorageInfo(cmdLine.getOptionValue("test-data-storage-info"));
         dto.setTestTags(cmdLine.getOptionValue("test-tags"));
+        dto.setTestDuration(Integer.parseInt(cmdLine.getOptionValue("test-duration")));
+        dto.setTestTargetRate(Integer.parseInt(cmdLine.getOptionValue("test-target-rate")));
 
         dao.insert(dto);
         return 0;

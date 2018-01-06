@@ -2,16 +2,16 @@ package net.orpiske.maestro.results.dto;
 
 @SuppressWarnings("unused")
 public class TestFailCondition {
-    private int testParameterId;
+    private int testId;
     private String testFailConditionName;
     private String testFailConditionValue;
 
-    public int getTestParameterId() {
-        return testParameterId;
+    public int getTestId() {
+        return testId;
     }
 
-    public void setTestParameterId(int testParameterId) {
-        this.testParameterId = testParameterId;
+    public void setTestId(int testId) {
+        this.testId = testId;
     }
 
     public String getTestFailConditionName() {
@@ -33,7 +33,7 @@ public class TestFailCondition {
     @Override
     public String toString() {
         return "TestFailCondition{" +
-                "testParameterId=" + testParameterId +
+                "testId=" + testId +
                 ", testFailConditionName='" + testFailConditionName + '\'' +
                 ", testFailConditionValue='" + testFailConditionValue + '\'' +
                 '}';

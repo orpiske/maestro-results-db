@@ -9,9 +9,9 @@ public class TestDao extends AbstractDao {
     public int insert(Test dto) {
         return runInsert(
                 "insert into test(test_name, test_result, test_parameter_id, sut_id, " +
-                        "test_report_link, test_data_storage_info, test_tags, test_date) " +
+                        "test_report_link, test_data_storage_info, test_tags, test_date, test_duration, test_target_rate) " +
                         "values(:testName, :testResult, :testParameterId, :sutId, :testReportLink," +
-                        ":testDataStorageInfo, :testTags, now())", dto);
+                        ":testDataStorageInfo, :testTags, now(), :testDuration, :testTargetRate)", dto);
     }
 
     public List<Test> fetchById(int id) {

@@ -26,7 +26,7 @@ public class TestMsgPropertyAction extends Action {
 
         options.addOption("h", "help", false, "prints the help");
         options.addOption("a", "action", true, "action (one of: insert, delete, update, view)");
-        options.addOption("i", "test-parameter-id", true, "test parameter id");
+        options.addOption("i", "test-id", true, "test parameter id");
         options.addOption("n", "test-msg-property-name", true, "test message property name");
         options.addOption("v", "test-msg-property-value", true, "test message property value");
 
@@ -46,8 +46,8 @@ public class TestMsgPropertyAction extends Action {
         TestMsgPropertyDao dao = new TestMsgPropertyDao();
         TestMsgProperty tc = new TestMsgProperty();
 
-        int parameterId = Integer.parseInt(cmdLine.getOptionValue("test-parameter-id"));
-        tc.setTestParameterId(parameterId);
+        int parameterId = Integer.parseInt(cmdLine.getOptionValue("test-id"));
+        tc.setTestId(parameterId);
 
         final String failConditionName = cmdLine.getOptionValue("test-msg-property-name");
         tc.setTestMsgPropertyName(failConditionName);

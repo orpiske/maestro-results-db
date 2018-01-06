@@ -25,7 +25,7 @@ public class TestFailConditionAction extends Action {
 
         options.addOption("h", "help", false, "prints the help");
         options.addOption("a", "action", true, "action (one of: insert, delete, update, view)");
-        options.addOption("i", "test-parameter-id", true, "test parameter id");
+        options.addOption("i", "test-id", true, "test parameter id");
         options.addOption("n", "test-fail-condition-name", true, "test fail condition name");
         options.addOption("v", "test-fail-condition-value", true, "test fail condition value");
 
@@ -45,8 +45,8 @@ public class TestFailConditionAction extends Action {
         TestFailConditionDao dao = new TestFailConditionDao();
         TestFailCondition tc = new TestFailCondition();
 
-        int parameterId = Integer.parseInt(cmdLine.getOptionValue("test-parameter-id"));
-        tc.setTestParameterId(parameterId);
+        int parameterId = Integer.parseInt(cmdLine.getOptionValue("test-id"));
+        tc.setTestId(parameterId);
 
         final String failConditionName = cmdLine.getOptionValue("test-fail-condition-name");
         tc.setTestFailConditionName(failConditionName);

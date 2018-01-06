@@ -12,6 +12,8 @@ public class Test {
     private String testDataStorageInfo;
     private String testTags;
     private Date testDate;
+    private int testDuration;
+    private int testTargetRate;
 
     public int getTestId() {
         return testId;
@@ -85,18 +87,36 @@ public class Test {
         this.testDate = testDate;
     }
 
+    public int getTestDuration() {
+        return testDuration;
+    }
+
+    public void setTestDuration(int testDuration) {
+        this.testDuration = testDuration;
+    }
+
+    public int getTestTargetRate() {
+        return testTargetRate;
+    }
+
+    public void setTestTargetRate(int testTargetRate) {
+        this.testTargetRate = testTargetRate;
+    }
+
     @Override
     public String toString() {
         return "Test{" +
                 "testId=" + testId +
                 ", testName='" + testName + '\'' +
-                ", testResult=" + testResult +
+                ", testResult='" + testResult + '\'' +
                 ", testParameterId=" + testParameterId +
                 ", sutId=" + sutId +
                 ", testReportLink='" + testReportLink + '\'' +
                 ", testDataStorageInfo='" + testDataStorageInfo + '\'' +
                 ", testTags='" + testTags + '\'' +
                 ", testDate=" + testDate +
+                ", testDuration=" + testDuration +
+                ", testTargetRate=" + testTargetRate +
                 '}';
     }
 }

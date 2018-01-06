@@ -45,10 +45,6 @@ public class RecordProgram implements Program {
                 action = new TestMsgPropertyAction(newArgs);
                 break;
             }
-            case "test-parameter": {
-                action = new TestParameterAction(newArgs);
-                break;
-            }
             case "env-resource": {
                 action = new EnvironmentAction(newArgs);
                 break;
