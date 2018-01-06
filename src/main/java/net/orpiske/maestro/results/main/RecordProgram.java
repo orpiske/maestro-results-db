@@ -14,7 +14,13 @@ public class RecordProgram implements Program {
         System.out.println("Usage: maestro-cli <action>\n");
 
         System.out.println("Actions:");
-        System.out.println("   record");
+        System.out.println("   test-fail-condition");
+        System.out.println("   test-msg-property");
+        System.out.println("   env-resource");
+        System.out.println("   env-results");
+        System.out.println("   sut");
+        System.out.println("   test");
+
         System.out.println("----------");
         System.out.println("   help");
         System.out.println("   --version");
@@ -49,12 +55,12 @@ public class RecordProgram implements Program {
                 action = new EnvironmentAction(newArgs);
                 break;
             }
-            case "sut": {
-                action = new SutAction(newArgs);
-                break;
-            }
             case "env-results": {
                 action = new ResultsAction(newArgs);
+                break;
+            }
+            case "sut": {
+                action = new SutAction(newArgs);
                 break;
             }
             case "test": {
