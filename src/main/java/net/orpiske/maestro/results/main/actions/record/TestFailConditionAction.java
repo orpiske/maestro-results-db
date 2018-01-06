@@ -7,6 +7,8 @@ import org.apache.commons.cli.*;
 
 import java.util.List;
 
+import static net.orpiske.maestro.results.main.actions.record.utils.PrintUtils.printCreatedKey;
+
 public class TestFailConditionAction extends Action {
     private CommandLine cmdLine;
     private Options options;
@@ -76,7 +78,8 @@ public class TestFailConditionAction extends Action {
 
         switch (action) {
             case "insert": {
-                return add();
+                printCreatedKey("test fail condition", add());
+                break;
             }
             case "view": {
                 return view();

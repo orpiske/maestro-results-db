@@ -9,6 +9,8 @@ import org.apache.commons.cli.*;
 
 import java.util.List;
 
+import static net.orpiske.maestro.results.main.actions.record.utils.PrintUtils.printCreatedKey;
+
 public class SutAction extends Action {
     private CommandLine cmdLine;
     private Options options;
@@ -78,7 +80,8 @@ public class SutAction extends Action {
 
         switch (action) {
             case "insert": {
-                return add();
+                printCreatedKey("SUT", add());
+                break;
             }
             case "view": {
                 return view();

@@ -1,11 +1,11 @@
 package net.orpiske.maestro.results.main.actions.record;
 
-import net.orpiske.maestro.results.dao.TestFailConditionDao;
 import net.orpiske.maestro.results.dao.TestParameterDao;
-import net.orpiske.maestro.results.dto.TestFailCondition;
 import net.orpiske.maestro.results.dto.TestParameter;
 import net.orpiske.maestro.results.main.Action;
 import org.apache.commons.cli.*;
+
+import static net.orpiske.maestro.results.main.actions.record.utils.PrintUtils.*;
 
 import java.util.List;
 
@@ -55,8 +55,7 @@ public class TestParameterAction extends Action {
         int receiverCount = Integer.parseInt(cmdLine.getOptionValue("test-receiver-count"));
         dto.setTestReceiverCount(receiverCount);
 
-        dao.insert(dto);
-        return 0;
+        return dao.insert(dto);
     }
 
     private int view() {
@@ -79,7 +78,8 @@ public class TestParameterAction extends Action {
 
         switch (action) {
             case "insert": {
-                return add();
+                printCreatedKey("test parameter", add());
+                break;
             }
             case "view": {
                 return view();

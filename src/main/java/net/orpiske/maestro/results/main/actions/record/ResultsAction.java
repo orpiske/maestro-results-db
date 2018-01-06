@@ -10,6 +10,8 @@ import org.apache.commons.cli.*;
 
 import java.util.List;
 
+import static net.orpiske.maestro.results.main.actions.record.utils.PrintUtils.printCreatedKey;
+
 public class ResultsAction extends Action {
     private CommandLine cmdLine;
     private Options options;
@@ -103,7 +105,8 @@ public class ResultsAction extends Action {
 
         switch (action) {
             case "insert": {
-                return add();
+                printCreatedKey("results", add());
+                break;
             }
             case "view": {
                 return view();
