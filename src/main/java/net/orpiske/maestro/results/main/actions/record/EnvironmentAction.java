@@ -88,7 +88,7 @@ public class EnvironmentAction extends Action {
 
         switch (action) {
             case "insert": {
-                printCreatedKey("environment", add());
+                printCreatedKey("environment resource", add());
                 break;
             }
             case "view": {
