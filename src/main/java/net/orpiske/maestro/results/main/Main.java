@@ -18,8 +18,8 @@ package net.orpiske.maestro.results.main;
 
 import net.orpiske.mpt.common.ConfigurationWrapper;
 import net.orpiske.mpt.common.Constants;
-import org.apache.commons.cli.*;
-
+import org.apache.commons.cli.CommandLine;
+import org.apache.commons.cli.Options;
 
 import static java.util.Arrays.copyOfRange;
 

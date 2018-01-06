@@ -1,6 +1,5 @@
 package net.orpiske.maestro.results.dao;
 
-import net.orpiske.maestro.results.dto.EnvResource;
 import net.orpiske.maestro.results.dto.EnvResults;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 

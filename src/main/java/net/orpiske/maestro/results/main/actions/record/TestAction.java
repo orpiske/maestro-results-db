@@ -1,8 +1,6 @@
 package net.orpiske.maestro.results.main.actions.record;
 
-import net.orpiske.maestro.results.dao.SutDao;
 import net.orpiske.maestro.results.dao.TestDao;
-import net.orpiske.maestro.results.dto.Sut;
 import net.orpiske.maestro.results.dto.Test;
 import net.orpiske.maestro.results.dto.TestResult;
 import net.orpiske.maestro.results.main.Action;

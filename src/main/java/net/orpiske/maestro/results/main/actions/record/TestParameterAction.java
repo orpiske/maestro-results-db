@@ -5,9 +5,9 @@ import net.orpiske.maestro.results.dto.TestParameter;
 import net.orpiske.maestro.results.main.Action;
 import org.apache.commons.cli.*;
 
-import static net.orpiske.maestro.results.main.actions.record.utils.PrintUtils.*;
-
 import java.util.List;
+
+import static net.orpiske.maestro.results.main.actions.record.utils.PrintUtils.printCreatedKey;
 
 public class TestParameterAction extends Action {
     private CommandLine cmdLine;

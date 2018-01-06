@@ -1,6 +1,5 @@
 package net.orpiske.maestro.results.dao;
 
-import net.orpiske.maestro.results.dto.TestFailCondition;
 import net.orpiske.maestro.results.dto.TestMsgProperty;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 

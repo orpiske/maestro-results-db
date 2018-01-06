@@ -1,13 +1,13 @@
 package net.orpiske.maestro.results.main.actions.record;
 
-import net.orpiske.maestro.results.main.Action;
 import net.orpiske.maestro.results.dao.TestFailConditionDao;
 import net.orpiske.maestro.results.dto.TestFailCondition;
+import net.orpiske.maestro.results.main.Action;
 import org.apache.commons.cli.*;
 
-import static net.orpiske.maestro.results.main.actions.record.utils.PrintUtils.printCreatedRecord;
-
 import java.util.List;
+
+import static net.orpiske.maestro.results.main.actions.record.utils.PrintUtils.printCreatedRecord;
 
 public class TestFailConditionAction extends Action {
     private CommandLine cmdLine;

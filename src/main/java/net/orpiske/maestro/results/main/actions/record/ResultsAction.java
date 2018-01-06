@@ -1,10 +1,8 @@
 package net.orpiske.maestro.results.main.actions.record;
 
 import net.orpiske.maestro.results.dao.EnvResultsDao;
-import net.orpiske.maestro.results.dao.SutDao;
 import net.orpiske.maestro.results.dto.EnvResourceRole;
 import net.orpiske.maestro.results.dto.EnvResults;
-import net.orpiske.maestro.results.dto.Sut;
 import net.orpiske.maestro.results.main.Action;
 import org.apache.commons.cli.*;
 
