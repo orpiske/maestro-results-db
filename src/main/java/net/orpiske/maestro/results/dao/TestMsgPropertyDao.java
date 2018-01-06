@@ -7,8 +7,8 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import java.util.List;
 
 public class TestMsgPropertyDao extends AbstractDao {
-    public int insert(TestMsgProperty dto) {
-        return runInsert("insert into test_msg_property(test_parameter_id, test_msg_property_name, test_msg_property_value) "
+    public void insert(TestMsgProperty dto) {
+        runEmptyInsert("insert into test_msg_property(test_parameter_id, test_msg_property_name, test_msg_property_value) "
                 + "values(:testParameterId, :testMsgPropertyName, :testMsgPropertyValue)", dto);
     }
 

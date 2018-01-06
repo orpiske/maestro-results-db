@@ -4,10 +4,10 @@ import net.orpiske.maestro.results.dao.TestMsgPropertyDao;
 import net.orpiske.maestro.results.dto.TestMsgProperty;
 import net.orpiske.maestro.results.main.Action;
 import org.apache.commons.cli.*;
-
 import java.util.List;
 
-import static net.orpiske.maestro.results.main.actions.record.utils.PrintUtils.printCreatedKey;
+import static net.orpiske.maestro.results.main.actions.record.utils.PrintUtils.printCreatedRecord;
+
 
 public class TestMsgPropertyAction extends Action {
     private CommandLine cmdLine;
@@ -25,9 +25,9 @@ public class TestMsgPropertyAction extends Action {
 
         options.addOption("h", "help", false, "prints the help");
         options.addOption("a", "action", true, "action (one of: insert, delete, update, view)");
-        options.addOption("i", "id", true, "test message property id");
-        options.addOption("n", "name", true, "test message property name");
-        options.addOption("v", "value", true, "test message property value");
+        options.addOption("i", "test-parameter-id", true, "test parameter id");
+        options.addOption("n", "test-msg-property-name", true, "test message property name");
+        options.addOption("v", "test-msg-property-value", true, "test message property value");
 
         try {
             cmdLine = parser.parse(options, args);
@@ -45,13 +45,13 @@ public class TestMsgPropertyAction extends Action {
         TestMsgPropertyDao dao = new TestMsgPropertyDao();
         TestMsgProperty tc = new TestMsgProperty();
 
-        int parameterId = Integer.parseInt(cmdLine.getOptionValue("id"));
+        int parameterId = Integer.parseInt(cmdLine.getOptionValue("test-parameter-id"));
         tc.setTestParameterId(parameterId);
 
-        final String failConditionName = cmdLine.getOptionValue("name");
+        final String failConditionName = cmdLine.getOptionValue("test-msg-property-name");
         tc.setTestMsgPropertyName(failConditionName);
 
-        final String failConditionValue = cmdLine.getOptionValue("value");
+        final String failConditionValue = cmdLine.getOptionValue("test-msg-property-value");
         tc.setTestMsgPropertyValue(failConditionValue);
 
         dao.insert(tc);
@@ -62,7 +62,7 @@ public class TestMsgPropertyAction extends Action {
         TestMsgPropertyDao dao = new TestMsgPropertyDao();
         List<TestMsgProperty> failConditions = dao.fetch();
 
-        failConditions.stream().forEach(item -> System.out.println("Fail condition: " + item));
+        failConditions.stream().forEach(item -> System.out.println("Test message property: " + item));
         return 0;
     }
 
@@ -78,7 +78,8 @@ public class TestMsgPropertyAction extends Action {
 
         switch (action) {
             case "insert": {
-                printCreatedKey("test message property", add());
+                add();
+                printCreatedRecord("test message property");
                 break;
             }
             case "view": {

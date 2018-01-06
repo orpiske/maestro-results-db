@@ -5,9 +5,9 @@ import net.orpiske.maestro.results.dao.TestFailConditionDao;
 import net.orpiske.maestro.results.dto.TestFailCondition;
 import org.apache.commons.cli.*;
 
-import java.util.List;
+import static net.orpiske.maestro.results.main.actions.record.utils.PrintUtils.printCreatedRecord;
 
-import static net.orpiske.maestro.results.main.actions.record.utils.PrintUtils.printCreatedKey;
+import java.util.List;
 
 public class TestFailConditionAction extends Action {
     private CommandLine cmdLine;
@@ -25,9 +25,9 @@ public class TestFailConditionAction extends Action {
 
         options.addOption("h", "help", false, "prints the help");
         options.addOption("a", "action", true, "action (one of: insert, delete, update, view)");
-        options.addOption("i", "id", true, "test parameter id");
-        options.addOption("n", "name", true, "fail condition name");
-        options.addOption("v", "value", true, "fail condition value");
+        options.addOption("i", "test-parameter-id", true, "test parameter id");
+        options.addOption("n", "test-fail-condition-name", true, "test fail condition name");
+        options.addOption("v", "test-fail-condition-value", true, "test fail condition value");
 
         try {
             cmdLine = parser.parse(options, args);
@@ -45,13 +45,13 @@ public class TestFailConditionAction extends Action {
         TestFailConditionDao dao = new TestFailConditionDao();
         TestFailCondition tc = new TestFailCondition();
 
-        int parameterId = Integer.parseInt(cmdLine.getOptionValue("id"));
+        int parameterId = Integer.parseInt(cmdLine.getOptionValue("test-parameter-id"));
         tc.setTestParameterId(parameterId);
 
-        final String failConditionName = cmdLine.getOptionValue("name");
+        final String failConditionName = cmdLine.getOptionValue("test-fail-condition-name");
         tc.setTestFailConditionName(failConditionName);
 
-        final String failConditionValue = cmdLine.getOptionValue("value");
+        final String failConditionValue = cmdLine.getOptionValue("test-fail-condition-value");
         tc.setTestFailConditionValue(failConditionValue);
 
         dao.insert(tc);
@@ -78,7 +78,8 @@ public class TestFailConditionAction extends Action {
 
         switch (action) {
             case "insert": {
-                printCreatedKey("test fail condition", add());
+                add();
+                printCreatedRecord("test fail condition");
                 break;
             }
             case "view": {

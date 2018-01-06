@@ -5,4 +5,8 @@ public class PrintUtils {
         System.out.println("New " + title + " created with key: " + key);
     }
 
+    public static void printCreatedRecord(final String title) {
+        System.out.println("New " + title + " created");
+    }
+
 }
