@@ -4,7 +4,6 @@ import net.orpiske.maestro.results.dao.TestDao;
 import net.orpiske.maestro.results.dto.Test;
 
 import java.io.File;
-import java.util.Map;
 
 public class TestProcessor {
     private Test test;
@@ -22,8 +21,6 @@ public class TestProcessor {
                 test.setTestResult("failed");
             }
         }
-
-
 
         System.out.println("Recording new test");
         TestDao dao = new TestDao();
