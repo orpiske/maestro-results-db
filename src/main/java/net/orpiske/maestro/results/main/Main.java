@@ -38,6 +38,7 @@ public class Main {
 
         System.out.println("Actions:");
         System.out.println("   record");
+        System.out.println("   load");
         System.out.println("----------");
         System.out.println("   help");
         System.out.println("   --version");
@@ -73,6 +74,10 @@ public class Main {
         switch (first) {
             case "record": {
                 program = new RecordProgram();
+                break;
+            }
+            case "load": {
+                program = new LoadProgram();
                 break;
             }
             default: {

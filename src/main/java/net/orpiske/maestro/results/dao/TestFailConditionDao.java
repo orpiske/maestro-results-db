@@ -9,8 +9,8 @@ public class TestFailConditionDao extends AbstractDao {
     public void insert(TestFailCondition dto) {
         runEmptyInsert(
                 "insert into test_fail_condition " +
-                        "(test_id, test_fail_condition_name, test_fail_condition_value) " +
-                        "values(:testId, :testFailConditionName, :testFailConditionValue)", dto);
+                        "(test_id, test_fail_condition_resource_name, test_fail_condition_name, test_fail_condition_value) " +
+                        "values(:testId, :testFailConditionResourceName, :testFailConditionName, :testFailConditionValue)", dto);
     }
 
     public List<TestFailCondition> fetchById(int testFailConditionId) {

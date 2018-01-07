@@ -3,6 +3,7 @@ package net.orpiske.maestro.results.dto;
 @SuppressWarnings("unused")
 public class TestMsgProperty {
     private int testId;
+    private String testMsgPropertyResourceName;
     private String testMsgPropertyName;
     private String testMsgPropertyValue;
 
@@ -13,6 +14,14 @@ public class TestMsgProperty {
 
     public void setTestId(int testId) {
         this.testId = testId;
+    }
+
+    public String getTestMsgPropertyResourceName() {
+        return testMsgPropertyResourceName;
+    }
+
+    public void setTestMsgPropertyResourceName(String testMsgPropertyResourceName) {
+        this.testMsgPropertyResourceName = testMsgPropertyResourceName;
     }
 
     public String getTestMsgPropertyName() {
@@ -35,6 +44,7 @@ public class TestMsgProperty {
     public String toString() {
         return "TestMsgProperty{" +
                 "testId=" + testId +
+                ", testMsgPropertyResourceName='" + testMsgPropertyResourceName + '\'' +
                 ", testMsgPropertyName='" + testMsgPropertyName + '\'' +
                 ", testMsgPropertyValue='" + testMsgPropertyValue + '\'' +
                 '}';
