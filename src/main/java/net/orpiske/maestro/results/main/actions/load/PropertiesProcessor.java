@@ -159,6 +159,8 @@ public class PropertiesProcessor {
         envResults.setTestRateStandardDeviation(Double.parseDouble((String) properties.get("rateStandardDeviation")));
         envResults.setTestRateSkipCount(Integer.parseInt((String) properties.get("rateSkipCount")));
 
+        envResults.setConnectionCount(Integer.parseInt((String) properties.get("parallelCount")));
+
         EnvResultsDao envResultsDao = new EnvResultsDao();
         envResultsDao.insert(envResults);
     }

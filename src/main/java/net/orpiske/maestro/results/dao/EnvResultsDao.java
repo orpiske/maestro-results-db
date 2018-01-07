@@ -10,10 +10,10 @@ public class EnvResultsDao extends AbstractDao {
         return runInsert(
                 "insert into env_results(env_name, env_resource_id, test_id, env_resource_role, test_rate_min, " +
                         "test_rate_max, test_rate_error_count, test_rate_samples, test_rate_geometric_mean, " +
-                        "test_rate_standard_deviation, error) " +
+                        "test_rate_standard_deviation, test_rate_skip_count, connection_count, error) " +
                         "values(:envName, :envResourceId, :testId, :envResourceRole, :testRateMin, :testRateMax, " +
                         ":testRateErrorCount, :testRateSamples, :testRateGeometricMean, :testRateStandardDeviation, " +
-                        ":error)",
+                        ":testRateSkipCount, :connectionCount, :error)",
                 dto);
     }
 

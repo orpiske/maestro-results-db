@@ -14,6 +14,7 @@ public class EnvResults {
     private double testRateGeometricMean;
     private double testRateStandardDeviation;
     private int testRateSkipCount;
+    private int connectionCount;
     private boolean error;
 
 
@@ -113,6 +114,14 @@ public class EnvResults {
         this.testRateSkipCount = testRateSkipCount;
     }
 
+    public int getConnectionCount() {
+        return connectionCount;
+    }
+
+    public void setConnectionCount(int connectionCount) {
+        this.connectionCount = connectionCount;
+    }
+
     public boolean isError() {
         return error;
     }
@@ -125,9 +134,10 @@ public class EnvResults {
     public String toString() {
         return "EnvResults{" +
                 "envResultsId=" + envResultsId +
-                ", envName='" + envName + '\'' +
                 ", envResourceId=" + envResourceId +
-                ", envResourceRole=" + envResourceRole +
+                ", testId=" + testId +
+                ", envName='" + envName + '\'' +
+                ", envResourceRole='" + envResourceRole + '\'' +
                 ", testRateMin=" + testRateMin +
                 ", testRateMax=" + testRateMax +
                 ", testRateErrorCount=" + testRateErrorCount +
@@ -135,6 +145,7 @@ public class EnvResults {
                 ", testRateGeometricMean=" + testRateGeometricMean +
                 ", testRateStandardDeviation=" + testRateStandardDeviation +
                 ", testRateSkipCount=" + testRateSkipCount +
+                ", connectionCount=" + connectionCount +
                 ", error=" + error +
                 '}';
     }
