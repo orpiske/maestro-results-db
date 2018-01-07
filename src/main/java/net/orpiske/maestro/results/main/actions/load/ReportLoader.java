@@ -74,6 +74,11 @@ public class ReportLoader {
             System.out.println("Processing directory " + parent);
         }
 
+        for (File file : cache.keySet()) {
+            cache.keySet()
+
+        }
+
         TestProcessor tp = new TestProcessor(test);
 
         int testId = tp.loadTest(directory);

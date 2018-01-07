@@ -146,18 +146,24 @@ public class PropertiesProcessor {
         }
 
 
-        Double rateMax = Double.parseDouble((String) properties.get("rateMax"));
-        envResults.setTestRateMax(rateMax.intValue());
+        if (!envResults.getEnvResourceRole().equals("inspector")) {
+            String rateMaxStr = (String) properties.get("rateMax");
+            if (rateMaxStr != null) {
+                Double rateMax = Double.parseDouble(rateMaxStr);
+                envResults.setTestRateMax(rateMax.intValue());
+            }
 
-        Double rateMin = Double.parseDouble((String) properties.get("rateMin"));
-        envResults.setTestRateMin(rateMin.intValue());
-        envResults.setTestRateErrorCount(Integer.parseInt((String) properties.get("rateErrorCount")));
+            Double rateMin = Double.parseDouble((String) properties.get("rateMin"));
+            envResults.setTestRateMin(rateMin.intValue());
+            envResults.setTestRateErrorCount(Integer.parseInt((String) properties.get("rateErrorCount")));
 
-        Double rateSamples = Double.parseDouble((String) properties.get("rateSamples"));
-        envResults.setTestRateSamples(rateSamples.intValue());
-        envResults.setTestRateGeometricMean(Double.parseDouble((String) properties.get("rateGeometricMean")));
-        envResults.setTestRateStandardDeviation(Double.parseDouble((String) properties.get("rateStandardDeviation")));
-        envResults.setTestRateSkipCount(Integer.parseInt((String) properties.get("rateSkipCount")));
+            Double rateSamples = Double.parseDouble((String) properties.get("rateSamples"));
+            envResults.setTestRateSamples(rateSamples.intValue());
+            envResults.setTestRateGeometricMean(Double.parseDouble((String) properties.get("rateGeometricMean")));
+            envResults.setTestRateStandardDeviation(Double.parseDouble((String) properties.get("rateStandardDeviation")));
+            envResults.setTestRateSkipCount(Integer.parseInt((String) properties.get("rateSkipCount")));
+        }
+
 
         envResults.setConnectionCount(Integer.parseInt((String) properties.get("parallelCount")));
 
