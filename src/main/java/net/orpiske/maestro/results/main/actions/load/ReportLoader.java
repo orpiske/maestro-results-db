@@ -75,15 +75,20 @@ public class ReportLoader {
         }
 
         for (File file : cache.keySet()) {
-            cache.keySet()
+            System.out.println("Directory (from key set) " + file);
 
+            File testNumber = file.getParentFile();
+
+
+            test.setTestNumber(Integer.parseInt(testNumber.getName()));
+            TestProcessor tp = new TestProcessor(test);
+
+            int testId = tp.loadTest(directory);
+
+            pp = new PropertiesProcessor(test, envName, testId);
+            cache.forEach(this::loadFromDir);
         }
 
-        TestProcessor tp = new TestProcessor(test);
 
-        int testId = tp.loadTest(directory);
-
-        pp = new PropertiesProcessor(test, envName, testId);
-        cache.forEach(this::loadFromDir);
     }
 }

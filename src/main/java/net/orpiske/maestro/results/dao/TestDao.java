@@ -8,9 +8,9 @@ import java.util.List;
 public class TestDao extends AbstractDao {
     public int insert(Test dto) {
         return runInsert(
-                "insert into test(test_name, test_result, sut_id, " +
+                "insert into test(test_name, test_number, test_result, sut_id, " +
                         "test_report_link, test_data_storage_info, test_tags, test_date, test_duration, test_target_rate) " +
-                        "values(:testName, :testResult, :sutId, :testReportLink," +
+                        "values(:testName, :testNumber, :testResult, :sutId, :testReportLink," +
                         ":testDataStorageInfo, :testTags, now(), :testDuration, :testTargetRate)", dto);
     }
 
