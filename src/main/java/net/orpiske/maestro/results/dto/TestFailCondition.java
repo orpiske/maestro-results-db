@@ -3,6 +3,7 @@ package net.orpiske.maestro.results.dto;
 @SuppressWarnings("unused")
 public class TestFailCondition {
     private int testId;
+    private int testNumber;
     private String testFailConditionResourceName;
     private String testFailConditionName;
     private String testFailConditionValue;
@@ -13,6 +14,14 @@ public class TestFailCondition {
 
     public void setTestId(int testId) {
         this.testId = testId;
+    }
+
+    public int getTestNumber() {
+        return testNumber;
+    }
+
+    public void setTestNumber(int testNumber) {
+        this.testNumber = testNumber;
     }
 
     public String getTestFailConditionResourceName() {
@@ -43,6 +52,7 @@ public class TestFailCondition {
     public String toString() {
         return "TestFailCondition{" +
                 "testId=" + testId +
+                ", testNumber=" + testNumber +
                 ", testFailConditionResourceName='" + testFailConditionResourceName + '\'' +
                 ", testFailConditionName='" + testFailConditionName + '\'' +
                 ", testFailConditionValue='" + testFailConditionValue + '\'' +

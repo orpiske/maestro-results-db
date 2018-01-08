@@ -48,9 +48,18 @@ public class ReportLoader {
     private void loadFromDir(final File dir, final List<File> files) {
         Map<String, Object> values = new HashMap<>();
 
-        files.forEach(item -> loadProperties(values, item));
+        test.setTestNumber(Integer.parseInt(dir.getName()));
+        TestProcessor tp = new TestProcessor(test);
 
-        pp.loadTest(dir, values);
+        int testId = tp.loadTest(dir);
+
+        test.setTestId(testId);
+        pp = new PropertiesProcessor(test, envName);
+
+        files.forEach(item -> loadProperties(values, item));
+        files.forEach(item -> pp.loadTest(item, values));
+
+        // pp.loadTest(dir, values);
     }
 
 
@@ -61,7 +70,7 @@ public class ReportLoader {
         while (iterator.hasNext()) {
             File file = iterator.next();
 
-            File parent = file.getParentFile();
+            File parent = file.getParentFile().getParentFile();
             List<File> subFiles = cache.get(parent);
             if (subFiles == null) {
                 subFiles = new LinkedList<>();
@@ -74,20 +83,15 @@ public class ReportLoader {
             System.out.println("Processing directory " + parent);
         }
 
-        for (File file : cache.keySet()) {
-            System.out.println("Directory (from key set) " + file);
+        // for (File file : cache.keySet()) {
+            // System.out.println("Directory (from key set) " + file);
 
-            File testNumber = file.getParentFile();
+            //File testNumber = file.getParentFile();
 
 
-            test.setTestNumber(Integer.parseInt(testNumber.getName()));
-            TestProcessor tp = new TestProcessor(test);
+        // }
 
-            int testId = tp.loadTest(directory);
-
-            pp = new PropertiesProcessor(test, envName, testId);
-            cache.forEach(this::loadFromDir);
-        }
+        cache.forEach(this::loadFromDir);
 
 
     }

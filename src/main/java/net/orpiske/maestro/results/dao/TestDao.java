@@ -26,8 +26,9 @@ public class TestDao extends AbstractDao {
     }
 
 
-    public int updateDurationAndRate(int id, final String duration, final String rate) {
-        return jdbcTemplate.update("update test set test_duration = ?, test_target_rate = ? where test_id = ?",
-                new Object[] { duration, rate, id});
+    public int updateDurationAndRate(int id, int number, final String duration, final String rate) {
+        return jdbcTemplate.update("update test set test_duration = ?, test_target_rate = ? where " +
+                "test_id = ? and test_number = ?",
+                new Object[] { duration, rate, id, number});
     }
  }

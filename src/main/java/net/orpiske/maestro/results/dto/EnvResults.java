@@ -4,6 +4,7 @@ public class EnvResults {
     private int envResultsId;
     private int envResourceId;
     private int testId;
+    private int testNumber;
 
     private String envName;
     private String envResourceRole;
@@ -32,6 +33,14 @@ public class EnvResults {
 
     public void setTestId(int testId) {
         this.testId = testId;
+    }
+
+    public int getTestNumber() {
+        return testNumber;
+    }
+
+    public void setTestNumber(int testNumber) {
+        this.testNumber = testNumber;
     }
 
     public String getEnvName() {
@@ -136,6 +145,7 @@ public class EnvResults {
                 "envResultsId=" + envResultsId +
                 ", envResourceId=" + envResourceId +
                 ", testId=" + testId +
+                ", testNumber=" + testNumber +
                 ", envName='" + envName + '\'' +
                 ", envResourceRole='" + envResourceRole + '\'' +
                 ", testRateMin=" + testRateMin +

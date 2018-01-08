@@ -11,14 +11,14 @@ import java.util.Map;
 
 public class PropertiesProcessor {
     private String envName;
-    private int testId;
+    private Test test;
 
-    public PropertiesProcessor(final Test test, final String envName, int testId) {
+    public PropertiesProcessor(final Test test, final String envName) {
+        this.test = test;
         this.envName = envName;
-        this.testId = testId;
     }
 
-    private void loadFailConditions(final File reportDir, final Map<String, Object> properties, int testId) {
+    private void loadFailConditions(final File reportDir, final Map<String, Object> properties) {
         String[] failConditions = {"fcl"};
 
         TestFailConditionDao dao = new TestFailConditionDao();
@@ -27,7 +27,8 @@ public class PropertiesProcessor {
             if (value != null) {
                 TestFailCondition dto = new TestFailCondition();
 
-                dto.setTestId(testId);
+                dto.setTestId(test.getTestId());
+                dto.setTestNumber(test.getTestNumber());
                 dto.setTestFailConditionResourceName(reportDir.getName());
                 dto.setTestFailConditionName(failCondition);
                 dto.setTestFailConditionValue(value);
@@ -38,7 +39,7 @@ public class PropertiesProcessor {
     }
 
 
-    private void loadMsgProperties(final File reportDir, final Map<String, Object> properties, int testId) {
+    private void loadMsgProperties(final File reportDir, final Map<String, Object> properties) {
         String[] msgProperties = {"limitDestinations", "apiName", "variableSize",
                 "apiVersion", "messageSize"};
 
@@ -48,7 +49,8 @@ public class PropertiesProcessor {
             if (value != null) {
                 TestMsgProperty testMsgProperty = new TestMsgProperty();
 
-                testMsgProperty.setTestId(testId);
+                testMsgProperty.setTestId(test.getTestId());
+                testMsgProperty.setTestNumber(test.getTestNumber());
                 testMsgProperty.setTestMsgPropertyResourceName(reportDir.getName());
                 testMsgProperty.setTestMsgPropertyName(msgProperty);
                 testMsgProperty.setTestMsgPropertyValue(value);
@@ -66,7 +68,8 @@ public class PropertiesProcessor {
             for (Map.Entry<String, String> entry : uriParams.entrySet()) {
                 TestMsgProperty testMsgProperty = new TestMsgProperty();
 
-                testMsgProperty.setTestId(testId);
+                testMsgProperty.setTestId(test.getTestId());
+                testMsgProperty.setTestNumber(test.getTestNumber());
                 testMsgProperty.setTestMsgPropertyResourceName(reportDir.getName());
                 testMsgProperty.setTestMsgPropertyName(entry.getKey());
                 testMsgProperty.setTestMsgPropertyValue(entry.getValue());
@@ -114,22 +117,17 @@ public class PropertiesProcessor {
     }
 
     /**
-     * rateMax=109.0
-     rateErrorCount=0
-     rateSamples=1.0
-     rateGeometricMean=108.99999999999997
-     rateMin=109.0
-     rateStandardDeviation=0.0
-     rateSkipCount=0
+     *
      * @param reportDir
      * @param properties
      */
-    private void loadEnvResults(final File reportDir, final Map<String, Object> properties, int testId) {
+    private void loadEnvResults(final File reportDir, final Map<String, Object> properties) {
         EnvResourceDao envResourceDao = new EnvResourceDao();
         final EnvResource envResource = envResourceDao.fetchByName(reportDir.getName());
 
         EnvResults envResults = new EnvResults();
-        envResults.setTestId(testId);
+        envResults.setTestId(test.getTestId());
+        envResults.setTestNumber(test.getTestNumber());
         envResults.setEnvResourceId(envResource.getEnvResourceId());
         envResults.setEnvName(envName);
 
@@ -175,19 +173,19 @@ public class PropertiesProcessor {
 
 
         System.out.println("Loading message properties");
-        loadMsgProperties(reportDir, properties, testId);
+        loadMsgProperties(reportDir, properties);
 
         System.out.println("Loading fail conditions");
-        loadFailConditions(reportDir, properties, testId);
+        loadFailConditions(reportDir, properties);
 
         System.out.println("Loading results per environment");
-        loadEnvResults(reportDir, properties, testId);
+        loadEnvResults(reportDir, properties);
 
         TestDao testDao = new TestDao();
         String rateStr = (String) properties.get("rate");
         String durationStr = (String) properties.get("duration");
 
-        testDao.updateDurationAndRate(testId, rateStr, durationStr);
+        testDao.updateDurationAndRate(test.getTestId(), test.getTestNumber(), rateStr, durationStr);
     }
 
 }
