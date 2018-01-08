@@ -29,7 +29,7 @@ public class PropertiesProcessor {
 
                 dto.setTestId(test.getTestId());
                 dto.setTestNumber(test.getTestNumber());
-                dto.setTestFailConditionResourceName(reportDir.getName());
+                dto.setTestFailConditionResourceName(reportDir.getParentFile().getName());
                 dto.setTestFailConditionName(failCondition);
                 dto.setTestFailConditionValue(value);
 
@@ -51,7 +51,7 @@ public class PropertiesProcessor {
 
                 testMsgProperty.setTestId(test.getTestId());
                 testMsgProperty.setTestNumber(test.getTestNumber());
-                testMsgProperty.setTestMsgPropertyResourceName(reportDir.getName());
+                testMsgProperty.setTestMsgPropertyResourceName(reportDir.getParentFile().getName());
                 testMsgProperty.setTestMsgPropertyName(msgProperty);
                 testMsgProperty.setTestMsgPropertyValue(value);
 
@@ -70,7 +70,7 @@ public class PropertiesProcessor {
 
                 testMsgProperty.setTestId(test.getTestId());
                 testMsgProperty.setTestNumber(test.getTestNumber());
-                testMsgProperty.setTestMsgPropertyResourceName(reportDir.getName());
+                testMsgProperty.setTestMsgPropertyResourceName(reportDir.getParentFile().getName());
                 testMsgProperty.setTestMsgPropertyName(entry.getKey());
                 testMsgProperty.setTestMsgPropertyValue(entry.getValue());
 
@@ -123,7 +123,7 @@ public class PropertiesProcessor {
      */
     private void loadEnvResults(final File reportDir, final Map<String, Object> properties) {
         EnvResourceDao envResourceDao = new EnvResourceDao();
-        final EnvResource envResource = envResourceDao.fetchByName(reportDir.getName());
+        final EnvResource envResource = envResourceDao.fetchByName(reportDir.getParentFile().getName());
 
         EnvResults envResults = new EnvResults();
         envResults.setTestId(test.getTestId());
@@ -151,15 +151,43 @@ public class PropertiesProcessor {
                 envResults.setTestRateMax(rateMax.intValue());
             }
 
-            Double rateMin = Double.parseDouble((String) properties.get("rateMin"));
-            envResults.setTestRateMin(rateMin.intValue());
-            envResults.setTestRateErrorCount(Integer.parseInt((String) properties.get("rateErrorCount")));
 
-            Double rateSamples = Double.parseDouble((String) properties.get("rateSamples"));
-            envResults.setTestRateSamples(rateSamples.intValue());
-            envResults.setTestRateGeometricMean(Double.parseDouble((String) properties.get("rateGeometricMean")));
-            envResults.setTestRateStandardDeviation(Double.parseDouble((String) properties.get("rateStandardDeviation")));
-            envResults.setTestRateSkipCount(Integer.parseInt((String) properties.get("rateSkipCount")));
+            String rateMinStr = (String) properties.get("rateMin");
+            if (rateMinStr != null) {
+                Double rateMin = Double.parseDouble(rateMinStr);
+
+                envResults.setTestRateMin(rateMin.intValue());
+            }
+
+
+            String rateErrorCountStr = (String) properties.get("rateErrorCount");
+            if (rateErrorCountStr != null) {
+                envResults.setTestRateErrorCount(Integer.parseInt(rateErrorCountStr));
+            }
+
+            String rateSamplesStr = (String) properties.get("rateSamples");
+            if (rateSamplesStr != null) {
+                Double rateSamples = Double.parseDouble(rateSamplesStr);
+                envResults.setTestRateSamples(rateSamples.intValue());
+            }
+
+
+            String rateGeometricMeanStr = (String) properties.get("rateGeometricMean");
+            if (rateGeometricMeanStr != null) {
+                envResults.setTestRateGeometricMean(Double.parseDouble(rateGeometricMeanStr));
+            }
+
+            String rateStandardDeviationStr = (String) properties.get("rateStandardDeviation");
+            if (rateStandardDeviationStr != null) {
+                envResults.setTestRateStandardDeviation(Double.parseDouble(rateStandardDeviationStr));
+            }
+
+
+            String rateSkipCountStr = (String) properties.get("rateSkipCount");
+            if (rateSkipCountStr != null) {
+                envResults.setTestRateSkipCount(Integer.parseInt(rateSkipCountStr));
+            }
+
         }
 
 
@@ -172,13 +200,13 @@ public class PropertiesProcessor {
     public void loadTest(final File reportDir, final Map<String, Object> properties) {
 
 
-        System.out.println("Loading message properties");
+        System.out.println("Loading message properties: " + reportDir);
         loadMsgProperties(reportDir, properties);
 
-        System.out.println("Loading fail conditions");
+        System.out.println("Loading fail conditions: " + reportDir);
         loadFailConditions(reportDir, properties);
 
-        System.out.println("Loading results per environment");
+        System.out.println("Loading results per environment: " + reportDir);
         loadEnvResults(reportDir, properties);
 
         TestDao testDao = new TestDao();

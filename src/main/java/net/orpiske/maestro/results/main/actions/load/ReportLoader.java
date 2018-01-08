@@ -20,7 +20,7 @@ public class ReportLoader {
         this.envName = envName;
     }
 
-    private static void loadProperties(Map<String, Object> context, File testProperties) {
+    private static void loadProperties(final File testProperties, Map<String, Object> context) {
         if (testProperties.exists()) {
             Properties prop = new Properties();
 
@@ -29,7 +29,7 @@ public class ReportLoader {
 
                 for (Map.Entry e : prop.entrySet()) {
                     //logger.debug("Adding entry {} with value {}", e.getKey(), e.getValue());
-                    System.out.println("Adding entry " + e.getKey() + " with value " + e.getValue());
+                    // System.out.println("Adding entry " + e.getKey() + " with value " + e.getValue());
                     context.put((String) e.getKey(), e.getValue());
                 }
 
@@ -46,9 +46,8 @@ public class ReportLoader {
     }
 
     private void loadFromDir(final File dir, final List<File> files) {
-        Map<String, Object> values = new HashMap<>();
-
         test.setTestNumber(Integer.parseInt(dir.getName()));
+
         TestProcessor tp = new TestProcessor(test);
 
         int testId = tp.loadTest(dir);
@@ -56,10 +55,10 @@ public class ReportLoader {
         test.setTestId(testId);
         pp = new PropertiesProcessor(test, envName);
 
-        files.forEach(item -> loadProperties(values, item));
-        files.forEach(item -> pp.loadTest(item, values));
+        Map<String, Object> values = new HashMap<>();
 
-        // pp.loadTest(dir, values);
+        files.forEach(item -> loadProperties(item, values));
+        pp.loadTest(files.get(0), values);
     }
 
 
