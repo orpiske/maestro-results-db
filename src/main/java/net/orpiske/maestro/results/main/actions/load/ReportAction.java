@@ -26,6 +26,8 @@ public class ReportAction extends Action {
         options.addOption(null, "env-name", true, "env-name");
         options.addOption(null, "test-name", true, "test name");
         options.addOption(null, "test-result", true, "test result");
+        options.addOption(null, "test-report-link", true, "test report link");
+        options.addOption(null, "test-tags", true, "comma-separated test tag lists");
         options.addOption(null, "path", true, "initial path" );
 
         try {
@@ -52,6 +54,21 @@ public class ReportAction extends Action {
         String testResult = cmdLine.getOptionValue("test-result");
         if (testResult != null) {
             test.setTestResult(testResult);
+        }
+
+        String testTags = cmdLine.getOptionValue("test-tags");
+        if (testTags != null) {
+            test.setTestTags(testTags);
+        }
+
+        String testReportLink = cmdLine.getOptionValue("test-report-link");
+        if (testReportLink != null) {
+            test.setTestReportLink(testReportLink);
+        }
+
+        String testDataStorageInfo = cmdLine.getOptionValue("test-data-storage-info");
+        if (testDataStorageInfo != null) {
+            test.setTestDataStorageInfo(testDataStorageInfo);
         }
 
         test.setSutId(Integer.parseInt(cmdLine.getOptionValue("sut-id")));
