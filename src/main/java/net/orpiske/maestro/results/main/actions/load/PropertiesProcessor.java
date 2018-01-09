@@ -40,7 +40,7 @@ public class PropertiesProcessor {
 
 
     private void loadMsgProperties(final File reportDir, final Map<String, Object> properties) {
-        String[] msgProperties = {"limitDestinations", "apiName", "variableSize",
+        String[] msgProperties = {"apiName", "variableSize",
                 "apiVersion", "messageSize"};
 
         TestMsgPropertyDao dao = new TestMsgPropertyDao();
