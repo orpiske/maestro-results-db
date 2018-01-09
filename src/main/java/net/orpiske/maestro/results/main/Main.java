@@ -18,16 +18,14 @@ package net.orpiske.maestro.results.main;
 
 import net.orpiske.mpt.common.ConfigurationWrapper;
 import net.orpiske.mpt.common.Constants;
-import org.apache.commons.cli.CommandLine;
-import org.apache.commons.cli.Options;
-
+import net.orpiske.mpt.common.LogConfigurator;
 import static java.util.Arrays.copyOfRange;
 
 public class Main {
-    private static CommandLine cmdLine;
-    private static Options options;
 
-    private static String url;
+    static {
+        LogConfigurator.defaultForDaemons();
+    }
 
     /**
      * Prints the help for the action and exit
@@ -69,6 +67,8 @@ public class Main {
             e.printStackTrace();
             System.exit(1);
         }
+
+
 
         Program program;
         switch (first) {

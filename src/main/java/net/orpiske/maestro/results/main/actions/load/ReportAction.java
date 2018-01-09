@@ -44,7 +44,6 @@ public class ReportAction extends Action {
 
     @Override
     public int run() {
-        LogConfigurator.defaultForDaemons();
         File directory = new File(cmdLine.getOptionValue("path"));
         System.out.println("Recursively loading files from " + directory);
 
