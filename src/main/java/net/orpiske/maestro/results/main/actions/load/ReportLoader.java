@@ -2,6 +2,8 @@ package net.orpiske.maestro.results.main.actions.load;
 
 import net.orpiske.maestro.results.dto.Test;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -10,6 +12,8 @@ import java.io.IOException;
 import java.util.*;
 
 public class ReportLoader {
+    private static final Logger logger = LoggerFactory.getLogger(ReportLoader.class);
+
     private Test test;
     private String envName;
 
@@ -28,20 +32,17 @@ public class ReportLoader {
                 prop.load(in);
 
                 for (Map.Entry e : prop.entrySet()) {
-                    //logger.debug("Adding entry {} with value {}", e.getKey(), e.getValue());
-                    // System.out.println("Adding entry " + e.getKey() + " with value " + e.getValue());
+                    logger.trace("Adding entry {} with value {}", e.getKey(), e.getValue());
                     context.put((String) e.getKey(), e.getValue());
                 }
-
-
             } catch (FileNotFoundException e) {
-                e.printStackTrace();
+                logger.error("File not found error: {}", e.getMessage(), e);
             } catch (IOException e) {
-                e.printStackTrace();
+                logger.error("Input/output error: {}", e.getMessage(), e);
             }
         }
         else {
-            //logger.debug("There are no properties file at {}", testProperties.getPath());
+            logger.debug("There are no properties file at {}", testProperties.getPath());
         }
     }
 
@@ -66,6 +67,7 @@ public class ReportLoader {
         Iterator<File> iterator = FileUtils.iterateFiles(directory, new String[] { "properties"}, true);
         Map<File, List<File>> cache = new HashMap<>();
 
+        logger.info("Loading all properties file from {}", directory);
         while (iterator.hasNext()) {
             File file = iterator.next();
 
@@ -75,11 +77,11 @@ public class ReportLoader {
                 subFiles = new LinkedList<>();
             }
 
-            System.out.println("Adding file " + file);
+            logger.trace("Adding file {}", file);
             subFiles.add(file);
 
             cache.put(parent, subFiles);
-            System.out.println("Processing directory " + parent);
+            logger.trace("Processing directory {}", parent);
         }
 
         cache.forEach(this::loadFromDir);

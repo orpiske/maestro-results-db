@@ -2,10 +2,14 @@ package net.orpiske.maestro.results.main.actions.load;
 
 import net.orpiske.maestro.results.dao.TestDao;
 import net.orpiske.maestro.results.dto.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
 public class TestProcessor {
+    private static final Logger logger = LoggerFactory.getLogger(TestProcessor.class);
+
     private Test test;
 
     public TestProcessor(final Test test) {
@@ -22,7 +26,7 @@ public class TestProcessor {
             }
         }
 
-        System.out.println("Recording new test");
+
         TestDao dao = new TestDao();
         return dao.insert(test);
     }

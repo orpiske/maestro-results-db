@@ -3,7 +3,8 @@ package net.orpiske.maestro.results.main.actions.load;
 import net.orpiske.maestro.results.dao.*;
 import net.orpiske.maestro.results.dto.*;
 import net.orpiske.mpt.common.URLQuery;
-import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
@@ -11,6 +12,8 @@ import java.net.URISyntaxException;
 import java.util.Map;
 
 public class PropertiesProcessor {
+    private static final Logger logger = LoggerFactory.getLogger(PropertiesProcessor.class);
+
     private String envName;
     private Test test;
 
@@ -203,13 +206,13 @@ public class PropertiesProcessor {
     public void loadTest(final File reportDir, final Map<String, Object> properties) {
 
 
-        System.out.println("Loading message properties: " + reportDir);
+        logger.debug("Loading message properties: {}", reportDir);
         loadMsgProperties(reportDir, properties);
 
-        System.out.println("Loading fail conditions: " + reportDir);
+        logger.debug("Loading fail conditions: {}", reportDir);
         loadFailConditions(reportDir, properties);
 
-        System.out.println("Loading results per environment: " + reportDir);
+        logger.debug("Loading results per environment: {}", reportDir);
         loadEnvResults(reportDir, properties);
 
         TestDao testDao = new TestDao();

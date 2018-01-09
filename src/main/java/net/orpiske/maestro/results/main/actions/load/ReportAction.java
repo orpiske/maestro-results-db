@@ -2,6 +2,7 @@ package net.orpiske.maestro.results.main.actions.load;
 
 import net.orpiske.maestro.results.dto.Test;
 import net.orpiske.maestro.results.main.Action;
+import net.orpiske.mpt.common.LogConfigurator;
 import org.apache.commons.cli.*;
 
 import java.io.File;
@@ -41,8 +42,9 @@ public class ReportAction extends Action {
 
     @Override
     public int run() {
+        LogConfigurator.defaultForDaemons();
         File directory = new File(cmdLine.getOptionValue("path"));
-        System.out.println("Loading files from " + directory);
+        System.out.println("Recursively loading files from " + directory);
 
         Test test = new Test();
 
