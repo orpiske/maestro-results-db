@@ -82,14 +82,6 @@ public class ReportLoader {
             System.out.println("Processing directory " + parent);
         }
 
-        // for (File file : cache.keySet()) {
-            // System.out.println("Directory (from key set) " + file);
-
-            //File testNumber = file.getParentFile();
-
-
-        // }
-
         cache.forEach(this::loadFromDir);
 
 

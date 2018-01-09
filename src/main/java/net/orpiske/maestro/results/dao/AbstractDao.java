@@ -17,34 +17,36 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public abstract class AbstractDao extends NamedParameterJdbcDaoSupport {
-    protected JdbcTemplate jdbcTemplate;
+    protected static JdbcTemplate jdbcTemplate = null;
 
     protected AbstractDao() {
         super();
-        AbstractConfiguration config = ConfigurationWrapper.getConfig();
-        SimpleDriverDataSource ds = new SimpleDriverDataSource();
 
-        ds.setDriverClass(org.mariadb.jdbc.Driver.class);
+        if (jdbcTemplate == null) {
+            AbstractConfiguration config = ConfigurationWrapper.getConfig();
+            SimpleDriverDataSource ds = new SimpleDriverDataSource();
 
-        final String url = config.getString("datasource.url");
-        ds.setUrl(url);
+            ds.setDriverClass(org.mariadb.jdbc.Driver.class);
 
-        final String username = config.getString("datasource.username");
-        ds.setUsername(username);
+            final String url = config.getString("datasource.url");
+            ds.setUrl(url);
 
-        final String password = config.getString("datasource.password");
-        ds.setPassword(password);
+            final String username = config.getString("datasource.username");
+            ds.setUsername(username);
 
-        try {
-            Connection conn = ds.getConnection();
+            final String password = config.getString("datasource.password");
+            ds.setPassword(password);
 
-            jdbcTemplate = new JdbcTemplate(ds);
-            super.setJdbcTemplate(jdbcTemplate);
-        } catch (SQLException e) {
-            e.printStackTrace();
+            try {
+                Connection conn = ds.getConnection();
+
+                jdbcTemplate = new JdbcTemplate(ds);
+            } catch (SQLException e) {
+               throw new RuntimeException(e);
+            }
         }
 
-
+        super.setJdbcTemplate(jdbcTemplate);
     }
 
     protected <T, Y> T runQuery(String query, RowMapper<T> rowMapper, Y id)
