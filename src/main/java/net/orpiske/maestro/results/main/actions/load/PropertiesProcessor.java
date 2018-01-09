@@ -83,7 +83,7 @@ public class PropertiesProcessor {
     }
 
     private boolean isReceiver(final File reportDir) {
-        String[] latencyFiles = { "receiverd-latency_90.png", "receiverd-latency_all.png", "receiverd-latency.csv",
+        String[] latencyFiles = { "receiverd-latency_90.png", "receiverd-latency_all.png", "receiverd-latency.csv.gz",
                 "receiverd-latency.hdr", "receiverd-rate.csv.gz", "receiverd-rate_rate.png" };
 
         for (String fileName : latencyFiles) {
