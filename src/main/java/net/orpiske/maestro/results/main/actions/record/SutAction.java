@@ -54,8 +54,7 @@ public class SutAction extends Action {
         dto.setSutOther(cmdLine.getOptionValue("sut-other"));
         dto.setSutTags(cmdLine.getOptionValue("sut-tags"));
 
-        dao.insert(dto);
-        return 0;
+        return dao.insert(dto);
     }
 
     private int view() {
