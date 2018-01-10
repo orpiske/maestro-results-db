@@ -215,11 +215,17 @@ public class PropertiesProcessor {
         logger.debug("Loading results per environment: {}", reportDir);
         loadEnvResults(reportDir, properties);
 
-        TestDao testDao = new TestDao();
+
         String rateStr = (String) properties.get("rate");
         String durationStr = (String) properties.get("duration");
 
-        testDao.updateDurationAndRate(test.getTestId(), test.getTestNumber(), rateStr, durationStr);
+        logger.info("Updating duration to {} and rate to {} for test {}/{}", durationStr, rateStr, test.getTestId(),
+                test.getTestNumber());
+
+
+        TestDao testDao = new TestDao();
+        testDao.updateDurationAndRate(test.getTestId(), test.getTestNumber(), Integer.parseInt(durationStr),
+                Integer.parseInt(rateStr));
     }
 
 }
