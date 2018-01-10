@@ -59,7 +59,13 @@ public class ReportLoader {
         Map<String, Object> values = new HashMap<>();
 
         files.forEach(item -> loadProperties(item, values));
-        pp.loadTest(files.get(0), values);
+
+        // Create a list of unique hosts reported in the test
+        Set<File> testHosts = new LinkedHashSet<>();
+        files.forEach(file -> testHosts.add(file.getParentFile()));
+
+        // Load test data for each host
+        testHosts.forEach(host -> pp.loadTest(host, values));
     }
 
 

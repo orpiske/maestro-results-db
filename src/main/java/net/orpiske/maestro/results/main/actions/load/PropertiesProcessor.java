@@ -33,7 +33,7 @@ public class PropertiesProcessor {
 
                 dto.setTestId(test.getTestId());
                 dto.setTestNumber(test.getTestNumber());
-                dto.setTestFailConditionResourceName(reportFile.getParentFile().getName());
+                dto.setTestFailConditionResourceName(reportFile.getName());
                 dto.setTestFailConditionName(failCondition);
                 dto.setTestFailConditionValue(value);
 
@@ -43,7 +43,7 @@ public class PropertiesProcessor {
     }
 
 
-    private void loadMsgProperties(final File reportFile, final Map<String, Object> properties) {
+    private void loadMsgProperties(final File hostDir, final Map<String, Object> properties) {
         String[] msgProperties = {"apiName", "variableSize",
                 "apiVersion", "messageSize"};
 
@@ -55,7 +55,7 @@ public class PropertiesProcessor {
 
                 testMsgProperty.setTestId(test.getTestId());
                 testMsgProperty.setTestNumber(test.getTestNumber());
-                testMsgProperty.setTestMsgPropertyResourceName(reportFile.getParentFile().getName());
+                testMsgProperty.setTestMsgPropertyResourceName(hostDir.getName());
                 testMsgProperty.setTestMsgPropertyName(msgProperty);
                 testMsgProperty.setTestMsgPropertyValue(value);
 
@@ -74,7 +74,7 @@ public class PropertiesProcessor {
 
                 testMsgProperty.setTestId(test.getTestId());
                 testMsgProperty.setTestNumber(test.getTestNumber());
-                testMsgProperty.setTestMsgPropertyResourceName(reportFile.getParentFile().getName());
+                testMsgProperty.setTestMsgPropertyResourceName(hostDir.getName());
                 testMsgProperty.setTestMsgPropertyName(entry.getKey());
                 testMsgProperty.setTestMsgPropertyValue(entry.getValue());
 
@@ -86,14 +86,14 @@ public class PropertiesProcessor {
         }
     }
 
-    private boolean isReceiver(final File reportFile) {
+    private boolean isReceiver(final File hostDir) {
         String[] latencyFiles = { "receiverd-latency_90.png", "receiverd-latency_all.png", "receiverd-latency.csv.gz",
                 "receiverd-latency.hdr", "receiverd-rate.csv.gz", "receiverd-rate_rate.png" };
 
 
 
         for (String fileName : latencyFiles) {
-            File file = new File(reportFile.getParentFile(), fileName);
+            File file = new File(hostDir, fileName);
             if (file.exists()) {
                 return true;
             }
@@ -103,7 +103,7 @@ public class PropertiesProcessor {
     }
 
 
-    private boolean isInspector(final File reportFile) {
+    private boolean isInspector(final File hostDir) {
         String[] inspectorFiles = { "broker-jvm-inspector.csv.gz", "broker-jvm-inspector_eden_memory.png",
                 "broker-jvm-inspector_memory.png",
                 "broker-jvm-inspector_pm_memory.png",
@@ -113,7 +113,7 @@ public class PropertiesProcessor {
                 "broker.properties" };
 
         for (String fileName : inspectorFiles) {
-            File file = new File(reportFile, fileName);
+            File file = new File(hostDir, fileName);
             if (file.exists()) {
                 return true;
             }
@@ -124,12 +124,12 @@ public class PropertiesProcessor {
 
     /**
      *
-     * @param reportFile
+     * @param hostDir
      * @param properties
      */
-    private void loadEnvResults(final File reportFile, final Map<String, Object> properties) {
+    private void loadEnvResults(final File hostDir, final Map<String, Object> properties) {
         EnvResourceDao envResourceDao = new EnvResourceDao();
-        final EnvResource envResource = envResourceDao.fetchByName(reportFile.getParentFile().getName());
+        final EnvResource envResource = envResourceDao.fetchByName(hostDir.getName());
 
         EnvResults envResults = new EnvResults();
         envResults.setTestId(test.getTestId());
@@ -137,11 +137,11 @@ public class PropertiesProcessor {
         envResults.setEnvResourceId(envResource.getEnvResourceId());
         envResults.setEnvName(envName);
 
-        if (isReceiver(reportFile)) {
+        if (isReceiver(hostDir)) {
             envResults.setEnvResourceRole("receiver");
         }
         else {
-            if (isInspector(reportFile)) {
+            if (isInspector(hostDir)) {
                 envResults.setEnvResourceRole("inspector");
             }
             else {
@@ -196,24 +196,23 @@ public class PropertiesProcessor {
 
         }
 
-
         envResults.setConnectionCount(Integer.parseInt((String) properties.get("parallelCount")));
 
         EnvResultsDao envResultsDao = new EnvResultsDao();
         envResultsDao.insert(envResults);
     }
 
-    public void loadTest(final File reportDir, final Map<String, Object> properties) {
+    public void loadTest(final File hostDir, final Map<String, Object> properties) {
 
 
-        logger.debug("Loading message properties: {}", reportDir);
-        loadMsgProperties(reportDir, properties);
+        logger.debug("Loading message properties: {}", hostDir);
+        loadMsgProperties(hostDir, properties);
 
-        logger.debug("Loading fail conditions: {}", reportDir);
-        loadFailConditions(reportDir, properties);
+        logger.debug("Loading fail conditions: {}", hostDir);
+        loadFailConditions(hostDir, properties);
 
-        logger.debug("Loading results per environment: {}", reportDir);
-        loadEnvResults(reportDir, properties);
+        logger.debug("Loading results per environment: {}", hostDir);
+        loadEnvResults(hostDir, properties);
 
 
         String rateStr = (String) properties.get("rate");
