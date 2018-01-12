@@ -8,6 +8,13 @@
     <artifactId>maestro-results-db</artifactId>
     <version>1.0.0-SNAPSHOT</version>
 
+    <repositories>
+        <repository>
+            <id>orpiske-repo</id>
+            <url>https://dl.bintray.com/orpiske/libs-release</url>
+        </repository>
+    </repositories>
+
     <dependencies>
         <dependency>
             <groupId>commons-cli</groupId>
