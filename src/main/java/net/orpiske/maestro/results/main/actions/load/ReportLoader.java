@@ -24,27 +24,6 @@ public class ReportLoader {
         this.envName = envName;
     }
 
-    private static void loadProperties(final File testProperties, Map<String, Object> context) {
-        if (testProperties.exists()) {
-            Properties prop = new Properties();
-
-            try (FileInputStream in = new FileInputStream(testProperties)) {
-                prop.load(in);
-
-                for (Map.Entry e : prop.entrySet()) {
-                    logger.trace("Adding entry {} with value {}", e.getKey(), e.getValue());
-                    context.put((String) e.getKey(), e.getValue());
-                }
-            } catch (FileNotFoundException e) {
-                logger.error("File not found error: {}", e.getMessage(), e);
-            } catch (IOException e) {
-                logger.error("Input/output error: {}", e.getMessage(), e);
-            }
-        }
-        else {
-            logger.debug("There are no properties file at {}", testProperties.getPath());
-        }
-    }
 
     private void loadFromDir(final File dir, final List<File> files) {
         test.setTestNumber(Integer.parseInt(dir.getName()));
@@ -56,16 +35,13 @@ public class ReportLoader {
         test.setTestId(testId);
         pp = new PropertiesProcessor(test, envName);
 
-        Map<String, Object> values = new HashMap<>();
-
-        files.forEach(item -> loadProperties(item, values));
 
         // Create a list of unique hosts reported in the test
         Set<File> testHosts = new LinkedHashSet<>();
         files.forEach(file -> testHosts.add(file.getParentFile()));
 
         // Load test data for each host
-        testHosts.forEach(host -> pp.loadTest(host, values));
+        testHosts.forEach(host -> pp.loadTest(host));
     }
 
 
@@ -73,7 +49,7 @@ public class ReportLoader {
         Iterator<File> iterator = FileUtils.iterateFiles(directory, new String[] { "properties"}, true);
         Map<File, List<File>> cache = new HashMap<>();
 
-        logger.info("Loading all properties file from {}", directory);
+        logger.info("Searching for properties file from directory {}", directory);
         while (iterator.hasNext()) {
             File file = iterator.next();
 

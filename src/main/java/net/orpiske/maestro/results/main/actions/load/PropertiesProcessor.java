@@ -2,13 +2,17 @@ package net.orpiske.maestro.results.main.actions.load;
 
 import net.orpiske.maestro.results.dao.*;
 import net.orpiske.maestro.results.dto.*;
+import net.orpiske.maestro.results.main.actions.load.utils.PropertyUtils;
 import net.orpiske.mpt.common.URLQuery;
+import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
 import java.net.URISyntaxException;
+import java.util.Collection;
+import java.util.HashMap;
 import java.util.Map;
 
 public class PropertiesProcessor {
@@ -202,16 +206,20 @@ public class PropertiesProcessor {
         envResultsDao.insert(envResults);
     }
 
-    public void loadTest(final File hostDir, final Map<String, Object> properties) {
+    public void loadTest(final File hostDir) {
+        logger.debug("Loading host-specific properties: {}", hostDir);
+        Map<String, Object> properties = new HashMap<>();
 
+        Collection<File> fileCollection = FileUtils.listFiles(hostDir, new String[] { "properties"}, true);
+        fileCollection.forEach(item -> PropertyUtils.loadProperties(item, properties));
 
-        logger.debug("Loading message properties: {}", hostDir);
+        logger.debug("Recording message properties: {}", hostDir);
         loadMsgProperties(hostDir, properties);
 
-        logger.debug("Loading fail conditions: {}", hostDir);
+        logger.debug("Recording fail conditions: {}", hostDir);
         loadFailConditions(hostDir, properties);
 
-        logger.debug("Loading results per environment: {}", hostDir);
+        logger.debug("Recording results per environment: {}", hostDir);
         loadEnvResults(hostDir, properties);
 
 
