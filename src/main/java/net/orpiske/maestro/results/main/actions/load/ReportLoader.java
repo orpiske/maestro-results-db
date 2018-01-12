@@ -6,9 +6,6 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileNotFoundException;
-import java.io.IOException;
 import java.util.*;
 
 public class ReportLoader {
@@ -16,8 +13,6 @@ public class ReportLoader {
 
     private Test test;
     private String envName;
-
-    private PropertiesProcessor pp;
 
     public ReportLoader(final Test test, final String envName) {
         this.test = test;
@@ -33,14 +28,13 @@ public class ReportLoader {
         int testId = tp.loadTest(dir);
 
         test.setTestId(testId);
-        pp = new PropertiesProcessor(test, envName);
-
 
         // Create a list of unique hosts reported in the test
         Set<File> testHosts = new LinkedHashSet<>();
         files.forEach(file -> testHosts.add(file.getParentFile()));
 
         // Load test data for each host
+        PropertiesProcessor pp = new PropertiesProcessor(test, envName);
         testHosts.forEach(host -> pp.loadTest(host));
     }
 
