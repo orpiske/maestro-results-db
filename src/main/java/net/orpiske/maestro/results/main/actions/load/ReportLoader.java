@@ -25,7 +25,10 @@ public class ReportLoader {
 
         TestProcessor tp = new TestProcessor(test);
 
+        logger.info("Adding a new test record from data from dir {}", dir);
+
         int testId = tp.loadTest(dir);
+        logger.info("Added a new test record with ID {}", testId);
 
         test.setTestId(testId);
 
@@ -61,7 +64,5 @@ public class ReportLoader {
         }
 
         cache.forEach(this::loadFromDir);
-
-
     }
 }

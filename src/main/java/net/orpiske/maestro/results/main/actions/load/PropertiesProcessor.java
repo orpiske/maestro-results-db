@@ -197,7 +197,6 @@ public class PropertiesProcessor {
             if (rateSkipCountStr != null) {
                 envResults.setTestRateSkipCount(Integer.parseInt(rateSkipCountStr));
             }
-
         }
 
         envResults.setConnectionCount(Integer.parseInt((String) properties.get("parallelCount")));

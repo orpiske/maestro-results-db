@@ -17,6 +17,7 @@ public class TestProcessor {
     }
 
     public int loadTest(final File reportDir) {
+        logger.info("Adding new test record into the DB");
         if (test.getTestResult() == null) {
             if (reportDir.getPath().contains("success")) {
                 test.setTestResult("success");
@@ -26,6 +27,7 @@ public class TestProcessor {
             }
         }
 
+        logger.debug("Test record to add: {}", reportDir);
 
         TestDao dao = new TestDao();
         return dao.insert(test);
