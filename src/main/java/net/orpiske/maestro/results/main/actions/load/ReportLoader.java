@@ -2,6 +2,7 @@ package net.orpiske.maestro.results.main.actions.load;
 
 import net.orpiske.maestro.results.dto.Test;
 import org.apache.commons.io.FileUtils;
+import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -27,10 +28,7 @@ public class ReportLoader {
 
         logger.info("Adding a new test record from data from dir {}", dir);
 
-        int testId = tp.loadTest(dir);
-        logger.info("Added a new test record with ID {}", testId);
-
-        test.setTestId(testId);
+        tp.loadTest(dir);
 
         // Create a list of unique hosts reported in the test
         Set<File> testHosts = new LinkedHashSet<>();
@@ -49,6 +47,7 @@ public class ReportLoader {
         logger.info("Searching for properties file from directory {}", directory);
         while (iterator.hasNext()) {
             File file = iterator.next();
+
 
             File parent = file.getParentFile().getParentFile();
             List<File> subFiles = cache.get(parent);
