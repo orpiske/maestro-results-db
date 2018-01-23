@@ -35,8 +35,9 @@ public class Main {
         System.out.println("Usage: maestro-cli <action>\n");
 
         System.out.println("Actions:");
-        System.out.println("   record");
         System.out.println("   load");
+        System.out.println("   record");
+        System.out.println("   report");
         System.out.println("----------");
         System.out.println("   help");
         System.out.println("   --version");
@@ -72,12 +73,16 @@ public class Main {
 
         Program program;
         switch (first) {
+            case "load": {
+                program = new LoadProgram();
+                break;
+            }
             case "record": {
                 program = new RecordProgram();
                 break;
             }
-            case "load": {
-                program = new LoadProgram();
+            case "report": {
+                program = new ReportProgram();
                 break;
             }
             default: {
