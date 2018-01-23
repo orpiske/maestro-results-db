@@ -18,7 +18,6 @@ public class LoadProgram implements Program {
 
         System.out.println("----------");
         System.out.println("   help");
-        System.out.println("   --version");
 
         System.exit(code);
     }
