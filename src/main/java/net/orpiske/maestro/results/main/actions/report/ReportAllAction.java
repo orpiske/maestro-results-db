@@ -1,6 +1,8 @@
 package net.orpiske.maestro.results.main.actions.report;
 
 import net.orpiske.maestro.results.dao.ReportsDao;
+import net.orpiske.maestro.results.dao.SutDao;
+import net.orpiske.maestro.results.dto.Sut;
 import net.orpiske.maestro.results.dto.TestResultRecord;
 import net.orpiske.maestro.results.main.Action;
 import org.apache.commons.cli.*;
@@ -57,10 +59,24 @@ public class ReportAllAction extends Action {
     }
 
     private void createReport() {
+        SutDao sutDao = new SutDao();
+
+        List<Sut> sutList = sutDao.fetch();
+        sutList.forEach(this::createReportForSut);
+
+    }
+
+    private void createReportForSut(final Sut sut) {
         ReportsDao reportsDao = new ReportsDao();
 
-        List<TestResultRecord> testResultRecords = reportsDao.protocolReports("A-MQ", "7.0.3",
+        List<TestResultRecord> testResultRecords = reportsDao.protocolReports(sut.getSutName(), sut.getSutVersion(),
                 true, 1, 100, 1);
+
+        if (testResultRecords == null || testResultRecords.size() == 0) {
+            System.err.println("Not enough records for " + sut.getSutName() + " " + sut.getSutVersion());
+
+            return;
+        }
 
 
         for (TestResultRecord testResultRecord : testResultRecords) {
@@ -84,7 +100,8 @@ public class ReportAllAction extends Action {
 
             ReportDataPlotter rdp = new ReportDataPlotter();
 
-            rdp.buildChart("", "Protocol", "Messages p/ second", testResultRecords, "report-7.0.3.png");
+            rdp.buildChart("", "Protocol", "Messages p/ second", testResultRecords,
+                    "report-" + sut.getSutName() + "-" + sut.getSutVersion() + ".png");
 
         } catch (Exception e) {
             e.printStackTrace();
