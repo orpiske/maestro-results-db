@@ -5,6 +5,7 @@ import java.util.Date;
 public class TestResultRecord {
     private String sutName;
     private String sutVersion;
+    private String sutTags;
     private String testResult;
     private boolean error;
     private int connectionCount;
@@ -39,6 +40,14 @@ public class TestResultRecord {
 
     public void setSutVersion(String sutVersion) {
         this.sutVersion = sutVersion;
+    }
+
+    public String getSutTags() {
+        return sutTags;
+    }
+
+    public void setSutTags(String sutTags) {
+        this.sutTags = sutTags;
     }
 
     public String getTestResult() {
@@ -198,6 +207,7 @@ public class TestResultRecord {
         return "TestResultRecord{" +
                 "sutName='" + sutName + '\'' +
                 ", sutVersion='" + sutVersion + '\'' +
+                ", sutTags='" + sutTags + '\'' +
                 ", testResult='" + testResult + '\'' +
                 ", error=" + error +
                 ", connectionCount=" + connectionCount +

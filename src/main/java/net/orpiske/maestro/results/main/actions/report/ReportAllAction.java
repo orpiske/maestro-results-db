@@ -51,9 +51,16 @@ public class ReportAllAction extends Action {
     @Override
     public int run() {
 
+        createReport();
+
+        return 0;
+    }
+
+    private void createReport() {
         ReportsDao reportsDao = new ReportsDao();
 
-        List<TestResultRecord> testResultRecords = reportsDao.protocolReports(true, 1, 100, 1);
+        List<TestResultRecord> testResultRecords = reportsDao.protocolReports("A-MQ", "7.0.3",
+                true, 1, 100, 1);
 
 
         for (TestResultRecord testResultRecord : testResultRecords) {
@@ -75,10 +82,12 @@ public class ReportAllAction extends Action {
 
             resultsReportRenderer.copyResources(outDir);
 
+            ReportDataPlotter rdp = new ReportDataPlotter();
+
+            rdp.buildChart("", "Protocol", "Messages p/ second", testResultRecords, "report-7.0.3.png");
+
         } catch (Exception e) {
             e.printStackTrace();
         }
-
-        return 0;
     }
 }
