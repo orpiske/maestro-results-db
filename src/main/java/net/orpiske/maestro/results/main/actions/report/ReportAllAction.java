@@ -67,10 +67,40 @@ public class ReportAllAction extends Action {
     }
 
     private void createReportForSut(final Sut sut) {
+        boolean durableFlags[] = { true, false };
+        int limitDestinations[] = { 1, 10, 100};
+        int messageSizes[] = { 1, 10, 100};
+        int connectionCounts[] = { 1, 10, 100};
+
+        for (boolean durable : durableFlags) {
+            for (int messageSize : messageSizes) {
+                for (int connectionCount : connectionCounts) {
+                    for (int limitDestination : limitDestinations) {
+                        if (limitDestination > connectionCount) {
+                            continue;
+                        }
+
+                        createReportForSutByParams(sut, durable, limitDestination, messageSize, connectionCount);
+                    }
+                }
+            }
+        }
+    }
+
+    private String nameFormatter(final Sut sut, boolean durable, int limitDestinations, int messageSize,
+                                 int connectionCount)
+    {
+        return "report-" + sut.getSutName() + "-" + sut.getSutVersion() + (durable ? "-non-" : "-" ) + "durable-ld" +
+                limitDestinations + "-s" + messageSize + "-c" + connectionCount +
+                ".png";
+    }
+
+    private void createReportForSutByParams(final Sut sut, boolean durable, int limitDestinations, int messageSize,
+                                            int connectionCount) {
         ReportsDao reportsDao = new ReportsDao();
 
         List<TestResultRecord> testResultRecords = reportsDao.protocolReports(sut.getSutName(), sut.getSutVersion(),
-                true, 1, 100, 1);
+                durable, limitDestinations, messageSize, connectionCount);
 
         if (testResultRecords == null || testResultRecords.size() == 0) {
             System.err.println("Not enough records for " + sut.getSutName() + " " + sut.getSutVersion());
@@ -101,7 +131,7 @@ public class ReportAllAction extends Action {
             ReportDataPlotter rdp = new ReportDataPlotter();
 
             rdp.buildChart("", "Protocol", "Messages p/ second", testResultRecords,
-                    "report-" + sut.getSutName() + "-" + sut.getSutVersion() + ".png");
+                    nameFormatter(sut, durable, limitDestinations, messageSize, connectionCount));
 
         } catch (Exception e) {
             e.printStackTrace();
