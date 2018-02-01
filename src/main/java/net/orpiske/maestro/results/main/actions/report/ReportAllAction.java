@@ -128,7 +128,7 @@ public class ReportAllAction extends Action {
 
             resultsReportRenderer.copyResources(outDir);
 
-            ReportDataPlotter rdp = new ReportDataPlotter();
+            ReportDataPlotter rdp = new ReportDataPlotter(outDir);
 
             rdp.buildChart("", "Protocol", "Messages p/ second", testResultRecords,
                     nameFormatter(sut, durable, limitDestinations, messageSize, connectionCount));

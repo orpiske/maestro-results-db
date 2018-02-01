@@ -8,12 +8,19 @@ import org.knowm.xchart.style.Styler;
 import org.knowm.xchart.style.colors.ChartColor;
 
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
 public class ReportDataPlotter {
+    private File outputDir;
+
+    public ReportDataPlotter(final File outputDir) {
+        this.outputDir = outputDir;
+    }
+
     public void buildChart(final String title, final String xAxisTile, final String yAxisTitle,
                            List<TestResultRecord> resultRecords, final String fileName) {
 
@@ -44,7 +51,9 @@ public class ReportDataPlotter {
          protocols.forEach(item -> addSeriesByProtocol(item, resultRecords, chart));
 
         try {
-            BitmapEncoder.saveBitmap(chart, fileName,
+            File bitmapFile = new File(outputDir, fileName);
+
+            BitmapEncoder.saveBitmap(chart, bitmapFile.toString(),
                     BitmapEncoder.BitmapFormat.PNG);
         } catch (IOException e) {
             e.printStackTrace();
