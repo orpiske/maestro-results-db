@@ -72,6 +72,7 @@ public class ReportDataPlotter {
                 .title(title)
                 .xAxisTitle(xAxisTile)
                 .yAxisTitle(yAxisTitle)
+                .theme(Styler.ChartTheme.Matlab)
                 .build();
 
         // Customize Chart
