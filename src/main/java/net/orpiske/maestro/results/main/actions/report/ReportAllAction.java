@@ -89,7 +89,7 @@ public class ReportAllAction extends Action {
 
     private String baseNameFormatter(final Sut sut, boolean durable, int limitDestinations, int messageSize,
                                      int connectionCount) {
-        return "report-" + sut.getSutName() + "-" + sut.getSutVersion() + (durable ? "-non-" : "-" ) + "durable-ld" +
+        return "report-" + sut.getSutName() + "-" + sut.getSutVersion() + (durable ? "-" : "-non-" ) + "durable-ld" +
                 limitDestinations + "-s" + messageSize + "-c" + connectionCount;
     }
 
