@@ -15,7 +15,7 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ReportDataPlotter {
-    class Pair {
+    class Pair implements Comparable<Pair> {
         private String protocol;
         private String envResourceRole;
 
@@ -54,6 +54,16 @@ public class ReportDataPlotter {
 
             return Objects.hash(protocol, envResourceRole);
         }
+
+        @Override
+        public int compareTo(Pair pair) {
+            int comp = pair.getProtocol().compareTo(getProtocol());
+            if (comp == 0) {
+                return pair.getEnvResourceRole().compareTo(getEnvResourceRole());
+            }
+
+            return comp;
+        }
     }
 
     private File outputDir;
@@ -84,9 +94,7 @@ public class ReportDataPlotter {
         chart.getStyler().setYAxisTickMarkSpacingHint(20);
 
 
-        // AbstractMap.SimpleEntry<String, String> kp; // ; = new AbstractMap.SimpleEntry<>();
-        // Set<String> protocols = new HashSet<>();
-        Set<Pair> protocols = new HashSet<>();
+        Set<Pair> protocols = new TreeSet<>();
 
         resultRecords.stream()
                 .forEach(item -> protocols.add(new Pair(item))
