@@ -174,62 +174,85 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
 
 <header id="header">
     <div id="logo">
-        <h1>Messaging Performance Report - Index</h1>
+        <h1>{{ sut.sutName }} {{ sut.sutVersion }} performance report</h1>
     </div>
 </header>
 
 <main>
     <div class="innertube">
 
-        <h1>Test Report</h1>
+        <h2>Test Parameters</h2>
+
+        <table>
+            <tr>
+                <th>Parameter</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Durable</td>
+                <td>{{ durable }}</td>
+            </tr>
+            <tr>
+                <td>Limit Destinations</td>
+                <td>{{ limitDestinations }}</td>
+            </tr>
+            <tr>
+                <td>Message Size</td>
+                <td>{{ messageSize }}</td>
+            </tr>
+            <tr>
+                <td>Connection Count</td>
+                <td>{{ connectionCount }}</td>
+            </tr>
+        </table>
+
+        <h2>Test Report Summary</h2>
 
         <table class="sortable">
             <tr>
-                <th>Software Under Test</th>
-                <th>Version</th>
+                <th>Report Link</th>
                 <th>Test Result</th>
                 <th>Errors</th>
-                <th>Connection Count</th>
-                <th>Limit Destinations</th>
-                <th>Message Size</th>
                 <th>Variable Size</th>
                 <th>API Name</th>
                 <th>API Version</th>
                 <th>Protocol</th>
-                <th>Durable</th>
                 <th>Minimum Rate</th>
                 <th>Maximum Rate</th>
                 <th>Rate Geometric Mean
                 <th>Rate Standard Deviation</th>
                 <th>Rate Skip Count</th>
                 <th>Role</th>
+                <th>Sut Tags</th>
                 <th>Test Date</th>
             </tr>
             {% for testResultRecord in testResultRecords %}
             <tr>
-                <td><a href="{{ testResultRecord.testReportLink }}">{{ testResultRecord.sutName }}</a></td>
-                <td>{{ testResultRecord.sutVersion }}</td>
+                <td><a href="{{ testResultRecord.testReportLink }}">Link</a></td>
                 <td class={% if testResultRecord.testResult == 'success' %} "passed" {% else %} "failed" {% endif %} > {{ testResultRecord.testResult }}</td>
                 <td class={% if !testResultRecord.error %} "passed" {% else %} "failed" {% endif %} > {% if !testResultRecord.error %} No {% else %} Yes {% endif %}</td>
-                <td>{{ testResultRecord.connectionCount }}</td>
-                <td>{{ testResultRecord.limitDestinations }}</td>
-                <td>{{ testResultRecord.messageSize }}</td>
                 <td>{{ testResultRecord.variableSize }}</td>
                 <td>{{ testResultRecord.apiName }}</td>
                 <td>{{ testResultRecord.apiVersion }}</td>
                 <td>{{ testResultRecord.messagingProtocol }}</td>
-                <td>{{ testResultRecord.durable }}</td>
-                <td>{{ testResultRecord.testRateMin }}</td>
-                <td>{{ testResultRecord.testRateMax }}</td>
-                <td>{{ testResultRecord.testRateGeometricMean }}</td>
-                <td>{{ testResultRecord.testRateStandardDeviation }}</td>
+                <td>{{ testResultRecord.testRateMin | round(4) }}</td>
+                <td>{{ testResultRecord.testRateMax | round(4) }}</td>
+                <td>{{ testResultRecord.testRateGeometricMean | round(4) }}</td>
+                <td>{{ testResultRecord.testRateStandardDeviation | round(4)  }}</td>
                 <td>{{ testResultRecord.testRateSkipCount }}</td>
                 <td>{{ testResultRecord.envResourceRole }}</td>
+                <td>{{ testResultRecord.sutTags }}</td>
                 <td>{{ testResultRecord.testDate }}</td>
             </tr>
             {% endfor %}
         </table>
+
+        <div>
+            <h2>Performance by Protocol</h2>
+            <img style='height: 75%; width: 75%; object-fit: contain' src="performance-by-protocol.png" />
+        </div>
     </div>
+
 </main>
 </body>
 </html>

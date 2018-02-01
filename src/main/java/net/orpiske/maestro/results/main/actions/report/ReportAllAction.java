@@ -87,13 +87,12 @@ public class ReportAllAction extends Action {
         }
     }
 
-    private String nameFormatter(final Sut sut, boolean durable, int limitDestinations, int messageSize,
-                                 int connectionCount)
-    {
+    private String baseNameFormatter(final Sut sut, boolean durable, int limitDestinations, int messageSize,
+                                     int connectionCount) {
         return "report-" + sut.getSutName() + "-" + sut.getSutVersion() + (durable ? "-non-" : "-" ) + "durable-ld" +
-                limitDestinations + "-s" + messageSize + "-c" + connectionCount +
-                ".png";
+                limitDestinations + "-s" + messageSize + "-c" + connectionCount;
     }
+
 
     private void createReportForSutByParams(final Sut sut, boolean durable, int limitDestinations, int messageSize,
                                             int connectionCount) {
@@ -109,30 +108,35 @@ public class ReportAllAction extends Action {
         }
 
 
-        for (TestResultRecord testResultRecord : testResultRecords) {
-            System.out.println("Record = " + testResultRecord);
-        }
-
         Map<String, Object> context = new HashMap<>();
 
         context.put("testResultRecords", testResultRecords);
-
-        ResultsReportRenderer resultsReportRenderer = new ResultsReportRenderer(context);
+        context.put("sut", sut);
+        context.put("durable", durable);
+        context.put("limitDestinations", limitDestinations);
+        context.put("messageSize", messageSize);
+        context.put("connectionCount", connectionCount);
 
         try {
-            File outDir = new File(output);
-            File outFile = new File(outDir, "index.html");
+            // Directory creating
+            String sutDir = baseNameFormatter(sut, durable, limitDestinations, messageSize, connectionCount);
+            File baseReportDir = new File(output, sutDir);
 
-            outDir.mkdirs();
-            FileUtils.writeStringToFile(outFile, resultsReportRenderer.render(), Charsets.UTF_8);
+            baseReportDir.mkdirs();
 
-            resultsReportRenderer.copyResources(outDir);
+            // Data plotting
+            ReportDataPlotter rdp = new ReportDataPlotter(baseReportDir);
 
-            ReportDataPlotter rdp = new ReportDataPlotter(outDir);
+            rdp.buildChart("", "Configuration", "Messages p/ second", testResultRecords,
+                    "performance-by-protocol.png");
 
-            rdp.buildChart("", "Protocol", "Messages p/ second", testResultRecords,
-                    nameFormatter(sut, durable, limitDestinations, messageSize, connectionCount));
 
+            // Index HTML generation
+            ResultsReportRenderer resultsReportRenderer = new ResultsReportRenderer(context);
+            File indexFile = new File(baseReportDir, "index.html");
+            FileUtils.writeStringToFile(indexFile, resultsReportRenderer.render(), Charsets.UTF_8);
+
+            resultsReportRenderer.copyResources(baseReportDir);
         } catch (Exception e) {
             e.printStackTrace();
         }
