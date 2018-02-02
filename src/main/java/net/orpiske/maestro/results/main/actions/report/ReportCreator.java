@@ -9,11 +9,22 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.util.HashMap;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
 public class ReportCreator {
+    class ReportInfo {
+        Sut sut;
+        boolean durable;
+        int limitDestinations;
+        int messageSize;
+        int connectionCount;
+    }
+
     private String outputDir;
+
+    private List<ReportInfo> reportInfoList = new LinkedList<>();
 
     public ReportCreator(final String outputDir) {
         this.outputDir = outputDir;
@@ -24,6 +35,20 @@ public class ReportCreator {
 
         List<Sut> sutList = sutDao.fetch();
         sutList.forEach(this::createReportForSut);
+
+
+        Map<String, Object> context = new HashMap<String, Object>();
+        context.put("reportInfoList", reportInfoList);
+
+        IndexRenderer indexRenderer = new IndexRenderer(context);
+
+        File indexFile = new File(outputDir, "index.html");
+        try {
+            FileUtils.writeStringToFile(indexFile, indexRenderer.render(), Charsets.UTF_8);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
 
     }
 
@@ -97,6 +122,17 @@ public class ReportCreator {
             FileUtils.writeStringToFile(indexFile, resultsReportRenderer.render(), Charsets.UTF_8);
 
             resultsReportRenderer.copyResources(baseReportDir);
+
+            ReportInfo reportInfo = new ReportInfo();
+
+            reportInfo.sut = sut;
+            reportInfo.durable = durable;
+            reportInfo.limitDestinations = limitDestinations;
+            reportInfo.messageSize = messageSize;
+            reportInfo.connectionCount = connectionCount;
+
+            reportInfoList.add(reportInfo);
+
         } catch (Exception e) {
             e.printStackTrace();
         }
