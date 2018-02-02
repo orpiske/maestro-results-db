@@ -22,5 +22,7 @@ public class IndexRenderer extends AbstractRenderer {
     public void copyResources(File path) throws IOException {
         super.copyResources(path, "/net/orpiske/mpt/reports/sorttable.js", "sorttable.js");
         super.copyResources(path, "/net/orpiske/mpt/reports/favicon.png", "favicon.png");
+
+        FileUtils.copyDirectory(new File("template"), new File(path, "template"));
     }
 }
