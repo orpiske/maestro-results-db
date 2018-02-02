@@ -26,6 +26,9 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
     <script src="sorttable.js"></script>
     <style type="text/css">
 
+    <link rel="stylesheet" href="template/node_modules/patternfly/dist/css/patternfly.min.css">
+    <link rel="stylesheet" href="template/node_modules/patternfly/dist/css/patternfly-additions.min.css">
+
 
 		body {
 			margin: 0;
@@ -186,10 +189,18 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
         <table class="sortable">
             <tr>
                 <th>Report Link</th>
+                <th>Durable</th>
+                <th>Limit Destinations</th>
+                <th>Message Size</th>
+                <th>Connection Count</th>
             </tr>
             {% for reportInfo in reportInfoList %}
             <tr>
-                <td><a href="./{{ reportInfo.sut.sutName }}"> - {{ reportInfo.sut.sutName }} - Link</a></td>
+                <td><a href="./{{ reportInfo.linkName }}/index.html">{{ reportInfo.sut.sutName }} {{ reportInfo.sut.sutVersion }} Link</a></td>
+                <td>{{ reportInfo.durable }}</td>
+                <td>{{ reportInfo.limitDestinations }}</td>
+                <td>{{ reportInfo.messageSize }}</td>
+                <td>{{ reportInfo.connectionCount }}</td>
             </tr>
             {% endfor %}
         </table>

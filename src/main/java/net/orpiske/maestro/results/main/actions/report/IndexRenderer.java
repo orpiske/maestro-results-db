@@ -1,6 +1,7 @@
 package net.orpiske.maestro.results.main.actions.report;
 
 import net.orpiske.mpt.reports.AbstractRenderer;
+import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
@@ -21,6 +22,5 @@ public class IndexRenderer extends AbstractRenderer {
     public void copyResources(File path) throws IOException {
         super.copyResources(path, "/net/orpiske/mpt/reports/sorttable.js", "sorttable.js");
         super.copyResources(path, "/net/orpiske/mpt/reports/favicon.png", "favicon.png");
-
     }
 }
