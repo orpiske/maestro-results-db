@@ -15,9 +15,6 @@
   ~  limitations under the License.
   -->
 
-<!--
-Based on https://www.quackit.com/html/templates/download/view_source.cfm?template=../frames/css_frames/2_rows_2_columns_a.cfm
--->
 
 <html>
 <head>
@@ -84,7 +81,7 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
             <tbody>
             {% for reportInfo in reportInfoList %}
             <tr>
-                <td><a href="./{{ reportInfo.linkName }}/index.html">{{ reportInfo.sut.sutName }} {{ reportInfo.sut.sutVersion }} Link</a></td>
+                <td><a href="./{{ reportInfo.linkName }}/index.html">{{ reportInfo.sut.sutName }} {{ reportInfo.sut.sutVersion }}</a></td>
                 <td>{{ reportInfo.durable }}</td>
                 <td>{{ reportInfo.limitDestinations }}</td>
                 <td>{{ reportInfo.messageSize }}</td>
