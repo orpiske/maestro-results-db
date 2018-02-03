@@ -5,6 +5,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.util.Map;
 
 import static net.orpiske.maestro.results.main.actions.report.RenderUtils.*;
@@ -27,9 +28,12 @@ public class IndexRenderer extends AbstractRenderer {
     }
 
     public void copyResources(File path) throws IOException {
-        super.copyResources(path, sharedResourcePath("sorttable.js"), "sorttable.js");
         super.copyResources(path, sharedResourcePath("favicon.png"), "favicon.png");
 
-        FileUtils.copyDirectory(new File("template"), new File(path, "template"));
+        URL resourcesUrl = this.getClass().getResource("/net/orpiske/maestro/results/main/action/report/" + templateName + "/resources");
+
+        File resources = new File(resourcesUrl.getPath());
+
+        FileUtils.copyDirectory(resources, new File(path, "resources"));
     }
 }

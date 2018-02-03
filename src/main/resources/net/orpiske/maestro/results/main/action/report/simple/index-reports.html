@@ -23,8 +23,7 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
     <title>Messaging Performance Report Index</title>
-    <script src="sorttable.js"></script>
-
+    <script src="resources/sorttable.js"></script>
     <style type="text/css">
 
 
@@ -135,8 +134,8 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
         }
 
     #test {
-       -webkit-column-count: 3; /* Chrome, Safari, Opera */
-       -moz-column-count: 3; /* Firefox */
+      -webkit-column-count: 3; /* Chrome, Safari, Opera */
+      -moz-column-count: 3; /* Firefox */
       column-count: 3;
       position: relative
     }
@@ -184,8 +183,7 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
 
         <h2>Test Report Summary</h2>
 
-        <table class="table table-striped table-bordered">
-            <thead>
+        <table class="sortable">
             <tr>
                 <th>Report Link</th>
                 <th>Durable</th>
@@ -203,9 +201,6 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
             </tr>
             {% endfor %}
         </table>
-
-
-
     </div>
 
 </main>

@@ -80,6 +80,8 @@ public class ReportCreator {
         File indexFile = new File(outputDir, "index.html");
         try {
             FileUtils.writeStringToFile(indexFile, indexRenderer.render(), Charsets.UTF_8);
+
+            indexRenderer.copyResources(indexFile.getParentFile());
         } catch (Exception e) {
             e.printStackTrace();
         }
