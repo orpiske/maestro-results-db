@@ -75,7 +75,7 @@ public class ReportCreator {
         Map<String, Object> context = new HashMap<String, Object>();
         context.put("reportInfoList", reportInfoList);
 
-        IndexRenderer indexRenderer = new IndexRenderer(context);
+        IndexRenderer indexRenderer = new IndexRenderer(ReportTemplates.DEFAULT, context);
 
         File indexFile = new File(outputDir, "index.html");
         try {
@@ -152,7 +152,7 @@ public class ReportCreator {
 
 
             // Index HTML generation
-            ResultsReportRenderer resultsReportRenderer = new ResultsReportRenderer(context);
+            ResultsReportRenderer resultsReportRenderer = new ResultsReportRenderer(ReportTemplates.DEFAULT, context);
             File indexFile = new File(baseReportDir, "index.html");
             FileUtils.writeStringToFile(indexFile, resultsReportRenderer.render(), Charsets.UTF_8);
 

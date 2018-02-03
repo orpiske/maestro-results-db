@@ -7,21 +7,28 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
-public class IndexRenderer extends AbstractRenderer {
+import static net.orpiske.maestro.results.main.actions.report.RenderUtils.*;
 
-    public IndexRenderer(final Map<String, Object> context) {
+public class IndexRenderer extends AbstractRenderer {
+    private String templateName;
+
+    public IndexRenderer(final String templateName, final Map<String, Object> context) {
         super(context);
+
+        this.templateName = templateName;
     }
+
+
 
 
     @Override
     public String render() throws Exception {
-        return super.render("/net/orpiske/maestro/results/main/action/report/index-reports.html");
+        return super.render(templatedResourcePath(templateName,"index-reports.html"));
     }
 
     public void copyResources(File path) throws IOException {
-        super.copyResources(path, "/net/orpiske/mpt/reports/sorttable.js", "sorttable.js");
-        super.copyResources(path, "/net/orpiske/mpt/reports/favicon.png", "favicon.png");
+        super.copyResources(path, sharedResourcePath("sorttable.js"), "sorttable.js");
+        super.copyResources(path, sharedResourcePath("favicon.png"), "favicon.png");
 
         FileUtils.copyDirectory(new File("template"), new File(path, "template"));
     }
