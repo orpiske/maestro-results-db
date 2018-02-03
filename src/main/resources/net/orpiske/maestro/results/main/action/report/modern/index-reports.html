@@ -26,7 +26,11 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
 
     <link rel="stylesheet" href="resources/css/patternfly.min.css">
     <link rel="stylesheet" href="resources/css/patternfly-additions.min.css">
-    <link rel="stylesheet" href="resources/css/patternfly.min.css">
+
+    <script src="resources/components/sorttable/sorttable.js"></script>
+    <script src="resources/components/jquery/jquery.min.js"></script>
+    <script src="resources/js/patternfly.min.js"></script>
+
 
     <link rel="icon"
           type="image/png"
@@ -49,107 +53,6 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
         </a>
     </div>
     <div class="collapse navbar-collapse navbar-collapse-1">
-        <!--<ul class="nav navbar-nav navbar-utility">-->
-
-            <!--<li class="applauncher-pf  dropdown dropdown-kebab-pf">-->
-                <!--<a class="dropdown-toggle nav-item-iconic" data-toggle="dropdown" href="#">-->
-                    <!--<i class="fa fa-th applauncher-pf-icon" aria-hidden="true"></i>-->
-                    <!--<span class="applauncher-pf-title">-->
-            <!--Application Launcher-->
-            <!--<span class="caret" aria-hidden="true"></span>-->
-          <!--</span>-->
-                <!--</a>-->
-                <!--<ul class="dropdown-menu dropdown-menu-right" role="menu">-->
-                    <!--<li class="applauncher-pf-item" role="menuitem">-->
-                        <!--<a class="applauncher-pf-link" href="#">-->
-
-                            <!--<span class="applauncher-pf-link-title">Recteque</span>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li class="applauncher-pf-item" role="menuitem">-->
-                        <!--<a class="applauncher-pf-link" href="#">-->
-
-                            <!--<span class="applauncher-pf-link-title">Ipsum</span>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li class="applauncher-pf-item" role="menuitem">-->
-                        <!--<a class="applauncher-pf-link" href="#">-->
-
-                            <!--<span class="applauncher-pf-link-title">Suavitate</span>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li class="applauncher-pf-item" role="menuitem">-->
-                        <!--<a class="applauncher-pf-link" href="#">-->
-
-                            <!--<span class="applauncher-pf-link-title">Lorem</span>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                    <!--<li class="applauncher-pf-item" role="menuitem">-->
-                        <!--<a class="applauncher-pf-link" href="#">-->
-
-                            <!--<span class="applauncher-pf-link-title">Home</span>-->
-                        <!--</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</li>-->
-
-
-            <!--<li class="dropdown">-->
-                <!--<a href="#0" class="nav-item-iconic" id="horizontalDropdownMenu12" data-toggle="dropdown" aria-haspopup="true" aria-expanded="true">-->
-                    <!--<span title="Help" class="fa pficon-help"></span>-->
-                    <!--<span class="caret"></span>-->
-                <!--</a>-->
-                <!--<ul class="dropdown-menu" aria-labelledby="horizontalDropdownMenu12">-->
-                    <!--<li><a href="#0">Help</a></li>-->
-                    <!--<li><a href="#0">About</a></li>-->
-                <!--</ul>-->
-            <!--</li>-->
-            <!--<li class="dropdown">-->
-                <!--<a href="#0" class="dropdown-toggle" data-toggle="dropdown">-->
-                    <!--<span class="pficon pficon-user"></span>-->
-                    <!--Brian Johnson <b class="caret"></b>-->
-                <!--</a>-->
-                <!--<ul class="dropdown-menu">-->
-                    <!--<li>-->
-                        <!--<a href="#0">Link</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a href="#0">Another link</a>-->
-                    <!--</li>-->
-                    <!--<li>-->
-                        <!--<a href="#0">Something else here</a>-->
-                    <!--</li>-->
-                    <!--<li class="divider"></li>-->
-                    <!--<li class="dropdown-submenu">-->
-                        <!--<a tabindex="-1" href="#0">More options</a>-->
-                        <!--<ul class="dropdown-menu">-->
-                            <!--<li>-->
-                                <!--<a href="#0">Link</a>-->
-                            <!--</li>-->
-                            <!--<li>-->
-                                <!--<a href="#0">Another link</a>-->
-                            <!--</li>-->
-                            <!--<li>-->
-                                <!--<a href="#0">Something else here</a>-->
-                            <!--</li>-->
-                            <!--<li class="divider"></li>-->
-                            <!--<li class="dropdown-header">Nav header</li>-->
-                            <!--<li>-->
-                                <!--<a href="#0">Separated link</a>-->
-                            <!--</li>-->
-                            <!--<li class="divider"></li>-->
-                            <!--<li>-->
-                                <!--<a href="#0">One more separated link</a>-->
-                            <!--</li>-->
-                        <!--</ul>-->
-                    <!--</li>-->
-                    <!--<li class="divider"></li>-->
-                    <!--<li>-->
-                        <!--<a href="#0">One more separated link</a>-->
-                    <!--</li>-->
-                <!--</ul>-->
-            <!--</li>-->
-        <!--</ul>-->
         <ul class="nav navbar-nav navbar-primary">
             <li>
                 <a href="#0">Test Run Index</a>
@@ -157,21 +60,6 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
             <li>
                 <a href="static/about.html">About</a>
             </li>
-            <!--<li class="active">-->
-                <!--<a href="#0">Another Link</a>-->
-            <!--</li>-->
-            <!--<li>-->
-                <!--<a href="#0">And Another</a>-->
-            <!--</li>-->
-            <!--<li>-->
-                <!--<a href="#0">As a General Rule</a>-->
-            <!--</li>-->
-            <!--<li>-->
-                <!--<a href="#0">Five to Seven Links</a>-->
-            <!--</li>-->
-            <!--<li>-->
-                <!--<a href="#0">Is Good</a>-->
-            <!--</li>-->
         </ul>
     </div>
 </nav>
@@ -183,7 +71,7 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
 
         <h2>Test Run Index</h2>
 
-        <table class="table table-striped table-bordered">
+        <table class="table table-striped table-bordered table-hover sortable">
             <thead>
             <tr>
                 <th>Report Link</th>
