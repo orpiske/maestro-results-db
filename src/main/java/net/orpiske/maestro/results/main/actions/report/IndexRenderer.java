@@ -30,10 +30,18 @@ public class IndexRenderer extends AbstractRenderer {
     public void copyResources(File path) throws IOException {
         super.copyResources(path, sharedResourcePath("favicon.png"), "favicon.png");
 
+        // Template resources
         URL resourcesUrl = this.getClass().getResource("/net/orpiske/maestro/results/main/action/report/" + templateName + "/resources");
 
         File resources = new File(resourcesUrl.getPath());
 
         FileUtils.copyDirectory(resources, new File(path, "resources"));
+
+        // Copy template resources
+        URL staticUrl = this.getClass().getResource("/net/orpiske/maestro/results/main/action/report/" + templateName + "/static");
+
+        File staticFiles = new File(staticUrl.getPath());
+
+        FileUtils.copyDirectory(staticFiles, new File(path, "static"));
     }
 }

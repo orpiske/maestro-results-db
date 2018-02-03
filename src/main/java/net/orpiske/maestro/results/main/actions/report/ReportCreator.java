@@ -90,10 +90,16 @@ public class ReportCreator {
     }
 
     void createReportForSut(final Sut sut) {
-        boolean durableFlags[] = {true, false};
-        int limitDestinations[] = {1, 10, 100};
-        int messageSizes[] = {1, 10, 100};
-        int connectionCounts[] = {1, 10, 100};
+//        boolean durableFlags[] = {true, false};
+//        int limitDestinations[] = {1, 10, 100};
+//        int messageSizes[] = {1, 10, 100};
+//        int connectionCounts[] = {1, 10, 100};
+
+        boolean durableFlags[] = {true};
+        int limitDestinations[] = {1, 100};
+        int messageSizes[] = {1, 100};
+        int connectionCounts[] = {100};
+
 
         for (boolean durable : durableFlags) {
             for (int messageSize : messageSizes) {
