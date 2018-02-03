@@ -125,8 +125,8 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
         {% for testResultRecord in testResultRecords %}
         <tr>
             <td><a href="{{ testResultRecord.testReportLink }}">Link</a></td>
-            <td class={% if testResultRecord.testResult == 'success' %} "passed" {% else %} "failed" {% endif %} > {{ testResultRecord.testResult }}</td>
-            <td class={% if !testResultRecord.error %} "passed" {% else %} "failed" {% endif %} > {% if !testResultRecord.error %} No {% else %} Yes {% endif %}</td>
+            <td><span class={% if testResultRecord.testResult == 'success' %} "pficon pficon-ok" {% else %} "pficon pficon-error-circle-o" {% endif %}></span> {{ testResultRecord.testResult }}</td>
+            <td><span class={% if !testResultRecord.error %} "pficon pficon-ok" {% else %} "pficon pficon-warning-triangle-o" {% endif %} > {% if !testResultRecord.error %} No {% else %} Yes {% endif %}</td>
             <td>{{ testResultRecord.variableSize }}</td>
             <td>{{ testResultRecord.apiName }}</td>
             <td>{{ testResultRecord.apiVersion }}</td>
