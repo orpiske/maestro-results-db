@@ -41,6 +41,7 @@ public class PropertiesProcessor {
                 dto.setTestFailConditionName(failCondition);
                 dto.setTestFailConditionValue(value);
 
+                logger.debug("About to fail condition {} for test {}", dto, test.getTestId());
                 dao.insert(dto);
             }
         }
@@ -63,6 +64,7 @@ public class PropertiesProcessor {
                 testMsgProperty.setTestMsgPropertyName(msgProperty);
                 testMsgProperty.setTestMsgPropertyValue(value);
 
+                logger.debug("About to insert property {} for test {}", testMsgProperty, test.getTestId());
                 dao.insert(testMsgProperty);
             }
         }
@@ -82,6 +84,7 @@ public class PropertiesProcessor {
                 testMsgProperty.setTestMsgPropertyName(entry.getKey());
                 testMsgProperty.setTestMsgPropertyValue(entry.getValue());
 
+                logger.debug("About to insert property {} for test {}", testMsgProperty, test.getTestId());
                 dao.insert(testMsgProperty);
             }
 
