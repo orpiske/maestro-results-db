@@ -15,57 +15,6 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class ReportDataPlotter {
-    class Pair implements Comparable<Pair> {
-        private String protocol;
-        private String envResourceRole;
-
-        public Pair(final TestResultRecord testResultRecord) {
-            this.protocol = testResultRecord.getMessagingProtocol();
-            this.envResourceRole = testResultRecord.getEnvResourceRole();
-        }
-
-        public String getProtocol() {
-            return protocol;
-        }
-
-        public void setProtocol(String protocol) {
-            this.protocol = protocol;
-        }
-
-        public String getEnvResourceRole() {
-            return envResourceRole;
-        }
-
-        public void setEnvResourceRole(String envResourceRole) {
-            this.envResourceRole = envResourceRole;
-        }
-
-        @Override
-        public boolean equals(Object o) {
-            if (this == o) return true;
-            if (o == null || getClass() != o.getClass()) return false;
-            Pair pair = (Pair) o;
-            return Objects.equals(protocol, pair.protocol) &&
-                    Objects.equals(envResourceRole, pair.envResourceRole);
-        }
-
-        @Override
-        public int hashCode() {
-
-            return Objects.hash(protocol, envResourceRole);
-        }
-
-        @Override
-        public int compareTo(Pair pair) {
-            int comp = pair.getProtocol().compareTo(getProtocol());
-            if (comp == 0) {
-                return pair.getEnvResourceRole().compareTo(getEnvResourceRole());
-            }
-
-            return comp;
-        }
-    }
-
     private File outputDir;
 
     public ReportDataPlotter(final File outputDir) {
@@ -93,14 +42,13 @@ public class ReportDataPlotter {
         chart.getStyler().setPlotContentSize(.98);
         chart.getStyler().setYAxisTickMarkSpacingHint(20);
 
-
-        Set<Pair> protocols = new TreeSet<>();
+        Set<String> configurations = new TreeSet<>();
 
         resultRecords.stream()
-                .forEach(item -> protocols.add(new Pair(item))
-        );
+                .forEach(item -> configurations.add(item.getSutTags())
+                );
 
-         protocols.forEach(item -> addSeriesByProtocol(item, resultRecords, chart));
+        configurations.forEach(item -> addSeriesByConfiguration(item, resultRecords, chart));
 
         try {
             File bitmapFile = new File(outputDir, fileName);
@@ -110,26 +58,24 @@ public class ReportDataPlotter {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
     }
 
 
-    private void addSeriesByProtocol(final Pair pair, List<TestResultRecord> resultRecords, CategoryChart chart) {
+    private void addSeriesByConfiguration(final String configuration, List<TestResultRecord> resultRecords, CategoryChart chart) {
         List<TestResultRecord> filteredResults = resultRecords.stream()
-                .filter(item -> item.getMessagingProtocol().equals(pair.getProtocol()))
+                .filter(item -> item.getSutTags().equals(configuration))
                 .collect(Collectors.toList());
 
         List<String> groupSet = new ArrayList<>(filteredResults.size());
         List<Double> resultSet = new ArrayList<>(filteredResults.size());
 
         filteredResults.forEach(resultRecord -> {
-            groupSet.add(resultRecord.getSutTags());
+            groupSet.add(resultRecord.getMessagingProtocol() + " " + resultRecord.getEnvResourceRole());
             resultSet.add(resultRecord.getTestRateGeometricMean());
-            });
+        });
 
-        System.out.println("Adding series for " + pair.getProtocol() + "/" + pair.getEnvResourceRole());
-
-
-        chart.addSeries(pair.getProtocol() + " " + pair.getEnvResourceRole(), groupSet, resultSet);
+        chart.addSeries(configuration, groupSet, resultSet);
     }
 
 }
