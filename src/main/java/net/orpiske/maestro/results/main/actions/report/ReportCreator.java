@@ -67,7 +67,7 @@ public class ReportCreator {
     void createReport() {
         SutDao sutDao = new SutDao();
 
-        List<Sut> sutList = sutDao.fetch();
+        List<Sut> sutList = sutDao.fetchDistinct();
         sutList.forEach(this::createReportForSut);
 
         System.out.println("Number of reports created: " + reportInfoList.size());

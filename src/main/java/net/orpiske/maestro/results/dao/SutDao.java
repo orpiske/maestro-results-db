@@ -22,4 +22,9 @@ public class SutDao extends AbstractDao {
         return jdbcTemplate.query("select * from sut",
                 new BeanPropertyRowMapper<>(Sut.class));
     }
+
+    public List<Sut> fetchDistinct() {
+        return jdbcTemplate.query("select * from sut group by sut_name, sut_version order by sut_id",
+                new BeanPropertyRowMapper<>(Sut.class));
+    }
 }
