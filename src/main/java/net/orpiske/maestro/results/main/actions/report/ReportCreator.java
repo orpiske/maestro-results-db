@@ -90,16 +90,10 @@ public class ReportCreator {
     }
 
     void createReportForSut(final Sut sut) {
-//        boolean durableFlags[] = {true, false};
-//        int limitDestinations[] = {1, 10, 100};
-//        int messageSizes[] = {1, 10, 100};
-//        int connectionCounts[] = {1, 10, 100};
-
-        boolean durableFlags[] = {true};
-        int limitDestinations[] = {1, 100};
-        int messageSizes[] = {1, 100};
-        int connectionCounts[] = {100};
-
+        boolean durableFlags[] = {true, false};
+        int limitDestinations[] = {1, 10, 100};
+        int messageSizes[] = {1, 10, 100};
+        int connectionCounts[] = {1, 10, 100};
 
         for (boolean durable : durableFlags) {
             for (int messageSize : messageSizes) {
@@ -163,8 +157,6 @@ public class ReportCreator {
             ResultsReportRenderer resultsReportRenderer = new ResultsReportRenderer(ReportTemplates.DEFAULT, context);
             File indexFile = new File(baseReportDir, "index.html");
             FileUtils.writeStringToFile(indexFile, resultsReportRenderer.render(), Charsets.UTF_8);
-
-            resultsReportRenderer.copyResources(baseReportDir);
 
             ReportInfo reportInfo = new ReportInfo(sut, sutDir, durable, limitDestinations, messageSize, connectionCount);
 

@@ -27,15 +27,4 @@ public class ResultsReportRenderer extends AbstractRenderer {
         String path = templatedResourcePath(templateName,"index-results.html");
         return super.render(path);
     }
-
-    public void copyResources(File path) throws IOException {
-        super.copyResources(path, sharedResourcePath("favicon.png"), "favicon.png");
-
-        // Copy template resources
-        URL resourcesUrl = this.getClass().getResource("/net/orpiske/maestro/results/main/action/report/" + templateName + "/resources");
-
-        File resources = new File(resourcesUrl.getPath());
-
-        FileUtils.copyDirectory(resources, new File(path, "resources"));
-    }
 }
