@@ -18,10 +18,6 @@ public class ContendedReportCreator {
         this.outputDir = outputDir;
     }
 
-    private String baseNameFormatter(final Sut sut, boolean durable, int messageSize) {
-        return "report-contended-" + sut.getSutName() + "-" + sut.getSutVersion() + (durable ? "-" : "-non-") +
-                "durable-" + "s" + messageSize;
-    }
 
     public ReportInfo create(final Sut sut, final String protocol, boolean durable, int messageSize) throws Exception {
         ReportsDao reportsDao = new ReportsDao();
@@ -47,9 +43,10 @@ public class ContendedReportCreator {
         context.put("messageSize", messageSize);
 
 
+        ReportInfo reportInfo = new ContendedReportInfo(sut, protocol, durable, 1, messageSize, 0);
+
         // Directory creating
-        String sutDir = baseNameFormatter(sut, durable, messageSize);
-        File baseReportDir = new File(outputDir, sutDir);
+        File baseReportDir = new File(outputDir, reportInfo.baseName());
 
         baseReportDir.mkdirs();
 
@@ -64,6 +61,6 @@ public class ContendedReportCreator {
         File indexFile = new File(baseReportDir, "index.html");
         FileUtils.writeStringToFile(indexFile, reportRenderer.render(), Charsets.UTF_8);
 
-        return new ReportInfo(sut, sutDir, durable, 1, messageSize, 0);
+        return reportInfo;
     }
 }

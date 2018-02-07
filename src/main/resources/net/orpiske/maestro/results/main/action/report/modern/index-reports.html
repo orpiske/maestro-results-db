@@ -146,6 +146,7 @@
                 <thead>
                 <tr>
                     <th>Report Link</th>
+                    <th>Messaging Protocol</th>
                     <th>Durable</th>
                     <th>Limit Destinations</th>
                     <th>Message Size</th>
@@ -156,6 +157,7 @@
                 {% for contendedReport in contendedReportsList %}
                 <tr>
                     <td><a href="./{{ contendedReport.linkName }}/index.html">{{ contendedReport.sut.sutName }} {{ contendedReport.sut.sutVersion }}</a></td>
+                    <td>{{ contendedReport.protocol }}</td>
                     <td>{{ contendedReport.durable }}</td>
                     <td>{{ contendedReport.limitDestinations }}</td>
                     <td>{{ contendedReport.messageSize }}</td>

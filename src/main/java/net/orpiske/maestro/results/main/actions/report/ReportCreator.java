@@ -81,17 +81,22 @@ public class ReportCreator {
         }
 
 
+        String protocols[] = { "AMQP", "ARTEMIS", "OPENWIRE" };
+
         ContendedReportCreator contendedReportCreator = new ContendedReportCreator(outputDir);
         for (boolean durable : durableFlags) {
             for (int messageSize : messageSizes) {
-                ReportInfo reportInfo = null;
-                try {
-                    reportInfo = contendedReportCreator.create(sut, "AMQP", durable, messageSize);
-                    if (reportInfo != null) {
-                        contendedReportsList.add(reportInfo);
+                for (String protocol : protocols) {
+
+                    ReportInfo reportInfo = null;
+                    try {
+                        reportInfo = contendedReportCreator.create(sut, protocol, durable, messageSize);
+                        if (reportInfo != null) {
+                            contendedReportsList.add(reportInfo);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
                     }
-                } catch (Exception e) {
-                    e.printStackTrace();
                 }
 
 

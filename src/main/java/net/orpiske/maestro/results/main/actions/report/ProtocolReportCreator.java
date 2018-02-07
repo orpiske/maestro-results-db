@@ -18,11 +18,7 @@ public class ProtocolReportCreator {
         this.outputDir = outputDir;
     }
 
-    private String baseNameFormatter(final Sut sut, boolean durable, int limitDestinations, int messageSize,
-                             int connectionCount) {
-        return "report-" + sut.getSutName() + "-" + sut.getSutVersion() + (durable ? "-" : "-non-") + "durable-ld" +
-                limitDestinations + "-s" + messageSize + "-c" + connectionCount;
-    }
+
 
     public ReportInfo createProtocolReport(final Sut sut, boolean durable, int limitDestinations, int messageSize,
                               int connectionCount) throws Exception
@@ -49,9 +45,10 @@ public class ProtocolReportCreator {
         context.put("connectionCount", connectionCount);
 
 
+        ReportInfo reportInfo = new ProtocolReportInfo(sut, durable, limitDestinations, messageSize, connectionCount);
+
         // Directory creating
-        String sutDir = baseNameFormatter(sut, durable, limitDestinations, messageSize, connectionCount);
-        File baseReportDir = new File(outputDir, sutDir);
+        File baseReportDir = new File(outputDir, reportInfo.baseName());
 
         baseReportDir.mkdirs();
 
@@ -67,7 +64,6 @@ public class ProtocolReportCreator {
         File indexFile = new File(baseReportDir, "index.html");
         FileUtils.writeStringToFile(indexFile, protocolReportRenderer.render(), Charsets.UTF_8);
 
-        return new ReportInfo(sut, sutDir, durable, limitDestinations, messageSize, connectionCount);
-
+        return reportInfo;
     }
 }
