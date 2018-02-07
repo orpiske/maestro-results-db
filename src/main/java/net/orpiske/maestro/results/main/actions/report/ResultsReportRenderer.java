@@ -1,13 +1,8 @@
 package net.orpiske.maestro.results.main.actions.report;
 
-
-import java.io.File;
-import java.io.IOException;
-import java.net.URL;
 import java.util.Map;
 
 import net.orpiske.mpt.reports.AbstractRenderer;
-import org.apache.commons.io.FileUtils;
 
 import static net.orpiske.maestro.results.main.actions.report.RenderUtils.*;
 
