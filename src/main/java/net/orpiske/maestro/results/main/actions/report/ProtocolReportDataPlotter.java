@@ -14,10 +14,10 @@ import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ReportDataPlotter {
+public class ProtocolReportDataPlotter {
     private File outputDir;
 
-    public ReportDataPlotter(final File outputDir) {
+    public ProtocolReportDataPlotter(final File outputDir) {
         this.outputDir = outputDir;
     }
 

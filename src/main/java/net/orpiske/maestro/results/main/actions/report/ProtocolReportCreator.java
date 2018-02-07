@@ -56,7 +56,7 @@ public class ProtocolReportCreator {
         baseReportDir.mkdirs();
 
         // Data plotting
-        ReportDataPlotter rdp = new ReportDataPlotter(baseReportDir);
+        ProtocolReportDataPlotter rdp = new ProtocolReportDataPlotter(baseReportDir);
 
         rdp.buildChart("", "Configuration", "Messages p/ second", testResultRecords,
                 "performance-by-protocol.png");
