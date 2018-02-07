@@ -58,7 +58,7 @@ public class ProtocolReportCreator {
         // Data plotting
         ProtocolReportDataPlotter rdp = new ProtocolReportDataPlotter(baseReportDir);
 
-        rdp.buildChart("", "Configuration", "Messages p/ second", testResultRecords,
+        rdp.buildChart("", "", "Messages p/ second", testResultRecords,
                 "performance-by-protocol.png");
 
 
@@ -68,10 +68,6 @@ public class ProtocolReportCreator {
         FileUtils.writeStringToFile(indexFile, resultsReportRenderer.render(), Charsets.UTF_8);
 
         return new ReportInfo(sut, sutDir, durable, limitDestinations, messageSize, connectionCount);
-
-//            ReportInfo reportInfo = new ReportInfo(sut, sutDir, durable, limitDestinations, messageSize, connectionCount);
-//
-//            reportCreator.getReportInfoList().add(reportInfo);
 
     }
 }
