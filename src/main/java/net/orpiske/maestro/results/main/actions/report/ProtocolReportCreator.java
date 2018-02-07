@@ -63,9 +63,9 @@ public class ProtocolReportCreator {
 
 
         // Index HTML generation
-        ResultsReportRenderer resultsReportRenderer = new ResultsReportRenderer(ReportTemplates.DEFAULT, context);
+        ProtocolReportRenderer protocolReportRenderer = new ProtocolReportRenderer(ReportTemplates.DEFAULT, context);
         File indexFile = new File(baseReportDir, "index.html");
-        FileUtils.writeStringToFile(indexFile, resultsReportRenderer.render(), Charsets.UTF_8);
+        FileUtils.writeStringToFile(indexFile, protocolReportRenderer.render(), Charsets.UTF_8);
 
         return new ReportInfo(sut, sutDir, durable, limitDestinations, messageSize, connectionCount);
 

@@ -15,7 +15,8 @@ public class ReportCreator {
 
     private String outputDir;
 
-    private List<ReportInfo> reportInfoList = new LinkedList<>();
+    private List<ReportInfo> protocolReportsList = new LinkedList<>();
+    private List<ReportInfo> contendedReportsList = new LinkedList<>();
 
     public ReportCreator(final String outputDir) {
         this.outputDir = outputDir;
@@ -27,10 +28,11 @@ public class ReportCreator {
         List<Sut> sutList = sutDao.fetchDistinct();
         sutList.forEach(this::createReportForSut);
 
-        System.out.println("Number of reports created: " + reportInfoList.size());
+        System.out.println("Number of reports created: " + protocolReportsList.size());
 
         Map<String, Object> context = new HashMap<String, Object>();
-        context.put("reportInfoList", reportInfoList);
+        context.put("protocolReportsList", protocolReportsList);
+        context.put("contendedReportsList", contendedReportsList);
 
         IndexRenderer indexRenderer = new IndexRenderer(ReportTemplates.DEFAULT, context);
 
@@ -64,18 +66,35 @@ public class ReportCreator {
                             continue;
                         }
 
+                        ReportInfo reportInfo = null;
                         try {
-                            ReportInfo reportInfo = null;
-
                             reportInfo = protocolReportCreator.createProtocolReport(sut, durable, limitDestination, messageSize, connectionCount);
                             if (reportInfo != null) {
-                                reportInfoList.add(reportInfo);
+                                protocolReportsList.add(reportInfo);
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
                 }
+            }
+        }
+
+
+        ContendedReportCreator contendedReportCreator = new ContendedReportCreator(outputDir);
+        for (boolean durable : durableFlags) {
+            for (int messageSize : messageSizes) {
+                ReportInfo reportInfo = null;
+                try {
+                    reportInfo = contendedReportCreator.create(sut, "AMQP", durable, messageSize);
+                    if (reportInfo != null) {
+                        contendedReportsList.add(reportInfo);
+                    }
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
+
+
             }
         }
     }

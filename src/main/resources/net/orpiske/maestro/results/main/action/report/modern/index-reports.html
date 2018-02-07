@@ -67,7 +67,7 @@
         </header>
 
         <div class="col-sm-12">
-            <h2>Test Run Index</h2>
+            <h2>Protocol Performance Reports</h2>
 
             <div class="row toolbar-pf-results">
                 <div class="col-sm-9">
@@ -94,13 +94,13 @@
                 </tr>
                 </thead>
                 <tbody>
-                {% for reportInfo in reportInfoList %}
+                {% for protocolReport in protocolReportsList %}
                 <tr>
-                    <td><a href="./{{ reportInfo.linkName }}/index.html">{{ reportInfo.sut.sutName }} {{ reportInfo.sut.sutVersion }}</a></td>
-                    <td>{{ reportInfo.durable }}</td>
-                    <td>{{ reportInfo.limitDestinations }}</td>
-                    <td>{{ reportInfo.messageSize }}</td>
-                    <td>{{ reportInfo.connectionCount }}</td>
+                    <td><a href="./{{ protocolReport.linkName }}/index.html">{{ protocolReport.sut.sutName }} {{ protocolReport.sut.sutVersion }}</a></td>
+                    <td>{{ protocolReport.durable }}</td>
+                    <td>{{ protocolReport.limitDestinations }}</td>
+                    <td>{{ protocolReport.messageSize }}</td>
+                    <td>{{ protocolReport.connectionCount }}</td>
                 </tr>
                 {% endfor %}
                 </tbody>
@@ -108,6 +108,65 @@
 
             <script>
             $("#rtable").DataTable({
+                pfConfig: {
+                    emptyStateSelector: "#emptyState1",
+                    filterCaseInsensitive: true,
+                    filterCols: [
+                        null,
+                        {
+                            default: true,
+                            optionSelector: "#filter1",
+                            placeholder: "Filter By Software Under Test..."
+                        }
+                    ],
+                }
+                });
+
+            </script>
+        </div>
+
+        <div class="col-sm-12">
+            <h2>Contended Performance Reports</h2>
+
+            <div class="row toolbar-pf-results">
+                <div class="col-sm-9">
+                    <div class="hidden">
+                        <h5>0 Results</h5>
+                        <p>Active filters:</p>
+                        <ul class="list-inline"></ul>
+                        <p><a href="#">Clear All Filters</a></p>
+                    </div>
+                </div>
+                <div class="col-sm-3 table-view-pf-select-results">
+                    <strong>0</strong> of <strong>0</strong> selected
+                </div>
+            </div>
+
+            <table class="table table-striped table-bordered table-hover" id="conttable">
+                <thead>
+                <tr>
+                    <th>Report Link</th>
+                    <th>Durable</th>
+                    <th>Limit Destinations</th>
+                    <th>Message Size</th>
+                    <th>Connection Count</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for contendedReport in contendedReportsList %}
+                <tr>
+                    <td><a href="./{{ contendedReport.linkName }}/index.html">{{ contendedReport.sut.sutName }} {{ contendedReport.sut.sutVersion }}</a></td>
+                    <td>{{ contendedReport.durable }}</td>
+                    <td>{{ contendedReport.limitDestinations }}</td>
+                    <td>{{ contendedReport.messageSize }}</td>
+                    <td>{{ contendedReport.connectionCount }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <script>
+            $("#conttable").DataTable({
                 pfConfig: {
                     emptyStateSelector: "#emptyState1",
                     filterCaseInsensitive: true,
