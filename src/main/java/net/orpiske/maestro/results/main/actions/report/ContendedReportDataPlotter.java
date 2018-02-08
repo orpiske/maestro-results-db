@@ -1,23 +1,58 @@
 package net.orpiske.maestro.results.main.actions.report;
 
 import net.orpiske.maestro.results.dto.TestResultRecord;
-import org.knowm.xchart.BitmapEncoder;
-import org.knowm.xchart.CategoryChart;
-import org.knowm.xchart.CategoryChartBuilder;
+import org.knowm.xchart.*;
 import org.knowm.xchart.style.Styler;
 import org.knowm.xchart.style.colors.ChartColor;
 
 import java.awt.*;
 import java.io.File;
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.*;
 import java.util.List;
-import java.util.Set;
-import java.util.TreeSet;
 import java.util.stream.Collectors;
 
 public class ContendedReportDataPlotter {
     private File outputDir;
+
+    class Pair implements Comparable<Pair> {
+        String configuration;
+        String envResourceRole;
+
+        public Pair(TestResultRecord testResultRecord) {
+            this.configuration = testResultRecord.getSutTags();
+            this.envResourceRole = testResultRecord.getEnvResourceRole();
+        }
+
+        @Override
+        public boolean equals(Object o) {
+            if (this == o) return true;
+            if (o == null || getClass() != o.getClass()) return false;
+            Pair pair = (Pair) o;
+            return Objects.equals(configuration, pair.configuration) &&
+                    Objects.equals(envResourceRole, pair.envResourceRole);
+        }
+
+        @Override
+        public int hashCode() {
+
+            return Objects.hash(configuration, envResourceRole);
+        }
+
+
+        @Override
+        public int compareTo(Pair pair) {
+            if (this.equals(pair)) {
+                return 0;
+            }
+
+            if (!this.configuration.equals(pair.configuration)) {
+                return this.configuration.compareTo(pair.configuration);
+            }
+
+            return this.envResourceRole.compareTo(pair.envResourceRole);
+        }
+    }
 
     public ContendedReportDataPlotter(final File outputDir) {
         this.outputDir = outputDir;
@@ -27,7 +62,7 @@ public class ContendedReportDataPlotter {
                            List<TestResultRecord> resultRecords, final String fileName) {
 
         // Create Chart
-        CategoryChart chart = new CategoryChartBuilder()
+        XYChart chart = new XYChartBuilder()
                 .width(1280)
                 .height(1024)
                 .title(title)
@@ -43,12 +78,11 @@ public class ContendedReportDataPlotter {
         chart.getStyler().setXAxisLabelRotation(45);
         chart.getStyler().setPlotContentSize(.98);
         chart.getStyler().setYAxisTickMarkSpacingHint(20);
+        chart.getStyler().setYAxisLogarithmic(true);
 
-        Set<String> configurations = new TreeSet<>();
+        Set<Pair> configurations = new TreeSet<>();
 
-        resultRecords.stream()
-                .forEach(item -> configurations.add(item.getSutTags())
-                );
+        resultRecords.stream().forEach(item -> configurations.add(new Pair(item)));
 
         configurations.forEach(item -> addSeriesByConfiguration(item, resultRecords, chart));
 
@@ -64,20 +98,22 @@ public class ContendedReportDataPlotter {
     }
 
 
-    private void addSeriesByConfiguration(final String configuration, List<TestResultRecord> resultRecords, CategoryChart chart) {
+    private void addSeriesByConfiguration(final Pair configuration, List<TestResultRecord> resultRecords, XYChart chart) {
         List<TestResultRecord> filteredResults = resultRecords.stream()
-                .filter(item -> item.getSutTags().equals(configuration))
+                .filter(item -> (item.getSutTags().equals(configuration.configuration) && item.getEnvResourceRole().equals(configuration.envResourceRole)))
                 .collect(Collectors.toList());
 
-        List<String> groupSet = new ArrayList<>(filteredResults.size());
+        List<Integer> groupSet = new ArrayList<>(filteredResults.size());
         List<Double> resultSet = new ArrayList<>(filteredResults.size());
 
         filteredResults.forEach(resultRecord -> {
-            groupSet.add(resultRecord.getConnectionCount() + " " + resultRecord.getEnvResourceRole());
+            groupSet.add(resultRecord.getConnectionCount());
             resultSet.add(resultRecord.getTestRateGeometricMean());
         });
 
-        chart.addSeries(configuration, groupSet, resultSet);
+        // chart.addSeries(configuration, groupSet, resultSet);
+        chart.addSeries(configuration.configuration + "-" + configuration.envResourceRole, groupSet, resultSet);
+
     }
 
 }
