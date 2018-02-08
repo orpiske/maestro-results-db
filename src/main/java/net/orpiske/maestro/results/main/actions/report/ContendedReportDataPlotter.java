@@ -63,8 +63,8 @@ public class ContendedReportDataPlotter {
 
         // Create Chart
         XYChart chart = new XYChartBuilder()
-                .width(1280)
-                .height(1024)
+                .width(800)
+                .height(600)
                 .title(title)
                 .xAxisTitle(xAxisTile)
                 .yAxisTitle(yAxisTitle)
@@ -74,11 +74,11 @@ public class ContendedReportDataPlotter {
         // Customize Chart
         chart.getStyler().setPlotBackgroundColor(ChartColor.getAWTColor(ChartColor.WHITE));
         chart.getStyler().setChartBackgroundColor(Color.WHITE);
-        chart.getStyler().setLegendPosition(Styler.LegendPosition.InsideNE);
+        chart.getStyler().setLegendPosition(Styler.LegendPosition.OutsideS);
+        chart.getStyler().setLegendLayout(Styler.LegendLayout.Vertical);
         chart.getStyler().setXAxisLabelRotation(45);
         chart.getStyler().setPlotContentSize(.98);
-        chart.getStyler().setYAxisTickMarkSpacingHint(20);
-        chart.getStyler().setYAxisLogarithmic(true);
+        //chart.getStyler().setXAxisLogarithmic(true);
 
         Set<Pair> configurations = new TreeSet<>();
 
@@ -112,8 +112,8 @@ public class ContendedReportDataPlotter {
         });
 
         // chart.addSeries(configuration, groupSet, resultSet);
-        chart.addSeries(configuration.configuration + "-" + configuration.envResourceRole, groupSet, resultSet);
-
-    }
+        XYSeries series = chart.addSeries(configuration.configuration + "-" + configuration.envResourceRole,
+                groupSet, resultSet);
+        }
 
 }

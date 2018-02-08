@@ -40,7 +40,7 @@ public class ReportsDao extends AbstractDao {
      * @return
      */
     public List<TestResultRecord> contentedScalabilityReport(final String sutName, final String sutVersion,
-                                                             final String messagingProtocol,
+                                                             final String messagingProtocol, final String role,
                                                              boolean durable, int messageSize
                                                              ) {
         return jdbcTemplate.query("select tr.sut_name,tr.sut_version,tr.sut_tags,tr.test_result,tr.error,tr.connection_count,tp.limit_destinations," +
@@ -58,8 +58,9 @@ public class ReportsDao extends AbstractDao {
                 "and sut_version = ? " +
                 "and messaging_protocol = ? " +
                 "and tr.test_valid = true " +
+                "and tr.env_resource_role = ? " +
                 "order by tr.test_rate_geometric_mean asc",
-                new Object[] {durable, messageSize, sutName, sutVersion, messagingProtocol},
+                new Object[] {durable, messageSize, sutName, sutVersion, messagingProtocol, role},
                 new BeanPropertyRowMapper<>(TestResultRecord.class)
                 );
     }

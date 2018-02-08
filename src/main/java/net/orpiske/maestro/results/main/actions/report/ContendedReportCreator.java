@@ -22,21 +22,32 @@ public class ContendedReportCreator {
     public ReportInfo create(final Sut sut, final String protocol, boolean durable, int messageSize) throws Exception {
         ReportsDao reportsDao = new ReportsDao();
 
-        List<TestResultRecord> testResultRecords = reportsDao.contentedScalabilityReport(sut.getSutName(),
-                sut.getSutVersion(), protocol, durable, messageSize);
+        List<TestResultRecord> testResultRecordsSender = reportsDao.contentedScalabilityReport(sut.getSutName(),
+                sut.getSutVersion(), protocol, "sender", durable, messageSize);
 
-        if (testResultRecords == null || testResultRecords.size() == 0) {
+        if (testResultRecordsSender == null || testResultRecordsSender.size() == 0) {
             System.err.println("Not enough records for " + sut.getSutName() + " " + sut.getSutVersion());
 
             return null;
         }
 
-        testResultRecords.forEach(System.out::println);
+
+        List<TestResultRecord> testResultRecordsReceiver = reportsDao.contentedScalabilityReport(sut.getSutName(),
+                sut.getSutVersion(), protocol, "receiver", durable, messageSize);
+
+        if (testResultRecordsReceiver == null || testResultRecordsReceiver.size() == 0) {
+            System.err.println("Not enough records for " + sut.getSutName() + " " + sut.getSutVersion());
+
+            return null;
+        }
+
+        // testResultRecordsSender.forEach(System.out::println);
 
 
         Map<String, Object> context = new HashMap<String, Object>();
 
-        context.put("testResultRecords", testResultRecords);
+        context.put("testResultRecordsSender", testResultRecordsSender);
+        context.put("testResultRecordsReceiver", testResultRecordsReceiver);
         context.put("sut", sut);
         context.put("durable", durable);
         context.put("limitDestinations", 1);
@@ -53,14 +64,21 @@ public class ContendedReportCreator {
         // Data plotting
         ContendedReportDataPlotter rdp = new ContendedReportDataPlotter(baseReportDir);
 
-        rdp.buildChart("", "", "Messages p/ second", testResultRecords,
-                "contended-performance.png");
+        rdp.buildChart("", "", "Messages p/ second", testResultRecordsSender,
+                "contended-performance-sender.png");
 
+        rdp.buildChart("", "", "Messages p/ second", testResultRecordsReceiver,
+                "contended-performance-receiver.png");
+        generateIndex(context, baseReportDir);
+
+
+        return reportInfo;
+    }
+
+    private void generateIndex(Map<String, Object> context, File baseReportDir) throws Exception {
         // Index HTML generation
         ContendedReportRenderer reportRenderer = new ContendedReportRenderer(ReportTemplates.DEFAULT, context);
         File indexFile = new File(baseReportDir, "index.html");
         FileUtils.writeStringToFile(indexFile, reportRenderer.render(), Charsets.UTF_8);
-
-        return reportInfo;
     }
 }
