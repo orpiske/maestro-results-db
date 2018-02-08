@@ -57,6 +57,7 @@ public class ReportsDao extends AbstractDao {
                 "and sut_name = ? " +
                 "and sut_version = ? " +
                 "and messaging_protocol = ? " +
+                "and tr.test_valid = true " +
                 "order by tr.test_rate_geometric_mean asc",
                 new Object[] {durable, messageSize, sutName, sutVersion, messagingProtocol},
                 new BeanPropertyRowMapper<>(TestResultRecord.class)
