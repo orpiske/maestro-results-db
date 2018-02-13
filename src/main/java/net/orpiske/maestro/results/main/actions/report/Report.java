@@ -68,7 +68,7 @@ public class Report {
 
                         ReportInfo reportInfo = null;
                         try {
-                            reportInfo = protocolReportCreator.createProtocolReport(sut, durable, limitDestination, messageSize, connectionCount);
+                            reportInfo = protocolReportCreator.create(sut, durable, limitDestination, messageSize, connectionCount);
                             if (reportInfo != null) {
                                 protocolReportsList.add(reportInfo);
                             }

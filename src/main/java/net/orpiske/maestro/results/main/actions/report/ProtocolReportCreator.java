@@ -20,8 +20,8 @@ public class ProtocolReportCreator {
 
 
 
-    public ReportInfo createProtocolReport(final Sut sut, boolean durable, int limitDestinations, int messageSize,
-                              int connectionCount) throws Exception
+    public ReportInfo create(final Sut sut, boolean durable, int limitDestinations, int messageSize,
+                             int connectionCount) throws Exception
     {
         ReportsDao reportsDao = new ReportsDao();
 
