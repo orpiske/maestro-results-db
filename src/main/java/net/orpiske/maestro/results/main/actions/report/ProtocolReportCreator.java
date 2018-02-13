@@ -15,7 +15,6 @@ public class ProtocolReportCreator extends AbstractReportCreator {
     }
 
 
-
     public ReportInfo create(final Sut sut, boolean durable, int limitDestinations, int messageSize,
                              int connectionCount) throws Exception
     {
@@ -52,7 +51,8 @@ public class ProtocolReportCreator extends AbstractReportCreator {
 
         rdp.buildChart("", "", "Messages p/ second", testResultRecords,
                 "performance-by-protocol.png");
-        generateIndex(new ProtocolReportRenderer(ReportTemplates.DEFAULT, context), baseReportDir);
+
+        generateIndex("protocol-results.html", baseReportDir, context);
 
 
         return reportInfo;

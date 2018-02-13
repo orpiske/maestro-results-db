@@ -17,6 +17,7 @@ public class Report {
 
     private List<ReportInfo> protocolReportsList = new LinkedList<>();
     private List<ReportInfo> contendedReportsList = new LinkedList<>();
+    private List<ReportInfo> destinationScalabilityReportsList = new LinkedList<>();
 
     public Report(final String outputDir) {
         this.outputDir = outputDir;
@@ -33,6 +34,7 @@ public class Report {
         Map<String, Object> context = new HashMap<String, Object>();
         context.put("protocolReportsList", protocolReportsList);
         context.put("contendedReportsList", contendedReportsList);
+        context.put("destinationScalabilityReportsList", destinationScalabilityReportsList);
 
         IndexRenderer indexRenderer = new IndexRenderer(ReportTemplates.DEFAULT, context);
 
@@ -100,6 +102,25 @@ public class Report {
                 }
 
 
+            }
+        }
+
+
+        DestinationScalabilityReportCreator destinationScalabilityReportCreator = new DestinationScalabilityReportCreator(outputDir);
+        for (boolean durable : durableFlags) {
+            for (int messageSize : messageSizes) {
+                for (String protocol : protocols) {
+
+                    ReportInfo reportInfo = null;
+                    try {
+                        reportInfo = destinationScalabilityReportCreator.create(sut, protocol, durable, messageSize);
+                        if (reportInfo != null) {
+                            destinationScalabilityReportsList.add(reportInfo);
+                        }
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
             }
         }
     }

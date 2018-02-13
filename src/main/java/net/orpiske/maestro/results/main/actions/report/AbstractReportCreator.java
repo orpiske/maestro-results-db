@@ -5,6 +5,7 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
+import java.util.Map;
 
 /**
  * Base class for the report creators
@@ -26,9 +27,11 @@ public abstract class AbstractReportCreator {
     }
 
 
-    protected <T extends AbstractRenderer> void generateIndex(T renderer, File baseReportDir) throws Exception {
+    protected void generateIndex(final String resourceName, File baseReportDir, final Map<String, Object> context) throws Exception {
+        ReportRenderer reportRenderer = new ReportRenderer(ReportTemplates.DEFAULT, resourceName, context);
+
         // Index HTML generation
         File indexFile = new File(baseReportDir, "index.html");
-        FileUtils.writeStringToFile(indexFile, renderer.render(), StandardCharsets.UTF_8);
+        FileUtils.writeStringToFile(indexFile, reportRenderer.render(), StandardCharsets.UTF_8);
     }
 }

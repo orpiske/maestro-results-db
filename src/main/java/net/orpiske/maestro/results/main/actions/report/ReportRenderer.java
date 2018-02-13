@@ -7,19 +7,22 @@ import net.orpiske.mpt.reports.AbstractRenderer;
 import static net.orpiske.maestro.results.main.actions.report.RenderUtils.*;
 
 
-public class ProtocolReportRenderer extends AbstractRenderer {
+public class ReportRenderer extends AbstractRenderer {
     private String templateName;
+    private String resourceName;
 
-    public ProtocolReportRenderer(final String templateName, final Map<String, Object> context) {
+    public ReportRenderer(final String templateName, final String resourceName, final Map<String, Object> context) {
         super(context);
 
         this.templateName = templateName;
+        this.resourceName = resourceName;
     }
-
 
     @Override
     public String render() throws Exception {
-        String path = templatedResourcePath(templateName,"protocol-results.html");
+        String path = templatedResourcePath(templateName,resourceName);
         return super.render(path);
     }
+
+
 }

@@ -61,7 +61,8 @@ public class ContendedReportCreator extends AbstractReportCreator {
 
         rdp.buildChart("", "", "Messages p/ second", testResultRecordsReceiver,
                 "contended-performance-receiver.png");
-        generateIndex(new ContendedReportRenderer(ReportTemplates.DEFAULT, context), baseReportDir);
+
+        generateIndex("contended-results.html", baseReportDir, context);
 
 
         return reportInfo;
