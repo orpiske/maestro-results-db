@@ -25,12 +25,6 @@ public abstract class AbstractReportCreator {
         return baseReportDir;
     }
 
-//    protected plotData(final ReportPlotter plotter) {
-//        // ProtocolReportDataPlotter rdp = new ProtocolReportDataPlotter(baseReportDir);
-//
-//        rdp.buildChart("", "", "Messages p/ second", testResultRecords,
-//                "performance-by-protocol.png");
-//    }
 
     protected <T extends AbstractRenderer> void generateIndex(T renderer, File baseReportDir) throws Exception {
         // Index HTML generation
