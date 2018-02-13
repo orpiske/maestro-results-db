@@ -3,15 +3,13 @@ package net.orpiske.maestro.results.main.actions.report;
 import net.orpiske.maestro.results.dao.ReportsDao;
 import net.orpiske.maestro.results.dto.Sut;
 import net.orpiske.maestro.results.dto.TestResultRecord;
-import org.apache.commons.io.Charsets;
-import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-public class ContendedReportCreator {
+public class ContendedReportCreator extends AbstractReportCreator {
     private String outputDir;
 
     public ContendedReportCreator(String outputDir) {
@@ -69,16 +67,9 @@ public class ContendedReportCreator {
 
         rdp.buildChart("", "", "Messages p/ second", testResultRecordsReceiver,
                 "contended-performance-receiver.png");
-        generateIndex(context, baseReportDir);
+        generateIndex(new ContendedReportRenderer(ReportTemplates.DEFAULT, context), baseReportDir);
 
 
         return reportInfo;
-    }
-
-    private void generateIndex(Map<String, Object> context, File baseReportDir) throws Exception {
-        // Index HTML generation
-        ContendedReportRenderer reportRenderer = new ContendedReportRenderer(ReportTemplates.DEFAULT, context);
-        File indexFile = new File(baseReportDir, "index.html");
-        FileUtils.writeStringToFile(indexFile, reportRenderer.render(), Charsets.UTF_8);
     }
 }
