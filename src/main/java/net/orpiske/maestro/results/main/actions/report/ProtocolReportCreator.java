@@ -57,13 +57,16 @@ public class ProtocolReportCreator {
 
         rdp.buildChart("", "", "Messages p/ second", testResultRecords,
                 "performance-by-protocol.png");
+        generateIndex(context, baseReportDir);
 
 
+        return reportInfo;
+    }
+
+    private void generateIndex(Map<String, Object> context, File baseReportDir) throws Exception {
         // Index HTML generation
         ProtocolReportRenderer protocolReportRenderer = new ProtocolReportRenderer(ReportTemplates.DEFAULT, context);
         File indexFile = new File(baseReportDir, "index.html");
         FileUtils.writeStringToFile(indexFile, protocolReportRenderer.render(), Charsets.UTF_8);
-
-        return reportInfo;
     }
 }
