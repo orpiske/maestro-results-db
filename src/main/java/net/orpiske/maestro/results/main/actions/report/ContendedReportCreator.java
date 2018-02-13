@@ -39,8 +39,6 @@ public class ContendedReportCreator extends AbstractReportCreator {
             return null;
         }
 
-        // testResultRecordsSender.forEach(System.out::println);
-
 
         Map<String, Object> context = new HashMap<String, Object>();
 
