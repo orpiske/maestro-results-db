@@ -14,7 +14,7 @@ import java.util.*;
 import java.util.List;
 import java.util.stream.Collectors;
 
-public class ProtocolReportDataPlotter {
+public class ProtocolReportDataPlotter implements ReportPlotter {
     private File outputDir;
 
     public ProtocolReportDataPlotter(final File outputDir) {

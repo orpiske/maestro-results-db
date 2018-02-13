@@ -10,10 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ContendedReportCreator extends AbstractReportCreator {
-    private String outputDir;
-
-    public ContendedReportCreator(String outputDir) {
-        this.outputDir = outputDir;
+    public ContendedReportCreator(final String outputDir) {
+        super(outputDir);
     }
 
 
@@ -53,9 +51,7 @@ public class ContendedReportCreator extends AbstractReportCreator {
         ReportInfo reportInfo = new ContendedReportInfo(sut, protocol, durable, 1, messageSize, 0);
 
         // Directory creating
-        File baseReportDir = new File(outputDir, reportInfo.baseName());
-
-        baseReportDir.mkdirs();
+        File baseReportDir = createReportBaseDir(reportInfo);
 
         // Data plotting
         ContendedReportDataPlotter rdp = new ContendedReportDataPlotter(baseReportDir);

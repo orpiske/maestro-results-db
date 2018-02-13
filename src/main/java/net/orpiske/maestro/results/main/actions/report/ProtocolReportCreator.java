@@ -10,10 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ProtocolReportCreator extends AbstractReportCreator {
-    private final String outputDir;
-
     public ProtocolReportCreator(final String outputDir) {
-        this.outputDir = outputDir;
+        super(outputDir);
     }
 
 
@@ -46,9 +44,8 @@ public class ProtocolReportCreator extends AbstractReportCreator {
         ReportInfo reportInfo = new ProtocolReportInfo(sut, durable, limitDestinations, messageSize, connectionCount);
 
         // Directory creating
-        File baseReportDir = new File(outputDir, reportInfo.baseName());
+        File baseReportDir = createReportBaseDir(reportInfo);
 
-        baseReportDir.mkdirs();
 
         // Data plotting
         ProtocolReportDataPlotter rdp = new ProtocolReportDataPlotter(baseReportDir);
