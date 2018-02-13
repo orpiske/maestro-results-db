@@ -41,9 +41,9 @@ public class ReportAllAction extends Action {
 
     @Override
     public int run() {
-        ReportCreator reportCreator = new ReportCreator(output);
+        Report reportRunner = new Report(output);
 
-        reportCreator.createReport();
+        reportRunner.createReport();
 
         return 0;
     }

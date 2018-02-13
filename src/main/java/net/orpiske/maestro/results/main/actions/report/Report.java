@@ -11,14 +11,14 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Map;
 
-public class ReportCreator {
+public class Report {
 
     private String outputDir;
 
     private List<ReportInfo> protocolReportsList = new LinkedList<>();
     private List<ReportInfo> contendedReportsList = new LinkedList<>();
 
-    public ReportCreator(final String outputDir) {
+    public Report(final String outputDir) {
         this.outputDir = outputDir;
     }
 
