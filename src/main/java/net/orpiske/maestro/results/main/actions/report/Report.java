@@ -6,6 +6,7 @@ import org.apache.commons.io.Charsets;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
+import java.nio.charset.StandardCharsets;
 import java.util.HashMap;
 import java.util.LinkedList;
 import java.util.List;
@@ -40,7 +41,7 @@ public class Report {
 
         File indexFile = new File(outputDir, "index.html");
         try {
-            FileUtils.writeStringToFile(indexFile, indexRenderer.render(), Charsets.UTF_8);
+            FileUtils.writeStringToFile(indexFile, indexRenderer.render(), StandardCharsets.UTF_8);
 
             indexRenderer.copyResources(indexFile.getParentFile());
         } catch (Exception e) {
@@ -55,11 +56,10 @@ public class Report {
         int limitDestinations[] = {1, 10, 100};
         int messageSizes[] = {1, 10, 100};
         int connectionCounts[] = {1, 10, 100};
+        String protocols[] = { "AMQP", "ARTEMIS", "OPENWIRE" };
 
 
         final ProtocolReportCreator protocolReportCreator = new ProtocolReportCreator(outputDir);
-
-
         for (boolean durable : durableFlags) {
             for (int messageSize : messageSizes) {
                 for (int connectionCount : connectionCounts) {
@@ -83,8 +83,6 @@ public class Report {
         }
 
 
-        String protocols[] = { "AMQP", "ARTEMIS", "OPENWIRE" };
-
         ContendedReportCreator contendedReportCreator = new ContendedReportCreator(outputDir);
         for (boolean durable : durableFlags) {
             for (int messageSize : messageSizes) {
@@ -100,8 +98,6 @@ public class Report {
                         e.printStackTrace();
                     }
                 }
-
-
             }
         }
 

@@ -185,6 +185,64 @@
 
             </script>
         </div>
+
+        <div class="col-sm-12">
+            <h2>Destination Scalability Reports</h2>
+
+            <div class="row toolbar-pf-results">
+                <div class="col-sm-9">
+                    <div class="hidden">
+                        <h5>0 Results</h5>
+                        <p>Active filters:</p>
+                        <ul class="list-inline"></ul>
+                        <p><a href="#">Clear All Filters</a></p>
+                    </div>
+                </div>
+                <div class="col-sm-3 table-view-pf-select-results">
+                    <strong>0</strong> of <strong>0</strong> selected
+                </div>
+            </div>
+
+            <table class="table table-striped table-bordered table-hover" id="dstable">
+                <thead>
+                <tr>
+                    <th>Report Link</th>
+                    <th>Messaging Protocol</th>
+                    <th>Durable</th>
+                    <th>Limit Destinations</th>
+                    <th>Message Size</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for destinationScalabilityReport in destinationScalabilityReportsList %}
+                <tr>
+                    <td><a href="./{{ destinationScalabilityReport.linkName }}/index.html">{{ destinationScalabilityReport.sut.sutName }} {{ destinationScalabilityReport.sut.sutVersion }}</a></td>
+                    <td>{{ destinationScalabilityReport.protocol }}</td>
+                    <td>{{ destinationScalabilityReport.durable }}</td>
+                    <td>{{ destinationScalabilityReport.limitDestinations }}</td>
+                    <td>{{ destinationScalabilityReport.messageSize }}</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+
+            <script>
+            $("#dstable").DataTable({
+                pfConfig: {
+                    emptyStateSelector: "#emptyState1",
+                    filterCaseInsensitive: true,
+                    filterCols: [
+                        null,
+                        {
+                            default: true,
+                            optionSelector: "#filter1",
+                            placeholder: "Filter By Software Under Test..."
+                        }
+                    ],
+                }
+                });
+            </script>
+        </div>
     </main>
 </body>
 </html>

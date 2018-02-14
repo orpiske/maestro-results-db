@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 public class DestinationScalabilityReportCreator extends AbstractReportCreator {
+    ReportsDao reportsDao = new ReportsDao();
+
     public DestinationScalabilityReportCreator(String outputDir) {
         super(outputDir);
     }
@@ -17,8 +19,6 @@ public class DestinationScalabilityReportCreator extends AbstractReportCreator {
 
     public ReportInfo create(final Sut sut, final String protocol, boolean durable, int messageSize) throws Exception
     {
-        ReportsDao reportsDao = new ReportsDao();
-
         List<TestResultRecord> testResultRecordsSender = reportsDao.destinationScalabilityReport(sut.getSutName(), sut.getSutVersion(),
                 protocol, "sender", durable, messageSize);
 

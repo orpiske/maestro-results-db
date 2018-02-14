@@ -81,7 +81,7 @@ public class DestinationScalabilityReportDataPlotter implements ReportPlotter {
         chart.getStyler().setLegendLayout(Styler.LegendLayout.Vertical);
         chart.getStyler().setXAxisLabelRotation(45);
         chart.getStyler().setPlotContentSize(.98);
-        //chart.getStyler().setXAxisLogarithmic(true);
+        chart.getStyler().setXAxisLogarithmic(true);
 
         Set<Pair> configurations = new TreeSet<>();
 
@@ -110,7 +110,7 @@ public class DestinationScalabilityReportDataPlotter implements ReportPlotter {
         List<Double> resultSet = new ArrayList<>(filteredResults.size());
 
         filteredResults.forEach(resultRecord -> {
-            groupSet.add(resultRecord.getConnectionCount());
+            groupSet.add(resultRecord.getLimitDestinations());
             resultSet.add(resultRecord.getTestRateGeometricMean());
         });
 
