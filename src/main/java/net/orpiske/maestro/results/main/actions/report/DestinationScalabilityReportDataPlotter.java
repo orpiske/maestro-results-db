@@ -66,8 +66,8 @@ public class DestinationScalabilityReportDataPlotter implements ReportPlotter {
 
         // Create Chart
         XYChart chart = new XYChartBuilder()
-                .width(800)
-                .height(600)
+                .width(1280)
+                .height(1024)
                 .title(title)
                 .xAxisTitle(xAxisTile)
                 .yAxisTitle(yAxisTitle)
