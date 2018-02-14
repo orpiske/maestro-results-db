@@ -106,23 +106,6 @@
                 </tbody>
             </table>
 
-            <script>
-            $("#rtable").DataTable({
-                pfConfig: {
-                    emptyStateSelector: "#emptyState1",
-                    filterCaseInsensitive: true,
-                    filterCols: [
-                        null,
-                        {
-                            default: true,
-                            optionSelector: "#filter1",
-                            placeholder: "Filter By Software Under Test..."
-                        }
-                    ],
-                }
-                });
-
-            </script>
         </div>
 
         <div class="col-sm-12">
@@ -166,24 +149,6 @@
                 {% endfor %}
                 </tbody>
             </table>
-
-            <script>
-            $("#conttable").DataTable({
-                pfConfig: {
-                    emptyStateSelector: "#emptyState1",
-                    filterCaseInsensitive: true,
-                    filterCols: [
-                        null,
-                        {
-                            default: true,
-                            optionSelector: "#filter1",
-                            placeholder: "Filter By Software Under Test..."
-                        }
-                    ],
-                }
-                });
-
-            </script>
         </div>
 
         <div class="col-sm-12">
@@ -227,19 +192,19 @@
             </table>
 
             <script>
-            $("#dstable").DataTable({
-                pfConfig: {
-                    emptyStateSelector: "#emptyState1",
-                    filterCaseInsensitive: true,
-                    filterCols: [
-                        null,
-                        {
-                            default: true,
-                            optionSelector: "#filter1",
-                            placeholder: "Filter By Software Under Test..."
-                        }
-                    ],
-                }
+                $('table').DataTable({
+                    pfConfig: {
+                        emptyStateSelector: "#emptyState",
+                        filterCaseInsensitive: true,
+                        filterCols: [
+                            null,
+                            {
+                                default: true,
+                                optionSelector: "#filter",
+                                placeholder: "Filter By Software Under Test..."
+                            }
+                        ],
+                    }
                 });
             </script>
         </div>
