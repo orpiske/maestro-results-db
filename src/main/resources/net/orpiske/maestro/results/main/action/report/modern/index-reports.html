@@ -24,11 +24,6 @@
     <link rel="stylesheet" href="resources/css/patternfly.min.css">
     <link rel="stylesheet" href="resources/css/patternfly-additions.min.css">
 
-    <script src="resources/components/jquery/jquery.min.js"></script>
-    <script src="resources/components/jquery/jquery.dataTables.js"></script>
-    <script src="resources/js/patternfly.min.js"></script>
-
-
     <link rel="icon"
           type="image/png"
           href="favicon.png">
@@ -191,20 +186,26 @@
                 </tbody>
             </table>
 
-            <script>
-                $('table').DataTable({
-                    pfConfig: {
-                        emptyStateSelector: "#emptyState",
-                        filterCaseInsensitive: true,
-                        filterCols: [
-                            null,
-                            {
-                                default: true,
-                                optionSelector: "#filter",
-                                placeholder: "Filter By Software Under Test..."
-                            }
-                        ],
-                    }
+
+            <script type="text/javascript" src="resources/components/jquery/jquery.min.js"></script>
+            <script type="text/javascript" src="resources/components/jquery/jquery.dataTables.js"></script>
+            <script type="text/javascript" src="resources/js/patternfly.min.js"></script>
+            <script type="text/javascript">
+                $(function() {
+                    $('table').DataTable({
+                        pfConfig: {
+                            emptyStateSelector: "#emptyState",
+                            filterCaseInsensitive: true,
+                            filterCols: [
+                                null,
+                                {
+                                    default: true,
+                                    optionSelector: "#filter",
+                                    placeholder: "Filter By Software Under Test..."
+                                }
+                            ],
+                        }
+                    });
                 });
             </script>
         </div>
