@@ -10,13 +10,15 @@ import java.util.List;
 import java.util.Map;
 
 public class ContendedReportCreator extends AbstractReportCreator {
+    private ReportsDao reportsDao = new ReportsDao();
+
     public ContendedReportCreator(final String outputDir) {
         super(outputDir);
     }
 
 
     public ReportInfo create(final Sut sut, final String protocol, boolean durable, int messageSize) throws Exception {
-        ReportsDao reportsDao = new ReportsDao();
+
 
         List<TestResultRecord> testResultRecordsSender = reportsDao.contentedScalabilityReport(sut.getSutName(),
                 sut.getSutVersion(), protocol, "sender", durable, messageSize);

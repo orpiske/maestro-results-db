@@ -10,7 +10,7 @@ import java.util.List;
 import java.util.Map;
 
 public class DestinationScalabilityReportCreator extends AbstractReportCreator {
-    ReportsDao reportsDao = new ReportsDao();
+    private ReportsDao reportsDao = new ReportsDao();
 
     public DestinationScalabilityReportCreator(String outputDir) {
         super(outputDir);

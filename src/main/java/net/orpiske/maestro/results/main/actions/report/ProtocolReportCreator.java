@@ -10,6 +10,8 @@ import java.util.List;
 import java.util.Map;
 
 public class ProtocolReportCreator extends AbstractReportCreator {
+    private ReportsDao reportsDao = new ReportsDao();
+
     public ProtocolReportCreator(final String outputDir) {
         super(outputDir);
     }
@@ -18,7 +20,7 @@ public class ProtocolReportCreator extends AbstractReportCreator {
     public ReportInfo create(final Sut sut, boolean durable, int limitDestinations, int messageSize,
                              int connectionCount) throws Exception
     {
-        ReportsDao reportsDao = new ReportsDao();
+
 
         List<TestResultRecord> testResultRecords = reportsDao.protocolReports(sut.getSutName(), sut.getSutVersion(),
                 durable, limitDestinations, messageSize, connectionCount);
