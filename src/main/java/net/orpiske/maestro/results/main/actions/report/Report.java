@@ -7,18 +7,15 @@ import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
-import java.util.HashMap;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 public class Report {
 
     private String outputDir;
 
-    private List<ReportInfo> protocolReportsList = new LinkedList<>();
-    private List<ReportInfo> contendedReportsList = new LinkedList<>();
-    private List<ReportInfo> destinationScalabilityReportsList = new LinkedList<>();
+    private List<ReportInfo> protocolReportsList = Collections.synchronizedList(new LinkedList<>());
+    private List<ReportInfo> contendedReportsList = Collections.synchronizedList(new LinkedList<>());
+    private List<ReportInfo> destinationScalabilityReportsList = Collections.synchronizedList(new LinkedList<>());
 
     public Report(final String outputDir) {
         this.outputDir = outputDir;
@@ -28,7 +25,7 @@ public class Report {
         SutDao sutDao = new SutDao();
 
         List<Sut> sutList = sutDao.fetchDistinct();
-        sutList.forEach(this::createReportForSut);
+        sutList.parallelStream().forEach(this::createReportForSut);
 
         System.out.println("Number of reports created: " + protocolReportsList.size());
 
