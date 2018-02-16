@@ -10,20 +10,20 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Report {
-
     private String outputDir;
 
     private List<ReportInfo> protocolReportsList = Collections.synchronizedList(new LinkedList<>());
     private List<ReportInfo> contendedReportsList = Collections.synchronizedList(new LinkedList<>());
     private List<ReportInfo> destinationScalabilityReportsList = Collections.synchronizedList(new LinkedList<>());
+    private List<ReportInfo> configurationReportList = Collections.synchronizedList(new LinkedList<>());
+
+    private SutDao sutDao = new SutDao();
 
     public Report(final String outputDir) {
         this.outputDir = outputDir;
     }
 
     void createReport() {
-        SutDao sutDao = new SutDao();
-
         List<Sut> sutList = sutDao.fetchDistinct();
         sutList.parallelStream().forEach(this::createReportForSut);
 
@@ -33,6 +33,7 @@ public class Report {
         context.put("protocolReportsList", protocolReportsList);
         context.put("contendedReportsList", contendedReportsList);
         context.put("destinationScalabilityReportsList", destinationScalabilityReportsList);
+        context.put("configurationReportList", configurationReportList);
 
         IndexRenderer indexRenderer = new IndexRenderer(ReportTemplates.DEFAULT, context);
 
@@ -55,6 +56,10 @@ public class Report {
         int connectionCounts[] = {1, 10, 100};
         String protocols[] = { "AMQP", "ARTEMIS", "OPENWIRE" };
 
+        List<String> configurations = sutDao.fetchSutTags(sut.getSutName(), sut.getSutVersion());
+
+
+        final SutConfigurationReportCreator sutConfigurationReportCreator = new SutConfigurationReportCreator(outputDir);
 
         final ProtocolReportCreator protocolReportCreator = new ProtocolReportCreator(outputDir);
         for (boolean durable : durableFlags) {
@@ -67,9 +72,26 @@ public class Report {
 
                         ReportInfo reportInfo = null;
                         try {
-                            reportInfo = protocolReportCreator.create(sut, durable, limitDestination, messageSize, connectionCount);
+                            reportInfo = protocolReportCreator.create(sut, durable, limitDestination, messageSize,
+                                    connectionCount);
                             if (reportInfo != null) {
                                 protocolReportsList.add(reportInfo);
+                            }
+
+                            for (String configuration : configurations) {
+                                for (String protocol : protocols) {
+                                    try {
+                                        ReportInfo configReport = sutConfigurationReportCreator.create(sut, protocol,
+                                                configuration, durable, limitDestination, messageSize, connectionCount);
+
+                                        if (configReport != null) {
+                                            configurationReportList.add(configReport);
+                                        }
+                                    } catch (Exception e) {
+                                        e.printStackTrace();
+                                    }
+
+                                }
                             }
                         } catch (Exception e) {
                             e.printStackTrace();
@@ -116,5 +138,9 @@ public class Report {
                 }
             }
         }
+
+
+
+
     }
 }

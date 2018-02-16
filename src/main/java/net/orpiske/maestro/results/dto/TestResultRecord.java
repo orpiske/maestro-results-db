@@ -6,6 +6,7 @@ public class TestResultRecord {
     private String sutName;
     private String sutVersion;
     private String sutTags;
+    private String testTags;
     private String testResult;
     private boolean error;
     private int connectionCount;
@@ -202,12 +203,21 @@ public class TestResultRecord {
         this.envResourceRole = envResourceRole;
     }
 
+    public String getTestTags() {
+        return testTags;
+    }
+
+    public void setTestTags(String testTags) {
+        this.testTags = testTags;
+    }
+
     @Override
     public String toString() {
         return "TestResultRecord{" +
                 "sutName='" + sutName + '\'' +
                 ", sutVersion='" + sutVersion + '\'' +
                 ", sutTags='" + sutTags + '\'' +
+                ", testTags='" + testTags + '\'' +
                 ", testResult='" + testResult + '\'' +
                 ", error=" + error +
                 ", connectionCount=" + connectionCount +
