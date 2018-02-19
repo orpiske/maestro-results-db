@@ -44,7 +44,7 @@ public class ProtocolReportDataPlotter implements ReportPlotter {
 
         Set<String> configurations = new TreeSet<>();
 
-        resultRecords.stream()
+        resultRecords
                 .forEach(item -> configurations.add(item.getSutTags())
                 );
 

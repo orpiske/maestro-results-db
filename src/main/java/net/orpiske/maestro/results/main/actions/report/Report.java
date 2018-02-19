@@ -2,7 +2,6 @@ package net.orpiske.maestro.results.main.actions.report;
 
 import net.orpiske.maestro.results.dao.SutDao;
 import net.orpiske.maestro.results.dto.Sut;
-import org.apache.commons.io.Charsets;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -29,7 +28,7 @@ public class Report {
 
         System.out.println("Number of reports created: " + protocolReportsList.size());
 
-        Map<String, Object> context = new HashMap<String, Object>();
+        Map<String, Object> context = new HashMap<>();
         context.put("protocolReportsList", protocolReportsList);
         context.put("contendedReportsList", contendedReportsList);
         context.put("destinationScalabilityReportsList", destinationScalabilityReportsList);

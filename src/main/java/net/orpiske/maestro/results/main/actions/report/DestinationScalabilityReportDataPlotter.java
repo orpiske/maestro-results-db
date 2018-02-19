@@ -85,7 +85,7 @@ public class DestinationScalabilityReportDataPlotter implements ReportPlotter {
 
         Set<Pair> configurations = new TreeSet<>();
 
-        resultRecords.stream().forEach(item -> configurations.add(new Pair(item)));
+        resultRecords.forEach(item -> configurations.add(new Pair(item)));
 
         configurations.forEach(item -> addSeriesByConfiguration(item, resultRecords, chart));
 

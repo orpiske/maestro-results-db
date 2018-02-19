@@ -23,8 +23,6 @@ public class ProtocolReportCreator extends AbstractReportCreator {
     public ReportInfo create(final Sut sut, boolean durable, int limitDestinations, int messageSize,
                              int connectionCount) throws Exception
     {
-
-
         List<TestResultRecord> testResultRecords = reportsDao.protocolReports(sut.getSutName(), sut.getSutVersion(),
                 durable, limitDestinations, messageSize, connectionCount);
 
@@ -35,7 +33,7 @@ public class ProtocolReportCreator extends AbstractReportCreator {
         }
 
 
-        Map<String, Object> context = new HashMap<String, Object>();
+        Map<String, Object> context = new HashMap<>();
 
         context.put("testResultRecords", testResultRecords);
         context.put("sut", sut);

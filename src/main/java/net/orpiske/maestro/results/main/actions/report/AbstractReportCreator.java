@@ -1,6 +1,5 @@
 package net.orpiske.maestro.results.main.actions.report;
 
-import net.orpiske.mpt.reports.AbstractRenderer;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;

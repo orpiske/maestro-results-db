@@ -21,8 +21,6 @@ public class ContendedReportCreator extends AbstractReportCreator {
 
 
     public ReportInfo create(final Sut sut, final String protocol, boolean durable, int messageSize) throws Exception {
-
-
         List<TestResultRecord> testResultRecordsSender = reportsDao.contentedScalabilityReport(sut.getSutName(),
                 sut.getSutVersion(), protocol, "sender", durable, messageSize);
 
@@ -43,7 +41,7 @@ public class ContendedReportCreator extends AbstractReportCreator {
         }
 
 
-        Map<String, Object> context = new HashMap<String, Object>();
+        Map<String, Object> context = new HashMap<>();
 
         context.put("testResultRecordsSender", testResultRecordsSender);
         context.put("testResultRecordsReceiver", testResultRecordsReceiver);

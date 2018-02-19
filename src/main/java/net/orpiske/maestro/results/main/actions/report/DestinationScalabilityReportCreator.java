@@ -57,7 +57,7 @@ public class DestinationScalabilityReportCreator extends AbstractReportCreator {
                 "ds-performance-receiver.png");
 
 
-        Map<String, Object> context = new HashMap<String, Object>();
+        Map<String, Object> context = new HashMap<>();
 
         context.put("testResultRecordsSender", testResultRecordsSender);
         context.put("testResultRecordsReceiver", testResultRecordsReceiver);
