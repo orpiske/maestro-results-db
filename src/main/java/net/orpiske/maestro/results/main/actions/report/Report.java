@@ -48,7 +48,7 @@ public class Report {
 
     }
 
-    void createReportForSut(final Sut sut) {
+    private void createReportForSut(final Sut sut) {
         boolean durableFlags[] = {true, false};
         int limitDestinations[] = {1, 10, 100};
         int messageSizes[] = {1, 10, 100};
