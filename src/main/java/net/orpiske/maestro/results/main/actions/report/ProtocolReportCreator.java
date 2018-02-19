@@ -3,6 +3,8 @@ package net.orpiske.maestro.results.main.actions.report;
 import net.orpiske.maestro.results.dao.ReportsDao;
 import net.orpiske.maestro.results.dto.Sut;
 import net.orpiske.maestro.results.dto.TestResultRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.HashMap;
@@ -10,6 +12,7 @@ import java.util.List;
 import java.util.Map;
 
 public class ProtocolReportCreator extends AbstractReportCreator {
+    private static final Logger logger = LoggerFactory.getLogger(ProtocolReportCreator.class);
     private ReportsDao reportsDao = new ReportsDao();
 
     public ProtocolReportCreator(final String outputDir) {
@@ -26,7 +29,7 @@ public class ProtocolReportCreator extends AbstractReportCreator {
                 durable, limitDestinations, messageSize, connectionCount);
 
         if (testResultRecords == null || testResultRecords.size() == 0) {
-            System.err.println("Not enough records for " + sut.getSutName() + " " + sut.getSutVersion());
+            logger.debug("Not enough records for {} {}", sut.getSutName(), sut.getSutVersion());
 
             return null;
         }

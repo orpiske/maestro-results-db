@@ -3,6 +3,8 @@ package net.orpiske.maestro.results.main.actions.report;
 import net.orpiske.maestro.results.dao.ReportsDao;
 import net.orpiske.maestro.results.dto.Sut;
 import net.orpiske.maestro.results.dto.TestResultRecord;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.HashMap;
@@ -10,6 +12,8 @@ import java.util.List;
 import java.util.Map;
 
 public class DestinationScalabilityReportCreator extends AbstractReportCreator {
+    private static final Logger logger = LoggerFactory.getLogger(DestinationScalabilityReportCreator.class);
+
     private ReportsDao reportsDao = new ReportsDao();
 
     public DestinationScalabilityReportCreator(String outputDir) {
@@ -23,7 +27,7 @@ public class DestinationScalabilityReportCreator extends AbstractReportCreator {
                 protocol, "sender", durable, messageSize);
 
         if (testResultRecordsSender == null || testResultRecordsSender.size() == 0) {
-            System.err.println("Not enough records for " + sut.getSutName() + " " + sut.getSutVersion());
+            logger.debug("Not enough sender records for {} {}", sut.getSutName(), sut.getSutVersion());
 
             return null;
         }
@@ -32,7 +36,7 @@ public class DestinationScalabilityReportCreator extends AbstractReportCreator {
                 protocol, "receiver", durable, messageSize);
 
         if (testResultRecordsReceiver == null || testResultRecordsReceiver.size() == 0) {
-            System.err.println("Not enough records for " + sut.getSutName() + " " + sut.getSutVersion());
+            logger.debug("Not enough receiver records for {} {}", sut.getSutName(), sut.getSutVersion());
 
             return null;
         }
