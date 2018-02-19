@@ -86,8 +86,8 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
                     <td>{{ durable }}</td>
                 </tr>
                 <tr>
-                    <td>Limit Destinations</td>
-                    <td>{{ limitDestinations }}</td>
+                    <td>Connections</td>
+                    <td>{{ connections }}</td>
                 </tr>
                 <tr>
                     <td>Message Size</td>
@@ -107,6 +107,7 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
                 <th>Variable Size</th>
                 <th>API Name</th>
                 <th>API Version</th>
+                <th>Limit Destinations</th>
                 <th>Protocol</th>
                 <th>Minimum Rate</th>
                 <th>Maximum Rate</th>
@@ -127,6 +128,7 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
                 <td>{{ testResultRecord.variableSize }}</td>
                 <td>{{ testResultRecord.apiName }}</td>
                 <td>{{ testResultRecord.apiVersion }}</td>
+                <td>{{ testResultRecord.limitDestinations }}</td>
                 <td>{{ testResultRecord.messagingProtocol }}</td>
                 <td>{{ testResultRecord.testRateMin | round(4) }}</td>
                 <td>{{ testResultRecord.testRateMax | round(4) }}</td>
@@ -152,6 +154,7 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
                 <th>Variable Size</th>
                 <th>API Name</th>
                 <th>API Version</th>
+                <th>Limit Destinations</th>
                 <th>Protocol</th>
                 <th>Minimum Rate</th>
                 <th>Maximum Rate</th>
@@ -172,6 +175,7 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
                 <td>{{ testResultRecord.variableSize }}</td>
                 <td>{{ testResultRecord.apiName }}</td>
                 <td>{{ testResultRecord.apiVersion }}</td>
+                <td>{{ testResultRecord.limitDestinations }}</td>
                 <td>{{ testResultRecord.messagingProtocol }}</td>
                 <td>{{ testResultRecord.testRateMin | round(4) }}</td>
                 <td>{{ testResultRecord.testRateMax | round(4) }}</td>

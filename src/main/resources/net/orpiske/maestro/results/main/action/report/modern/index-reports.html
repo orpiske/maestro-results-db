@@ -169,8 +169,8 @@
                     <th>Report Link</th>
                     <th>Messaging Protocol</th>
                     <th>Durable</th>
-                    <th>Limit Destinations</th>
                     <th>Message Size</th>
+                    <th>Connection Count</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -179,8 +179,8 @@
                     <td><a href="./{{ destinationScalabilityReport.linkName }}/index.html">{{ destinationScalabilityReport.sut.sutName }} {{ destinationScalabilityReport.sut.sutVersion }}</a></td>
                     <td>{{ destinationScalabilityReport.protocol }}</td>
                     <td>{{ destinationScalabilityReport.durable }}</td>
-                    <td>{{ destinationScalabilityReport.limitDestinations }}</td>
                     <td>{{ destinationScalabilityReport.messageSize }}</td>
+                    <td>{{ destinationScalabilityReport.connectionCount }}</td>
                 </tr>
                 {% endfor %}
                 </tbody>

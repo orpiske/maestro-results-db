@@ -60,6 +60,7 @@ public class DestinationScalabilityReportCreator extends AbstractReportCreator {
         context.put("sut", sut);
         context.put("durable", durable);
         context.put("messageSize", messageSize);
+        context.put("connections", 100);
 
         generateIndex("ds-results.html", baseReportDir, context);
 
