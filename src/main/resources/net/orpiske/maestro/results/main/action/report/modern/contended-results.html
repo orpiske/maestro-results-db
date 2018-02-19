@@ -108,6 +108,7 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
                 <th>API Name</th>
                 <th>API Version</th>
                 <th>Protocol</th>
+                <th>Connection Count</th>
                 <th>Minimum Rate</th>
                 <th>Maximum Rate</th>
                 <th>Rate Geometric Mean
@@ -128,6 +129,7 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
                 <td>{{ testResultRecord.apiName }}</td>
                 <td>{{ testResultRecord.apiVersion }}</td>
                 <td>{{ testResultRecord.messagingProtocol }}</td>
+                <td>{{ testResultRecord.connectionCount }}</td>
                 <td>{{ testResultRecord.testRateMin | round(4) }}</td>
                 <td>{{ testResultRecord.testRateMax | round(4) }}</td>
                 <td>{{ testResultRecord.testRateGeometricMean | round(4) }}</td>
@@ -153,6 +155,7 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
                 <th>API Name</th>
                 <th>API Version</th>
                 <th>Protocol</th>
+                <th>Connection Count</th>
                 <th>Minimum Rate</th>
                 <th>Maximum Rate</th>
                 <th>Rate Geometric Mean
@@ -173,6 +176,7 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
                 <td>{{ testResultRecord.apiName }}</td>
                 <td>{{ testResultRecord.apiVersion }}</td>
                 <td>{{ testResultRecord.messagingProtocol }}</td>
+                <td>{{ testResultRecord.connectionCount }}</td>
                 <td>{{ testResultRecord.testRateMin | round(4) }}</td>
                 <td>{{ testResultRecord.testRateMax | round(4) }}</td>
                 <td>{{ testResultRecord.testRateGeometricMean | round(4) }}</td>
