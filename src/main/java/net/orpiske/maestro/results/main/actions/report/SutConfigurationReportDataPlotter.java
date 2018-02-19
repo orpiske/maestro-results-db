@@ -14,7 +14,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class SutConfigurationReportDataPlotter implements ReportPlotter {
-    private File outputDir;
+    private final File outputDir;
 
     public SutConfigurationReportDataPlotter(final File outputDir) {
         this.outputDir = outputDir;

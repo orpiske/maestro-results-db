@@ -3,12 +3,12 @@ package net.orpiske.maestro.results.main.actions.report;
 import net.orpiske.maestro.results.dto.Sut;
 
 public class ProtocolReportInfo implements ReportInfo {
-    private Sut sut;
-    private String linkName;
-    private boolean durable;
-    private int limitDestinations;
-    private int messageSize;
-    private int connectionCount;
+    private final Sut sut;
+    private final String linkName;
+    private final boolean durable;
+    private final int limitDestinations;
+    private final int messageSize;
+    private final int connectionCount;
 
     public ProtocolReportInfo(Sut sut, boolean durable, int limitDestinations, int messageSize, int connectionCount) {
         this.sut = sut;

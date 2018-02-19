@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class ContendedReportCreator extends AbstractReportCreator {
     private static final Logger logger  = LoggerFactory.getLogger(ContendedReportCreator.class);
-    private ReportsDao reportsDao = new ReportsDao();
+    private final ReportsDao reportsDao = new ReportsDao();
 
     public ContendedReportCreator(final String outputDir) {
         super(outputDir);

@@ -14,7 +14,7 @@ import java.util.Map;
 public class DestinationScalabilityReportCreator extends AbstractReportCreator {
     private static final Logger logger = LoggerFactory.getLogger(DestinationScalabilityReportCreator.class);
 
-    private ReportsDao reportsDao = new ReportsDao();
+    private final ReportsDao reportsDao = new ReportsDao();
 
     public DestinationScalabilityReportCreator(String outputDir) {
         super(outputDir);

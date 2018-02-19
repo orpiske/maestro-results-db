@@ -8,8 +8,8 @@ import static net.orpiske.maestro.results.main.actions.report.RenderUtils.*;
 
 
 public class ReportRenderer extends AbstractRenderer {
-    private String templateName;
-    private String resourceName;
+    private final String templateName;
+    private final String resourceName;
 
     public ReportRenderer(final String templateName, final String resourceName, final Map<String, Object> context) {
         super(context);

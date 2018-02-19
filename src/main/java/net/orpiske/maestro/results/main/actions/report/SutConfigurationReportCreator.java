@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class SutConfigurationReportCreator extends AbstractReportCreator {
     private static final Logger logger = LoggerFactory.getLogger(SutConfigurationReportCreator.class);
-    private ReportsDao reportsDao = new ReportsDao();
+    private final ReportsDao reportsDao = new ReportsDao();
 
     public SutConfigurationReportCreator(final String outputDir) {
         super(outputDir);

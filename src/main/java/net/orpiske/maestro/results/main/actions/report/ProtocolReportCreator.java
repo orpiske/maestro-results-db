@@ -13,7 +13,7 @@ import java.util.Map;
 
 public class ProtocolReportCreator extends AbstractReportCreator {
     private static final Logger logger = LoggerFactory.getLogger(ProtocolReportCreator.class);
-    private ReportsDao reportsDao = new ReportsDao();
+    private final ReportsDao reportsDao = new ReportsDao();
 
     public ProtocolReportCreator(final String outputDir) {
         super(outputDir);

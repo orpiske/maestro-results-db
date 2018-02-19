@@ -16,11 +16,11 @@ import java.util.List;
 import java.util.stream.Collectors;
 
 public class DestinationScalabilityReportDataPlotter implements ReportPlotter {
-    private File outputDir;
+    private final File outputDir;
 
     class Pair implements Comparable<Pair> {
-        String configuration;
-        String envResourceRole;
+        final String configuration;
+        final String envResourceRole;
 
         public Pair(TestResultRecord testResultRecord) {
             this.configuration = testResultRecord.getSutTags();

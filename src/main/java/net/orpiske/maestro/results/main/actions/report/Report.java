@@ -9,14 +9,14 @@ import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Report {
-    private String outputDir;
+    private final String outputDir;
 
-    private List<ReportInfo> protocolReportsList = Collections.synchronizedList(new LinkedList<>());
-    private List<ReportInfo> contendedReportsList = Collections.synchronizedList(new LinkedList<>());
-    private List<ReportInfo> destinationScalabilityReportsList = Collections.synchronizedList(new LinkedList<>());
-    private List<ReportInfo> configurationReportList = Collections.synchronizedList(new LinkedList<>());
+    private final List<ReportInfo> protocolReportsList = Collections.synchronizedList(new LinkedList<>());
+    private final List<ReportInfo> contendedReportsList = Collections.synchronizedList(new LinkedList<>());
+    private final List<ReportInfo> destinationScalabilityReportsList = Collections.synchronizedList(new LinkedList<>());
+    private final List<ReportInfo> configurationReportList = Collections.synchronizedList(new LinkedList<>());
 
-    private SutDao sutDao = new SutDao();
+    private final SutDao sutDao = new SutDao();
 
     public Report(final String outputDir) {
         this.outputDir = outputDir;

@@ -11,7 +11,7 @@ import java.util.Map;
 import static net.orpiske.maestro.results.main.actions.report.RenderUtils.*;
 
 public class IndexRenderer extends AbstractRenderer {
-    private String templateName;
+    private final String templateName;
 
     public IndexRenderer(final String templateName, final Map<String, Object> context) {
         super(context);
