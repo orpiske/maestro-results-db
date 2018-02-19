@@ -20,7 +20,7 @@ public class TestMsgPropertyAction extends Action {
 
     @Override
     protected void processCommand(String[] args) {
-        CommandLineParser parser = new PosixParser();
+        CommandLineParser parser = new DefaultParser();
 
         options = new Options();
 

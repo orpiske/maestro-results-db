@@ -14,7 +14,7 @@ public class ReportAllAction extends Action {
 
     @Override
     protected void processCommand(final String[] args) {
-        CommandLineParser parser = new PosixParser();
+        CommandLineParser parser = new DefaultParser();
 
         options = new Options();
 
