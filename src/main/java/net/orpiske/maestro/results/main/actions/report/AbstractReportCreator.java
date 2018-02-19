@@ -22,13 +22,16 @@ public abstract class AbstractReportCreator {
         this.outputDir = outputDir;
     }
 
-    protected File createReportBaseDir(final ReportInfo reportInfo) {
-        // Directory creating
-        File baseReportDir = new File(outputDir, reportInfo.baseName());
+    protected File createReportBaseDir(final String baseName) {
+        File baseReportDir = new File(outputDir, baseName);
 
         baseReportDir.mkdirs();
 
         return baseReportDir;
+    }
+
+    protected File createReportBaseDir(final ReportInfo reportInfo) {
+        return createReportBaseDir(reportInfo.baseName());
     }
 
 

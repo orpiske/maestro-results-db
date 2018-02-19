@@ -30,7 +30,16 @@ public class Report {
         List<Sut> sutList = sutDao.fetchDistinct();
         sutList.parallelStream().forEach(this::createReportForSut);
 
-        System.out.println("Number of reports created: " + protocolReportsList.size());
+        logger.debug("Number of reports created: {}", protocolReportsList.size());
+
+        logger.info("Generating system health report");
+        SystemHealthReportCreator systemHealthReportCreator = new SystemHealthReportCreator(outputDir);
+
+        try {
+            systemHealthReportCreator.create();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
 
         Map<String, Object> context = new HashMap<>();
         context.put("protocolReportsList", protocolReportsList);
@@ -38,6 +47,8 @@ public class Report {
         context.put("destinationScalabilityReportsList", destinationScalabilityReportsList);
         context.put("configurationReportList", configurationReportList);
 
+
+        logger.info("Generating report index");
         IndexRenderer indexRenderer = new IndexRenderer(ReportTemplates.DEFAULT, context);
 
         File indexFile = new File(outputDir, "index.html");
