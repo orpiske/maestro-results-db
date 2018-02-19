@@ -25,21 +25,13 @@ public class DestinationScalabilityReportCreator extends AbstractReportCreator {
     {
         List<TestResultRecord> testResultRecordsSender = reportsDao.destinationScalabilityReport(sut.getSutName(), sut.getSutVersion(),
                 protocol, "sender", durable, messageSize);
+        validateResultSet(sut, "sender", testResultRecordsSender);
 
-        if (testResultRecordsSender == null || testResultRecordsSender.size() == 0) {
-            logger.debug("Not enough sender records for {} {}", sut.getSutName(), sut.getSutVersion());
-
-            return null;
-        }
 
         List<TestResultRecord> testResultRecordsReceiver = reportsDao.destinationScalabilityReport(sut.getSutName(), sut.getSutVersion(),
                 protocol, "receiver", durable, messageSize);
+        validateResultSet(sut, "receiver", testResultRecordsReceiver);
 
-        if (testResultRecordsReceiver == null || testResultRecordsReceiver.size() == 0) {
-            logger.debug("Not enough receiver records for {} {}", sut.getSutName(), sut.getSutVersion());
-
-            return null;
-        }
 
 
         ReportInfo reportInfo = new DestinationScalabilityReportInfo(sut, protocol, durable, 1, messageSize);

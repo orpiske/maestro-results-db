@@ -2,13 +2,17 @@ package net.orpiske.maestro.results.main.actions.report;
 
 import net.orpiske.maestro.results.dao.SutDao;
 import net.orpiske.maestro.results.dto.Sut;
+import net.orpiske.maestro.results.main.actions.report.exceptions.EmptyResultSet;
 import org.apache.commons.io.FileUtils;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
 public class Report {
+    private static final Logger logger = LoggerFactory.getLogger(Report.class);
     private final String outputDir;
 
     private final List<ReportInfo> protocolReportsList = Collections.synchronizedList(new LinkedList<>());
@@ -86,14 +90,18 @@ public class Report {
                                         if (configReport != null) {
                                             configurationReportList.add(configReport);
                                         }
+                                    } catch (EmptyResultSet e) {
+                                        logger.trace(e.getMessage());
                                     } catch (Exception e) {
-                                        e.printStackTrace();
+                                        logger.error(e.getMessage(), e);
                                     }
 
                                 }
                             }
+                        } catch (EmptyResultSet e) {
+                            logger.trace(e.getMessage());
                         } catch (Exception e) {
-                            e.printStackTrace();
+                            logger.error(e.getMessage(), e);
                         }
                     }
                 }
@@ -112,8 +120,10 @@ public class Report {
                         if (reportInfo != null) {
                             contendedReportsList.add(reportInfo);
                         }
+                    } catch (EmptyResultSet e) {
+                      logger.trace(e.getMessage());
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        logger.error(e.getMessage(), e);
                     }
                 }
             }
@@ -131,8 +141,10 @@ public class Report {
                         if (reportInfo != null) {
                             destinationScalabilityReportsList.add(reportInfo);
                         }
+                    } catch (EmptyResultSet e) {
+                        logger.trace(e.getMessage());
                     } catch (Exception e) {
-                        e.printStackTrace();
+                        logger.error(e.getMessage(), e);
                     }
                 }
             }

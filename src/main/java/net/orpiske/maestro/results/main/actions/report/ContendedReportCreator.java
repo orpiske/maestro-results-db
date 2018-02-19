@@ -23,22 +23,12 @@ public class ContendedReportCreator extends AbstractReportCreator {
     public ReportInfo create(final Sut sut, final String protocol, boolean durable, int messageSize) throws Exception {
         List<TestResultRecord> testResultRecordsSender = reportsDao.contentedScalabilityReport(sut.getSutName(),
                 sut.getSutVersion(), protocol, "sender", durable, messageSize);
-
-        if (testResultRecordsSender == null || testResultRecordsSender.size() == 0) {
-            logger.debug("Not enough sender records for {} {}", sut.getSutName(), sut.getSutVersion());
-
-            return null;
-        }
-
+        validateResultSet(sut, "sender", testResultRecordsSender);
 
         List<TestResultRecord> testResultRecordsReceiver = reportsDao.contentedScalabilityReport(sut.getSutName(),
                 sut.getSutVersion(), protocol, "receiver", durable, messageSize);
+        validateResultSet(sut, "receiver", testResultRecordsReceiver);
 
-        if (testResultRecordsReceiver == null || testResultRecordsReceiver.size() == 0) {
-            logger.debug("Not enough receiver records for {} {}", sut.getSutName(), sut.getSutVersion());
-
-            return null;
-        }
 
 
         Map<String, Object> context = new HashMap<>();

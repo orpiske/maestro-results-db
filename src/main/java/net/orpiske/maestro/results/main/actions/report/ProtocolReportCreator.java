@@ -25,13 +25,7 @@ public class ProtocolReportCreator extends AbstractReportCreator {
     {
         List<TestResultRecord> testResultRecords = reportsDao.protocolReports(sut.getSutName(), sut.getSutVersion(),
                 durable, limitDestinations, messageSize, connectionCount);
-
-        if (testResultRecords == null || testResultRecords.size() == 0) {
-            logger.debug("Not enough records for {} {}", sut.getSutName(), sut.getSutVersion());
-
-            return null;
-        }
-
+        validateResultSet(sut, null, testResultRecords);
 
         Map<String, Object> context = new HashMap<>();
 

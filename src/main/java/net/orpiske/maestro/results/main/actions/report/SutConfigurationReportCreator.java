@@ -26,22 +26,12 @@ public class SutConfigurationReportCreator extends AbstractReportCreator {
         List<TestResultRecord> testResultRecordsSender = reportsDao.sutConfigurationsReport(sut.getSutName(),
                 sut.getSutVersion(), protocol, configuration, "sender", durable, limitDestinations, messageSize,
                 connectionCount);
-
-        if (testResultRecordsSender == null || testResultRecordsSender.size() == 0) {
-            logger.debug("Not enough sender records for {} {}", sut.getSutName(), sut.getSutVersion());
-
-            return null;
-        }
+        validateResultSet(sut, "sender", testResultRecordsSender);
 
         List<TestResultRecord> testResultRecordsReceiver = reportsDao.sutConfigurationsReport(sut.getSutName(),
                 sut.getSutVersion(), protocol, configuration, "receiver", durable, limitDestinations, messageSize,
                 connectionCount);
-
-        if (testResultRecordsReceiver == null || testResultRecordsReceiver.size() == 0) {
-            logger.debug("Not enough receiver records for {} {}", sut.getSutName(), sut.getSutVersion());
-
-            return null;
-        }
+        validateResultSet(sut, "receiver", testResultRecordsReceiver);
 
 
         Map<String, Object> context = new HashMap<>();
