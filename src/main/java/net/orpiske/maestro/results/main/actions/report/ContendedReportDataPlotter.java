@@ -110,8 +110,7 @@ public class ContendedReportDataPlotter implements ReportPlotter {
             resultSet.add(resultRecord.getTestRateGeometricMean());
         });
 
-        // chart.addSeries(configuration, groupSet, resultSet);
-        XYSeries series = chart.addSeries(configuration.configuration + "-" + configuration.envResourceRole,
+        chart.addSeries(configuration.configuration + "-" + configuration.envResourceRole,
                 groupSet, resultSet);
         }
 
