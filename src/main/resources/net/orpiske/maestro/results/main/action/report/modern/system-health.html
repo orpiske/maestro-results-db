@@ -242,7 +242,7 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
         {% for protocolFailureRecord in protocolFailureRecords %}
         <tr>
             <td>{{ protocolFailureRecord.messagingProtocol }}</td>
-            <td><span class={% if protocolFailureRecord.testResult == 'success' %} "pficon pficon-ok" {% else %} "pficon pficon-error-circle-o" {% endif %}></span>{{ protocolFailureRecord.testResult }}</td>
+            <td><span class={% if protocolFailureRecord.testResult == 'success' %} "pficon pficon-ok" {% else %} "pficon pficon-error-circle-o" {% endif %}></span> {{ protocolFailureRecord.testResult }}</td>
             <td>{{ protocolFailureRecord.testRecords }}</td>
         </tr>
         {% endfor %}
