@@ -15,6 +15,10 @@
         </repository>
     </repositories>
 
+    <properties>
+        <maestro.version>1.2.4</maestro.version>
+    </properties>
+
     <dependencies>
         <dependency>
             <groupId>commons-cli</groupId>
@@ -49,13 +53,13 @@
         <dependency>
             <groupId>net.orpiske</groupId>
             <artifactId>maestro-common</artifactId>
-            <version>1.2.2</version>
+            <version>${maestro.version}</version>
         </dependency>
 
         <dependency>
             <groupId>net.orpiske</groupId>
             <artifactId>maestro-reports</artifactId>
-            <version>1.2.2</version>
+            <version>${maestro.version}</version>
         </dependency>
 
         <dependency>
