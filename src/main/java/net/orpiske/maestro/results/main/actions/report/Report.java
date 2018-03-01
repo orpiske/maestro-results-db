@@ -66,7 +66,7 @@ public class Report {
     private void createReportForSut(final Sut sut) {
         boolean durableFlags[] = {true, false};
         int limitDestinations[] = {1, 10, 100};
-        int messageSizes[] = {1, 10, 100};
+        int messageSizes[] = {100, 1024, 10240};
         int connectionCounts[] = {1, 10, 100};
         String protocols[] = { "AMQP", "ARTEMIS", "OPENWIRE" };
 
@@ -106,7 +106,6 @@ public class Report {
                                     } catch (Exception e) {
                                         logger.error(e.getMessage(), e);
                                     }
-
                                 }
                             }
                         } catch (EmptyResultSet e) {
