@@ -2,6 +2,7 @@ package net.orpiske.maestro.results.dao;
 
 import net.orpiske.maestro.results.dto.TestResultRecord;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+import org.springframework.jdbc.core.RowCallbackHandler;
 
 import java.util.List;
 
@@ -148,5 +149,51 @@ public class ReportsDao extends AbstractDao {
                         "order by tr.test_rate_geometric_mean desc",
                 new Object[] { durable, limitDestinations, messageSize, connectionCount, sutName, sutVersion, sutTags, role, protocol },
                 new BeanPropertyRowMapper<>(TestResultRecord.class));
+    }
+
+
+    public void reportDeltas(final String sutName, final String sutVersion, final String protocol, int messageSize,
+                        final RowCallbackHandler callbackHandler) {
+        jdbcTemplate.query("select " +
+                "lhs.test_id as lhs_test_id, " +
+                "lhs.sut_id as lhs_sut_id, " +
+                "lhs.sut_tags as lhs_sut_tags, " +
+                "lhs.test_tags as lhs_test_tags ," +
+                "lhs.sut_name as lhs_sut_name, " +
+                "lhs.sut_version as lhs_sut_version, " +
+                "lhs.test_valid as lhs_test_valid, " +
+                "lhs.env_resource_role as lhs_env_resource_role, " +
+                "lhs.connection_count as lhs_connection_count, " +
+                "lhp.limit_destinations as lhs_limit_destinations, " +
+                "lhp.message_size as lhs_message_size, " +
+                "lhp.messaging_protocol as lhs_messaging_protocol, " +
+                "lhp.variable_size as lhs_variable_size, " +
+                "lhs.test_rate_geometric_mean as lhs_test_rate_geometric_mean, " +
+                "lhs.test_date as lhs_test_date, " +
+                "rhs.sut_tags as rhs_sut_tags, " +
+                "rhs.test_tags as rhs_test_tags, " +
+                "rhs.sut_name as rhs_sut_name, " +
+                "rhs.sut_version as rhs_sut_version, " +
+                "rhs.test_valid as rhs_test_valid, " +
+                "rhs.env_resource_role as rhs_env_resource_role, " +
+                "rhp.api_name as rhs_api_name, " +
+                "rhp.api_version as rhs_api_version, " +
+                "rhs.connection_count as rhs_connection_count, " +
+                "rhp.limit_destinations as rhs_limit_destinations, " +
+                "rhp.message_size as rhs_message_size, " +
+                "rhp.messaging_protocol as rhs_messaging_protocol, " +
+                "rhp.variable_size as rhs_variable_size, " +
+                "rhs.test_rate_geometric_mean as rhs_test_rate_geometric_mean, " +
+                "(lhs.test_rate_geometric_mean - rhs.test_rate_geometric_mean) as diff " +
+                "from test_results lhs inner join (test_results rhs, test_properties rhp, test_properties lhp) " +
+                "on (lhs.sut_tags = rhs.sut_tags and lhs.env_resource_role = rhs.env_resource_role and rhs.test_id = rhp.test_id and lhp.test_id = lhs.test_id) " +
+                "and lhs.sut_name = ? " +
+                "and lhs.sut_version = ? " +
+                "and lhp.messaging_protocol = ? " +
+                "and lhp.message_size = ? " +
+                "and lhs.test_valid = true " +
+                "and rhs.test_valid = true " +
+                "order by lhs_test_id", new Object[] { sutName, sutVersion, protocol, messageSize },
+                callbackHandler);
     }
 }

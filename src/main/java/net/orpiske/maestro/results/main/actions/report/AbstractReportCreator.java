@@ -16,16 +16,23 @@ import java.util.Map;
  */
 public abstract class AbstractReportCreator {
     private static final Logger logger = LoggerFactory.getLogger(AbstractReportCreator.class);
+
     private final String outputDir;
 
     public AbstractReportCreator(final String outputDir) {
         this.outputDir = outputDir;
     }
 
+    protected String getOutputDir() {
+        return outputDir;
+    }
+
     protected File createReportBaseDir(final String baseName) {
         File baseReportDir = new File(outputDir, baseName);
 
-        baseReportDir.mkdirs();
+        if (!baseReportDir.mkdirs()) {
+            logger.error("Unable to create report directory {}", baseReportDir);
+        }
 
         return baseReportDir;
     }

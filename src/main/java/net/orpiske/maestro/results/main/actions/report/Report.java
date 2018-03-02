@@ -19,6 +19,7 @@ public class Report {
     private final List<ReportInfo> contendedReportsList = Collections.synchronizedList(new LinkedList<>());
     private final List<ReportInfo> destinationScalabilityReportsList = Collections.synchronizedList(new LinkedList<>());
     private final List<ReportInfo> configurationReportList = Collections.synchronizedList(new LinkedList<>());
+    private final List<ReportInfo> deltaReportsList = Collections.synchronizedList(new LinkedList<>());
 
     private final SutDao sutDao = new SutDao();
 
@@ -46,6 +47,7 @@ public class Report {
         context.put("contendedReportsList", contendedReportsList);
         context.put("destinationScalabilityReportsList", destinationScalabilityReportsList);
         context.put("configurationReportList", configurationReportList);
+        context.put("deltaReportsList", deltaReportsList);
 
 
         logger.info("Generating report index");
@@ -68,11 +70,86 @@ public class Report {
         int limitDestinations[] = {1, 10, 100};
         int messageSizes[] = {100, 1024, 10240};
         int connectionCounts[] = {1, 10, 100};
-        String protocols[] = { "AMQP", "ARTEMIS", "OPENWIRE" };
+        String protocols[] = {"AMQP", "ARTEMIS", "OPENWIRE"};
 
         List<String> configurations = sutDao.fetchSutTags(sut.getSutName(), sut.getSutVersion());
 
+        createProtocolReports(sut, protocols, durableFlags, limitDestinations, messageSizes, connectionCounts, configurations);
 
+        createContendedReports(sut, protocols, durableFlags, messageSizes);
+
+        createDestinationScalabilityReports(sut, protocols, durableFlags, messageSizes);
+
+        createDeltaReports(sut, protocols, messageSizes);
+
+    }
+
+    private void createDeltaReports(final Sut sut, String[] protocols, int[] messageSizes) {
+        DeltaReportCreator deltaReportCreator = new DeltaReportCreator(outputDir);
+
+        for (String protocol : protocols) {
+            for (int messageSize : messageSizes) {
+                ReportInfo reportInfo;
+                try {
+                    reportInfo = deltaReportCreator.create(sut, protocol, messageSize);
+                    if (reportInfo != null) {
+                        deltaReportsList.add(reportInfo);
+                    }
+                } catch (EmptyResultSet e) {
+                    logger.trace(e.getMessage());
+                } catch (Exception e) {
+                    logger.error(e.getMessage(), e);
+                }
+            }
+        }
+
+    }
+
+    private void createDestinationScalabilityReports(Sut sut, String[] protocols, boolean[] durableFlags, int[] messageSizes) {
+        DestinationScalabilityReportCreator destinationScalabilityReportCreator = new DestinationScalabilityReportCreator(outputDir);
+        for (boolean durable : durableFlags) {
+            for (int messageSize : messageSizes) {
+                for (String protocol : protocols) {
+
+                    ReportInfo reportInfo;
+                    try {
+                        reportInfo = destinationScalabilityReportCreator.create(sut, protocol, durable, messageSize);
+                        if (reportInfo != null) {
+                            destinationScalabilityReportsList.add(reportInfo);
+                        }
+                    } catch (EmptyResultSet e) {
+                        logger.trace(e.getMessage());
+                    } catch (Exception e) {
+                        logger.error(e.getMessage(), e);
+                    }
+                }
+            }
+        }
+    }
+
+    private void createContendedReports(Sut sut, String[] protocols, boolean[] durableFlags, int[] messageSizes) {
+        ContendedReportCreator contendedReportCreator = new ContendedReportCreator(outputDir);
+        for (boolean durable : durableFlags) {
+            for (int messageSize : messageSizes) {
+                for (String protocol : protocols) {
+
+                    ReportInfo reportInfo;
+                    try {
+                        reportInfo = contendedReportCreator.create(sut, protocol, durable, messageSize);
+                        if (reportInfo != null) {
+                            contendedReportsList.add(reportInfo);
+                        }
+                    } catch (EmptyResultSet e) {
+                      logger.trace(e.getMessage());
+                    } catch (Exception e) {
+                        logger.error(e.getMessage(), e);
+                    }
+                }
+            }
+        }
+    }
+
+    private void createProtocolReports(Sut sut, String[] protocols, boolean[] durableFlags, int[] limitDestinations, int[] messageSizes, int[] connectionCounts, List<String> configurations) {
         final SutConfigurationReportCreator sutConfigurationReportCreator = new SutConfigurationReportCreator(outputDir);
 
         final ProtocolReportCreator protocolReportCreator = new ProtocolReportCreator(outputDir);
@@ -84,7 +161,7 @@ public class Report {
                             continue;
                         }
 
-                        ReportInfo reportInfo = null;
+                        ReportInfo reportInfo;
                         try {
                             reportInfo = protocolReportCreator.create(sut, durable, limitDestination, messageSize,
                                     connectionCount);
@@ -117,51 +194,5 @@ public class Report {
                 }
             }
         }
-
-
-        ContendedReportCreator contendedReportCreator = new ContendedReportCreator(outputDir);
-        for (boolean durable : durableFlags) {
-            for (int messageSize : messageSizes) {
-                for (String protocol : protocols) {
-
-                    ReportInfo reportInfo = null;
-                    try {
-                        reportInfo = contendedReportCreator.create(sut, protocol, durable, messageSize);
-                        if (reportInfo != null) {
-                            contendedReportsList.add(reportInfo);
-                        }
-                    } catch (EmptyResultSet e) {
-                      logger.trace(e.getMessage());
-                    } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                    }
-                }
-            }
-        }
-
-
-        DestinationScalabilityReportCreator destinationScalabilityReportCreator = new DestinationScalabilityReportCreator(outputDir);
-        for (boolean durable : durableFlags) {
-            for (int messageSize : messageSizes) {
-                for (String protocol : protocols) {
-
-                    ReportInfo reportInfo = null;
-                    try {
-                        reportInfo = destinationScalabilityReportCreator.create(sut, protocol, durable, messageSize);
-                        if (reportInfo != null) {
-                            destinationScalabilityReportsList.add(reportInfo);
-                        }
-                    } catch (EmptyResultSet e) {
-                        logger.trace(e.getMessage());
-                    } catch (Exception e) {
-                        logger.error(e.getMessage(), e);
-                    }
-                }
-            }
-        }
-
-
-
-
     }
 }

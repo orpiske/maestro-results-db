@@ -247,6 +247,43 @@
                 </tbody>
             </table>
         </div>
+
+        <div class="col-sm-12">
+            <h2 id="rep-delta-perf">Performance Delta</h2>
+
+            <div class="row toolbar-pf-results">
+                <div class="col-sm-9">
+                    <div class="hidden">
+                        <h5>0 Results</h5>
+                        <p>Active filters:</p>
+                        <ul class="list-inline"></ul>
+                        <p><a href="#">Clear All Filters</a></p>
+                    </div>
+                </div>
+                <div class="col-sm-3 table-view-pf-select-results">
+                    <strong>0</strong> of <strong>0</strong> selected
+                </div>
+            </div>
+
+            <table class="table table-striped table-bordered table-hover" id="conftable">
+                <thead>
+                <tr>
+                    <th>Report Link</th>
+                    <th>Messaging Protocol</th>
+                    <th>Size</th>
+                </tr>
+                </thead>
+                <tbody>
+                {% for deltaReport in deltaReportsList %}
+                <tr>
+                    <td><a href="./delta/{{ deltaReport.linkName }}.csv">{{ deltaReport.sut.sutName }} {{ deltaReport.sut.sutVersion }}</a></td>
+                    <td>{{ deltaReport.protocol }}</td>
+                    <td>0</td>
+                </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
     </main>
 
     <script type="text/javascript" src="resources/components/jquery/jquery.min.js"></script>
