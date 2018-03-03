@@ -30,8 +30,10 @@ public abstract class AbstractReportCreator {
     protected File createReportBaseDir(final String baseName) {
         File baseReportDir = new File(outputDir, baseName);
 
-        if (!baseReportDir.mkdirs()) {
-            logger.error("Unable to create report directory {}", baseReportDir);
+        if (!baseReportDir.exists()) {
+            if (!baseReportDir.mkdirs()) {
+                logger.error("Unable to create report directory {}", baseReportDir);
+            }
         }
 
         return baseReportDir;
