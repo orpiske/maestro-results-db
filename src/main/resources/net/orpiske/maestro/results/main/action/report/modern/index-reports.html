@@ -102,9 +102,9 @@
                 <tr>
                     <th>Report Link</th>
                     <th>Durable</th>
-                    <th>Limit Destinations</th>
-                    <th>Message Size</th>
-                    <th>Connection Count</th>
+                    <th align="right">Limit Destinations</th>
+                    <th align="right">Message Size</th>
+                    <th align="right">Connection Count</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -112,9 +112,9 @@
                 <tr>
                     <td><a href="./{{ protocolReport.linkName }}/index.html">{{ protocolReport.sut.sutName }} {{ protocolReport.sut.sutVersion }}</a></td>
                     <td>{{ protocolReport.durable }}</td>
-                    <td>{{ protocolReport.limitDestinations }}</td>
-                    <td>{{ protocolReport.messageSize }}</td>
-                    <td>{{ protocolReport.connectionCount }}</td>
+                    <td align="right">{{ protocolReport.limitDestinations }}</td>
+                    <td align="right">{{ protocolReport.messageSize }}</td>
+                    <td align="right">{{ protocolReport.connectionCount }}</td>
                 </tr>
                 {% endfor %}
                 </tbody>
@@ -145,9 +145,9 @@
                     <th>Report Link</th>
                     <th>Messaging Protocol</th>
                     <th>Durable</th>
-                    <th>Limit Destinations</th>
-                    <th>Message Size</th>
-                    <th>Connection Count</th>
+                    <th align="right">Limit Destinations</th>
+                    <th align="right">Message Size</th>
+                    <th align="right">Connection Count</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -156,9 +156,9 @@
                     <td><a href="./{{ contendedReport.linkName }}/index.html">{{ contendedReport.sut.sutName }} {{ contendedReport.sut.sutVersion }}</a></td>
                     <td>{{ contendedReport.protocol }}</td>
                     <td>{{ contendedReport.durable }}</td>
-                    <td>{{ contendedReport.limitDestinations }}</td>
-                    <td>{{ contendedReport.messageSize }}</td>
-                    <td>{{ contendedReport.connectionCount }}</td>
+                    <td align="right">{{ contendedReport.limitDestinations }}</td>
+                    <td align="right">{{ contendedReport.messageSize }}</td>
+                    <td align="right">{{ contendedReport.connectionCount }}</td>
                 </tr>
                 {% endfor %}
                 </tbody>
@@ -188,8 +188,8 @@
                     <th>Report Link</th>
                     <th>Messaging Protocol</th>
                     <th>Durable</th>
-                    <th>Message Size</th>
-                    <th>Connection Count</th>
+                    <th align="right">Message Size</th>
+                    <th align="right">Connection Count</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -198,8 +198,8 @@
                     <td><a href="./{{ destinationScalabilityReport.linkName }}/index.html">{{ destinationScalabilityReport.sut.sutName }} {{ destinationScalabilityReport.sut.sutVersion }}</a></td>
                     <td>{{ destinationScalabilityReport.protocol }}</td>
                     <td>{{ destinationScalabilityReport.durable }}</td>
-                    <td>{{ destinationScalabilityReport.messageSize }}</td>
-                    <td>{{ destinationScalabilityReport.connectionCount }}</td>
+                    <td align="right">{{ destinationScalabilityReport.messageSize }}</td>
+                    <td align="right">{{ destinationScalabilityReport.connectionCount }}</td>
                 </tr>
                 {% endfor %}
                 </tbody>
@@ -229,9 +229,9 @@
                     <th>Report Link</th>
                     <th>Messaging Protocol</th>
                     <th>Durable</th>
-                    <th>Limit Destinations</th>
-                    <th>Message Size</th>
-                    <th>Connection Count</th>
+                    <th align="right">Limit Destinations</th>
+                    <th align="right">Message Size</th>
+                    <th align="right">Connection Count</th>
                     <th>Configuration (Test Tags)</th>
                 </tr>
                 </thead>
@@ -241,9 +241,9 @@
                     <td><a href="./{{ configurationReport.linkName }}/index.html">{{ configurationReport.sut.sutName }} {{ configurationReport.sut.sutVersion }}</a></td>
                     <td>{{ configurationReport.protocol }}</td>
                     <td>{{ configurationReport.durable }}</td>
-                    <td>{{ configurationReport.limitDestinations }}</td>
-                    <td>{{ configurationReport.messageSize }}</td>
-                    <td>{{ configurationReport.connectionCount }}</td>
+                    <td align="right">{{ configurationReport.limitDestinations }}</td>
+                    <td align="right">{{ configurationReport.messageSize }}</td>
+                    <td align="right">{{ configurationReport.connectionCount }}</td>
                     <td>{{ configurationReport.configuration }}</td>
                 </tr>
                 {% endfor %}
@@ -273,7 +273,7 @@
                 <tr>
                     <th>Report Link</th>
                     <th>Messaging Protocol</th>
-                    <th>Size</th>
+                    <th align="right">Size</th>
                 </tr>
                 </thead>
                 <tbody>
@@ -281,7 +281,7 @@
                 <tr>
                     <td><a href="./delta/{{ deltaReport.linkName }}.csv">{{ deltaReport.sut.sutName }} {{ deltaReport.sut.sutVersion }}</a></td>
                     <td>{{ deltaReport.protocol }}</td>
-                    <td>0</td>
+                    <td align="right">0</td>
                 </tr>
                 {% endfor %}
                 </tbody>

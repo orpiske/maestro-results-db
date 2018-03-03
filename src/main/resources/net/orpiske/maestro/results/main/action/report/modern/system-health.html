@@ -235,7 +235,7 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
         <tr>
             <th>Protocol</th>
             <th>Test Result</th>
-            <th>Records</th>
+            <th align="right">Records</th>
         </tr>
         </thead>
         <tbody>
@@ -243,7 +243,7 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
         <tr>
             <td>{{ protocolFailureRecord.messagingProtocol }}</td>
             <td><span class={% if protocolFailureRecord.testResult == 'success' %} "pficon pficon-ok" {% else %} "pficon pficon-error-circle-o" {% endif %}></span> {{ protocolFailureRecord.testResult }}</td>
-            <td>{{ protocolFailureRecord.testRecords }}</td>
+            <td align="right">{{ protocolFailureRecord.testRecords }}</td>
         </tr>
         {% endfor %}
         </tbody>
@@ -260,9 +260,9 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
         <tr>
             <th>SUT Name</th>
             <th>SUT Version</th>
-            <th>Total Test Count</th>
-            <th>Passed Test Count</th>
-            <th>Failed Test Count</th>
+            <th align="right">Total Test Count</th>
+            <th align="right">Passed Test Count</th>
+            <th align="right">Failed Test Count</th>
         </tr>
         </thead>
         <tbody>
@@ -270,9 +270,9 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
         <tr>
             <td>{{ testResultMetricRecord.sutName }}</td>
             <td>{{ testResultMetricRecord.sutVersion }}</td>
-            <td>{{ testResultMetricRecord.total }}</td>
-            <td>{{ testResultMetricRecord.passedCount }}</td>
-            <td>{{ testResultMetricRecord.failedCount }}</td>
+            <td align="right">{{ testResultMetricRecord.total }}</td>
+            <td align="right">{{ testResultMetricRecord.passedCount }}</td>
+            <td align="right">{{ testResultMetricRecord.failedCount }}</td>
         </tr>
         {% endfor %}
         </tbody>
@@ -289,9 +289,9 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
         <tr>
             <th>SUT Name</th>
             <th>SUT Version</th>
-            <th>Total Test Count</th>
-            <th>Valid Test Count</th>
-            <th>Invalid Test Count</th>
+            <th align="right">Total Test Count</th>
+            <th align="right">Valid Test Count</th>
+            <th align="right">Invalid Test Count</th>
         </tr>
         </thead>
         <tbody>
@@ -299,9 +299,9 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
         <tr>
             <td>{{ validTestRecord.sutName }}</td>
             <td>{{ validTestRecord.sutVersion }}</td>
-            <td>{{ validTestRecord.total }}</td>
-            <td>{{ validTestRecord.validCount }}</td>
-            <td>{{ validTestRecord.invalidCount }}</td>
+            <td align="right">{{ validTestRecord.total }}</td>
+            <td align="right">{{ validTestRecord.validCount }}</td>
+            <td align="right">{{ validTestRecord.invalidCount }}</td>
         </tr>
         {% endfor %}
         </tbody>
