@@ -68,6 +68,9 @@
                 <a href="system-health/index.html">System Health</a>
             </li>
             <li>
+                <a href="static/help.html">Help</a>
+            </li>
+            <li>
                 <a href="static/about.html">About</a>
             </li>
 
@@ -273,6 +276,7 @@
                 <tr>
                     <th>Report Link</th>
                     <th>Messaging Protocol</th>
+                    <th>Message Size</th>
                     <th>Size</th>
                 </tr>
                 </thead>
@@ -281,6 +285,7 @@
                 <tr>
                     <td><a href="./delta/{{ deltaReport.linkName }}.csv">{{ deltaReport.sut.sutName }} {{ deltaReport.sut.sutVersion }}</a></td>
                     <td>{{ deltaReport.protocol }}</td>
+                    <td>{{ deltaReport.messageSize }}</td>
                     <td>{{ deltaReport.reportSize | filesizeformat(true) }}</td>
                 </tr>
                 {% endfor %}
