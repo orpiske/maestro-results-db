@@ -1,0 +1,154 @@
+<!DOCTYPE html>
+<!--
+  ~  Copyright 2017 Otavio R. Piske <angusyoung@gmail.com>
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  -->
+
+<!--
+Based on https://www.quackit.com/html/templates/download/view_source.cfm?template=../frames/css_frames/2_rows_2_columns_a.cfm
+-->
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Help</title>
+
+    <link rel="stylesheet" href="../resources/css/patternfly.min.css">
+    <link rel="stylesheet" href="../resources/css/patternfly-additions.min.css">
+    <link rel="stylesheet" href="../resources/js/patternfly.min.css">
+
+    <link rel="icon"
+          type="image/png"
+          href="../favicon.png">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-pf" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">
+            <img src="../resources/img/brand.svg" alt="Maestro - Messaging Performance Reports" />
+        </a>
+    </div>
+    <div class="collapse navbar-collapse navbar-collapse-1">
+        <ul class="nav navbar-nav navbar-primary">
+            <li>
+                <a href="../index.html">Index</a>
+            </li>
+
+        </ul>
+    </div>
+</nav>
+
+<main>
+    <header>
+       <h1>Maestro Performance Reports: Help</h1>
+    </header>
+
+    <div class="col-sm-12">
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" id="perf-proto-help">Protocol Performance Reports</h3>
+            </div>
+            <div class="panel-body">
+                These reports compares the maximum recorded metrics for each protocol supported by the Software Under
+                Test (SUT). This comparison is made regardless of the system/test configuration as it assumes that the
+                configuration variations for the SUT and the test conditions are limited.
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" id="perf-contend-help">Contended Performance Reports</h3>
+            </div>
+            <div class="panel-body">
+                These reports compares the maximum recorded metrics for a protocol under destination contended conditions.
+                This means that the data is sent through the SUT using a limited set of queues. For example, it can be
+                used to compare the scalability of the product when 100, 10 and/or 1 connections are exchanging data via
+                a single queue.
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" id="perf-scalability-help">Destination Scalability Reports</h3>
+            </div>
+            <div class="panel-body">
+                These reports compares the maximum recorded metrics for a protocol under destination contended conditions.
+                This means that the data is sent through the SUT using a limited set of queues. For example, it can be
+                used to compare the scalability of the product when 100 connections are exchanging data via 1, 10 or 100
+                queues.
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" id="perf-config-help">Performance By Configuration</h3>
+            </div>
+            <div class="panel-body">
+                This report compares the performance of the SUT with different test configurations/conditions. For
+                example, it can be used to compare the product performance with different operating system versions.
+            </div>
+        </div>
+
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                <h3 class="panel-title" id="perf-delta-help">Performance Delta</h3>
+            </div>
+            <div class="panel-body">
+                This report compares the SUT performance against multiple different configurations and parameters of the
+                same SUT version. It is a super set of all other reports available and can be used to find, for example,
+                what configuration is mostly affected by an specific set of test parameters or conditions (ie.: what
+                configuration is most affected by a given patch or OS version). Because the data set can be very large,
+                the reports are available as CSV files that can be downloaded an imported into Libre Office or any other
+                spreadsheet sheet software.
+                <p></p>
+                The reports are composed of 2 data sets:
+                <li>The Left Hand Side (LHS) fields contains the baseline configuration/parameters.</li>
+                <li>The Right Hand Side (RHS) fields contains the configuration/parameters you want to compare with.</li>
+                <p></p>
+                Each data set contains the following fields:
+                <li>test_id: test id.</li>
+                <li>sut_id: sut id.</li>
+                <li>sut_tags: sut tags are used to tag a SUT with details related to its base configuration (ie.: AIO or NIO journal).</li>
+                <li>test_tags: test tags are used to tag a test with test-specific details (ie.: whether spectre patches were present, RHEL version, etc etc).</li>
+                <li>sut_name: SUT name.</li>
+                <li>sut_version: SUT version.</li>
+                <li>test_valid: whether the test was not invalidated by errors, SUT bugs or other problems. This should almost always be true.</li>
+                <li>env_resource_role: whether the data is for a sender or receiver</li>
+                <li>connection_count: connection count on the node.</li>
+                <li>limit_destinations: the number of destinations used in the test.</li>
+                <li>message_size: the message size in bytes.</li>
+                <li>messaging_protocol: the messaging protocol.</li>
+                <li>variable_size: whether size variability was applied to the messages.</li>
+                <li>test_rate_geometric_mean: rate geometric mean.</li>
+                <li>test_date: test date.</li>
+                <p></p>
+                The performance difference between configurations is available on the <strong>diff</strong> field which
+                contains the performance delta between the LHS and RHS data sets.
+            </div>
+        </div>
+    </div>
+
+
+
+</body>
+</html>

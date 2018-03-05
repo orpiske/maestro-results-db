@@ -91,7 +91,7 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
                 </tr>
                 <tr>
                     <td>Message Size</td>
-                    <td>{{ messageSize }}</td>
+                    <td>{{ messageSize | filesizeformat(true) }}</td>
                 </tr>
             </tbody>
         </table>
@@ -112,7 +112,10 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
                 <th>API Name</th>
                 <th>API Version</th>
                 <th>Protocol</th>
-                <th>Connection Count</th>
+                <th data-toggle="tooltip" data-placement="top" title="Number of connections on the node">
+                    <span class="pficon pficon-info"></span>
+                    Connection Count
+                </th>
                 <th>Minimum Rate</th>
                 <th>Maximum Rate</th>
                 <th>Rate Geometric Mean
@@ -164,7 +167,10 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
                 <th>API Name</th>
                 <th>API Version</th>
                 <th>Protocol</th>
-                <th>Connection Count</th>
+                <th data-toggle="tooltip" data-placement="top" title="Number of connections on the node">
+                    <span class="pficon pficon-info"></span>
+                    Connection Count
+                </th>
                 <th>Minimum Rate</th>
                 <th>Maximum Rate</th>
                 <th>Rate Geometric Mean

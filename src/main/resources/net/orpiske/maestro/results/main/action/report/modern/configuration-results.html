@@ -89,11 +89,11 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
                 </tr>
                 <tr>
                     <td>Message Size</td>
-                    <td>{{ messageSize }}</td>
+                    <td>{{ messageSize | filesizeformat(true) }}</td>
                 </tr>
                 <tr>
                     <td>Connection Count</td>
-                    <td>{{ connectionCount }}</td>
+                    <td>{{ connectionCount }} Pair(s)</td>
                 </tr>
                 <tr>
                     <td>SUT Tags </td>

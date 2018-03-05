@@ -116,7 +116,7 @@
                     <td><a href="./{{ protocolReport.linkName }}/index.html">{{ protocolReport.sut.sutName }} {{ protocolReport.sut.sutVersion }}</a></td>
                     <td>{{ protocolReport.durable }}</td>
                     <td>{{ protocolReport.limitDestinations }}</td>
-                    <td>{{ protocolReport.messageSize }}</td>
+                    <td>{{ protocolReport.messageSize | filesizeformat(true) }}</td>
                     <td>{{ protocolReport.connectionCount }}</td>
                 </tr>
                 {% endfor %}
@@ -160,7 +160,7 @@
                     <td>{{ contendedReport.protocol }}</td>
                     <td>{{ contendedReport.durable }}</td>
                     <td>{{ contendedReport.limitDestinations }}</td>
-                    <td>{{ contendedReport.messageSize }}</td>
+                    <td>{{ contendedReport.messageSize | filesizeformat(true) }}</td>
                     <td>{{ contendedReport.connectionCount }}</td>
                 </tr>
                 {% endfor %}
@@ -201,7 +201,7 @@
                     <td><a href="./{{ destinationScalabilityReport.linkName }}/index.html">{{ destinationScalabilityReport.sut.sutName }} {{ destinationScalabilityReport.sut.sutVersion }}</a></td>
                     <td>{{ destinationScalabilityReport.protocol }}</td>
                     <td>{{ destinationScalabilityReport.durable }}</td>
-                    <td>{{ destinationScalabilityReport.messageSize }}</td>
+                    <td>{{ destinationScalabilityReport.messageSize | filesizeformat(true) }}</td>
                     <td>{{ destinationScalabilityReport.connectionCount }}</td>
                 </tr>
                 {% endfor %}
@@ -245,7 +245,7 @@
                     <td>{{ configurationReport.protocol }}</td>
                     <td>{{ configurationReport.durable }}</td>
                     <td>{{ configurationReport.limitDestinations }}</td>
-                    <td>{{ configurationReport.messageSize }}</td>
+                    <td>{{ configurationReport.messageSize | filesizeformat(true) }}</td>
                     <td>{{ configurationReport.connectionCount }}</td>
                     <td>{{ configurationReport.configuration }}</td>
                 </tr>

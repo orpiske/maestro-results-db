@@ -87,11 +87,11 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
                 </tr>
                 <tr>
                     <td>Connections</td>
-                    <td>{{ connections }}</td>
+                    <td>{{ connections }} pair(s)</td>
                 </tr>
                 <tr>
                     <td>Message Size</td>
-                    <td>{{ messageSize }}</td>
+                    <td>{{ messageSize | filesizeformat(true) }}</td>
                 </tr>
             </tbody>
         </table>
