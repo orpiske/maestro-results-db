@@ -6,7 +6,8 @@ public class DeltaReportInfo implements ReportInfo {
     private final Sut sut;
     private final String protocol;
     private final int messageSize;
-    private String linkName;
+    private final String linkName;
+    private long reportSize;
 
     public DeltaReportInfo(Sut sut, String protocol, int messageSize) {
         this.sut = sut;
@@ -30,6 +31,14 @@ public class DeltaReportInfo implements ReportInfo {
 
     public String getLinkName() {
         return linkName;
+    }
+
+    public long getReportSize() {
+        return reportSize;
+    }
+
+    public void setReportSize(long reportSize) {
+        this.reportSize = reportSize;
     }
 
     @Override

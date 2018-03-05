@@ -281,7 +281,7 @@
                 <tr>
                     <td><a href="./delta/{{ deltaReport.linkName }}.csv">{{ deltaReport.sut.sutName }} {{ deltaReport.sut.sutVersion }}</a></td>
                     <td>{{ deltaReport.protocol }}</td>
-                    <td>0</td>
+                    <td>{{ deltaReport.reportSize | filesizeformat(true) }}</td>
                 </tr>
                 {% endfor %}
                 </tbody>

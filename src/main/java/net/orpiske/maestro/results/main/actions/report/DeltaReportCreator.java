@@ -48,7 +48,7 @@ public class DeltaReportCreator extends AbstractReportCreator {
 
         if (!baseReportDir.exists()) {
             if (!baseReportDir.mkdirs()) {
-                logger.error("Unable to create directory for delta reports");
+                logger.error("Unable to create directory {} for delta reports", baseName);
             }
         }
 
@@ -56,14 +56,15 @@ public class DeltaReportCreator extends AbstractReportCreator {
     }
 
     public ReportInfo create(final Sut sut, final String protocol, final int messageSize) throws Exception {
-        ReportInfo reportInfo = new DeltaReportInfo(sut, protocol, messageSize);
+        DeltaReportInfo reportInfo = new DeltaReportInfo(sut, protocol, messageSize);
+
         File baseReportDir = createReportBaseDir(reportInfo);
+        File reportFile = new File(baseReportDir, reportInfo.baseName() + ".csv");
 
-        CsvCallbackHandler csvCallbackHandler = new CsvCallbackHandler(new File(baseReportDir,
-                reportInfo.baseName() + ".csv"));
-
+        CsvCallbackHandler csvCallbackHandler = new CsvCallbackHandler(reportFile);
         reportsDao.reportDeltas(sut.getSutName(), sut.getSutVersion(), protocol, messageSize, csvCallbackHandler);
 
+        reportInfo.setReportSize(reportFile.length());
         return reportInfo;
     }
 
