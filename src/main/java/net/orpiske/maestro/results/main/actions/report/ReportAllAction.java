@@ -7,6 +7,7 @@ public class ReportAllAction extends Action {
     private CommandLine cmdLine;
     private Options options;
     private String output;
+    private String testName;
 
     public ReportAllAction(final String[] args) {
         processCommand(args);
@@ -20,6 +21,7 @@ public class ReportAllAction extends Action {
 
         options.addOption("h", "help", false, "prints the help");
         options.addOption("o", "output", true, "output directory");
+        options.addOption("t", "test-name", true, "test name [Release, Baseline - defaults to Baseline]");
 
         try {
             cmdLine = parser.parse(options, args);
@@ -37,11 +39,16 @@ public class ReportAllAction extends Action {
             System.err.println("Output directory is mandatory. Use option '-o' to inform it");
             help(options, -1);
         }
+
+        testName = cmdLine.getOptionValue('t');
+        if (testName == null) {
+            testName = "Baseline";
+        }
     }
 
     @Override
     public int run() {
-        Report reportRunner = new Report(output);
+        Report reportRunner = new Report(output, testName);
 
         reportRunner.createReport();
 

@@ -18,7 +18,7 @@ public class SystemHealthReportCreator extends AbstractReportCreator {
     private Map<String, Object> context = new HashMap<>();
 
     public SystemHealthReportCreator(final String outputDir) {
-        super(outputDir);
+        super(outputDir, null);
     }
 
 

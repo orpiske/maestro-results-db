@@ -1,8 +1,11 @@
 package net.orpiske.maestro.results.main.actions.report;
 
+import net.orpiske.maestro.results.common.ReportConfig;
 import net.orpiske.maestro.results.dao.SutDao;
 import net.orpiske.maestro.results.dto.Sut;
 import net.orpiske.maestro.results.main.actions.report.exceptions.EmptyResultSet;
+import net.orpiske.mpt.common.ConfigurationWrapper;
+import org.apache.commons.configuration.AbstractConfiguration;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -13,7 +16,9 @@ import java.util.*;
 
 public class Report {
     private static final Logger logger = LoggerFactory.getLogger(Report.class);
+    private static final AbstractConfiguration config = ConfigurationWrapper.getConfig();
     private final String outputDir;
+    private final String testName;
 
     private final List<ReportInfo> protocolReportsList = Collections.synchronizedList(new LinkedList<>());
     private final List<ReportInfo> contendedReportsList = Collections.synchronizedList(new LinkedList<>());
@@ -23,8 +28,9 @@ public class Report {
 
     private final SutDao sutDao = new SutDao();
 
-    public Report(final String outputDir) {
+    public Report(final String outputDir, final String testName) {
         this.outputDir = outputDir;
+        this.testName = testName;
     }
 
     void createReport() {
@@ -66,10 +72,11 @@ public class Report {
     }
 
     private void createReportForSut(final Sut sut) {
-        boolean durableFlags[] = {true, false};
-        int limitDestinations[] = {1, 10, 100};
-        int messageSizes[] = {100, 1024, 10240};
-        int connectionCounts[] = {1, 10, 100};
+        boolean durableFlags[] = ReportConfig.getBooleanArray(testName, "report.durables");
+
+        int limitDestinations[] = ReportConfig.getIntArrayForTest(testName, "report.limitDestinations");
+        int messageSizes[] = ReportConfig.getIntArrayForTest(testName, "report.messageSizes");
+        int connectionCounts[] = ReportConfig.getIntArrayForTest(testName, "report.connectionCounts");
         String protocols[] = {"AMQP", "ARTEMIS", "OPENWIRE"};
 
         List<String> configurations = sutDao.fetchSutTags(sut.getSutName(), sut.getSutVersion());
@@ -85,7 +92,7 @@ public class Report {
     }
 
     private void createDeltaReports(final Sut sut, String[] protocols, int[] messageSizes) {
-        DeltaReportCreator deltaReportCreator = new DeltaReportCreator(outputDir);
+        DeltaReportCreator deltaReportCreator = new DeltaReportCreator(outputDir, testName);
 
         for (String protocol : protocols) {
             for (int messageSize : messageSizes) {
@@ -106,7 +113,8 @@ public class Report {
     }
 
     private void createDestinationScalabilityReports(Sut sut, String[] protocols, boolean[] durableFlags, int[] messageSizes) {
-        DestinationScalabilityReportCreator destinationScalabilityReportCreator = new DestinationScalabilityReportCreator(outputDir);
+        DestinationScalabilityReportCreator destinationScalabilityReportCreator =
+                new DestinationScalabilityReportCreator(outputDir, testName);
         for (boolean durable : durableFlags) {
             for (int messageSize : messageSizes) {
                 for (String protocol : protocols) {
@@ -128,7 +136,8 @@ public class Report {
     }
 
     private void createContendedReports(Sut sut, String[] protocols, boolean[] durableFlags, int[] messageSizes) {
-        ContendedReportCreator contendedReportCreator = new ContendedReportCreator(outputDir);
+        ContendedReportCreator contendedReportCreator = new ContendedReportCreator(outputDir, testName);
+
         for (boolean durable : durableFlags) {
             for (int messageSize : messageSizes) {
                 for (String protocol : protocols) {
@@ -150,9 +159,10 @@ public class Report {
     }
 
     private void createProtocolReports(Sut sut, String[] protocols, boolean[] durableFlags, int[] limitDestinations, int[] messageSizes, int[] connectionCounts, List<String> configurations) {
-        final SutConfigurationReportCreator sutConfigurationReportCreator = new SutConfigurationReportCreator(outputDir);
+        final SutConfigurationReportCreator sutConfigurationReportCreator =
+                new SutConfigurationReportCreator(outputDir, testName);
 
-        final ProtocolReportCreator protocolReportCreator = new ProtocolReportCreator(outputDir);
+        final ProtocolReportCreator protocolReportCreator = new ProtocolReportCreator(outputDir, testName);
         for (boolean durable : durableFlags) {
             for (int messageSize : messageSizes) {
                 for (int connectionCount : connectionCounts) {

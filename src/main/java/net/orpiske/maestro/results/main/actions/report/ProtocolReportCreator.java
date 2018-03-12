@@ -15,8 +15,8 @@ public class ProtocolReportCreator extends AbstractReportCreator {
     private static final Logger logger = LoggerFactory.getLogger(ProtocolReportCreator.class);
     private final ReportsDao reportsDao = new ReportsDao();
 
-    public ProtocolReportCreator(final String outputDir) {
-        super(outputDir);
+    public ProtocolReportCreator(final String outputDir, final String testName) {
+        super(outputDir, testName);
     }
 
 
@@ -24,7 +24,7 @@ public class ProtocolReportCreator extends AbstractReportCreator {
                              int connectionCount) throws Exception
     {
         List<TestResultRecord> testResultRecords = reportsDao.protocolReports(sut.getSutName(), sut.getSutVersion(),
-                durable, limitDestinations, messageSize, connectionCount);
+                durable, limitDestinations, messageSize, connectionCount, getTestName());
         validateResultSet(sut, null, testResultRecords);
 
         Map<String, Object> context = new HashMap<>();

@@ -15,8 +15,8 @@ public class SutConfigurationReportCreator extends AbstractReportCreator {
     private static final Logger logger = LoggerFactory.getLogger(SutConfigurationReportCreator.class);
     private final ReportsDao reportsDao = new ReportsDao();
 
-    public SutConfigurationReportCreator(final String outputDir) {
-        super(outputDir);
+    public SutConfigurationReportCreator(final String outputDir, final String testName) {
+        super(outputDir, testName);
     }
 
 
@@ -25,12 +25,12 @@ public class SutConfigurationReportCreator extends AbstractReportCreator {
     {
         List<TestResultRecord> testResultRecordsSender = reportsDao.sutConfigurationsReport(sut.getSutName(),
                 sut.getSutVersion(), protocol, configuration, "sender", durable, limitDestinations, messageSize,
-                connectionCount);
+                connectionCount, getTestName());
         validateResultSet(sut, "sender", testResultRecordsSender);
 
         List<TestResultRecord> testResultRecordsReceiver = reportsDao.sutConfigurationsReport(sut.getSutName(),
                 sut.getSutVersion(), protocol, configuration, "receiver", durable, limitDestinations, messageSize,
-                connectionCount);
+                connectionCount, getTestName());
         validateResultSet(sut, "receiver", testResultRecordsReceiver);
 
 

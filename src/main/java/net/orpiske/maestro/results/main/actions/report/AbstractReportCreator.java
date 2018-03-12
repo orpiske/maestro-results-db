@@ -18,13 +18,19 @@ public abstract class AbstractReportCreator {
     private static final Logger logger = LoggerFactory.getLogger(AbstractReportCreator.class);
 
     private final String outputDir;
+    private final String testName;
 
-    public AbstractReportCreator(final String outputDir) {
+    public AbstractReportCreator(final String outputDir, final String testName) {
         this.outputDir = outputDir;
+        this.testName = testName;
     }
 
     protected String getOutputDir() {
         return outputDir;
+    }
+
+    protected String getTestName() {
+        return testName;
     }
 
     protected File createReportBaseDir(final String baseName) {

@@ -38,8 +38,8 @@ public class DeltaReportCreator extends AbstractReportCreator {
         }
     }
 
-    public DeltaReportCreator(String outputDir) {
-        super(outputDir);
+    public DeltaReportCreator(final String outputDir, final String testName) {
+        super(outputDir, testName);
     }
 
     @Override
@@ -62,7 +62,8 @@ public class DeltaReportCreator extends AbstractReportCreator {
         File reportFile = new File(baseReportDir, reportInfo.baseName() + ".csv");
 
         CsvCallbackHandler csvCallbackHandler = new CsvCallbackHandler(reportFile);
-        reportsDao.reportDeltas(sut.getSutName(), sut.getSutVersion(), protocol, messageSize, csvCallbackHandler);
+        reportsDao.reportDeltas(sut.getSutName(), sut.getSutVersion(), protocol, messageSize, getTestName(),
+                csvCallbackHandler);
 
         reportInfo.setReportSize(reportFile.length());
         return reportInfo;

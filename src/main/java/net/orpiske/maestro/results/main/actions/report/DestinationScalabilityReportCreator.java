@@ -1,5 +1,6 @@
 package net.orpiske.maestro.results.main.actions.report;
 
+import net.orpiske.maestro.results.common.ReportConfig;
 import net.orpiske.maestro.results.dao.ReportsDao;
 import net.orpiske.maestro.results.dto.Sut;
 import net.orpiske.maestro.results.dto.TestResultRecord;
@@ -16,25 +17,27 @@ public class DestinationScalabilityReportCreator extends AbstractReportCreator {
 
     private final ReportsDao reportsDao = new ReportsDao();
 
-    public DestinationScalabilityReportCreator(String outputDir) {
-        super(outputDir);
+    public DestinationScalabilityReportCreator(final String outputDir, final String testName) {
+        super(outputDir, testName);
     }
 
 
     public ReportInfo create(final Sut sut, final String protocol, boolean durable, int messageSize) throws Exception
     {
         List<TestResultRecord> testResultRecordsSender = reportsDao.destinationScalabilityReport(sut.getSutName(), sut.getSutVersion(),
-                protocol, "sender", durable, messageSize);
+                protocol, "sender", durable, messageSize, getTestName());
         validateResultSet(sut, "sender", testResultRecordsSender);
 
 
         List<TestResultRecord> testResultRecordsReceiver = reportsDao.destinationScalabilityReport(sut.getSutName(), sut.getSutVersion(),
-                protocol, "receiver", durable, messageSize);
+                protocol, "receiver", durable, messageSize, getTestName());
         validateResultSet(sut, "receiver", testResultRecordsReceiver);
 
+        Integer connectionCount = ReportConfig.getInteger(getTestName(),
+                "report.destinationScalability.connectionCount");
 
-
-        ReportInfo reportInfo = new DestinationScalabilityReportInfo(sut, protocol, durable, 1, messageSize);
+        ReportInfo reportInfo = new DestinationScalabilityReportInfo(sut, protocol, durable, messageSize,
+                connectionCount);
 
         // Directory creating
         File baseReportDir = createReportBaseDir(reportInfo);
@@ -56,7 +59,7 @@ public class DestinationScalabilityReportCreator extends AbstractReportCreator {
         context.put("sut", sut);
         context.put("durable", durable);
         context.put("messageSize", messageSize);
-        context.put("connections", 100);
+        context.put("connections", connectionCount);
 
         generateIndex("ds-results.html", baseReportDir, context);
 

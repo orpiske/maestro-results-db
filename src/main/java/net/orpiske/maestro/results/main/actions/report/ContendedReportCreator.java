@@ -15,18 +15,18 @@ public class ContendedReportCreator extends AbstractReportCreator {
     private static final Logger logger  = LoggerFactory.getLogger(ContendedReportCreator.class);
     private final ReportsDao reportsDao = new ReportsDao();
 
-    public ContendedReportCreator(final String outputDir) {
-        super(outputDir);
+    public ContendedReportCreator(final String outputDir, final String testName) {
+        super(outputDir, testName);
     }
 
 
     public ReportInfo create(final Sut sut, final String protocol, boolean durable, int messageSize) throws Exception {
         List<TestResultRecord> testResultRecordsSender = reportsDao.contentedScalabilityReport(sut.getSutName(),
-                sut.getSutVersion(), protocol, "sender", durable, messageSize);
+                sut.getSutVersion(), protocol, "sender", durable, messageSize, getTestName());
         validateResultSet(sut, "sender", testResultRecordsSender);
 
         List<TestResultRecord> testResultRecordsReceiver = reportsDao.contentedScalabilityReport(sut.getSutName(),
-                sut.getSutVersion(), protocol, "receiver", durable, messageSize);
+                sut.getSutVersion(), protocol, "receiver", durable, messageSize, getTestName());
         validateResultSet(sut, "receiver", testResultRecordsReceiver);
 
 

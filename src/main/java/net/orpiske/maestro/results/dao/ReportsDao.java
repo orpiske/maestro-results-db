@@ -1,5 +1,6 @@
 package net.orpiske.maestro.results.dao;
 
+import net.orpiske.maestro.results.common.ReportConfig;
 import net.orpiske.maestro.results.dto.TestResultRecord;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowCallbackHandler;
@@ -7,7 +8,6 @@ import org.springframework.jdbc.core.RowCallbackHandler;
 import java.util.List;
 
 public class ReportsDao extends AbstractDao {
-
     /**
      * Returns the performance report for different protocols with the same product and multiple configurations
      * @param sutName
@@ -20,7 +20,7 @@ public class ReportsDao extends AbstractDao {
      */
     public List<TestResultRecord> protocolReports(final String sutName, final String sutVersion,
                                                   boolean durable, int limitDestinations, int messageSize,
-                                                  int connectionCount) {
+                                                  int connectionCount, final String testName) {
         return jdbcTemplate.query("select tr.sut_name,tr.sut_version,tr.sut_tags,tr.test_tags,tr.test_result,tr.error,tr.connection_count,tp.limit_destinations," +
                         "tp.message_size,tp.api_name,tp.api_version,tp.messaging_protocol,tp.durable,tr.test_rate_min,tr.test_rate_max," +
                         "tr.test_rate_geometric_mean,tr.test_rate_standard_deviation,tr.test_rate_skip_count," +
@@ -35,9 +35,10 @@ public class ReportsDao extends AbstractDao {
                         "and tr.test_valid = true " +
                         "and tr.sut_name = ? " +
                         "and tr.sut_version = ? " +
+                        "and tr.test_name = ? " +
                         "group by sut_name, sut_version, messaging_protocol,env_resource_role, sut_tags " +
                         "order by tr.test_rate_geometric_mean desc",
-                new Object[] { durable, limitDestinations, messageSize, connectionCount, sutName, sutVersion },
+                new Object[] { durable, limitDestinations, messageSize, connectionCount, sutName, sutVersion, testName },
                 new BeanPropertyRowMapper<>(TestResultRecord.class));
     }
 
@@ -53,8 +54,10 @@ public class ReportsDao extends AbstractDao {
      */
     public List<TestResultRecord> contentedScalabilityReport(final String sutName, final String sutVersion,
                                                              final String messagingProtocol, final String role,
-                                                             boolean durable, int messageSize
-                                                             ) {
+                                                             boolean durable, int messageSize, final String testName) {
+        String connectionCounts = ReportConfig.getJoinedString(testName, "report.connectionCounts");
+        String limitDestination = ReportConfig.getString(testName, "report.contentedScalability.limitDestination");
+
         return jdbcTemplate.query("select tr.sut_name,tr.sut_version,tr.sut_tags,tr.test_tags,tr.test_result,tr.error,tr.connection_count,tp.limit_destinations," +
                 "tp.message_size,tp.api_name,tp.api_version,tp.messaging_protocol,tp.durable,tr.test_rate_min,tr.test_rate_max," +
                 "tr.test_rate_geometric_mean,tr.test_rate_standard_deviation,tr.test_rate_skip_count," +
@@ -63,16 +66,17 @@ public class ReportsDao extends AbstractDao {
                 "from test_results tr, test_properties tp " +
                 "where tr.test_id = tp.test_id and tr.test_number = tp.test_number " +
                 "and tr.test_valid = true " +
-                "and tp.limit_destinations = 1 " +
-                "and tr.connection_count in (1, 10, 100) " +
+                "and tp.limit_destinations = ? " +
+                "and tr.connection_count in (" + connectionCounts + ") " +
                 "and tr.sut_name = ? " +
                 "and tr.sut_version = ? " +
                 "and tp.durable = ? " +
                 "and tp.message_size = ? " +
                 "and tp.messaging_protocol = ? " +
                 "and tr.env_resource_role = ? " +
+                "and tr.test_name = ? " +
                 "order by tr.connection_count,tr.test_rate_geometric_mean asc",
-                new Object[] {sutName, sutVersion, durable, messageSize,  messagingProtocol, role},
+                new Object[] {limitDestination, sutName, sutVersion, durable, messageSize, messagingProtocol, role, testName},
                 new BeanPropertyRowMapper<>(TestResultRecord.class)
                 );
     }
@@ -90,7 +94,10 @@ public class ReportsDao extends AbstractDao {
      */
     public List<TestResultRecord> destinationScalabilityReport(final String sutName, final String sutVersion,
                                                                final String messagingProtocol, final String role,
-                                                               boolean durable, int messageSize) {
+                                                               boolean durable, int messageSize, final String testName) {
+        String destinationString = ReportConfig.getJoinedString(testName, "report.limitDestinations");
+        String connectionCount = ReportConfig.getString(testName, "report.destinationScalability.connectionCount");
+
         return jdbcTemplate.query("select tr.sut_name,tr.sut_version,tr.sut_tags,tr.test_tags,tr.test_result,tr.error,tr.connection_count,tp.limit_destinations, " +
                 "tp.message_size,tp.api_name,tp.api_version,tp.messaging_protocol,tp.durable,tr.test_rate_min,tr.test_rate_max, " +
                 "tr.test_rate_geometric_mean,tr.test_rate_standard_deviation,tr.test_rate_skip_count, " +
@@ -99,16 +106,18 @@ public class ReportsDao extends AbstractDao {
                 "from test_results tr, test_properties tp " +
                 "where tr.test_id = tp.test_id and tr.test_number = tp.test_number " +
                 "and tr.test_valid = true " +
-                "and tp.limit_destinations in (1, 10, 100) " +
-                "and tr.connection_count = 100 " +
+                // I do this because it does not use a NamedJdbcParameter (Maybe there's a better way?)
+                "and tp.limit_destinations in (" + destinationString + ") " +
+                "and tr.connection_count = ? " +
                 "and tr.sut_name = ? " +
                 "and tr.sut_version = ? " +
                 "and tp.durable = ? " +
                 "and tp.message_size = ? " +
                 "and tp.messaging_protocol = ? " +
                 "and tr.env_resource_role = ? " +
+                "and tr.test_name = ? " +
                 "order by tp.limit_destinations,tr.test_rate_geometric_mean asc",
-                new Object[] {sutName, sutVersion, durable, messageSize,  messagingProtocol, role},
+                new Object[] {connectionCount, sutName, sutVersion, durable, messageSize, messagingProtocol, role, testName},
                 new BeanPropertyRowMapper<>(TestResultRecord.class)
         );
     }
@@ -127,7 +136,7 @@ public class ReportsDao extends AbstractDao {
      */
     public List<TestResultRecord> sutConfigurationsReport(final String sutName, final String sutVersion, final String protocol,
                                                           final String sutTags, final String role, boolean durable, int limitDestinations,
-                                                          int messageSize, int connectionCount) {
+                                                          int messageSize, int connectionCount, final String testName) {
         return jdbcTemplate.query("select tr.sut_name,tr.sut_version,tr.sut_tags,tr.test_tags,tr.test_result,tr.error,tr.connection_count,tp.limit_destinations," +
                         "tp.message_size,tp.api_name,tp.api_version,tp.messaging_protocol,tp.durable,tr.test_rate_min,tr.test_rate_max," +
                         "tr.test_rate_geometric_mean,tr.test_rate_standard_deviation,tr.test_rate_skip_count," +
@@ -145,15 +154,17 @@ public class ReportsDao extends AbstractDao {
                         "and tr.sut_tags = ? " +
                         "and tr.env_resource_role = ? " +
                         "and tp.messaging_protocol = ? " +
+                        "and tr.test_name = ? " +
                         "group by sut_name,sut_version,messaging_protocol,sut_tags,test_tags " +
                         "order by tr.test_rate_geometric_mean desc",
-                new Object[] { durable, limitDestinations, messageSize, connectionCount, sutName, sutVersion, sutTags, role, protocol },
+                new Object[] { durable, limitDestinations, messageSize, connectionCount, sutName, sutVersion, sutTags,
+                        role, protocol, testName },
                 new BeanPropertyRowMapper<>(TestResultRecord.class));
     }
 
 
     public void reportDeltas(final String sutName, final String sutVersion, final String protocol, int messageSize,
-                        final RowCallbackHandler callbackHandler) {
+                        final String testName, final RowCallbackHandler callbackHandler) {
         jdbcTemplate.query("select " +
                 "lhs.test_id as lhs_test_id, " +
                 "lhs.sut_id as lhs_sut_id, " +
@@ -193,7 +204,9 @@ public class ReportsDao extends AbstractDao {
                 "and lhp.message_size = ? " +
                 "and lhs.test_valid = true " +
                 "and rhs.test_valid = true " +
-                "order by lhs_test_id", new Object[] { sutName, sutVersion, protocol, messageSize },
+                "and lhs.test_name = ? " +
+                "and rhs.test_name = ? " +
+                "order by lhs_test_id", new Object[] { sutName, sutVersion, protocol, messageSize, testName, testName },
                 callbackHandler);
     }
 }
