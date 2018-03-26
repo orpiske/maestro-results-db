@@ -9,6 +9,53 @@ import java.util.List;
 
 public class SystemHealthReportsDao extends AbstractDao {
 
+    private Integer protocolTestsConsistencies(final String reportLinkValue, final String dbTestFlagValue) {
+        return jdbcTemplate.queryForObject("select count(*) from test_msg_property tmp " +
+                        "where test_id in (select test_id from test where test_report_link like concat('%', ?, ',%') and test_valid = true) " +
+                        "and test_msg_property_value = ? " +
+                        "and test_msg_property_name = 'protocol' ",
+                new Object[] { reportLinkValue, dbTestFlagValue },
+                Integer.class
+        );
+    }
+
+    public Integer amqpConsistencies() {
+        return protocolTestsInconsistencies("single-qpid-jms", "AMQP");
+    }
+
+
+    public Integer openWireConsistencies() {
+        return protocolTestsInconsistencies("single-activemq", "OPENWIRE");
+    }
+
+    public Integer coreConsistencies() {
+        return protocolTestsInconsistencies("single-artemis", "ARTEMIS");
+    }
+
+    // single-qpid-jms
+    private Integer protocolTestsInconsistencies(final String reportLinkValue, final String dbTestFlagValue) {
+        return jdbcTemplate.queryForObject("select count(*) from test_msg_property tmp " +
+                        "where test_id in (select test_id from test where test_report_link like concat('%', ?, ',%') and test_valid = true) " +
+                        "and test_msg_property_value != ? " +
+                        "and test_msg_property_name = 'protocol' ",
+                new Object[] { reportLinkValue, dbTestFlagValue },
+                Integer.class
+        );
+    }
+
+    public Integer amqpInconsistencies() {
+        return protocolTestsInconsistencies("single-qpid-jms", "AMQP");
+    }
+
+
+    public Integer openWireInconsistencies() {
+        return protocolTestsInconsistencies("single-activemq", "OPENWIRE");
+    }
+
+    public Integer coreInconsistencies() {
+        return protocolTestsInconsistencies("single-artemis", "ARTEMIS");
+    }
+
     private Integer durableNonDurableTestsInconsistencies(final String reportLinkValue, final String dbTestFlagValue) {
         return jdbcTemplate.queryForObject("select count(*) from test_msg_property tmp " +
                 "where test_id in (select test_id from test where test_report_link like concat('%DURABLE=', ?, ',%') and test_valid = true) " +

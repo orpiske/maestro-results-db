@@ -21,6 +21,24 @@ public class SystemHealthReportCreator extends AbstractReportCreator {
         super(outputDir, null);
     }
 
+    private void collectProtocolInconsistencies() {
+        Integer amqpInconsistencies = reportsDao.amqpInconsistencies();
+        Integer amqpConsistencies = reportsDao.amqpConsistencies();
+
+        Integer coreInconsistencies = reportsDao.coreInconsistencies();
+        Integer coreConsistencies = reportsDao.coreConsistencies();
+
+        Integer openWireInconsistencies = reportsDao.openWireInconsistencies();
+        Integer openWireConsistencies = reportsDao.openWireConsistencies();
+
+        context.put("amqpInconsistencies", amqpInconsistencies);
+        context.put("amqpConsistencies", amqpConsistencies);
+        context.put("coreInconsistencies", coreInconsistencies);
+        context.put("coreConsistencies", coreConsistencies);
+        context.put("openWireInconsistencies", openWireInconsistencies);
+        context.put("openWireConsistencies", openWireConsistencies);
+    }
+
 
     private void collectInconsistencies() {
         Integer durableInconsistencies = reportsDao.durableTestsInconsistentCount();
@@ -35,7 +53,6 @@ public class SystemHealthReportCreator extends AbstractReportCreator {
         context.put("inconsistentSize100", inconsistentSize100);
         context.put("inconsistentSize1024", inconsistentSize1024);
         context.put("inconsistentSize10240", inconsistentSize10240);
-
     }
 
 
@@ -68,6 +85,7 @@ public class SystemHealthReportCreator extends AbstractReportCreator {
 
     public void create() throws Exception
     {
+        collectProtocolInconsistencies();
         collectInconsistencies();
         collectConsistencies();
         collectTestMetrics();
