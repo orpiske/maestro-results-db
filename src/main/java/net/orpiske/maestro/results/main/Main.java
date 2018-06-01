@@ -35,6 +35,7 @@ public class Main {
         System.out.println("Usage: maestro-cli <action>\n");
 
         System.out.println("Actions:");
+        System.out.println("   data-move");
         System.out.println("   load");
         System.out.println("   record");
         System.out.println("   report");
@@ -73,6 +74,10 @@ public class Main {
 
         Program program;
         switch (first) {
+            case "data": {
+                program = new DataProgram();
+                break;
+            }
             case "load": {
                 program = new LoadProgram();
                 break;
