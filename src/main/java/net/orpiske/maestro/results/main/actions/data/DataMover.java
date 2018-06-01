@@ -3,13 +3,12 @@ package net.orpiske.maestro.results.main.actions.data;
 import net.orpiske.maestro.results.dao.TestDao;
 import net.orpiske.maestro.results.dto.Test;
 import net.orpiske.mpt.utils.Downloader;
+import net.orpiske.mpt.utils.contrib.resource.exceptions.ResourceExchangeException;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
 import java.io.IOException;
-import java.net.URL;
 import java.util.List;
-import java.util.zip.ZipInputStream;
 
 public class DataMover {
     private TestDao dao = new TestDao();
@@ -20,18 +19,9 @@ public class DataMover {
 
     public DataMover() {}
 
-    protected void downloadReport(final String downloadUrl, final String path) {
-        try {
-            Downloader.download(downloadUrl, path, false);
-        }
-        catch (Exception e) {
-            e.printStackTrace();
-            e.getCause().printStackTrace();
-        }
-    }
 
     private String getTestPath(final Test test) {
-        return test.getTestName() + "/" + test.getTestId() + "/" + test.getTestNumber();
+        return test.getTestName() + "/id/" + test.getTestId() + "/number/" + test.getTestNumber();
     }
 
     private void updateRecord(final Test test, final String from, final String to) {
@@ -67,8 +57,16 @@ public class DataMover {
                 return;
             }
 
-            downloadReport(oldUrl, path);
+            try {
+                Downloader.download(oldUrl, path, false);
+            } catch (ResourceExchangeException e) {
+                e.printStackTrace();
+                return;
+            }
         }
+
+        test.setTestReportLink(newUrl);
+        dao.update(test);
     }
 
     public void setDynamicNaming(boolean dynamicNaming) {

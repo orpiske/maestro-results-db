@@ -63,6 +63,12 @@ public abstract class AbstractDao extends NamedParameterJdbcDaoSupport {
         return ret;
     }
 
+    protected void runUpdate(final String query, Object o) {
+        SqlParameterSource beanParameters = new BeanPropertySqlParameterSource(o);
+
+        getNamedParameterJdbcTemplate().update(query, beanParameters);
+    }
+
     protected int runUpdate(final String query, Object...args) {
         return jdbcTemplate.update(query, args);
     }

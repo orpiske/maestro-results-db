@@ -19,6 +19,14 @@ public class TestDao extends AbstractDao {
                         ":testDataStorageInfo, :testTags, now(), :testDuration, :testTargetRate)", dto);
     }
 
+    public void update(Test dto) {
+        runUpdate(
+                "update test set test_name=:testName, test_number=:testNumber, test_result=:testResult, sut_id=:sutId, " +
+                        "test_report_link=:testReportLink, test_data_storage_info=:testDataStorageInfo, test_tags=:testTags, " +
+                        "test_date=:testDate, test_duration=:testDuration, test_target_rate=:testTargetRate " +
+                        "where test_id=:testId and test_number=:testNumber", dto);
+    }
+
     public int insertNewExecution(Test dto) {
         return runInsert(
                 "insert into test(test_id, test_name, test_number, test_result, sut_id, " +
