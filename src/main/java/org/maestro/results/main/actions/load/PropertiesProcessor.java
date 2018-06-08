@@ -43,7 +43,7 @@ public class PropertiesProcessor {
                 dto.setTestFailConditionName(failCondition);
                 dto.setTestFailConditionValue(value);
 
-                logger.debug("About to fail condition {} for test {}", dto, test.getTestId());
+                logger.debug("About to insert fail condition {} for test {}", dto, test.getTestId());
                 dao.insert(dto);
             }
         }
