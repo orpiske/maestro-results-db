@@ -1,5 +1,6 @@
 package org.maestro.results.main.actions.load;
 
+import org.maestro.common.exceptions.MaestroException;
 import org.maestro.results.dao.*;
 import org.maestro.results.dto.*;
 import org.maestro.results.main.actions.load.utils.PropertyUtils;
@@ -11,6 +12,7 @@ import org.slf4j.LoggerFactory;
 import java.io.File;
 
 import java.net.URISyntaxException;
+import java.net.URLDecoder;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -69,7 +71,13 @@ public class PropertiesProcessor {
             }
         }
 
-        String uri = (String) properties.get("brokerUri");
+        String tmpUri = (String) properties.get("brokerUri");
+
+        if (tmpUri == null) {
+            throw new MaestroException("Invalid test case: the backend did not save the endpoint URL");
+        }
+        String uri = URLDecoder.decode(tmpUri);
+
         try {
             URLQuery urlQuery = new URLQuery(uri);
 
