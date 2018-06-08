@@ -16,7 +16,7 @@
     </repositories>
 
     <properties>
-        <maestro.version>1.2.7-SNAPSHOT</maestro.version>
+        <maestro.version>1.2.7</maestro.version>
     </properties>
 
     <dependencies>
