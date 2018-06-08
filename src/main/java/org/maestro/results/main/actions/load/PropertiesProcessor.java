@@ -71,15 +71,15 @@ public class PropertiesProcessor {
             }
         }
 
-        String tmpUri = (String) properties.get("brokerUri");
+        String tmpUrl = (String) properties.get("brokerUri");
 
-        if (tmpUri == null) {
+        if (tmpUrl == null) {
             throw new MaestroException("Invalid test case: the backend did not save the endpoint URL");
         }
-        String uri = URLDecoder.decode(tmpUri);
+        String url = URLDecoder.decode(tmpUrl);
 
         try {
-            URLQuery urlQuery = new URLQuery(uri);
+            URLQuery urlQuery = new URLQuery(url);
 
             Map<String, String> uriParams = urlQuery.getParams();
 
@@ -97,7 +97,8 @@ public class PropertiesProcessor {
             }
 
         } catch (URISyntaxException e) {
-            e.printStackTrace();
+            logger.error("Unable to parse URL {}", url, e);
+            throw new MaestroException("Invalid URL", e);
         }
     }
 
