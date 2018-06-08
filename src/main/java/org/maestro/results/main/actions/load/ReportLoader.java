@@ -55,11 +55,16 @@ public class ReportLoader {
                 subFiles = new LinkedList<>();
             }
 
-            logger.trace("Adding file {}", file);
-            subFiles.add(file);
+            if (file.getName().equals("test.properties")) {
+                logger.trace("Adding file {}", file);
+                subFiles.add(file);
 
-            cache.put(parent, subFiles);
-            logger.trace("Processing directory {}", parent);
+                cache.put(parent, subFiles);
+                logger.trace("Processing directory {}", parent);
+            }
+            else {
+                logger.trace("Ignoring unhandled properties file {}", file.getName());
+            }
         }
 
         cache.forEach(this::loadFromDir);
