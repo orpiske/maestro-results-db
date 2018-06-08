@@ -51,11 +51,11 @@ public abstract class AbstractReportCreator {
 
 
     protected void generateIndex(final String resourceName, File baseReportDir, final Map<String, Object> context) throws Exception {
-        ReportRenderer reportRenderer = new ReportRenderer(ReportTemplates.DEFAULT, resourceName, context);
+        ReportRenderer reportRenderer = new ReportRenderer(ReportTemplates.DEFAULT, resourceName);
 
         // Index HTML generation
         File indexFile = new File(baseReportDir, "index.html");
-        FileUtils.writeStringToFile(indexFile, reportRenderer.render(), StandardCharsets.UTF_8);
+        FileUtils.writeStringToFile(indexFile, reportRenderer.render(context), StandardCharsets.UTF_8);
     }
 
     protected void validateResultSet(final Sut sut, final String setName, Collection<?> resultSet) {

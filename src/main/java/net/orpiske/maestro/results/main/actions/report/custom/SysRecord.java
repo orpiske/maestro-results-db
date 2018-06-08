@@ -3,7 +3,7 @@ package net.orpiske.maestro.results.main.actions.report.custom;
 import com.hubspot.jinjava.interpret.JinjavaInterpreter;
 import com.hubspot.jinjava.lib.filter.Filter;
 import net.orpiske.maestro.results.dto.TestResultRecord;
-import net.orpiske.mpt.common.ConfigurationWrapper;
+import org.maestro.common.ConfigurationWrapper;
 import org.apache.commons.configuration.AbstractConfiguration;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

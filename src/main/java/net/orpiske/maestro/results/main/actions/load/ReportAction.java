@@ -2,7 +2,7 @@ package net.orpiske.maestro.results.main.actions.load;
 
 import net.orpiske.maestro.results.dto.Test;
 import net.orpiske.maestro.results.main.Action;
-import net.orpiske.mpt.common.LogConfigurator;
+import org.maestro.common.LogConfigurator;
 import org.apache.commons.cli.*;
 
 import java.io.File;

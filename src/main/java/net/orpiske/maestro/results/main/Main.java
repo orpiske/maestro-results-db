@@ -16,9 +16,9 @@
 
 package net.orpiske.maestro.results.main;
 
-import net.orpiske.mpt.common.ConfigurationWrapper;
-import net.orpiske.mpt.common.Constants;
-import net.orpiske.mpt.common.LogConfigurator;
+import org.maestro.common.ConfigurationWrapper;
+import org.maestro.common.Constants;
+import org.maestro.common.LogConfigurator;
 import static java.util.Arrays.copyOfRange;
 
 public class Main {

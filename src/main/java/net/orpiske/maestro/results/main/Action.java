@@ -16,8 +16,8 @@
 package net.orpiske.maestro.results.main;
 
 
-import net.orpiske.mpt.common.Constants;
-import net.orpiske.mpt.common.LogConfigurator;
+import org.maestro.common.Constants;
+import org.maestro.common.LogConfigurator;
 import org.apache.commons.cli.HelpFormatter;
 import org.apache.commons.cli.Options;
 

@@ -3,7 +3,7 @@ package net.orpiske.maestro.results.main.actions.load;
 import net.orpiske.maestro.results.dao.*;
 import net.orpiske.maestro.results.dto.*;
 import net.orpiske.maestro.results.main.actions.load.utils.PropertyUtils;
-import net.orpiske.mpt.common.URLQuery;
+import org.maestro.common.URLQuery;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

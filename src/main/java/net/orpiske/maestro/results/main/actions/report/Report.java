@@ -4,7 +4,7 @@ import net.orpiske.maestro.results.common.ReportConfig;
 import net.orpiske.maestro.results.dao.SutDao;
 import net.orpiske.maestro.results.dto.Sut;
 import net.orpiske.maestro.results.main.actions.report.exceptions.EmptyResultSet;
-import net.orpiske.mpt.common.ConfigurationWrapper;
+import org.maestro.common.ConfigurationWrapper;
 import org.apache.commons.configuration.AbstractConfiguration;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
@@ -57,11 +57,11 @@ public class Report {
 
 
         logger.info("Generating report index");
-        IndexRenderer indexRenderer = new IndexRenderer(ReportTemplates.DEFAULT, context);
+        IndexRenderer indexRenderer = new IndexRenderer(ReportTemplates.DEFAULT);
 
         File indexFile = new File(outputDir, "index.html");
         try {
-            FileUtils.writeStringToFile(indexFile, indexRenderer.render(), StandardCharsets.UTF_8);
+            FileUtils.writeStringToFile(indexFile, indexRenderer.render(context), StandardCharsets.UTF_8);
 
             indexRenderer.copyResources(indexFile.getParentFile());
         } catch (Exception e) {

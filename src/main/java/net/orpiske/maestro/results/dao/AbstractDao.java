@@ -1,7 +1,7 @@
 package net.orpiske.maestro.results.dao;
 
 import net.orpiske.maestro.results.dao.exceptions.DataNotFoundException;
-import net.orpiske.mpt.common.ConfigurationWrapper;
+import org.maestro.common.ConfigurationWrapper;
 import org.apache.commons.configuration.AbstractConfiguration;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;

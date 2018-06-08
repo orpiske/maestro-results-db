@@ -1,6 +1,6 @@
 package net.orpiske.maestro.results.main.actions.report;
 
-import net.orpiske.mpt.reports.AbstractRenderer;
+import org.maestro.reports.AbstractRenderer;
 import org.apache.commons.io.FileUtils;
 
 import java.io.File;
@@ -13,21 +13,18 @@ import static net.orpiske.maestro.results.main.actions.report.RenderUtils.*;
 public class IndexRenderer extends AbstractRenderer {
     private final String templateName;
 
-    public IndexRenderer(final String templateName, final Map<String, Object> context) {
-        super(context);
+    public IndexRenderer(final String templateName) {
+        super();
 
         this.templateName = templateName;
     }
 
-
-
-
     @Override
-    public String render() throws Exception {
-        return super.render(templatedResourcePath(templateName,"index-reports.html"));
+    public String render(Map<String, Object> context) throws Exception {
+        return super.render(templatedResourcePath(templateName,"index-reports.html"), context);
     }
 
-    public void copyResources(File path) throws IOException {
+    protected void copyResources(File path) throws IOException {
         super.copyResources(path, sharedResourcePath("favicon.png"), "favicon.png");
 
         // Template resources

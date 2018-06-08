@@ -2,9 +2,9 @@ package net.orpiske.maestro.results.main.actions.data;
 
 import net.orpiske.maestro.results.dao.TestDao;
 import net.orpiske.maestro.results.dto.Test;
-import net.orpiske.mpt.utils.Downloader;
-import net.orpiske.mpt.utils.contrib.resource.exceptions.ResourceExchangeException;
+import org.maestro.contrib.utils.Downloader;
 import org.apache.commons.io.FileUtils;
+import org.maestro.contrib.utils.resource.exceptions.ResourceExchangeException;
 
 import java.io.File;
 import java.io.IOException;

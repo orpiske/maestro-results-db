@@ -1,6 +1,6 @@
 package net.orpiske.maestro.results.common;
 
-import net.orpiske.mpt.common.ConfigurationWrapper;
+import org.maestro.common.ConfigurationWrapper;
 import org.apache.commons.configuration.AbstractConfiguration;
 
 import java.util.Arrays;
