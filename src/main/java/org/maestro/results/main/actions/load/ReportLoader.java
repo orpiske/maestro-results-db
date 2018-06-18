@@ -36,7 +36,7 @@ public class ReportLoader {
 
         // Load test data for each host
         PropertiesProcessor pp = new PropertiesProcessor(test, envName);
-        testHosts.forEach(host -> pp.loadTest(host));
+        testHosts.stream().filter(v -> (v.getName().equals("test.properties"))).forEach(host -> pp.loadTest(host));
     }
 
 
