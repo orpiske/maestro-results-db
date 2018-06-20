@@ -106,8 +106,6 @@ public class PropertiesProcessor {
         String[] latencyFiles = { "receiverd-latency_90.png", "receiverd-latency_all.png", "receiverd-latency.csv.gz",
                 "receiverd-latency.hdr", "receiverd-rate.csv.gz", "receiverd-rate_rate.png" };
 
-
-
         for (String fileName : latencyFiles) {
             File file = new File(hostDir, fileName);
             if (file.exists()) {
@@ -120,13 +118,14 @@ public class PropertiesProcessor {
 
 
     private boolean isInspector(final File hostDir) {
-        String[] inspectorFiles = { "broker-jvm-inspector.csv.gz", "broker-jvm-inspector_eden_memory.png",
+        String[] inspectorFiles = { "inspector.properties", "heap.csv",
+                "broker-jvm-inspector_eden_memory.png",
                 "broker-jvm-inspector_memory.png",
                 "broker-jvm-inspector_pm_memory.png",
                 "broker-jvm-inspector_queue_data.png",
                 "broker-jvm-inspector_survivor_memory.png",
                 "broker-jvm-inspector_tenured_memory.png",
-                "broker.properties" };
+                "broker.properties"};
 
         for (String fileName : inspectorFiles) {
             File file = new File(hostDir, fileName);
