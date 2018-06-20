@@ -16,8 +16,10 @@ public class EnvResults {
     private double testRateStandardDeviation;
     private int testRateSkipCount;
     private int connectionCount;
+    private double latPercentile90;
+    private double latPercentile95;
+    private double latPercentile99;
     private boolean error;
-
 
     public int getEnvResultsId() {
         return envResultsId;
@@ -139,6 +141,30 @@ public class EnvResults {
         this.error = error;
     }
 
+    public double getLatPercentile90() {
+        return latPercentile90;
+    }
+
+    public void setLatPercentile90(double latPercentile90) {
+        this.latPercentile90 = latPercentile90;
+    }
+
+    public double getLatPercentile95() {
+        return latPercentile95;
+    }
+
+    public void setLatPercentile95(double latPercentile95) {
+        this.latPercentile95 = latPercentile95;
+    }
+
+    public double getLatPercentile99() {
+        return latPercentile99;
+    }
+
+    public void setLatPercentile99(double latPercentile99) {
+        this.latPercentile99 = latPercentile99;
+    }
+
     @Override
     public String toString() {
         return "EnvResults{" +
@@ -156,6 +182,9 @@ public class EnvResults {
                 ", testRateStandardDeviation=" + testRateStandardDeviation +
                 ", testRateSkipCount=" + testRateSkipCount +
                 ", connectionCount=" + connectionCount +
+                ", latPercentile90=" + latPercentile90 +
+                ", latPercentile95=" + latPercentile95 +
+                ", latPercentile99=" + latPercentile99 +
                 ", error=" + error +
                 '}';
     }

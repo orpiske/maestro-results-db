@@ -48,7 +48,6 @@ public class ReportLoader {
         while (iterator.hasNext()) {
             File file = iterator.next();
 
-
             File parent = file.getParentFile().getParentFile();
             List<File> subFiles = cache.get(parent);
             if (subFiles == null) {

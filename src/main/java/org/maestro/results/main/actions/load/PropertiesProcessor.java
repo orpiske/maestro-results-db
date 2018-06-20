@@ -153,6 +153,76 @@ public class PropertiesProcessor {
         envResults.setEnvResourceId(envResource.getEnvResourceId());
         envResults.setEnvName(envName);
 
+        setEnvResourceRole(hostDir, envResults);
+
+        if (!envResults.getEnvResourceRole().equals("inspector")) {
+            readSenderReceiverProperties(properties, envResults);
+        }
+
+        envResults.setConnectionCount(Integer.parseInt((String) properties.get("parallelCount")));
+
+        EnvResultsDao envResultsDao = new EnvResultsDao();
+        envResultsDao.insert(envResults);
+    }
+
+    private void readSenderReceiverProperties(Map<String, Object> properties, EnvResults envResults) {
+        String rateMaxStr = (String) properties.get("rateMax");
+        if (rateMaxStr != null) {
+            Double rateMax = Double.parseDouble(rateMaxStr);
+            envResults.setTestRateMax(rateMax.intValue());
+        }
+
+        String rateMinStr = (String) properties.get("rateMin");
+        if (rateMinStr != null) {
+            Double rateMin = Double.parseDouble(rateMinStr);
+
+            envResults.setTestRateMin(rateMin.intValue());
+        }
+
+        String rateErrorCountStr = (String) properties.get("rateErrorCount");
+        if (rateErrorCountStr != null) {
+            envResults.setTestRateErrorCount(Integer.parseInt(rateErrorCountStr));
+        }
+
+        String rateSamplesStr = (String) properties.get("rateSamples");
+        if (rateSamplesStr != null) {
+            Double rateSamples = Double.parseDouble(rateSamplesStr);
+            envResults.setTestRateSamples(rateSamples.intValue());
+        }
+
+
+        String rateGeometricMeanStr = (String) properties.get("rateGeometricMean");
+        if (rateGeometricMeanStr != null) {
+            envResults.setTestRateGeometricMean(Double.parseDouble(rateGeometricMeanStr));
+        }
+
+        String rateStandardDeviationStr = (String) properties.get("rateStandardDeviation");
+        if (rateStandardDeviationStr != null) {
+            envResults.setTestRateStandardDeviation(Double.parseDouble(rateStandardDeviationStr));
+        }
+
+        String rateSkipCountStr = (String) properties.get("rateSkipCount");
+        if (rateSkipCountStr != null) {
+            envResults.setTestRateSkipCount(Integer.parseInt(rateSkipCountStr));
+        }
+
+        String latPercentile90 = (String) properties.get("latency90th");
+        if (latPercentile90 != null) {
+            envResults.setLatPercentile90(Double.parseDouble(latPercentile90));
+        }
+
+        String latPercentile95 = (String) properties.get("latency95th");
+        if (latPercentile95 != null) {
+            envResults.setLatPercentile95(Double.parseDouble(latPercentile95));
+        }
+
+        String latPercentile99 = (String) properties.get("latency99th");
+        if (latPercentile99 != null) {
+            envResults.setLatPercentile99(Double.parseDouble(latPercentile99));
+        }
+    }
+
+    private void setEnvResourceRole(File hostDir, EnvResults envResults) {
         if (isReceiver(hostDir)) {
             envResults.setEnvResourceRole("receiver");
         }
@@ -164,57 +234,6 @@ public class PropertiesProcessor {
                 envResults.setEnvResourceRole("sender");
             }
         }
-
-
-        if (!envResults.getEnvResourceRole().equals("inspector")) {
-            String rateMaxStr = (String) properties.get("rateMax");
-            if (rateMaxStr != null) {
-                Double rateMax = Double.parseDouble(rateMaxStr);
-                envResults.setTestRateMax(rateMax.intValue());
-            }
-
-
-            String rateMinStr = (String) properties.get("rateMin");
-            if (rateMinStr != null) {
-                Double rateMin = Double.parseDouble(rateMinStr);
-
-                envResults.setTestRateMin(rateMin.intValue());
-            }
-
-
-            String rateErrorCountStr = (String) properties.get("rateErrorCount");
-            if (rateErrorCountStr != null) {
-                envResults.setTestRateErrorCount(Integer.parseInt(rateErrorCountStr));
-            }
-
-            String rateSamplesStr = (String) properties.get("rateSamples");
-            if (rateSamplesStr != null) {
-                Double rateSamples = Double.parseDouble(rateSamplesStr);
-                envResults.setTestRateSamples(rateSamples.intValue());
-            }
-
-
-            String rateGeometricMeanStr = (String) properties.get("rateGeometricMean");
-            if (rateGeometricMeanStr != null) {
-                envResults.setTestRateGeometricMean(Double.parseDouble(rateGeometricMeanStr));
-            }
-
-            String rateStandardDeviationStr = (String) properties.get("rateStandardDeviation");
-            if (rateStandardDeviationStr != null) {
-                envResults.setTestRateStandardDeviation(Double.parseDouble(rateStandardDeviationStr));
-            }
-
-
-            String rateSkipCountStr = (String) properties.get("rateSkipCount");
-            if (rateSkipCountStr != null) {
-                envResults.setTestRateSkipCount(Integer.parseInt(rateSkipCountStr));
-            }
-        }
-
-        envResults.setConnectionCount(Integer.parseInt((String) properties.get("parallelCount")));
-
-        EnvResultsDao envResultsDao = new EnvResultsDao();
-        envResultsDao.insert(envResults);
     }
 
     public void loadTest(final File hostDir) {
