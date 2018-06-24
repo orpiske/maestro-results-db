@@ -35,18 +35,22 @@ public class PropertiesProcessor {
         for (String failCondition : failConditions) {
             String value = (String) properties.get(failCondition);
             if (value != null) {
-                TestFailCondition dto = new TestFailCondition();
-
-                dto.setTestId(test.getTestId());
-                dto.setTestNumber(test.getTestNumber());
-                dto.setTestFailConditionResourceName(reportFile.getName());
-                dto.setTestFailConditionName(failCondition);
-                dto.setTestFailConditionValue(value);
-
-                logger.debug("About to insert fail condition {} for test {}", dto, test.getTestId());
-                dao.insert(dto);
+                insertTestFailCondition(reportFile, dao, failCondition, value);
             }
         }
+    }
+
+    private void insertTestFailCondition(File reportFile, TestFailConditionDao dao, String failCondition, String value) {
+        TestFailCondition dto = new TestFailCondition();
+
+        dto.setTestId(test.getTestId());
+        dto.setTestNumber(test.getTestNumber());
+        dto.setTestFailConditionResourceName(reportFile.getName());
+        dto.setTestFailConditionName(failCondition);
+        dto.setTestFailConditionValue(value);
+
+        logger.debug("About to insert fail condition {} for test {}", dto, test.getTestId());
+        dao.insert(dto);
     }
 
 
