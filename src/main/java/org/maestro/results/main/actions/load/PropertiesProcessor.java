@@ -1,21 +1,17 @@
 package org.maestro.results.main.actions.load;
 
-import org.maestro.common.exceptions.MaestroException;
 import org.maestro.results.dao.*;
 import org.maestro.results.dto.*;
 import org.maestro.results.main.actions.load.loaders.EnvResourceLoader;
 import org.maestro.results.main.actions.load.loaders.FailConditionLoader;
 import org.maestro.results.main.actions.load.loaders.TestMsgPropertyLoader;
 import org.maestro.results.main.actions.load.utils.PropertyUtils;
-import org.maestro.common.URLQuery;
 import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
-import java.net.URISyntaxException;
-import java.net.URLDecoder;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
@@ -23,12 +19,20 @@ import java.util.Map;
 public class PropertiesProcessor {
     private static final Logger logger = LoggerFactory.getLogger(PropertiesProcessor.class);
 
-    private String envName;
-    private Test test;
+    private final Test test;
+
+    private final TestMsgPropertyLoader testMsgPropertyLoader;
+    private final FailConditionLoader failConditionLoader;
+    private final EnvResourceLoader envResourceLoader;
+    private final TestDao testDao;
 
     public PropertiesProcessor(final Test test, final String envName) {
         this.test = test;
-        this.envName = envName;
+
+        testMsgPropertyLoader = new TestMsgPropertyLoader(test);
+        failConditionLoader = new FailConditionLoader(test);
+        envResourceLoader = new EnvResourceLoader(test, envName);
+        testDao = new TestDao();
     }
 
     public void loadTest(final File hostDir) {
@@ -39,13 +43,13 @@ public class PropertiesProcessor {
         fileCollection.forEach(item -> PropertyUtils.loadProperties(item, properties));
 
         logger.debug("Recording message properties: {}", hostDir);
-        TestMsgPropertyLoader.loadMsgProperties(hostDir, test, properties);
+        testMsgPropertyLoader.load(hostDir, properties);
 
         logger.debug("Recording fail conditions: {}", hostDir);
-        FailConditionLoader.loadFailConditions(hostDir, test, properties);
+        failConditionLoader.load(hostDir, properties);
 
         logger.debug("Recording results per environment: {}", hostDir);
-        EnvResourceLoader.loadEnvResults(hostDir, test, envName, properties);
+        envResourceLoader.load(hostDir, properties);
 
         String rateStr = (String) properties.get("rate");
         String durationStr = (String) properties.get("duration");
@@ -53,8 +57,6 @@ public class PropertiesProcessor {
         logger.info("Updating duration to {} and rate to {} for test {}/{}", durationStr, rateStr, test.getTestId(),
                 test.getTestNumber());
 
-
-        TestDao testDao = new TestDao();
         testDao.updateDurationAndRate(test.getTestId(), test.getTestNumber(), Integer.parseInt(durationStr),
                 Integer.parseInt(rateStr));
     }

@@ -12,20 +12,26 @@ import java.util.Map;
 public class FailConditionLoader {
     private static final Logger logger = LoggerFactory.getLogger(FailConditionLoader.class);
 
-    public static void loadFailConditions(final File reportFile, final Test test, final Map<String, Object> properties) {
+    private final Test test;
+    private final TestFailConditionDao dao;
+
+    public FailConditionLoader(final Test test) {
+        this.test = test;
+        dao = new TestFailConditionDao();
+    }
+
+    public void load(final File reportFile, final Map<String, Object> properties) {
         String[] failConditions = {"fcl"};
 
-        TestFailConditionDao dao = new TestFailConditionDao();
         for (String failCondition : failConditions) {
             String value = (String) properties.get(failCondition);
             if (value != null) {
-                insertTestFailCondition(reportFile, test, dao, failCondition, value);
+                insertTestFailCondition(reportFile, failCondition, value);
             }
         }
     }
 
-    private static void insertTestFailCondition(final File reportFile, final Test test, final TestFailConditionDao dao,
-                                                final String failCondition, final String value) {
+    private void insertTestFailCondition(final File reportFile, final String failCondition, final String value) {
         TestFailCondition dto = new TestFailCondition();
 
         dto.setTestId(test.getTestId());

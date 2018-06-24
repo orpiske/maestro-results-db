@@ -16,15 +16,23 @@ import java.util.Map;
 public class TestMsgPropertyLoader {
     private static final Logger logger = LoggerFactory.getLogger(TestMsgPropertyLoader.class);
 
-    public static void loadMsgProperties(final File hostDir, final Test test, final Map<String, Object> properties) {
+    private final Test test;
+    private final TestMsgPropertyDao dao;
+
+    public TestMsgPropertyLoader(final Test test) {
+        this.test = test;
+        this.dao = new TestMsgPropertyDao();
+    }
+
+    public void load(final File hostDir, final Map<String, Object> properties) {
         String[] msgProperties = {"apiName", "variableSize",
                 "apiVersion", "messageSize"};
 
-        TestMsgPropertyDao dao = new TestMsgPropertyDao();
+
         for (String msgProperty : msgProperties) {
             String value = (String) properties.get(msgProperty);
             if (value != null) {
-                insertTestMsgProperty(hostDir, test, dao, msgProperty, value);
+                insertTestMsgProperty(hostDir, msgProperty, value);
             }
         }
 
@@ -41,7 +49,7 @@ public class TestMsgPropertyLoader {
             Map<String, String> uriParams = urlQuery.getParams();
 
             for (Map.Entry<String, String> entry : uriParams.entrySet()) {
-                insertTestMsgProperty(hostDir, test, dao, entry.getKey(), entry.getValue());
+                insertTestMsgProperty(hostDir, entry.getKey(), entry.getValue());
             }
 
         } catch (URISyntaxException e) {
@@ -50,8 +58,7 @@ public class TestMsgPropertyLoader {
         }
     }
 
-    private static void insertTestMsgProperty(File hostDir, final Test test, TestMsgPropertyDao dao,
-                                              final String msgProperty, final String value) {
+    private void insertTestMsgProperty(final File hostDir, final String msgProperty, final String value) {
         TestMsgProperty testMsgProperty = new TestMsgProperty();
 
         testMsgProperty.setTestId(test.getTestId());

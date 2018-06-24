@@ -11,14 +11,25 @@ import java.util.Map;
 
 public class EnvResourceLoader {
 
+    private Test test;
+    private String envName;
+    private EnvResourceDao envResourceDao;
+    private EnvResultsDao envResultsDao;
+
+    public EnvResourceLoader(Test test, final String envName) {
+        this.test = test;
+        this.envName = envName;
+
+        this.envResourceDao = new EnvResourceDao();
+        this.envResultsDao = new EnvResultsDao();
+    }
+
     /**
      *
      * @param hostDir
      * @param properties
      */
-    public static void loadEnvResults(final File hostDir, final Test test, final String envName,
-                                      final Map<String, Object> properties) {
-        EnvResourceDao envResourceDao = new EnvResourceDao();
+    public void load(final File hostDir, final Map<String, Object> properties) {
         final EnvResource envResource = envResourceDao.fetchByName(hostDir.getName());
 
         EnvResults envResults = new EnvResults();
@@ -35,11 +46,10 @@ public class EnvResourceLoader {
 
         envResults.setConnectionCount(Integer.parseInt((String) properties.get("parallelCount")));
 
-        EnvResultsDao envResultsDao = new EnvResultsDao();
         envResultsDao.insert(envResults);
     }
 
-    private static void readSenderReceiverProperties(final Map<String, Object> properties, final EnvResults envResults) {
+    private void readSenderReceiverProperties(final Map<String, Object> properties, final EnvResults envResults) {
         String rateMaxStr = (String) properties.get("rateMax");
         if (rateMaxStr != null) {
             Double rateMax = Double.parseDouble(rateMaxStr);
