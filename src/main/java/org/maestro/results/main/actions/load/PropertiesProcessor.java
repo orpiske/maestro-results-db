@@ -58,16 +58,7 @@ public class PropertiesProcessor {
         for (String msgProperty : msgProperties) {
             String value = (String) properties.get(msgProperty);
             if (value != null) {
-                TestMsgProperty testMsgProperty = new TestMsgProperty();
-
-                testMsgProperty.setTestId(test.getTestId());
-                testMsgProperty.setTestNumber(test.getTestNumber());
-                testMsgProperty.setTestMsgPropertyResourceName(hostDir.getName());
-                testMsgProperty.setTestMsgPropertyName(msgProperty);
-                testMsgProperty.setTestMsgPropertyValue(value);
-
-                logger.debug("About to insert property {} for test {}", testMsgProperty, test.getTestId());
-                dao.insert(testMsgProperty);
+                insertTestMsgProperty(hostDir, dao, msgProperty, value);
             }
         }
 
@@ -84,22 +75,26 @@ public class PropertiesProcessor {
             Map<String, String> uriParams = urlQuery.getParams();
 
             for (Map.Entry<String, String> entry : uriParams.entrySet()) {
-                TestMsgProperty testMsgProperty = new TestMsgProperty();
-
-                testMsgProperty.setTestId(test.getTestId());
-                testMsgProperty.setTestNumber(test.getTestNumber());
-                testMsgProperty.setTestMsgPropertyResourceName(hostDir.getName());
-                testMsgProperty.setTestMsgPropertyName(entry.getKey());
-                testMsgProperty.setTestMsgPropertyValue(entry.getValue());
-
-                logger.debug("About to insert property {} for test {}", testMsgProperty, test.getTestId());
-                dao.insert(testMsgProperty);
+                insertTestMsgProperty(hostDir, dao, entry.getKey(), entry.getValue());
             }
 
         } catch (URISyntaxException e) {
             logger.error("Unable to parse URL {}", url, e);
             throw new MaestroException("Invalid URL", e);
         }
+    }
+
+    private void insertTestMsgProperty(File hostDir, TestMsgPropertyDao dao, String msgProperty, String value) {
+        TestMsgProperty testMsgProperty = new TestMsgProperty();
+
+        testMsgProperty.setTestId(test.getTestId());
+        testMsgProperty.setTestNumber(test.getTestNumber());
+        testMsgProperty.setTestMsgPropertyResourceName(hostDir.getName());
+        testMsgProperty.setTestMsgPropertyName(msgProperty);
+        testMsgProperty.setTestMsgPropertyValue(value);
+
+        logger.debug("About to insert property {} for test {}", testMsgProperty, test.getTestId());
+        dao.insert(testMsgProperty);
     }
 
     private boolean isReceiver(final File hostDir) {
