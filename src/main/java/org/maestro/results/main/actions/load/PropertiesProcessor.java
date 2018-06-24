@@ -3,6 +3,9 @@ package org.maestro.results.main.actions.load;
 import org.maestro.common.exceptions.MaestroException;
 import org.maestro.results.dao.*;
 import org.maestro.results.dto.*;
+import org.maestro.results.main.actions.load.loaders.EnvResourceLoader;
+import org.maestro.results.main.actions.load.loaders.FailConditionLoader;
+import org.maestro.results.main.actions.load.loaders.TestMsgPropertyLoader;
 import org.maestro.results.main.actions.load.utils.PropertyUtils;
 import org.maestro.common.URLQuery;
 import org.apache.commons.io.FileUtils;
@@ -28,212 +31,6 @@ public class PropertiesProcessor {
         this.envName = envName;
     }
 
-    private void loadFailConditions(final File reportFile, final Map<String, Object> properties) {
-        String[] failConditions = {"fcl"};
-
-        TestFailConditionDao dao = new TestFailConditionDao();
-        for (String failCondition : failConditions) {
-            String value = (String) properties.get(failCondition);
-            if (value != null) {
-                insertTestFailCondition(reportFile, dao, failCondition, value);
-            }
-        }
-    }
-
-    private void insertTestFailCondition(File reportFile, TestFailConditionDao dao, String failCondition, String value) {
-        TestFailCondition dto = new TestFailCondition();
-
-        dto.setTestId(test.getTestId());
-        dto.setTestNumber(test.getTestNumber());
-        dto.setTestFailConditionResourceName(reportFile.getName());
-        dto.setTestFailConditionName(failCondition);
-        dto.setTestFailConditionValue(value);
-
-        logger.debug("About to insert fail condition {} for test {}", dto, test.getTestId());
-        dao.insert(dto);
-    }
-
-
-    private void loadMsgProperties(final File hostDir, final Map<String, Object> properties) {
-        String[] msgProperties = {"apiName", "variableSize",
-                "apiVersion", "messageSize"};
-
-        TestMsgPropertyDao dao = new TestMsgPropertyDao();
-        for (String msgProperty : msgProperties) {
-            String value = (String) properties.get(msgProperty);
-            if (value != null) {
-                insertTestMsgProperty(hostDir, dao, msgProperty, value);
-            }
-        }
-
-        String tmpUrl = (String) properties.get("brokerUri");
-
-        if (tmpUrl == null) {
-            throw new MaestroException("Invalid test case: the backend did not save the endpoint URL");
-        }
-        String url = URLDecoder.decode(tmpUrl);
-
-        try {
-            URLQuery urlQuery = new URLQuery(url);
-
-            Map<String, String> uriParams = urlQuery.getParams();
-
-            for (Map.Entry<String, String> entry : uriParams.entrySet()) {
-                insertTestMsgProperty(hostDir, dao, entry.getKey(), entry.getValue());
-            }
-
-        } catch (URISyntaxException e) {
-            logger.error("Unable to parse URL {}", url, e);
-            throw new MaestroException("Invalid URL", e);
-        }
-    }
-
-    private void insertTestMsgProperty(File hostDir, TestMsgPropertyDao dao, String msgProperty, String value) {
-        TestMsgProperty testMsgProperty = new TestMsgProperty();
-
-        testMsgProperty.setTestId(test.getTestId());
-        testMsgProperty.setTestNumber(test.getTestNumber());
-        testMsgProperty.setTestMsgPropertyResourceName(hostDir.getName());
-        testMsgProperty.setTestMsgPropertyName(msgProperty);
-        testMsgProperty.setTestMsgPropertyValue(value);
-
-        logger.debug("About to insert property {} for test {}", testMsgProperty, test.getTestId());
-        dao.insert(testMsgProperty);
-    }
-
-    private boolean isReceiver(final File hostDir) {
-        String[] latencyFiles = { "receiverd-latency_90.png", "receiverd-latency_all.png", "receiverd-latency.csv.gz",
-                "receiverd-latency.hdr", "receiverd-rate.csv.gz", "receiverd-rate_rate.png" };
-
-        for (String fileName : latencyFiles) {
-            File file = new File(hostDir, fileName);
-            if (file.exists()) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-
-    private boolean isInspector(final File hostDir) {
-        String[] inspectorFiles = { "inspector.properties", "heap.csv",
-                "broker-jvm-inspector_eden_memory.png",
-                "broker-jvm-inspector_memory.png",
-                "broker-jvm-inspector_pm_memory.png",
-                "broker-jvm-inspector_queue_data.png",
-                "broker-jvm-inspector_survivor_memory.png",
-                "broker-jvm-inspector_tenured_memory.png",
-                "broker.properties"};
-
-        for (String fileName : inspectorFiles) {
-            File file = new File(hostDir, fileName);
-            if (file.exists()) {
-                return true;
-            }
-        }
-
-        return false;
-    }
-
-    /**
-     *
-     * @param hostDir
-     * @param properties
-     */
-    private void loadEnvResults(final File hostDir, final Map<String, Object> properties) {
-        EnvResourceDao envResourceDao = new EnvResourceDao();
-        final EnvResource envResource = envResourceDao.fetchByName(hostDir.getName());
-
-        EnvResults envResults = new EnvResults();
-        envResults.setTestId(test.getTestId());
-        envResults.setTestNumber(test.getTestNumber());
-        envResults.setEnvResourceId(envResource.getEnvResourceId());
-        envResults.setEnvName(envName);
-
-        setEnvResourceRole(hostDir, envResults);
-
-        if (!envResults.getEnvResourceRole().equals("inspector")) {
-            readSenderReceiverProperties(properties, envResults);
-        }
-
-        envResults.setConnectionCount(Integer.parseInt((String) properties.get("parallelCount")));
-
-        EnvResultsDao envResultsDao = new EnvResultsDao();
-        envResultsDao.insert(envResults);
-    }
-
-    private void readSenderReceiverProperties(Map<String, Object> properties, EnvResults envResults) {
-        String rateMaxStr = (String) properties.get("rateMax");
-        if (rateMaxStr != null) {
-            Double rateMax = Double.parseDouble(rateMaxStr);
-            envResults.setTestRateMax(rateMax.intValue());
-        }
-
-        String rateMinStr = (String) properties.get("rateMin");
-        if (rateMinStr != null) {
-            Double rateMin = Double.parseDouble(rateMinStr);
-
-            envResults.setTestRateMin(rateMin.intValue());
-        }
-
-        String rateErrorCountStr = (String) properties.get("rateErrorCount");
-        if (rateErrorCountStr != null) {
-            envResults.setTestRateErrorCount(Integer.parseInt(rateErrorCountStr));
-        }
-
-        String rateSamplesStr = (String) properties.get("rateSamples");
-        if (rateSamplesStr != null) {
-            Double rateSamples = Double.parseDouble(rateSamplesStr);
-            envResults.setTestRateSamples(rateSamples.intValue());
-        }
-
-
-        String rateGeometricMeanStr = (String) properties.get("rateGeometricMean");
-        if (rateGeometricMeanStr != null) {
-            envResults.setTestRateGeometricMean(Double.parseDouble(rateGeometricMeanStr));
-        }
-
-        String rateStandardDeviationStr = (String) properties.get("rateStandardDeviation");
-        if (rateStandardDeviationStr != null) {
-            envResults.setTestRateStandardDeviation(Double.parseDouble(rateStandardDeviationStr));
-        }
-
-        String rateSkipCountStr = (String) properties.get("rateSkipCount");
-        if (rateSkipCountStr != null) {
-            envResults.setTestRateSkipCount(Integer.parseInt(rateSkipCountStr));
-        }
-
-        String latPercentile90 = (String) properties.get("latency90th");
-        if (latPercentile90 != null) {
-            envResults.setLatPercentile90(Double.parseDouble(latPercentile90));
-        }
-
-        String latPercentile95 = (String) properties.get("latency95th");
-        if (latPercentile95 != null) {
-            envResults.setLatPercentile95(Double.parseDouble(latPercentile95));
-        }
-
-        String latPercentile99 = (String) properties.get("latency99th");
-        if (latPercentile99 != null) {
-            envResults.setLatPercentile99(Double.parseDouble(latPercentile99));
-        }
-    }
-
-    private void setEnvResourceRole(File hostDir, EnvResults envResults) {
-        if (isReceiver(hostDir)) {
-            envResults.setEnvResourceRole("receiver");
-        }
-        else {
-            if (isInspector(hostDir)) {
-                envResults.setEnvResourceRole("inspector");
-            }
-            else {
-                envResults.setEnvResourceRole("sender");
-            }
-        }
-    }
-
     public void loadTest(final File hostDir) {
         logger.debug("Loading host-specific properties: {}", hostDir);
         Map<String, Object> properties = new HashMap<>();
@@ -242,14 +39,13 @@ public class PropertiesProcessor {
         fileCollection.forEach(item -> PropertyUtils.loadProperties(item, properties));
 
         logger.debug("Recording message properties: {}", hostDir);
-        loadMsgProperties(hostDir, properties);
+        TestMsgPropertyLoader.loadMsgProperties(hostDir, test, properties);
 
         logger.debug("Recording fail conditions: {}", hostDir);
-        loadFailConditions(hostDir, properties);
+        FailConditionLoader.loadFailConditions(hostDir, test, properties);
 
         logger.debug("Recording results per environment: {}", hostDir);
-        loadEnvResults(hostDir, properties);
-
+        EnvResourceLoader.loadEnvResults(hostDir, test, envName, properties);
 
         String rateStr = (String) properties.get("rate");
         String durationStr = (String) properties.get("duration");
