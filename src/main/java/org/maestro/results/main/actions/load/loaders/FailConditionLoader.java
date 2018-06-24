@@ -23,6 +23,8 @@ public class FailConditionLoader {
     public void load(final File reportFile, final Map<String, Object> properties) {
         String[] failConditions = {"fcl"};
 
+        logger.debug("Recording fail conditions: {}", reportFile);
+
         for (String failCondition : failConditions) {
             String value = (String) properties.get(failCondition);
             if (value != null) {
@@ -40,7 +42,10 @@ public class FailConditionLoader {
         dto.setTestFailConditionName(failCondition);
         dto.setTestFailConditionValue(value);
 
-        logger.debug("About to insert fail condition {} for test {}", dto, test.getTestId());
+        if (logger.isTraceEnabled()) {
+            logger.trace("About to insert fail condition {} for test {}", dto, test.getTestId());
+        }
+
         dao.insert(dto);
     }
 }

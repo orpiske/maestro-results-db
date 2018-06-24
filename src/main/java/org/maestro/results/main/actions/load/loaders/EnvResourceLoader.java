@@ -5,11 +5,14 @@ import org.maestro.results.dao.EnvResultsDao;
 import org.maestro.results.dto.EnvResource;
 import org.maestro.results.dto.EnvResults;
 import org.maestro.results.dto.Test;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 import java.io.File;
 import java.util.Map;
 
 public class EnvResourceLoader {
+    private static final Logger logger = LoggerFactory.getLogger(EnvResourceLoader.class);
 
     private Test test;
     private String envName;
@@ -30,6 +33,8 @@ public class EnvResourceLoader {
      * @param properties
      */
     public void load(final File hostDir, final Map<String, Object> properties) {
+        logger.debug("Recording results per environment: {}", hostDir);
+
         final EnvResource envResource = envResourceDao.fetchByName(hostDir.getName());
 
         EnvResults envResults = new EnvResults();

@@ -28,6 +28,7 @@ public class TestMsgPropertyLoader {
         String[] msgProperties = {"apiName", "variableSize",
                 "apiVersion", "messageSize"};
 
+        logger.debug("Recording message properties: {}", hostDir);
 
         for (String msgProperty : msgProperties) {
             String value = (String) properties.get(msgProperty);
@@ -67,7 +68,10 @@ public class TestMsgPropertyLoader {
         testMsgProperty.setTestMsgPropertyName(msgProperty);
         testMsgProperty.setTestMsgPropertyValue(value);
 
-        logger.debug("About to insert property {} for test {}", testMsgProperty, test.getTestId());
+        if (logger.isTraceEnabled()) {
+            logger.trace("About to insert property {} for test {}", testMsgProperty, test.getTestId());
+        }
+
         dao.insert(testMsgProperty);
     }
 }

@@ -42,13 +42,10 @@ public class PropertiesProcessor {
         Collection<File> fileCollection = FileUtils.listFiles(hostDir, new String[] { "properties"}, true);
         fileCollection.forEach(item -> PropertyUtils.loadProperties(item, properties));
 
-        logger.debug("Recording message properties: {}", hostDir);
         testMsgPropertyLoader.load(hostDir, properties);
 
-        logger.debug("Recording fail conditions: {}", hostDir);
         failConditionLoader.load(hostDir, properties);
 
-        logger.debug("Recording results per environment: {}", hostDir);
         envResourceLoader.load(hostDir, properties);
 
         String rateStr = (String) properties.get("rate");
