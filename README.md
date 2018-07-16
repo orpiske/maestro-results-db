@@ -9,7 +9,7 @@ Maestro ResultsDB is a tool that records the test data reported by the Maestro p
 a MariaDB database. After the data is loaded, it can generate reports comparing different tests. It has a loose
 integration with Prometheus (optional and disabled by default).
 
-**Note**: this project is still a work in progress and documentation is scarse.
+**Note**: this project is still a work in progress and documentation is scarce.
 
 Setup
 ----
