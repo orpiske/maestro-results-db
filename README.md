@@ -11,6 +11,28 @@ integration with Prometheus (optional and disabled by default).
 
 **Note**: this project is still a work in progress and documentation is scarce.
 
+Building
+----
+Build Status (devel): [![Build Status](https://travis-ci.org/maestro-performance/maestro-results-db.svg?branch=devel)](https://travis-ci.org/maestro-performance/maestro-results-db)
+
+Build Status (master): [![Build Status](https://travis-ci.org/maestro-performance/maestro-results-db.svg?branch=master)](https://travis-ci.org/maestro-performance/maestro-results-db)
+
+Codacy Report: [![Codacy Badge](https://api.codacy.com/project/badge/Grade/ddaacf55e38140bb82aa15f02f158164)](https://www.codacy.com/app/orpiske/maestro-java?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=orpiske/maestro-java&amp;utm_campaign=Badge_Grade)
+
+
+Local build:
+```
+mvn clean install
+```
+
+Packaging for release:
+
+```
+mvn -PPackage clean package
+```
+
+
+
 Setup
 ----
 
