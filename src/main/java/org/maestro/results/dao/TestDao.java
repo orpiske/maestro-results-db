@@ -14,9 +14,10 @@ public class TestDao extends AbstractDao {
     public int insert(Test dto) {
         return runInsert(
                 "insert into test(test_name, test_number, test_result, sut_id, " +
-                        "test_report_link, test_data_storage_info, test_tags, test_date, test_duration, test_target_rate) " +
+                        "test_report_link, test_data_storage_info, test_tags, test_date, test_duration, test_target_rate, " +
+                        "maestro_version) " +
                         "values(:testName, :testNumber, :testResult, :sutId, :testReportLink," +
-                        ":testDataStorageInfo, :testTags, now(), :testDuration, :testTargetRate)", dto);
+                        ":testDataStorageInfo, :testTags, now(), :testDuration, :testTargetRate, :maestroVersion)", dto);
     }
 
     public void update(Test dto) {
@@ -30,9 +31,10 @@ public class TestDao extends AbstractDao {
     public int insertNewExecution(Test dto) {
         return runInsert(
                 "insert into test(test_id, test_name, test_number, test_result, sut_id, " +
-                        "test_report_link, test_data_storage_info, test_tags, test_date, test_duration, test_target_rate) " +
+                        "test_report_link, test_data_storage_info, test_tags, test_date, test_duration, test_target_rate, " +
+                        "maestro_version) " +
                         "values(:testId, :testName, :testNumber, :testResult, :sutId, :testReportLink," +
-                        ":testDataStorageInfo, :testTags, now(), :testDuration, :testTargetRate)", dto);
+                        ":testDataStorageInfo, :testTags, now(), :testDuration, :testTargetRate, :maestroVersion)", dto);
     }
 
 

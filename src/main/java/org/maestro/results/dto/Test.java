@@ -1,5 +1,7 @@
 package org.maestro.results.dto;
 
+import org.maestro.common.Constants;
+
 import java.util.Date;
 
 public class Test {
@@ -15,6 +17,7 @@ public class Test {
     private Date testDate;
     private int testDuration;
     private int testTargetRate;
+    private String maestroVersion = Constants.VERSION;
 
     public int getTestId() {
         return testId;
@@ -112,10 +115,19 @@ public class Test {
         this.testTargetRate = testTargetRate;
     }
 
+    public String getMaestroVersion() {
+        return maestroVersion;
+    }
+
+    public void setMaestroVersion(String maestroVersion) {
+        this.maestroVersion = maestroVersion;
+    }
+
     @Override
     public String toString() {
         return "Test{" +
                 "testId=" + testId +
+                ", testNumber=" + testNumber +
                 ", testName='" + testName + '\'' +
                 ", testResult='" + testResult + '\'' +
                 ", testParameterId=" + testParameterId +
@@ -126,6 +138,7 @@ public class Test {
                 ", testDate=" + testDate +
                 ", testDuration=" + testDuration +
                 ", testTargetRate=" + testTargetRate +
+                ", maestroVersion='" + maestroVersion + '\'' +
                 '}';
     }
 }
