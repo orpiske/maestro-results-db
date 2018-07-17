@@ -4,7 +4,7 @@
 
     <groupId>net.orpiske.maestro.db</groupId>
     <artifactId>maestro-results-db</artifactId>
-    <version>1.1.0</version>
+    <version>1.1.1-SNAPSHOT</version>
 
     <repositories>
         <repository>
@@ -16,7 +16,7 @@
     <scm>
         <developerConnection>scm:git:git@github.com:maestro-performance/maestro-results-db.git</developerConnection>
         <url>https://github.com/maestro-performance/maestro-results-db</url>
-        <tag>maestro-results-db-1.1.0</tag>
+        <tag>HEAD</tag>
     </scm>
 
     <licenses>
