@@ -96,9 +96,37 @@ public class XunitWriter {
         }
     }
 
+    private void serializeProperty(final Element parent, Property property) {
+        Element eleProperty = dom.createElement("property");
+
+        eleProperty.setAttribute("name", property.getName());
+        eleProperty.setAttribute("value", property.getValue());
+
+        parent.appendChild(eleProperty);
+    }
+
+    private void serializePropertiesList(final Element rootEle, final List<Property> propertyList) {
+        if (propertyList.size() > 0) {
+            Element eleProperties = dom.createElement("properties");
+
+            rootEle.appendChild(eleProperties);
+
+            for (Property property : propertyList) {
+                serializeProperty(eleProperties, property);
+            }
+        }
+    }
+
+    private void serializeProperties(final Element rootEle, final Properties properties) {
+        if (properties != null) {
+            serializePropertiesList(rootEle, properties.getPropertyList());
+        }
+    }
+
     public void saveToXML(final File outputFile, TestSuites testSuites) {
         Element rootEle = dom.createElement("testsuites");
         serializeTestSuites(rootEle, testSuites.getTestSuiteList());
+        serializeProperties(rootEle, testSuites.getProperties());
         dom.appendChild(rootEle);
 
         try {
