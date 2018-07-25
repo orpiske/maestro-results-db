@@ -5,7 +5,7 @@ import java.util.List;
 
 public class TestSuites {
     private List<TestSuite> testSuiteList = new LinkedList<>();
-    private Properties properties;
+    private Properties properties = new Properties();
 
     public List<TestSuite> getTestSuiteList() {
         return testSuiteList;
@@ -13,9 +13,5 @@ public class TestSuites {
 
     public Properties getProperties() {
         return properties;
-    }
-
-    public void setProperties(Properties properties) {
-        this.properties = properties;
     }
 }

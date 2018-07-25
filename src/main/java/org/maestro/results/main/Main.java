@@ -39,6 +39,7 @@ public class Main {
         System.out.println("   load");
         System.out.println("   record");
         System.out.println("   report");
+        System.out.println("   xunit");
         System.out.println("----------");
         System.out.println("   help");
         System.out.println("   --version");
@@ -88,6 +89,10 @@ public class Main {
             }
             case "report": {
                 program = new ReportProgram();
+                break;
+            }
+            case "xunit": {
+                program = new XUnitProgram();
                 break;
             }
             default: {
