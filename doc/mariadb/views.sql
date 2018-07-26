@@ -28,6 +28,7 @@ CREATE OR REPLACE VIEW `test_results` AS
         sut
     WHERE
         t.test_id = er.test_id
+            AND t.test_number = er.test_number
             AND er.env_resource_id = res.env_resource_id
             AND t.sut_id = sut.sut_id;
 
