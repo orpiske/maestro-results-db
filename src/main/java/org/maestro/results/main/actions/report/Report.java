@@ -33,8 +33,7 @@ public class Report {
         this.testName = testName;
     }
 
-    void createReport() {
-        List<Sut> sutList = sutDao.fetchDistinct();
+    private void createReport(List<Sut> sutList) {
         sutList.parallelStream().forEach(this::createReportForSut);
 
         logger.debug("Number of reports created: {}", protocolReportsList.size());
@@ -67,8 +66,18 @@ public class Report {
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
 
+    void createReport(int sutId) {
+        List<Sut> sutList = sutDao.fetchById(sutId);
 
+        createReport(sutList);
+    }
+
+    void createReport() {
+        List<Sut> sutList = sutDao.fetchDistinct();
+
+        createReport(sutList);
     }
 
     private void createReportForSut(final Sut sut) {
