@@ -1,7 +1,7 @@
 package org.maestro.results.main.actions.load;
 
-import org.maestro.results.dao.*;
-import org.maestro.results.dto.*;
+import org.maestro.results.dao.TestDao;
+import org.maestro.results.dto.Test;
 import org.maestro.results.main.actions.load.loaders.EnvResourceLoader;
 import org.maestro.results.main.actions.load.loaders.FailConditionLoader;
 import org.maestro.results.main.actions.load.loaders.TestMsgPropertyLoader;

@@ -62,6 +62,18 @@
 
         <dependency>
             <groupId>org.maestro.db</groupId>
+            <artifactId>maestro-results-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.maestro.db</groupId>
+            <artifactId>maestro-results-dao</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.maestro.db</groupId>
             <artifactId>maestro-results-xunit</artifactId>
             <version>${project.version}</version>
         </dependency>

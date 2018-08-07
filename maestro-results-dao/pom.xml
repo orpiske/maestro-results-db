@@ -9,8 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>maestro-results-common</artifactId>
-
+    <artifactId>maestro-results-dao</artifactId>
     <dependencies>
         <dependency>
             <groupId>commons-cli</groupId>
@@ -60,6 +59,11 @@
             <version>${maestro.version}</version>
         </dependency>
 
+        <dependency>
+            <groupId>org.maestro.db</groupId>
+            <artifactId>maestro-results-common</artifactId>
+            <version>${project.version}</version>
+        </dependency>
 
         <dependency>
             <groupId>org.mariadb.jdbc</groupId>

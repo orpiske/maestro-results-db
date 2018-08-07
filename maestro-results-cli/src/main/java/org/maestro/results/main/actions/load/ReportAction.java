@@ -2,7 +2,6 @@ package org.maestro.results.main.actions.load;
 
 import org.maestro.results.dto.Test;
 import org.maestro.results.main.Action;
-import org.maestro.common.LogConfigurator;
 import org.apache.commons.cli.*;
 
 import java.io.File;

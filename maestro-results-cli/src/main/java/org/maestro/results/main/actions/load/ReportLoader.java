@@ -2,7 +2,6 @@ package org.maestro.results.main.actions.load;
 
 import org.maestro.results.dto.Test;
 import org.apache.commons.io.FileUtils;
-import org.apache.commons.io.FilenameUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

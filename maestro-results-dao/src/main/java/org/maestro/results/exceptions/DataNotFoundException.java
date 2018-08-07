@@ -1,4 +1,4 @@
-package org.maestro.results.dao.exceptions;
+package org.maestro.results.exceptions;
 
 /**
  *

@@ -1,6 +1,6 @@
 package org.maestro.results.dao;
 
-import org.maestro.results.dao.exceptions.DataNotFoundException;
+import org.maestro.results.exceptions.DataNotFoundException;
 import org.maestro.common.ConfigurationWrapper;
 import org.apache.commons.configuration.AbstractConfiguration;
 import org.springframework.dao.EmptyResultDataAccessException;
