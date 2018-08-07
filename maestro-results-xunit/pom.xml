@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>maestro-results-cli</artifactId>
+    <artifactId>maestro-results-xunit</artifactId>
 
     <dependencies>
         <dependency>
@@ -61,12 +61,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.maestro.db</groupId>
-            <artifactId>maestro-results-xunit</artifactId>
-            <version>${project.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.mariadb.jdbc</groupId>
             <artifactId>mariadb-java-client</artifactId>
             <version>2.2.1</version>
@@ -94,6 +88,13 @@
             <groupId>org.knowm.xchart</groupId>
             <artifactId>xchart</artifactId>
             <version>3.5.0</version>
+        </dependency>
+
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <version>4.12</version>
+            <scope>test</scope>
         </dependency>
     </dependencies>
 
@@ -125,41 +126,6 @@
             </plugin>
         </plugins>
     </build>
-
-    <profiles>
-        <profile>
-            <id>Package</id>
-            <activation>
-                <activeByDefault>false</activeByDefault>
-            </activation>
-
-            <build>
-                <plugins>
-                    <plugin>
-                        <artifactId>maven-assembly-plugin</artifactId>
-                        <configuration>
-                            <descriptors>
-                                <descriptor>
-                                    src/main/assembly/assembly.xml
-                                </descriptor>
-                            </descriptors>
-                            <appendAssemblyId>true</appendAssemblyId>
-                        </configuration>
-
-                        <executions>
-                            <execution>
-                                <id>dist-assembly</id>
-                                <phase>package</phase>
-                                <goals>
-                                    <goal>single</goal>
-                                </goals>
-                            </execution>
-                        </executions>
-                    </plugin>
-                </plugins>
-            </build>
-        </profile>
-    </profiles>
 
 
 </project>

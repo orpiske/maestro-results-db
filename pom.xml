@@ -55,6 +55,7 @@
 
     <modules>
         <module>maestro-results-cli</module>
+        <module>maestro-results-xunit</module>
     </modules>
 
 
