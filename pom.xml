@@ -58,6 +58,7 @@
         <module>maestro-results-dao</module>
         <module>maestro-results-xunit</module>
         <module>maestro-results-cli</module>
+        <module>maestro-results-server</module>
     </modules>
 
 
