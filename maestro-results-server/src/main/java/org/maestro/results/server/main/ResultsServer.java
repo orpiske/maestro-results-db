@@ -7,8 +7,12 @@ import org.maestro.common.ConfigurationWrapper;
 import org.maestro.common.Constants;
 import org.maestro.common.LogConfigurator;
 import org.maestro.results.dto.Sut;
+import org.maestro.results.server.routes.SutController;
 
 import java.io.FileNotFoundException;
+
+import static io.javalin.ApiBuilder.get;
+import static io.javalin.ApiBuilder.path;
 
 public class ResultsServer {
     static {
@@ -37,11 +41,7 @@ public class ResultsServer {
                 .start();
 
         app.get("/api/live", ctx -> ctx.result("Hello World"));
-
-        Sut sut = new Sut();
-
-        sut.setSutName("Some sut");
-        app.get("/api/sut", ctx -> ctx.json(sut));
+        app.get("/api/sut/:id", new SutController());
     }
 
 }
