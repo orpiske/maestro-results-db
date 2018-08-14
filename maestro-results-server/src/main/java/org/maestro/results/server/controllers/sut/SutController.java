@@ -1,4 +1,4 @@
-package org.maestro.results.server.routes;
+package org.maestro.results.server.controllers.sut;
 
 
 import io.javalin.Context;

@@ -6,13 +6,9 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.maestro.common.ConfigurationWrapper;
 import org.maestro.common.Constants;
 import org.maestro.common.LogConfigurator;
-import org.maestro.results.dto.Sut;
-import org.maestro.results.server.routes.SutController;
+import org.maestro.results.server.controllers.sut.SutController;
 
 import java.io.FileNotFoundException;
-
-import static io.javalin.ApiBuilder.get;
-import static io.javalin.ApiBuilder.path;
 
 public class ResultsServer {
     static {
