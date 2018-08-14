@@ -1,23 +1,47 @@
 package org.maestro.results.server.main;
 
 import io.javalin.Javalin;
+import org.apache.commons.configuration.AbstractConfiguration;
+import org.apache.commons.configuration.ConfigurationException;
+import org.maestro.common.ConfigurationWrapper;
+import org.maestro.common.Constants;
 import org.maestro.common.LogConfigurator;
 import org.maestro.results.dto.Sut;
 
-public class ResultsServer {
-//    static {
-//        LogConfigurator.defaultForDaemons();
-//    }
+import java.io.FileNotFoundException;
 
+public class ResultsServer {
+    static {
+        LogConfigurator.defaultForDaemons();
+    }
 
     public static void main(String[] args) {
-        Javalin app = Javalin.start(7000);
-        app.get("/", ctx -> ctx.result("Hello World"));
+
+        try {
+            ConfigurationWrapper.initConfiguration(Constants.MAESTRO_CONFIG_DIR, "maestro-results-server.properties");
+        } catch (FileNotFoundException e) {
+            System.out.println("The server configuration file was not found");
+            System.exit(1);
+        } catch (ConfigurationException e) {
+            System.out.println("The server configuration file is invalid");
+            System.exit(2);
+        }
+
+        AbstractConfiguration config = ConfigurationWrapper.getConfig();
+
+        final int port = config.getInteger("maestro.results.server", 7000);
+
+        Javalin app = Javalin.create()
+                .port(port)
+                .enableStaticFiles("/site")
+                .start();
+
+        app.get("/api/live", ctx -> ctx.result("Hello World"));
 
         Sut sut = new Sut();
 
         sut.setSutName("Some sut");
-        app.get("/sut", ctx -> ctx.json(sut));
+        app.get("/api/sut", ctx -> ctx.json(sut));
     }
 
 }
