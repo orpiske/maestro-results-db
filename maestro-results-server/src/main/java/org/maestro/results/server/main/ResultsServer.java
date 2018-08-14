@@ -6,6 +6,7 @@ import org.apache.commons.configuration.ConfigurationException;
 import org.maestro.common.ConfigurationWrapper;
 import org.maestro.common.Constants;
 import org.maestro.common.LogConfigurator;
+import org.maestro.results.server.controllers.sut.AllSutsController;
 import org.maestro.results.server.controllers.sut.SutController;
 
 import java.io.FileNotFoundException;
@@ -37,6 +38,7 @@ public class ResultsServer {
                 .start();
 
         app.get("/api/live", ctx -> ctx.result("Hello World"));
+        app.get("/api/sut/", new AllSutsController());
         app.get("/api/sut/:id", new SutController());
     }
 

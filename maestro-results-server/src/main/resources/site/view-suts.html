@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<!--
+  ~  Copyright 2017 Otavio R. Piske <angusyoung@gmail.com>
+  ~
+  ~  Licensed under the Apache License, Version 2.0 (the "License");
+  ~  you may not use this file except in compliance with the License.
+  ~  You may obtain a copy of the License at
+  ~
+  ~  http://www.apache.org/licenses/LICENSE-2.0
+  ~
+  ~  Unless required by applicable law or agreed to in writing, software
+  ~  distributed under the License is distributed on an "AS IS" BASIS,
+  ~  WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+  ~  See the License for the specific language governing permissions and
+  ~  limitations under the License.
+  -->
+
+
+<html>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <title>Messaging Performance Report Index</title>
+
+    <link rel="stylesheet" href="resources/css/patternfly.min.css">
+    <link rel="stylesheet" href="resources/css/patternfly-additions.min.css">
+
+    <link rel="icon"
+          type="image/png"
+          href="favicon.png">
+
+</head>
+
+<body>
+
+<nav class="navbar navbar-default navbar-pf" role="navigation">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse-1">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+        </button>
+        <a class="navbar-brand" href="/">
+            <img src="resources/img/brand.svg" alt="Maestro - Messaging Performance Reports" />
+        </a>
+    </div>
+
+</nav>
+
+<main>
+    <header>
+        <h1>Messaging Performance Report</h1>
+    </header>
+
+    <div class="col-sm-12">
+        <h2 id="#rep-proto-perf">Protocol Performance Reports</h2>
+
+        <div class="row toolbar-pf-results">
+            <div class="col-sm-9">
+                <div class="hidden">
+                    <h5>0 Results</h5>
+                    <p>Active filters:</p>
+                    <ul class="list-inline"></ul>
+                    <p><a href="#">Clear All Filters</a></p>
+                </div>
+            </div>
+            <div class="col-sm-3 table-view-pf-select-results">
+                <strong>0</strong> of <strong>0</strong> selected
+            </div>
+        </div>
+
+        <table class="table table-striped table-bordered table-hover" id="rtable">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>Version</th>
+                <th>JVM Information</th>
+                <th>Other</th>
+                <th>Tags</th>
+            </tr>
+            </thead>
+            <tbody>
+            </tbody>
+        </table>
+
+    </div>
+
+
+</main>
+
+<script type="text/javascript" src="resources/components/jquery/jquery.min.js"></script>
+<script type="text/javascript" src="resources/components/jquery/jquery.dataTables.js"></script>
+<script type="text/javascript" src="resources/js/patternfly.min.js"></script>
+<script type="text/javascript">
+$(document).ready(function() {
+    // JSON data for Table View
+    var dataSet = [{
+          sutId: "1",
+          sutName: "Artemis",
+          sutVersion: "2.5.0",
+          sutJvmInformation: "OpenJDK",
+          sutOther: "4",
+          sutTags: "aio,single"
+        },{
+          sutId: "2",
+          sutName: "Artemis",
+          sutVersion: "2.6.0",
+          sutJvmInformation: "OpenJDK",
+          sutOther: "4",
+          sutTags: "aio,single"
+        }];
+
+        $(function() {
+            $('rtable').DataTable({
+            columns: [
+                { data: "sutId" },
+                { data: "sutName" },
+                { data: "sutVersion" },
+                { data: "sutJvmInformation" },
+                { data: "sutJvmInformation"},
+                { data: "sutTags"},
+                ],
+                data: dataSet,
+                dom: "t",
+                language: {
+                    zeroRecords: "No records found"
+                },
+                order: [[ 1, 'asc' ]],
+                pfConfig: {
+                    emptyStateSelector: "#emptyState",
+                    filterCaseInsensitive: true,
+                    filterCols: [
+                        null,
+                        {
+                            default: true,
+                            optionSelector: "#filter",
+                            placeholder: "Filter By Software Under Test..."
+                        }
+                    ],
+                },
+                select: {
+                    selector: 'td:first-child input[type="checkbox"]',
+                    style: 'multi'
+                },
+
+            });
+        });
+
+        var emptyTableViewUtil = function (config) {
+  var self = this;
+
+  this.dt = $(config.tableSelector).DataTable(); // DataTable
+  this.deleteRows = $(config.deleteRowsSelector); // Delete rows control
+  this.restoreRows = $(config.restoreRowsSelector); // Restore rows control
+
+  // Handle click on delete rows control
+  this.deleteRows.on('click', function() {
+    self.dt.clear().draw();
+    $(self.restoreRows).prop("disabled", false);
+  });
+
+  // Handle click on restore rows control
+  this.restoreRows.on('click', function() {
+    self.dt.rows.add(config.data).draw();
+    $(this).prop("disabled", true);
+  });
+
+  // Initialize restore rows
+  if (this.dt.data().length === 0) {
+    $(this.restoreRows).prop("disabled", false);
+  }
+};
+
+// Initialize empty Table View util
+new emptyTableViewUtil({
+  data: dataSet,
+  deleteRowsSelector: "#deleteRows1",
+  restoreRowsSelector: "#restoreRows1",
+  tableSelector: "#table1"
+});
+
+/**
+ * Utility to find items in Table View
+ */
+var findTableViewUtil = function (config) {
+  // Upon clicking the find button, show the find dropdown content
+  $(".btn-find").click(function () {
+    $(this).parent().find(".find-pf-dropdown-container").toggle();
+  });
+
+  // Upon clicking the find close button, hide the find dropdown content
+  $(".btn-find-close").click(function () {
+    $(".find-pf-dropdown-container").hide();
+  });
+};
+
+// Initialize find util
+new findTableViewUtil();
+});
+</script>
+<script>
+  // Initialize Datatables
+  $(document).ready(function() {
+    $('.datatable').dataTable();
+  });
+</script>
+
+</body>
+</html>
