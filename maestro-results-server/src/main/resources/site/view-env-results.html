@@ -69,7 +69,7 @@
             </div>
         </div>
 
-        <table class="table table-striped table-bordered table-hover" id="envresultstable">
+        <table class="table table-striped table-bordered table-hover" id="envresultstable" data-datatables data-api="/api/env/results">
             <thead>
             <tr>
                 <th>Results ID</th>
@@ -104,33 +104,7 @@
 <script type="text/javascript" src="resources/components/axios/axios.min.js"></script>
 <script type="text/javascript" src="resources/js/patternfly.min.js"></script>
 <script type="text/javascript" src="maestro/js/env.results.table.js"></script>
-
-<!--<script type="text/javascript">-->
-    <!--$(function() {-->
-        <!--$('table').DataTable({-->
-            <!--pfConfig: {-->
-                <!--emptyStateSelector: "#emptyState",-->
-                <!--filterCaseInsensitive: true,-->
-                <!--filterCols: [-->
-                    <!--null,-->
-                    <!--{-->
-                        <!--default: true,-->
-                        <!--optionSelector: "#filter",-->
-                        <!--placeholder: "Filter By Software Under Test..."-->
-                    <!--}-->
-                <!--],-->
-            <!--}-->
-        <!--});-->
-    <!--});-->
-<!--</script>-->
-
-
-<script>
-  // Initialize Datatables
-  $(document).ready(function() {
-    $('.datatable').dataTable();
-  });
-</script>
+<script type="text/javascript" src="maestro/js/maestro.tables.js"></script>
 
 </body>
 </html>
