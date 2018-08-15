@@ -8,6 +8,7 @@ import org.maestro.common.Constants;
 import org.maestro.common.LogConfigurator;
 import org.maestro.results.server.controller.env.resources.AllEnvResourcesController;
 import org.maestro.results.server.controller.env.results.AllEnvResultsController;
+import org.maestro.results.server.controller.test.AllTestsControlller;
 import org.maestro.results.server.controllers.sut.AllSutsController;
 import org.maestro.results.server.controllers.sut.SutController;
 
@@ -46,6 +47,7 @@ public class ResultsServer {
         app.get("/api/sut/:id", new SutController());
         app.get("/api/env/resource", new AllEnvResourcesController());
         app.get("/api/env/results", new AllEnvResultsController());
+        app.get("/api/test", new AllTestsControlller());
     }
 
 }
