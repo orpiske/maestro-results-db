@@ -1,6 +1,6 @@
 package org.maestro.results.main.actions.report;
 
-import org.maestro.results.dto.TestResultRecord;
+import org.maestro.results.dto.TestReportRecord;
 import org.knowm.xchart.BitmapEncoder;
 import org.knowm.xchart.XYChart;
 import org.knowm.xchart.XYChartBuilder;
@@ -21,9 +21,9 @@ public class DestinationScalabilityReportDataPlotter implements ReportPlotter {
         final String configuration;
         final String envResourceRole;
 
-        public Pair(TestResultRecord testResultRecord) {
-            this.configuration = testResultRecord.getSutTags();
-            this.envResourceRole = testResultRecord.getEnvResourceRole();
+        public Pair(TestReportRecord testReportRecord) {
+            this.configuration = testReportRecord.getSutTags();
+            this.envResourceRole = testReportRecord.getEnvResourceRole();
         }
 
         @Override
@@ -61,7 +61,7 @@ public class DestinationScalabilityReportDataPlotter implements ReportPlotter {
     }
 
     public void buildChart(final String title, final String xAxisTile, final String yAxisTitle,
-                           List<TestResultRecord> resultRecords, final String fileName) {
+                           List<TestReportRecord> resultRecords, final String fileName) {
 
         // Create Chart
         XYChart chart = new XYChartBuilder()
@@ -100,8 +100,8 @@ public class DestinationScalabilityReportDataPlotter implements ReportPlotter {
     }
 
 
-    private void addSeriesByConfiguration(final Pair configuration, List<TestResultRecord> resultRecords, XYChart chart) {
-        List<TestResultRecord> filteredResults = resultRecords.stream()
+    private void addSeriesByConfiguration(final Pair configuration, List<TestReportRecord> resultRecords, XYChart chart) {
+        List<TestReportRecord> filteredResults = resultRecords.stream()
                 .filter(item -> (item.getSutTags().equals(configuration.configuration) && item.getEnvResourceRole().equals(configuration.envResourceRole)))
                 .collect(Collectors.toList());
 

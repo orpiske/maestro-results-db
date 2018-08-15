@@ -2,7 +2,7 @@ package org.maestro.results.main.actions.report;
 
 import org.maestro.results.dao.ReportsDao;
 import org.maestro.results.dto.Sut;
-import org.maestro.results.dto.TestResultRecord;
+import org.maestro.results.dto.TestReportRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,21 +23,21 @@ public class SutConfigurationReportCreator extends AbstractReportCreator {
     public ReportInfo create(final Sut sut, final String protocol, final String configuration, boolean durable, int limitDestinations,
                              int messageSize, int connectionCount) throws Exception
     {
-        List<TestResultRecord> testResultRecordsSender = reportsDao.sutConfigurationsReport(sut.getSutName(),
+        List<TestReportRecord> testReportRecordsSender = reportsDao.sutConfigurationsReport(sut.getSutName(),
                 sut.getSutVersion(), protocol, configuration, "sender", durable, limitDestinations, messageSize,
                 connectionCount, getTestName());
-        validateResultSet(sut, "sender", testResultRecordsSender);
+        validateResultSet(sut, "sender", testReportRecordsSender);
 
-        List<TestResultRecord> testResultRecordsReceiver = reportsDao.sutConfigurationsReport(sut.getSutName(),
+        List<TestReportRecord> testReportRecordsReceiver = reportsDao.sutConfigurationsReport(sut.getSutName(),
                 sut.getSutVersion(), protocol, configuration, "receiver", durable, limitDestinations, messageSize,
                 connectionCount, getTestName());
-        validateResultSet(sut, "receiver", testResultRecordsReceiver);
+        validateResultSet(sut, "receiver", testReportRecordsReceiver);
 
 
         Map<String, Object> context = new HashMap<>();
 
-        context.put("testResultRecordsSender", testResultRecordsSender);
-        context.put("testResultRecordsReceiver", testResultRecordsReceiver);
+        context.put("testReportRecordsSender", testReportRecordsSender);
+        context.put("testReportRecordsReceiver", testReportRecordsReceiver);
         context.put("sut", sut);
         context.put("durable", durable);
         context.put("limitDestinations", limitDestinations);
@@ -56,10 +56,10 @@ public class SutConfigurationReportCreator extends AbstractReportCreator {
         // Data plotting
         SutConfigurationReportDataPlotter rdp = new SutConfigurationReportDataPlotter(baseReportDir);
 
-        rdp.buildChart("", "", "Messages p/ second", testResultRecordsSender,
+        rdp.buildChart("", "", "Messages p/ second", testReportRecordsSender,
                 "performance-by-configuration-sender.png");
 
-        rdp.buildChart("", "", "Messages p/ second", testResultRecordsReceiver,
+        rdp.buildChart("", "", "Messages p/ second", testReportRecordsReceiver,
                 "performance-by-configuration-receiver.png");
 
         generateIndex("configuration-results.html", baseReportDir, context);

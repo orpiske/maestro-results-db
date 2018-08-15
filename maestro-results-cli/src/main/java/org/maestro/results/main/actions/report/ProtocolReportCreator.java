@@ -2,7 +2,7 @@ package org.maestro.results.main.actions.report;
 
 import org.maestro.results.dao.ReportsDao;
 import org.maestro.results.dto.Sut;
-import org.maestro.results.dto.TestResultRecord;
+import org.maestro.results.dto.TestReportRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -23,13 +23,13 @@ public class ProtocolReportCreator extends AbstractReportCreator {
     public ReportInfo create(final Sut sut, boolean durable, int limitDestinations, int messageSize,
                              int connectionCount) throws Exception
     {
-        List<TestResultRecord> testResultRecords = reportsDao.protocolReports(sut.getSutName(), sut.getSutVersion(),
+        List<TestReportRecord> testReportRecords = reportsDao.protocolReports(sut.getSutName(), sut.getSutVersion(),
                 durable, limitDestinations, messageSize, connectionCount, getTestName());
-        validateResultSet(sut, null, testResultRecords);
+        validateResultSet(sut, null, testReportRecords);
 
         Map<String, Object> context = new HashMap<>();
 
-        context.put("testResultRecords", testResultRecords);
+        context.put("testReportRecords", testReportRecords);
         context.put("sut", sut);
         context.put("durable", durable);
         context.put("limitDestinations", limitDestinations);
@@ -46,7 +46,7 @@ public class ProtocolReportCreator extends AbstractReportCreator {
         // Data plotting
         ProtocolReportDataPlotter rdp = new ProtocolReportDataPlotter(baseReportDir);
 
-        rdp.buildChart("", "", "Messages p/ second", testResultRecords,
+        rdp.buildChart("", "", "Messages p/ second", testReportRecords,
                 "performance-by-protocol.png");
 
         generateIndex("protocol-results.html", baseReportDir, context);

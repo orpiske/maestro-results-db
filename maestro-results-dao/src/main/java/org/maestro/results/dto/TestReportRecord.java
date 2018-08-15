@@ -2,7 +2,7 @@ package org.maestro.results.dto;
 
 import java.util.Date;
 
-public class TestResultRecord {
+public class TestReportRecord {
     private String sutName;
     private String sutVersion;
     private String sutTags;
@@ -213,7 +213,7 @@ public class TestResultRecord {
 
     @Override
     public String toString() {
-        return "TestResultRecord{" +
+        return "TestReportRecord{" +
                 "sutName='" + sutName + '\'' +
                 ", sutVersion='" + sutVersion + '\'' +
                 ", sutTags='" + sutTags + '\'' +

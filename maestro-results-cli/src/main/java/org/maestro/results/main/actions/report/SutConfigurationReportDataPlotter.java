@@ -1,6 +1,6 @@
 package org.maestro.results.main.actions.report;
 
-import org.maestro.results.dto.TestResultRecord;
+import org.maestro.results.dto.TestReportRecord;
 import org.knowm.xchart.BitmapEncoder;
 import org.knowm.xchart.CategoryChart;
 import org.knowm.xchart.CategoryChartBuilder;
@@ -21,7 +21,7 @@ public class SutConfigurationReportDataPlotter implements ReportPlotter {
     }
 
     public void buildChart(final String title, final String xAxisTile, final String yAxisTitle,
-                           List<TestResultRecord> resultRecords, final String fileName) {
+                           List<TestReportRecord> resultRecords, final String fileName) {
 
         // Create Chart
         CategoryChart chart = new CategoryChartBuilder()
@@ -55,7 +55,7 @@ public class SutConfigurationReportDataPlotter implements ReportPlotter {
     }
 
 
-    private void addSeriesByConfiguration(List<TestResultRecord> resultRecords, CategoryChart chart) {
+    private void addSeriesByConfiguration(List<TestReportRecord> resultRecords, CategoryChart chart) {
         List<String> groupSet = new ArrayList<>(resultRecords.size());
         List<Double> resultSet = new ArrayList<>(resultRecords.size());
 

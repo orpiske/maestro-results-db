@@ -2,7 +2,7 @@ package org.maestro.results.main.actions.report.custom;
 
 import com.hubspot.jinjava.interpret.JinjavaInterpreter;
 import com.hubspot.jinjava.lib.filter.Filter;
-import org.maestro.results.dto.TestResultRecord;
+import org.maestro.results.dto.TestReportRecord;
 import org.maestro.common.ConfigurationWrapper;
 import org.apache.commons.configuration.AbstractConfiguration;
 import org.slf4j.Logger;
@@ -16,7 +16,7 @@ public class SysRecord implements Filter {
 
     @Override
     public Object filter(Object var, JinjavaInterpreter jinjavaInterpreter, String... strings) {
-        TestResultRecord resultRecord = (TestResultRecord) var;
+        TestReportRecord resultRecord = (TestReportRecord) var;
         logger.trace("Processing filter argument for {} with arg len {}", resultRecord,
                 strings.length);
 

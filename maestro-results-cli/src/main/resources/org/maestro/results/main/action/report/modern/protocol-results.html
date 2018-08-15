@@ -128,24 +128,24 @@ Based on https://www.quackit.com/html/templates/download/view_source.cfm?templat
             </tr>
             </thead>
             <tbody>
-            {% for testResultRecord in testResultRecords %}
+            {% for testReportRecord in testReportRecords %}
             <tr>
-                <td><a href="{{ testResultRecord.testReportLink }}">Link</a></td>
-                <td><a href="{{ testResultRecord|sysRecord() }}">Link</a></td>
-                <td><span class={% if testResultRecord.testResult == 'success' %} "pficon pficon-ok" {% else %} "pficon pficon-error-circle-o" {% endif %}></span> {{ testResultRecord.testResult }}</td>
-                <td><span class={% if !testResultRecord.error %} "pficon pficon-ok" {% else %} "pficon pficon-warning-triangle-o" {% endif %} > {% if !testResultRecord.error %} No {% else %} Yes {% endif %}</td>
-                <td>{{ testResultRecord.variableSize }}</td>
-                <td>{{ testResultRecord.apiName }}</td>
-                <td>{{ testResultRecord.apiVersion }}</td>
-                <td>{{ testResultRecord.messagingProtocol }}</td>
-                <td>{{ testResultRecord.testRateMin | round(4) }}</td>
-                <td>{{ testResultRecord.testRateMax | round(4) }}</td>
-                <td>{{ testResultRecord.testRateGeometricMean | round(4) }}</td>
-                <td>{{ testResultRecord.testRateStandardDeviation | round(4)  }}</td>
-                <td>{{ testResultRecord.testRateSkipCount }}</td>
-                <td>{{ testResultRecord.envResourceRole }}</td>
-                <td>{{ testResultRecord.sutTags }}</td>
-                <td>{{ testResultRecord.testDate }}</td>
+                <td><a href="{{ testReportRecord.testReportLink }}">Link</a></td>
+                <td><a href="{{ testReportRecord|sysRecord() }}">Link</a></td>
+                <td><span class={% if testReportRecord.testResult == 'success' %} "pficon pficon-ok" {% else %} "pficon pficon-error-circle-o" {% endif %}></span> {{ testReportRecord.testResult }}</td>
+                <td><span class={% if !testReportRecord.error %} "pficon pficon-ok" {% else %} "pficon pficon-warning-triangle-o" {% endif %} > {% if !testReportRecord.error %} No {% else %} Yes {% endif %}</td>
+                <td>{{ testReportRecord.variableSize }}</td>
+                <td>{{ testReportRecord.apiName }}</td>
+                <td>{{ testReportRecord.apiVersion }}</td>
+                <td>{{ testReportRecord.messagingProtocol }}</td>
+                <td>{{ testReportRecord.testRateMin | round(4) }}</td>
+                <td>{{ testReportRecord.testRateMax | round(4) }}</td>
+                <td>{{ testReportRecord.testRateGeometricMean | round(4) }}</td>
+                <td>{{ testReportRecord.testRateStandardDeviation | round(4)  }}</td>
+                <td>{{ testReportRecord.testRateSkipCount }}</td>
+                <td>{{ testReportRecord.envResourceRole }}</td>
+                <td>{{ testReportRecord.sutTags }}</td>
+                <td>{{ testReportRecord.testDate }}</td>
             </tr>
             {% endfor %}
             </tbody>

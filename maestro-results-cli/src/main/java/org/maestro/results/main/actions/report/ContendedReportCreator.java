@@ -2,7 +2,7 @@ package org.maestro.results.main.actions.report;
 
 import org.maestro.results.dao.ReportsDao;
 import org.maestro.results.dto.Sut;
-import org.maestro.results.dto.TestResultRecord;
+import org.maestro.results.dto.TestReportRecord;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -21,20 +21,20 @@ public class ContendedReportCreator extends AbstractReportCreator {
 
 
     public ReportInfo create(final Sut sut, final String protocol, boolean durable, int messageSize) throws Exception {
-        List<TestResultRecord> testResultRecordsSender = reportsDao.contentedScalabilityReport(sut.getSutName(),
+        List<TestReportRecord> testReportRecordsSender = reportsDao.contentedScalabilityReport(sut.getSutName(),
                 sut.getSutVersion(), protocol, "sender", durable, messageSize, getTestName());
-        validateResultSet(sut, "sender", testResultRecordsSender);
+        validateResultSet(sut, "sender", testReportRecordsSender);
 
-        List<TestResultRecord> testResultRecordsReceiver = reportsDao.contentedScalabilityReport(sut.getSutName(),
+        List<TestReportRecord> testReportRecordsReceiver = reportsDao.contentedScalabilityReport(sut.getSutName(),
                 sut.getSutVersion(), protocol, "receiver", durable, messageSize, getTestName());
-        validateResultSet(sut, "receiver", testResultRecordsReceiver);
+        validateResultSet(sut, "receiver", testReportRecordsReceiver);
 
 
 
         Map<String, Object> context = new HashMap<>();
 
-        context.put("testResultRecordsSender", testResultRecordsSender);
-        context.put("testResultRecordsReceiver", testResultRecordsReceiver);
+        context.put("testReportRecordsSender", testReportRecordsSender);
+        context.put("testReportRecordsReceiver", testReportRecordsReceiver);
         context.put("sut", sut);
         context.put("durable", durable);
         context.put("limitDestinations", 1);
@@ -49,10 +49,10 @@ public class ContendedReportCreator extends AbstractReportCreator {
         // Data plotting
         ContendedReportDataPlotter rdp = new ContendedReportDataPlotter(baseReportDir);
 
-        rdp.buildChart("", "", "Messages p/ second", testResultRecordsSender,
+        rdp.buildChart("", "", "Messages p/ second", testReportRecordsSender,
                 "contended-performance-sender.png");
 
-        rdp.buildChart("", "", "Messages p/ second", testResultRecordsReceiver,
+        rdp.buildChart("", "", "Messages p/ second", testReportRecordsReceiver,
                 "contended-performance-receiver.png");
 
         generateIndex("contended-results.html", baseReportDir, context);
