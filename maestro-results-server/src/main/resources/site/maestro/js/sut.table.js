@@ -1,37 +1,20 @@
-$(document).ready(function() {
-    // JSON data for Table View
-    var dataSet = [{
-          sutId: "1",
-          sutName: "Artemis",
-          sutVersion: "2.5.0",
-          sutJvmInformation: "OpenJDK",
-          sutOther: "4",
-          sutTags: "aio,single"
-        },
-        {
-          sutId: "2",
-          sutName: "Artemis",
-          sutVersion: "2.6.0",
-          sutJvmInformation: "OpenJDK",
-          sutOther: "4",
-          sutTags: "aio,single"
-        },
-        {
-          sutId: "3",
-          sutName: "Artemis",
-          sutVersion: "2.6.0",
-          sutJvmInformation: "OpenJDK",
-          sutOther: "4",
-          sutTags: "aio,single"
-        }
-    ];
 
-    $('#rtable').DataTable({
+$(document).ready(function() {
+    var dataSet = [];
+
+    axios.get('/api/sut')
+      .then(function (response) {
+        // handle success
+//        console.log(response);
+
+        dataSet = response.data;
+
+        $('#suttable').DataTable({
             columns: [
                 { data: "sutId" },
                 { data: "sutName" },
                 { data: "sutVersion" },
-                { data: "sutJvmInformation" },
+                { data: "sutJvmInfo" },
                 { data: "sutOther"},
                 { data: "sutTags"}
             ],
@@ -57,7 +40,18 @@ $(document).ready(function() {
                 selector: 'td:first-child input[type="checkbox"]',
                 style: 'multi'
             },
-    });
+        });
+
+//        console.log(dataSet);
+      })
+      .catch(function (error) {
+        // handle error
+        console.log(error);
+      })
+      .then(function () {
+
+        // always executed
+      });
 
 
     var emptyTableViewUtil = function (config) {
@@ -90,7 +84,7 @@ $(document).ready(function() {
         data: dataSet,
         deleteRowsSelector: "#deleteRows1",
         restoreRowsSelector: "#restoreRows1",
-        tableSelector: "#rtable"
+        tableSelector: "#suttable"
     });
 
     /**
