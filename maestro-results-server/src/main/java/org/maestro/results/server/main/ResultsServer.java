@@ -35,6 +35,8 @@ public class ResultsServer {
         Javalin app = Javalin.create()
                 .port(port)
                 .enableStaticFiles("/site")
+                .enableCorsForAllOrigins()
+                .disableStartupBanner()
                 .start();
 
         app.get("/api/live", ctx -> ctx.result("Hello World"));
