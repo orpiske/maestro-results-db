@@ -16,7 +16,7 @@ public class TestResultsDao extends AbstractDao {
     }
 
     public List<TestResult> fetch(int testId) {
-        return jdbcTemplate.query("select * from test_results where test_id = ?",
+        return jdbcTemplate.query("select *,lat_percentile_90 as lat_percentile90,lat_percentile_95 as lat_percentile95,lat_percentile_99 as lat_percentile99 from test_results where test_id = ?",
                 new Object[]{testId},
                 new BeanPropertyRowMapper<>(TestResult.class));
     }
