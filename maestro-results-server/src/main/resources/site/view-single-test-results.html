@@ -53,21 +53,37 @@
     </header>
 
     <div class="col-sm-12">
-        <div>
+
             <div class="row">
-                <h2>Latency Percentile Evolution By Test Iteration</h2>
-                <div class="col-xs-12 col-md-6">
+                <div class="col-lg-4 col-md-4">
+                    <h3>Test Results</h3>
+                    <div id="test-statistics" class="example-donut-chart-right-legend" stats graph-api="/api/test/results/statistics/"></div>
+                </div>
+            </div>
+
+            <div class="row">
+                <!--<h2>Latency Percentile Evolution By Test Iteration</h2>-->
+                <div class="col-lg-4 col-md-4">
                     <h3>Percentile</h3>
                     <div id="line-chart-3" class="line-chart-pf" graphs graph-api="/api/test/results/latency/"></div>
                 </div>
 
-                <div class="col-xs-12 col-md-6">
-                    <h3>Test Results</h3>
-                    <div id="test-statistics" class="example-donut-chart-right-legend" stats graph-api="/api/test/results/statistics/"></div>
+                <div class="col-lg-4 col-md-4">
+                    <h3>Average Sender Rate By Test Iteration</h3>
+                    <div id="line-chart-4" class="line-chart-pf" sender-rate-graph graph-api="/api/test/results/rate/sender/"></div>
+                </div>
+
+                <div class="col-lg-4 col-md-4">
+                    <h3>Average Receiver Rate By Test Iteration</h3>
+                    <div id="line-chart-5" class="line-chart-pf" receiver-rate-graph graph-api="/api/test/results/rate/receiver/"></div>
                 </div>
 
             </div>
-        </div>
+
+    </div>
+
+    <div>
+
 
         <h2 id="#rep-proto-perf">List of Tests Results</h2>
 
@@ -132,6 +148,8 @@
 <script type="text/javascript" src="maestro/js/maestro.url.utils.js"></script>
 <script type="text/javascript" src="maestro/js/maestro.tables.by.id.js"></script>
 <script type="text/javascript" src="maestro/js/maestro.graph.lat.percentiles.js"></script>
+<script type="text/javascript" src="maestro/js/maestro.graph.sender.rate.distribution.js"></script>
+<script type="text/javascript" src="maestro/js/maestro.graph.receiver.rate.distribution.js"></script>
 <script type="text/javascript" src="maestro/js/maestro.graph.test.results.statistics.js"></script>
 
 </body>
