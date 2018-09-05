@@ -12,6 +12,7 @@ import org.maestro.results.server.controller.test.AllTestsControlller;
 import org.maestro.results.server.controller.test.results.AllTestsResultsController;
 import org.maestro.results.server.controller.test.results.LatencyDistributionByTestController;
 import org.maestro.results.server.controller.test.results.SingleTestResultsController;
+import org.maestro.results.server.controller.test.results.TestResultsStatisticsController;
 import org.maestro.results.server.controllers.sut.AllSutsController;
 import org.maestro.results.server.controllers.sut.SutController;
 
@@ -54,6 +55,7 @@ public class ResultsServer {
         app.get("/api/test/results", new AllTestsResultsController());
         app.get("/api/test/results/:id", new SingleTestResultsController());
         app.get("/api/test/results/latency/:id", new LatencyDistributionByTestController());
+        app.get("/api/test/results/statistics/:id", new TestResultsStatisticsController());
     }
 
 }

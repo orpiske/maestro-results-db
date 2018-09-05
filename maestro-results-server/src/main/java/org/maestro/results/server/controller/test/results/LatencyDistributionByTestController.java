@@ -35,7 +35,6 @@ public class LatencyDistributionByTestController implements Handler {
             this.latPercentile95 = latPercentile95;
             this.latPercentile99 = latPercentile99;
         }
-
     }
 
     private TestResultsDao testResultsDao = new TestResultsDao();
