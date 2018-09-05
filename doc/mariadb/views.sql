@@ -65,3 +65,12 @@ select
     MAX(IF(test_msg_property_name = "variableSize", IF(test_msg_property_value = "1", true, false), NULL)) AS variable_size
   from test_msg_property
   group by test_id,test_number;
+
+
+CREATE OR REPLACE VIEW `test_results_statistics` AS
+    select test_id,
+        sum(case when test_result = "success" then 1 else 0 end) as success,
+        sum(case when test_result = "success" then 0 else 1 end) as failures
+    from test_results
+    where test_valid = true
+    group by test_id;
