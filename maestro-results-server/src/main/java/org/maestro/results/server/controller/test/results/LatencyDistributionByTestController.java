@@ -47,6 +47,7 @@ public class LatencyDistributionByTestController implements Handler {
 
         List<LatPair> combined = new LinkedList<>();
 
+        // It does a transformation of the test results to simplify things on the front-end part of the code
         for (TestResult testResult : testResultList) {
             combined.add(new LatPair(testResult));
         }
