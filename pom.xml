@@ -51,6 +51,32 @@
                 </configuration>
             </plugin>
         </plugins>
+
+        <pluginManagement>
+            <plugins>
+                <plugin>
+                    <artifactId>maven-assembly-plugin</artifactId>
+                    <configuration>
+                        <descriptors>
+                            <descriptor>
+                                src/main/assembly/assembly.xml
+                            </descriptor>
+                        </descriptors>
+                        <appendAssemblyId>true</appendAssemblyId>
+                    </configuration>
+
+                    <executions>
+                        <execution>
+                            <id>dist-assembly</id>
+                            <phase>package</phase>
+                            <goals>
+                                <goal>single</goal>
+                            </goals>
+                        </execution>
+                    </executions>
+                </plugin>
+            </plugins>
+        </pluginManagement>
     </build>
 
     <modules>
@@ -60,7 +86,6 @@
         <module>maestro-results-cli</module>
         <module>maestro-results-server</module>
     </modules>
-
 
     <profiles>
         <profile>
