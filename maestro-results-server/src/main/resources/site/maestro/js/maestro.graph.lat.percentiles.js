@@ -1,14 +1,10 @@
 $(document).ready(function() {
-//    require("axios")
-
     var id = getUrlVars()["test-id"]
 
-    var url = $('[data-datatables]').attr('data-api') + "/latency/" + id
+    var url = $('[graphs]').attr('graph-api') + id
 
     axios.get(url).then(function (response) {
         var chartData = response.data
-
-        console.log(response);
 
         console.log(chartData);
 
