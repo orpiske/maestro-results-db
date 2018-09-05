@@ -6,8 +6,6 @@ $(document).ready(function() {
     axios.get(url).then(function (response) {
         var chartData = response.data
 
-        console.log(chartData);
-
         var c3ChartDefaults = $().c3ChartDefaults();
         var lineChartConfig = c3ChartDefaults.getDefaultLineConfig();
         lineChartConfig.bindto = '#line-chart-3';
