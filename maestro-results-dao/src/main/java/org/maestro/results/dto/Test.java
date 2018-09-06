@@ -16,6 +16,7 @@ public class Test {
     private String testTags;
     private Date testDate;
     private int testDuration;
+    private String testDurationType;
     private int testTargetRate;
     private String maestroVersion = Constants.VERSION;
 
@@ -111,6 +112,14 @@ public class Test {
         return testTargetRate;
     }
 
+    public String getTestDurationType() {
+        return testDurationType;
+    }
+
+    public void setTestDurationType(String testDurationType) {
+        this.testDurationType = testDurationType;
+    }
+
     public void setTestTargetRate(int testTargetRate) {
         this.testTargetRate = testTargetRate;
     }
@@ -137,6 +146,7 @@ public class Test {
                 ", testTags='" + testTags + '\'' +
                 ", testDate=" + testDate +
                 ", testDuration=" + testDuration +
+                ", testDurationType=" + testDurationType +
                 ", testTargetRate=" + testTargetRate +
                 ", maestroVersion='" + maestroVersion + '\'' +
                 '}';
