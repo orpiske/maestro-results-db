@@ -17,6 +17,10 @@ create or replace view `test_result_statistics` as
     where test_valid = true
     group by test_id;
 
+alter table env_results modify column lat_percentile_90 DOUBLE default 0;
+alter table env_results modify column lat_percentile_95 DOUBLE default 0;
+alter table env_results modify column lat_percentile_99 DOUBLE default 0;
+    
 update env_results set lat_percentile_90 = 0 where lat_percentile_90 is null and env_resource_role = 'receiver';
 update env_results set lat_percentile_95 = 0 where lat_percentile_95 is null and env_resource_role = 'receiver';
 update env_results set lat_percentile_99 = 0 where lat_percentile_99 is null and env_resource_role = 'receiver';
