@@ -75,10 +75,16 @@ public class TestDao extends AbstractDao {
                 new BeanPropertyRowMapper<>(Test.class));
     }
 
+    public List<Test> fetch(int testId, int testNumber) {
+        return jdbcTemplate.query("select * from test where test_id = ? and test_number = ?",
+                new Object[]{testId, testNumber},
+                new BeanPropertyRowMapper<>(Test.class));
+    }
 
-    public int updateDurationAndRate(int id, int number, final Integer duration, final Integer rate) {
-        return jdbcTemplate.update("update test set test_duration = ?, test_target_rate = ? where " +
+
+    public int updateDurationAndRate(int id, int number, final Integer duration, final String durationType, final Integer rate) {
+        return jdbcTemplate.update("update test set test_duration = ?, test_duration_type = ?, test_target_rate = ? where " +
                 "test_id = ? and test_number = ?",
-                new Object[] { duration, rate, id, number});
+                new Object[] { duration, durationType, rate, id, number});
     }
  }

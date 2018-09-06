@@ -50,6 +50,7 @@ CREATE TABLE IF NOT EXISTS `maestro`.`test` (
   `test_target_rate` INT NULL DEFAULT 0,
   `test_valid` TINYINT NULL DEFAULT 1,
   `maestro_version` VARCHAR(32) NULL DEFAULT '1.3.0',
+  `test_duration_type` VARCHAR(8) default 'time',
   PRIMARY KEY (`test_id`, `test_number`),
   INDEX `fk_test_sut1_idx` (`sut_id` ASC),
   CONSTRAINT `fk_test_sut1`
@@ -175,6 +176,7 @@ CREATE TABLE IF NOT EXISTS `maestro`.`test_history` (
   `test_target_rate` INT NULL DEFAULT 0,
   `test_valid` TINYINT NULL DEFAULT 1,
   `maestro_version` VARCHAR(32) NULL DEFAULT '1.3.0',
+  `test_duration_type` VARCHAR(8) default 'time',
   `test_update_date` DATETIME NOT NULL)
 ENGINE = InnoDB;
 
