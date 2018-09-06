@@ -7,7 +7,6 @@ alter table test_history add column test_duration_type varchar(8) default 'time'
 -- Ensures that test_update_date remains the last column in the history table, so that the trigger continues to work
 alter table test_history modify `test_update_date` datetime not null after test_duration_type;
 
-
 update test set test_duration_type = 'count' where test_duration not in (300, 600, 900, 12600);
 
 create or replace view `test_result_statistics` as
@@ -17,6 +16,12 @@ create or replace view `test_result_statistics` as
     from test_results
     where test_valid = true
     group by test_id;
+
+update env_results set lat_percentile_90 = 0 where lat_percentile_90 is null and env_resource_role = 'receiver';
+update env_results set lat_percentile_95 = 0 where lat_percentile_95 is null and env_resource_role = 'receiver';
+update env_results set lat_percentile_99 = 0 where lat_percentile_99 is null and env_resource_role = 'receiver';
+
+update env_results set lat_percentile_90 = 0,lat_percentile_95 = 0,lat_percentile_99 = 0 where env_resource_role = 'sender';
 
 
 -- recreate the test_results view
@@ -70,7 +75,7 @@ CREATE OR REPLACE VIEW `test_results` AS
             AND t.test_number = tp.test_number;
 
 drop view test_parameters;
-            
+
 commit;
 
 
