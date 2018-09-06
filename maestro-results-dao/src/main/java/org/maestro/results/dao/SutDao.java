@@ -34,4 +34,10 @@ public class SutDao extends AbstractDao {
                 new Object[]{ sutName, sutVersion },
                 String.class);
     }
+
+    public Sut testSut(int testId) {
+        return jdbcTemplate.queryForObject("select sut.* from sut,test where sut.sut_id = test.sut_id and test.test_id = ? group by sut_id",
+                new Object[]{testId},
+                new BeanPropertyRowMapper<>(Sut.class));
+    }
 }
