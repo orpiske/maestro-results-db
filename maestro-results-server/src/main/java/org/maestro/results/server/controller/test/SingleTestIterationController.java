@@ -7,7 +7,7 @@ import org.maestro.results.dto.Test;
 
 import java.util.List;
 
-public class SingleTestIterationControlller implements Handler {
+public class SingleTestIterationController implements Handler {
     private TestDao testDao = new TestDao();
 
     @Override

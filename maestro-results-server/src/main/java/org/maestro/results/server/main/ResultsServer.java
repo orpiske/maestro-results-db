@@ -10,7 +10,7 @@ import org.maestro.results.server.controller.env.resources.AllEnvResourcesContro
 import org.maestro.results.server.controller.env.results.AllEnvResultsController;
 import org.maestro.results.server.controller.test.AllTestsControlller;
 import org.maestro.results.server.controller.test.SingleTestControlller;
-import org.maestro.results.server.controller.test.SingleTestIterationControlller;
+import org.maestro.results.server.controller.test.SingleTestIterationController;
 import org.maestro.results.server.controller.test.results.*;
 import org.maestro.results.server.controllers.sut.AllSutsController;
 import org.maestro.results.server.controllers.sut.SutController;
@@ -52,12 +52,12 @@ public class ResultsServer {
         app.get("/api/env/results", new AllEnvResultsController());
         app.get("/api/test", new AllTestsControlller());
         app.get("/api/test/:id", new SingleTestControlller());
-        app.get("/api/test/:id/:number", new SingleTestIterationControlller());
-        app.get("/api/test/results", new AllTestsResultsController());
-        app.get("/api/test/results/:id", new SingleTestResultsController());
-        app.get("/api/test/results/latency/:id", new LatencyDistributionByTestController());
-        app.get("/api/test/results/statistics/:id", new TestResultsStatisticsController());
-        app.get("/api/test/results/rate/:role/:id", new RateDistributionByTestController());
+        app.get("/api/test/:id/:number", new SingleTestIterationController());
+        app.get("/api/results/", new AllTestsResultsController());
+        app.get("/api/results/test/:id", new SingleTestResultsController());
+        app.get("/api/results/latency/test/:id", new LatencyDistributionByTestController());
+        app.get("/api/results/statistics/test/:id", new TestResultsStatisticsController());
+        app.get("/api/results/rate/:role/test/:id", new RateDistributionByTestController());
     }
 
 }
