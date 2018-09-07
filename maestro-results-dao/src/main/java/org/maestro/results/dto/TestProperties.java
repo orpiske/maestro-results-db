@@ -1,6 +1,6 @@
 package org.maestro.results.dto;
 
-public class TestParameters {
+public class TestProperties {
     private int testId;
     private int testNumber;
     private String apiName;

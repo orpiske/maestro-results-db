@@ -52,13 +52,18 @@ CREATE OR REPLACE VIEW `test_results` AS
         test t,
         env_results er,
         env_resource res,
-        sut
+        sut,
+        test_parameters tp,
     WHERE
         t.test_id = er.test_id
             AND t.test_number = er.test_number
             AND er.env_resource_id = res.env_resource_id
-            AND t.sut_id = sut.sut_id;
+            AND t.sut_id = sut.sut_id
+            AND t.test_id = tp.test_id
+            AND t.test_number = tp.test_number;
 
+drop view test_parameters;
+            
 commit;
 
 

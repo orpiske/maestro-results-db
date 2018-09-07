@@ -1,9 +1,9 @@
 package org.maestro.results.main.actions.xunit;
 
 import org.maestro.results.dao.TestDao;
-import org.maestro.results.dao.TestParametersDao;
+import org.maestro.results.dao.TestPropertiesDao;
 import org.maestro.results.dto.Test;
-import org.maestro.results.dto.TestParameters;
+import org.maestro.results.dto.TestProperties;
 import org.maestro.results.dto.xunit.TestCase;
 import org.maestro.results.dto.xunit.TestSuite;
 import org.maestro.results.dto.xunit.TestSuites;
@@ -15,7 +15,7 @@ import java.util.List;
 
 public class XUnitGenerator {
     private TestDao testDao = new TestDao();
-    private TestParametersDao testParametersDao = new TestParametersDao();
+    private TestPropertiesDao testPropertiesDao = new TestPropertiesDao();
 
     public TestSuites convertToTestSuites(final List<Test> testList) {
         TestSuite testSuite = new TestSuite();
@@ -23,7 +23,7 @@ public class XUnitGenerator {
         testSuite.setTests(testList.size());
 
         for (Test test : testList) {
-            TestParameters testParameters = testParametersDao.fetch(test.getTestId(), test.getTestNumber());
+            TestProperties testProperties = testPropertiesDao.fetch(test.getTestId(), test.getTestNumber());
 
             TestCase testCase = new TestCase();
 
@@ -31,8 +31,8 @@ public class XUnitGenerator {
             testCase.setClassName("singlepoint.FixedRate");
 
             // TODO: move the connection count info to Test
-            String name = testParameters.getMessagingProtocol() + "-s-" + testParameters.getMessageSize() + "-c-undef"
-                    + (testParameters.isDurable() ? "-" : "-non-") + "durable-";
+            String name = testProperties.getMessagingProtocol() + "-s-" + testProperties.getMessageSize() + "-c-undef"
+                    + (testProperties.isDurable() ? "-" : "-non-") + "durable-";
 
             testCase.setName(name);
             testCase.setTime(Duration.ofSeconds(test.getTestDuration()));
