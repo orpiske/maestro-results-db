@@ -47,13 +47,20 @@ CREATE OR REPLACE VIEW `test_results` AS
         t.test_tags,
         t.test_report_link,
         t.test_target_rate,
-        (t.test_target_rate * er.connection_count) as test_combined_target_rate
+        (t.test_target_rate * er.connection_count) as test_combined_target_rate,
+        tp.api_name,
+        tp.api_version,
+        tp.durable,
+        tp.limit_destinations,
+        tp.message_size,
+        tp.messaging_protocol,
+        tp.max_acceptable_latency
     FROM
         test t,
         env_results er,
         env_resource res,
         sut,
-        test_parameters tp,
+        test_properties tp
     WHERE
         t.test_id = er.test_id
             AND t.test_number = er.test_number

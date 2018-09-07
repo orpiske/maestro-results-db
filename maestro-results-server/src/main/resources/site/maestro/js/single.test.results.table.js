@@ -44,5 +44,13 @@ var dbColumns = [
             return '<a href=\"' + data + '\">Link</a>';
         }
     },
-    { data: "variableSize" }
+    { data: "variableSize" },
+    { data: "testTargetRate" },
+    { data: "testCombinedTargetRate" },
+    { data: "apiName" },
+    { data: "apiVersion" },
+    { data: "limitDestinations" },
+    { data: "messageSize" },
+    { data: "messagingProtocol" },
+    { data: "maxAcceptableLatency" }
 ];

@@ -30,6 +30,13 @@ public class TestResult {
     private boolean variableSize;
     private int testTargetRate;
     private int testCombinedTargetRate;
+    private String apiName;
+    private String apiVersion;
+    private boolean durable;
+    private int limitDestinations;
+    private int messageSize;
+    private String messagingProtocol;
+    private int maxAcceptableLatency;
 
     public int getTestId() {
         return testId;
@@ -247,6 +254,62 @@ public class TestResult {
         this.testCombinedTargetRate = testCombinedTargetRate;
     }
 
+    public String getApiName() {
+        return apiName;
+    }
+
+    public void setApiName(String apiName) {
+        this.apiName = apiName;
+    }
+
+    public String getApiVersion() {
+        return apiVersion;
+    }
+
+    public void setApiVersion(String apiVersion) {
+        this.apiVersion = apiVersion;
+    }
+
+    public boolean isDurable() {
+        return durable;
+    }
+
+    public void setDurable(boolean durable) {
+        this.durable = durable;
+    }
+
+    public int getLimitDestinations() {
+        return limitDestinations;
+    }
+
+    public void setLimitDestinations(int limitDestinations) {
+        this.limitDestinations = limitDestinations;
+    }
+
+    public int getMessageSize() {
+        return messageSize;
+    }
+
+    public void setMessageSize(int messageSize) {
+        this.messageSize = messageSize;
+    }
+
+    public String getMessagingProtocol() {
+        return messagingProtocol;
+    }
+
+    public void setMessagingProtocol(String messagingProtocol) {
+        this.messagingProtocol = messagingProtocol;
+    }
+
+    public int getMaxAcceptableLatency() {
+        return maxAcceptableLatency;
+    }
+
+    public void setMaxAcceptableLatency(int maxAcceptableLatency) {
+        this.maxAcceptableLatency = maxAcceptableLatency;
+    }
+
     @Override
     public String toString() {
         return "TestResult{" +
@@ -277,6 +340,13 @@ public class TestResult {
                 ", variableSize=" + variableSize +
                 ", testTargetRate=" + testTargetRate +
                 ", testCombinedTargetRate=" + testCombinedTargetRate +
+                ", apiName='" + apiName + '\'' +
+                ", apiVersion='" + apiVersion + '\'' +
+                ", durable=" + durable +
+                ", limitDestinations=" + limitDestinations +
+                ", messageSize=" + messageSize +
+                ", messagingProtocol='" + messagingProtocol + '\'' +
+                ", maxAcceptableLatency=" + maxAcceptableLatency +
                 '}';
     }
 }
