@@ -1,6 +1,5 @@
 package org.maestro.results.dao;
 
-import org.maestro.results.dto.TestResult;
 import org.maestro.results.dto.TestResultStatistics;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
