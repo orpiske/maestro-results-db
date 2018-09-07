@@ -3,7 +3,7 @@ package org.maestro.results.dto;
 public class TestResultStatistics {
     private int testId;
     private int success;
-    private int failure;
+    private int failures;
 
     public int getTestId() {
         return testId;
@@ -21,11 +21,11 @@ public class TestResultStatistics {
         this.success = success;
     }
 
-    public int getFailure() {
-        return failure;
+    public int getFailures() {
+        return failures;
     }
 
-    public void setFailure(int failure) {
-        this.failure = failure;
+    public void setFailures(int failures) {
+        this.failures = failures;
     }
 }

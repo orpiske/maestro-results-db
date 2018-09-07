@@ -16,7 +16,7 @@ $(document).ready(function() {
 
             columns: [
                 ['Success', chartData.success],
-                ['Failures', chartData.failure],
+                ['Failures', chartData.failures],
             ],
         };
         donutChartRightConfig.legend = {
