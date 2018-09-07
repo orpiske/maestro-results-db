@@ -15,8 +15,18 @@ var dbColumns = [
     { data: "envResourceRole" },
     { data: "testRateMin" },
     { data: "testRateMax" },
-    { data: "testRateGeometricMean" },
-    { data: "testRateStandardDeviation" },
+    {
+        data: "testRateGeometricMean",
+        render: function (data, type, full, meta) {
+            return Number(data).toFixed(2);
+        }
+    },
+    {
+        data: "testRateStandardDeviation",
+        render: function (data, type, full, meta) {
+             return Number(data).toFixed(2);
+        }
+    },
     { data: "testRateSkipCount" },
     { data: "latPercentile90" },
     { data: "latPercentile95" },
