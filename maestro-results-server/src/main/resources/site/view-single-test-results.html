@@ -122,7 +122,35 @@
     </div>
 
     <div class="col-sm-12">
-        <h2 id="#rep-proto-perf">List of Tests Results</h2>
+        <h2 id="#rep-resources">Hardware Resources Used</h2>
+
+        <table
+                class="table"
+                id="envrestable"
+                data-envres-datatables
+                data-api="/api/test/">
+            <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <th>OS Name</th>
+                <th>OS Architecture</th>
+                <th>OS Version</th>
+                <th>OS Other</th>
+                <th>HW Name</th>
+                <th>HW Model</th>
+                <th>HW CPU</th>
+                <th>HW RAM</th>
+                <th>HW Disk Type</th>
+                <th>HW Other</th>
+            </tr>
+            </thead>
+        </table>
+
+    </div>
+
+    <div class="col-sm-12">
+        <h2 id="#rep-test-results">List of Tests Results</h2>
 
         <div class="row toolbar-pf-results">
             <div class="col-sm-9">
@@ -172,6 +200,7 @@
 
 <script type="text/javascript" src="resources/components/axios/axios.min.js"></script>
 <script type="text/javascript" src="resources/js/patternfly.min.js"></script>
+
 <script type="text/javascript" src="maestro/js/single.test.results.table.js"></script>
 <script type="text/javascript" src="maestro/js/maestro.url.utils.js"></script>
 <script type="text/javascript" src="maestro/js/maestro.tables.by.id.js"></script>
