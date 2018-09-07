@@ -17,13 +17,22 @@ public class RateDistributionByTestController implements Handler {
         @JsonProperty("Rate Geometric Mean")
         final double rateGeoMean;
 
+        @JsonProperty("Target Rate")
+        final int targetRate;
+
+        @JsonProperty("Combined Target Rate")
+        final int combinedTargetRate;
+
         public RateInfo(final TestResult testResult) {
-            this(testResult.getTestNumber(), testResult.getTestRateGeometricMean());
+            this(testResult.getTestNumber(), testResult.getTestRateGeometricMean(), testResult.getTestTargetRate(),
+                    testResult.getTestCombinedTargetRate());
         }
 
-        private RateInfo(int testNumber, double rateGeoMean) {
+        private RateInfo(int testNumber, double rateGeoMean, int targetRate, int combinedTargetRate) {
             this.testNumber = testNumber;
             this.rateGeoMean = rateGeoMean;
+            this.targetRate = targetRate;
+            this.combinedTargetRate = combinedTargetRate;
         }
     }
 

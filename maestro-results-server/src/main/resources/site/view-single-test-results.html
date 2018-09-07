@@ -64,8 +64,12 @@
 
                 <div class="col-lg-3 col-md-3">
                     <h3>Average Sender Rate By Test Iteration</h3>
-                    <div id="line-chart-4" class="line-chart-pf" sender-rate-graph graph-api="/api/results/rate/sender/test/"></div>
+                    <div id="line-chart-4" class="line-chart-pf" sender-rate-graph graph-api="/api/results/rate/sender/test/">
+
+
+                    </div>
                 </div>
+
 
                 <div class="col-lg-3 col-md-3">
                     <h3>Average Receiver Rate By Test Iteration</h3>
@@ -77,6 +81,20 @@
                     <div id="test-statistics" class="example-donut-chart-right-legend" stats graph-api="/api/results/statistics/test/"></div>
                 </div>
 
+            </div>
+
+            <div class="row">
+                <div class="alert alert-info">
+                    <span class="pficon pficon-info"></span>
+                    The rate geometric mean represents the <strong>actual average rate</strong> obtained during the test.
+                </div>
+
+                <div class="alert alert-info">
+                    <span class="pficon pficon-info"></span>
+                    The combined target rate represents the <strong>desired rate</strong> set by the front-end for all
+                    the connections on a single Maestro node. For example: a test with a target rate of 10 msgs/sec and
+                    2 connections per node (PARALLEL_COUNT=2) will be display 20 as the combined target rate.
+                </div>
             </div>
         </div>
     </div>

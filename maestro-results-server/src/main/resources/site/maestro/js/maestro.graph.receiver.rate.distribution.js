@@ -15,7 +15,7 @@ $(document).ready(function() {
             json: chartData,
             keys: {
                 x: 'Test Number', // it's possible to specify 'x' when category axis
-                value: ['Rate Geometric Mean']
+                value: ['Rate Geometric Mean', 'Combined Target Rate']
             },
             axis: {
                 x: {
