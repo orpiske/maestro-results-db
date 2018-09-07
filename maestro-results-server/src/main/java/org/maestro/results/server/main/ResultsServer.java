@@ -11,6 +11,7 @@ import org.maestro.results.server.controller.env.results.AllEnvResultsController
 import org.maestro.results.server.controller.test.AllTestsControlller;
 import org.maestro.results.server.controller.test.SingleTestControlller;
 import org.maestro.results.server.controller.test.SingleTestIterationController;
+import org.maestro.results.server.controller.test.TestResourcesController;
 import org.maestro.results.server.controller.test.results.*;
 import org.maestro.results.server.controllers.sut.AllSutsController;
 import org.maestro.results.server.controllers.sut.SutController;
@@ -54,6 +55,7 @@ public class ResultsServer {
         app.get("/api/test", new AllTestsControlller());
         app.get("/api/test/:id", new SingleTestControlller());
         app.get("/api/test/:id/sut", new TestSutControlller());
+        app.get("/api/test/:id/resources", new TestResourcesController());
         app.get("/api/test/:id/number/:number", new SingleTestIterationController());
         app.get("/api/results/", new AllTestsResultsController());
         app.get("/api/results/test/:id", new SingleTestResultsController());

@@ -34,4 +34,12 @@ public class EnvResourceDao extends AbstractDao {
         return jdbcTemplate.query("select * from env_resource",
                 new BeanPropertyRowMapper<>(EnvResource.class));
     }
+
+    public List<EnvResource> fetchForTest(int testId) {
+        return jdbcTemplate.query("select * from env_resource where env_resource_name in (" +
+                "select env_resource_name from test_results where test_id = ? group by env_resource_name)",
+                new Object[] { testId },
+                new BeanPropertyRowMapper<>(EnvResource.class));
+
+    }
 }
