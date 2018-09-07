@@ -6,10 +6,6 @@ var dbColumns = [
         }
     },
     { data: "testNumber" },
-    { data: "sutId" },
-    { data: "sutTags" },
-    { data: "sutName" },
-    { data: "sutVersion" },
     { data: "testResult",
         render: function (data, type, full, meta) {
             if (data == "success") {

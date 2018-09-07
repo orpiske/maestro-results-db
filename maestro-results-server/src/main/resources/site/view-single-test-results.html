@@ -54,15 +54,32 @@
 
     <div class="col-sm-12">
 
+
         <div class="container-fluid">
             <div class="row">
+                <div class="col-lg-8 col-md-8">
+                    <h3>Details for the Software Under Test</h3>
+                    <ul class="list-group">
+                        <li id="sutId" class="list-group-item"></li>
+                        <li id="sutTags" class="list-group-item"></li>
+                        <li id="sutJvmInfo" class="list-group-item"></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4 col-md-4">
+                    <h3>Test Results</h3>
+                    <div id="test-statistics" class="example-donut-chart-right-legend" stats graph-api="/api/results/statistics/test/"></div>
+                </div>
+
+            </div>
+            <div class="row">
                 <!--<h2>Latency Percentile Evolution By Test Iteration</h2>-->
-                <div class="col-lg-3 col-md-3">
+                <div class="col-lg-4 col-md-4">
                     <h3>Percentile</h3>
                     <div id="line-chart-3" class="line-chart-pf" graphs graph-api="/api/results/latency/test/"></div>
                 </div>
 
-                <div class="col-lg-3 col-md-3">
+                <div class="col-lg-4 col-md-4">
                     <h3>Average Sender Rate By Test Iteration</h3>
                     <div id="line-chart-4" class="line-chart-pf" sender-rate-graph graph-api="/api/results/rate/sender/test/">
 
@@ -70,16 +87,12 @@
                     </div>
                 </div>
 
-
-                <div class="col-lg-3 col-md-3">
+                <div class="col-lg-4 col-md-4">
                     <h3>Average Receiver Rate By Test Iteration</h3>
                     <div id="line-chart-5" class="line-chart-pf" receiver-rate-graph graph-api="/api/results/rate/receiver/test/"></div>
                 </div>
 
-                <div class="col-lg-3 col-md-3">
-                    <h3>Test Results</h3>
-                    <div id="test-statistics" class="example-donut-chart-right-legend" stats graph-api="/api/results/statistics/test/"></div>
-                </div>
+
 
             </div>
 
@@ -121,10 +134,6 @@
             <tr>
                 <th>Test ID</th>
                 <th>Test Number</th>
-                <th>Sut ID</th>
-                <th>Sut Tags</th>
-                <th>Sut Name</th>
-                <th>Sut Version</th>
                 <th>Test Result</th>
                 <th>Error</th>
                 <th>Host</th>
