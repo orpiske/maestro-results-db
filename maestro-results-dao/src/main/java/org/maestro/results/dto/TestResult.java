@@ -28,6 +28,8 @@ public class TestResult {
     private String testTags;
     private String testReportLink;
     private boolean variableSize;
+    private int testTargetRate;
+    private int testCombinedTargetRate;
 
     public int getTestId() {
         return testId;
@@ -229,6 +231,22 @@ public class TestResult {
         this.variableSize = variableSize;
     }
 
+    public int getTestTargetRate() {
+        return testTargetRate;
+    }
+
+    public void setTestTargetRate(int testTargetRate) {
+        this.testTargetRate = testTargetRate;
+    }
+
+    public int getTestCombinedTargetRate() {
+        return testCombinedTargetRate;
+    }
+
+    public void setTestCombinedTargetRate(int testCombinedTargetRate) {
+        this.testCombinedTargetRate = testCombinedTargetRate;
+    }
+
     @Override
     public String toString() {
         return "TestResult{" +
@@ -257,6 +275,8 @@ public class TestResult {
                 ", testTags='" + testTags + '\'' +
                 ", testReportLink='" + testReportLink + '\'' +
                 ", variableSize=" + variableSize +
+                ", testTargetRate=" + testTargetRate +
+                ", testCombinedTargetRate=" + testCombinedTargetRate +
                 '}';
     }
 }

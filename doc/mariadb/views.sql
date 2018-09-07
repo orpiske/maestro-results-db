@@ -1,5 +1,5 @@
 CREATE OR REPLACE VIEW `test_results` AS
-    SELECT
+	SELECT
         t.test_id,
         t.test_number,
         sut.sut_id,
@@ -23,7 +23,9 @@ CREATE OR REPLACE VIEW `test_results` AS
         t.test_date,
         t.test_name,
         t.test_tags,
-        t.test_report_link
+        t.test_report_link,
+        t.test_target_rate,
+        (t.test_target_rate * er.connection_count) as test_combined_target_rate
     FROM
         test t,
         env_results er,
