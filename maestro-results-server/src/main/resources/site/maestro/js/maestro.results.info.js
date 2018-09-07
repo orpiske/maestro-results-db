@@ -1,8 +1,8 @@
 $(document).ready(function() {
     var id = getUrlVars()["test-id"]
-    var url = "/api/test/" + id + "/sut"
+    var sutUrl = "/api/test/" + id + "/sut"
 
-    axios.get(url).then(
+    axios.get(sutUrl).then(
         function (response) {
             console.log(response);
 
@@ -23,6 +23,29 @@ $(document).ready(function() {
     })
     .catch(function (error) {
         console.log(error);
-      });
-    }
+    });
+
+    var testInfoUrl = "/api/test/" + id + "/number/0";
+
+    axios.get(testInfoUrl).then(
+        function (response) {
+            console.log(response);
+
+            $("#testId").text("ID: " + response.data.testId);
+            $("#testName").text("Name: " + response.data.testName);
+
+            if (response.data.testTags == null || response.data.testTags == "") {
+                $("#testTags").text("Tags: no tags were provided for this test");
+            }
+            else {
+                $("#testTags").text("Tags: " + response.data.testTags);
+            }
+
+        }
+    )
+    .catch(function (error) {
+        console.log(error);
+    });
+ }
+
 )

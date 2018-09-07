@@ -75,8 +75,8 @@ public class TestDao extends AbstractDao {
                 new BeanPropertyRowMapper<>(Test.class));
     }
 
-    public List<Test> fetch(int testId, int testNumber) {
-        return jdbcTemplate.query("select * from test where test_id = ? and test_number = ?",
+    public Test fetch(int testId, int testNumber) {
+        return jdbcTemplate.queryForObject("select * from test where test_id = ? and test_number = ?",
                 new Object[]{testId, testNumber},
                 new BeanPropertyRowMapper<>(Test.class));
     }

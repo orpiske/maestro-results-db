@@ -15,8 +15,8 @@ public class SingleTestIterationController implements Handler {
         int id = Integer.parseInt(context.param("id"));
         int number = Integer.parseInt(context.param("number"));
 
-        List<Test> testList = testDao.fetch(id, number);
+        Test testInfo = testDao.fetch(id, number);
 
-        context.json(testList);
+        context.json(testInfo);
     }
 }

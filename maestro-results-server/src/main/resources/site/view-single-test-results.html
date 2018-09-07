@@ -57,12 +57,21 @@
 
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-8 col-md-8">
+                <div class="col-lg-4 col-md-4">
                     <h3>Details for the Software Under Test</h3>
                     <ul class="list-group">
                         <li id="sutId" class="list-group-item"></li>
                         <li id="sutTags" class="list-group-item"></li>
                         <li id="sutJvmInfo" class="list-group-item"></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-4 col-md-4">
+                    <h3>Details for the Test Execution</h3>
+                    <ul class="list-group">
+                        <li id="testId" class="list-group-item"></li>
+                        <li id="testName" class="list-group-item"></li>
+                        <li id="testTags" class="list-group-item"></li>
                     </ul>
                 </div>
 
@@ -132,8 +141,6 @@
         <table class="table table-striped table-bordered table-hover" id="testrestable" data-datatables data-api="/api/results/test">
             <thead>
             <tr>
-                <th>Test ID</th>
-                <th>Test Number</th>
                 <th>Test Result</th>
                 <th>Error</th>
                 <th>Host</th>
@@ -148,8 +155,6 @@
                 <th>99th Percentile</th>
                 <th>Connection Count</th>
                 <th>Test Date</th>
-                <th>Test Name</th>
-                <th>Test Tags</th>
                 <th>Report Link</th>
                 <th>Variable Size</th>
             </tr>
@@ -167,7 +172,7 @@
 
 <script type="text/javascript" src="resources/components/axios/axios.min.js"></script>
 <script type="text/javascript" src="resources/js/patternfly.min.js"></script>
-<script type="text/javascript" src="maestro/js/test.results.table.js"></script>
+<script type="text/javascript" src="maestro/js/single.test.results.table.js"></script>
 <script type="text/javascript" src="maestro/js/maestro.url.utils.js"></script>
 <script type="text/javascript" src="maestro/js/maestro.tables.by.id.js"></script>
 <script type="text/javascript" src="maestro/js/maestro.graph.lat.percentiles.js"></script>
