@@ -10,9 +10,18 @@ var dbColumns = [
     { data: "sutTags" },
     { data: "sutName" },
     { data: "sutVersion" },
-    { data: "testResult" },
+    { data: "testResult",
+        render: function (data, type, full, meta) {
+            if (data == "success") {
+                return '<span class="pficon pficon-ok"> ' + data + '</span>'
+            }
+            else {
+                return '<span class="pficon pficon-warning-triangle-o"> ' + data + '</span>'
+            }
+
+        }
+    },
     { data: "error" },
-    { data: "testValid" },
     { data: "envResourceName" },
     { data: "envResourceRole" },
     { data: "testRateMin" },
@@ -24,7 +33,12 @@ var dbColumns = [
     { data: "latPercentile95" },
     { data: "latPercentile99" },
     { data: "connectionCount" },
-    { data: "testDate" },
+    {
+        data: "testDate",
+        render: function (data, type, full, meta) {
+                return (new Date(data)).toLocaleString();
+        }
+    },
     { data: "testName" },
     { data: "testTags" },
     {
