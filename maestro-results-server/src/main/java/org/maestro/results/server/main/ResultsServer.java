@@ -8,6 +8,7 @@ import org.maestro.common.Constants;
 import org.maestro.common.LogConfigurator;
 import org.maestro.results.server.controller.env.resources.AllEnvResourcesController;
 import org.maestro.results.server.controller.env.results.AllEnvResultsController;
+import org.maestro.results.server.controller.filters.TestSutPropertiesController;
 import org.maestro.results.server.controller.test.AllTestsControlller;
 import org.maestro.results.server.controller.test.SingleTestControlller;
 import org.maestro.results.server.controller.test.SingleTestIterationController;
@@ -62,6 +63,7 @@ public class ResultsServer {
         app.get("/api/results/latency/test/:id", new LatencyDistributionByTestController());
         app.get("/api/results/statistics/test/:id", new TestResultsStatisticsController());
         app.get("/api/results/rate/:role/test/:id", new RateDistributionByTestController());
+        app.get("/api/filters/test/sut/properties", new TestSutPropertiesController());
     }
 
 }
