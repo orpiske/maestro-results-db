@@ -1,4 +1,4 @@
--- Add to test
+-- Add test duration information to test
 alter table test add column test_duration_type varchar(8) default 'time';
 
 -- Add to test history
@@ -8,6 +8,22 @@ alter table test_history add column test_duration_type varchar(8) default 'time'
 alter table test_history modify `test_update_date` datetime not null after test_duration_type;
 
 update test set test_duration_type = 'count' where test_duration not in (300, 600, 900, 12600);
+
+
+-- Move connection count information to test
+alter table test add column connection_count int;
+
+-- Add to test history
+alter table test_history add column connection_count int; 
+
+-- Move to the correct position
+alter table test_history modify `test_update_date` datetime not null after connection_count;
+
+-- Copy the results
+update test t inner join env_results er on t.test_id = er.test_id set t.connection_count = er.connection_count;
+
+-- Remove the connection count from the env results
+alter table env_results drop column connection_count;
 
 create or replace view `test_result_statistics` as
 	select test_id,
@@ -66,13 +82,13 @@ CREATE OR REPLACE VIEW `test_results` AS
         er.lat_percentile_90,
         er.lat_percentile_95,
         er.lat_percentile_99,
-        er.connection_count,
         t.test_date,
         t.test_name,
         t.test_tags,
         t.test_report_link,
+        t.connection_count,
         t.test_target_rate,
-        (t.test_target_rate * er.connection_count) as test_combined_target_rate,
+        (t.test_target_rate * t.connection_count) as test_combined_target_rate,
         tp.api_name,
         tp.api_version,
         tp.durable,
@@ -93,12 +109,36 @@ CREATE OR REPLACE VIEW `test_results` AS
             AND t.sut_id = sut.sut_id
             AND t.test_id = tp.test_id
             AND t.test_number = tp.test_number;
+            
+CREATE OR REPLACE VIEW `test_sut_properties_link` AS
+	SELECT
+        t.test_id,
+        t.test_number,
+        sut.sut_id,
+        sut.sut_tags,
+        sut.sut_name,
+        sut.sut_version,
+        t.test_result,        
+        t.connection_count,
+        t.test_name,
+        t.test_tags,
+        t.test_target_rate,
+        tp.api_name,
+        tp.api_version,
+        tp.durable,
+        tp.limit_destinations,
+        tp.message_size,
+        tp.messaging_protocol,
+        tp.max_acceptable_latency,
+        t.test_date
+    FROM
+        test t,
+        sut,
+        test_properties tp
+    WHERE t.sut_id = sut.sut_id
+            AND t.test_id = tp.test_id
+            AND t.test_number = tp.test_number;
 
 drop view test_parameters;
 
 commit;
-
-
-
-
-

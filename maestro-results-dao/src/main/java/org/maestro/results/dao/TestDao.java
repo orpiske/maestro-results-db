@@ -82,9 +82,10 @@ public class TestDao extends AbstractDao {
     }
 
 
-    public int updateDurationAndRate(int id, int number, final Integer duration, final String durationType, final Integer rate) {
-        return jdbcTemplate.update("update test set test_duration = ?, test_duration_type = ?, test_target_rate = ? where " +
-                "test_id = ? and test_number = ?",
-                new Object[] { duration, durationType, rate, id, number});
+    public int updateDurationAndRate(int id, int number, final Integer duration, final String durationType,
+                                     final Integer rate, final Integer connectionCount) {
+        return jdbcTemplate.update("update test set test_duration = ?, test_duration_type = ?, test_target_rate = ?, " +
+                        "connection_count = ? where test_id = ? and test_number = ?",
+                new Object[] { duration, durationType, rate, connectionCount, id, number});
     }
  }

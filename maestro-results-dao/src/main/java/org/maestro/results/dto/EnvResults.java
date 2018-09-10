@@ -15,7 +15,6 @@ public class EnvResults {
     private double testRateGeometricMean;
     private double testRateStandardDeviation;
     private int testRateSkipCount;
-    private int connectionCount;
     private double latPercentile90;
     private double latPercentile95;
     private double latPercentile99;
@@ -125,14 +124,6 @@ public class EnvResults {
         this.testRateSkipCount = testRateSkipCount;
     }
 
-    public int getConnectionCount() {
-        return connectionCount;
-    }
-
-    public void setConnectionCount(int connectionCount) {
-        this.connectionCount = connectionCount;
-    }
-
     public boolean isError() {
         return error;
     }
@@ -181,7 +172,6 @@ public class EnvResults {
                 ", testRateGeometricMean=" + testRateGeometricMean +
                 ", testRateStandardDeviation=" + testRateStandardDeviation +
                 ", testRateSkipCount=" + testRateSkipCount +
-                ", connectionCount=" + connectionCount +
                 ", latPercentile90=" + latPercentile90 +
                 ", latPercentile95=" + latPercentile95 +
                 ", latPercentile99=" + latPercentile99 +

@@ -51,12 +51,13 @@ public class PropertiesProcessor {
         String rateStr = (String) properties.get("rate");
         String durationStr = (String) properties.get("duration");
         String durationType = (String) properties.get("durationType");
+        String connectionCount = (String) properties.get("parallelCount");
 
         logger.info("Updating duration to {}/{} and rate to {} for test {}/{}", durationStr, durationType, rateStr,
                 test.getTestId(), test.getTestNumber());
 
         testDao.updateDurationAndRate(test.getTestId(), test.getTestNumber(), Integer.parseInt(durationStr),
-                durationType, Integer.parseInt(rateStr));
+                durationType, Integer.parseInt(rateStr), Integer.parseInt(connectionCount));
     }
 
 }
