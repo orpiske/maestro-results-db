@@ -49,8 +49,6 @@ public class EnvResourceLoader {
             readSenderReceiverProperties(properties, envResults);
         }
 
-        envResults.setConnectionCount(Integer.parseInt((String) properties.get("parallelCount")));
-
         envResultsDao.insert(envResults);
     }
 
