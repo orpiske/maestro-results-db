@@ -1,4 +1,14 @@
 var dbColumns = [
+    { data: null,
+      className: "table-view-pf-select",
+      render: function (data, type, full, meta) {
+        // Select row checkbox renderer
+        var id = "select" + meta.row;
+        return '<label class="sr-only" for="' + id + '">Select row ' + meta.row +
+          '</label><input type="checkbox" id="' + id + '" name="' + id + '">';
+      },
+      sortable: false
+    },
     {
         data: "testId",
         render: function (data, type, full, meta) {

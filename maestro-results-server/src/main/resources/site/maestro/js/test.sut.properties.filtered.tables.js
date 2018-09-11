@@ -13,6 +13,7 @@ $(document).ready(function() {
             filterCols: [
               null,
               null,
+              null,
               {
                 default: true,
                 optionSelector: "#filter1",
@@ -63,9 +64,13 @@ $(document).ready(function() {
             ],
             paginationSelector: "#pagination1",
             toolbarSelector: "#toolbar1",
-            //selectAllSelector: 'th:first-child input[type="checkbox"]',
+            selectAllSelector: 'th:first-child input[type="checkbox"]',
             colvisMenuSelector: '.table-view-pf-colvis-menu'
           },
+          select: {
+              selector: 'td:first-child input[type="checkbox"]',
+              style: 'multi'
+           },
     });
 
     var findTableViewUtil = function (config) {
@@ -81,4 +86,23 @@ $(document).ready(function() {
     };
 
     new findTableViewUtil();
+
+
+    document.getElementById("compareb1").addEventListener("click", myFunction);
+
+    function myFunction() {
+       var table = $("#testrestable").DataTable();
+
+       console.log("4");
+       console.log( table.rows( { selected: true } ).count() );
+
+       console.log("5");
+       var data = table.rows( { selected: true } ).data();
+       console.log( data );
+       for (var i=0; i < data.length; i++){
+            console.log("Name: " + data[i]);
+        }
+
+
+    }
 });
