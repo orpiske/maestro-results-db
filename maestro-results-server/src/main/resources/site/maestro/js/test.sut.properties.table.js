@@ -6,10 +6,12 @@ var dbColumns = [
         }
     },
     { data: "testNumber" },
-    { data: "testName" },
-    { data: "testResult" },
     { data: "sutName" },
     { data: "sutVersion" },
+
+    { data: "testName" },
+    { data: "testResult" },
+
 
     { data: "apiName" },
     { data: "apiVersion" },

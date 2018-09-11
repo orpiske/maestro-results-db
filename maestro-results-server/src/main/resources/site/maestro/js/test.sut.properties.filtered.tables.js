@@ -12,6 +12,7 @@ $(document).ready(function() {
             filterCaseInsensitive: true,
             filterCols: [
               null,
+              null,
               {
                 default: true,
                 optionSelector: "#filter1",
@@ -21,13 +22,43 @@ $(document).ready(function() {
                 placeholder: "Filter By Product Version..."
               }, {
                 optionSelector: "#filter3",
-                placeholder: "Filter By Protocol..."
+                placeholder: "Filter By Test Name..."
               }, {
                 optionSelector: "#filter4",
-                placeholder: "Filter By Message Size..."
+                placeholder: "Filter By Test Result..."
               }, {
-                optionSelector: "#filter5",
+                 optionSelector: "#filter5",
+                 placeholder: "Filter By API Name..."
+              }, {
+                optionSelector: "#filter6",
+                placeholder: "Filter By API Version..."
+              }, {
+                optionSelector: "#filter7",
+                placeholder: "Filter By Protocol..."
+              }, {
+                optionSelector: "#filter8",
                 placeholder: "Filter By Connection Count..."
+              },
+              null,
+              {
+                 optionSelector: "#filter9",
+                 placeholder: "Filter By Durability..."
+              },
+              {
+                optionSelector: "#filter10",
+                placeholder: "Filter By Limit Destinations..."
+              }, {
+                 optionSelector: "#filter11",
+                 placeholder: "Filter By Message Size..."
+              },
+              null,
+              null,
+              {
+                optionSelector: "#filter12",
+                placeholder: "Filter By SUT Tags..."
+              }, {
+                optionSelector: "#filter13",
+                placeholder: "Filter By Test Tags..."
               }
             ],
             paginationSelector: "#pagination1",

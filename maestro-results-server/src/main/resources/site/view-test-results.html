@@ -58,21 +58,30 @@
         <div class="col-sm-12">
             <form class="toolbar-pf-actions">
                 <div class="form-group toolbar-pf-filter">
-                    <label class="sr-only" for="filter">Rendering Engine</label>
+                    <label class="sr-only" for="filter">Product Name</label>
                     <div class="input-group">
                         <div class="input-group-btn">
                             <button type="button" class="btn btn-default dropdown-toggle" id="filter"
-                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Rendering Engine
+                                    data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Product Name
                                 <span class="caret"></span></button>
                             <ul class="dropdown-menu">
                                 <li><a href="#" id="filter1">Product Name</a></li>
                                 <li><a href="#" id="filter2">Product Version</a></li>
-                                <li><a href="#" id="filter3">Protocol</a></li>
-                                <li><a href="#" id="filter4">Message Size</a></li>
-                                <li><a href="#" id="filter5">Connection Count</a></li>
+                                <li><a href="#" id="filter3">Test Name</a></li>
+                                <li><a href="#" id="filter4">Test Result</a></li>
+                                <li><a href="#" id="filter5">API Name</a></li>
+                                <li><a href="#" id="filter6">API Version</a></li>
+                                <li><a href="#" id="filter7">Protocol</a></li>
+                                <li><a href="#" id="filter8">Connection Count</a></li>
+                                <li><a href="#" id="filter9">Durable</a></li>
+                                <li><a href="#" id="filter10">Limit Destinations</a></li>
+                                <li><a href="#" id="filter11">Message Size</a></li>
+                                <li><a href="#" id="filter12">SUT Tags</a></li>
+                                <li><a href="#" id="filter13">Test Tags</a></li>
+
                             </ul>
                         </div>
-                        <input type="text" class="form-control" placeholder="Filter By Rendering Engine..."
+                        <input type="text" class="form-control" placeholder="Filter By Product Name..."
                                autocomplete="off" id="filterInput">
                     </div>
                 </div>
@@ -122,10 +131,12 @@
         <tr>
             <th>Test ID</th>
             <th>Test Number</th>
-            <th>Test Name</th>
-            <th>Test Result</th>
+
             <th>SUT Name</th>
             <th>SUT Version</th>
+
+            <th>Test Name</th>
+            <th>Test Result</th>
 
             <th>API Name</th>
             <th>API Version</th>
