@@ -3,51 +3,62 @@ package org.maestro.results.dao;
 import org.maestro.results.exceptions.DataNotFoundException;
 import org.maestro.common.ConfigurationWrapper;
 import org.apache.commons.configuration.AbstractConfiguration;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcDaoSupport;
 import org.springframework.jdbc.core.namedparam.SqlParameterSource;
-import org.springframework.jdbc.datasource.SimpleDriverDataSource;
+import org.apache.commons.dbcp2.BasicDataSource;
 import org.springframework.jdbc.support.GeneratedKeyHolder;
 import org.springframework.jdbc.support.KeyHolder;
 
-import java.sql.Connection;
-import java.sql.SQLException;
 
 public abstract class AbstractDao extends NamedParameterJdbcDaoSupport {
-    protected static JdbcTemplate jdbcTemplate = null;
+    private static final Logger logger = LoggerFactory.getLogger(AbstractDao.class);
+
+    protected JdbcTemplate jdbcTemplate = null;
+    protected static BasicDataSource ds;
 
     protected AbstractDao() {
         super();
 
-        if (jdbcTemplate == null) {
-            AbstractConfiguration config = ConfigurationWrapper.getConfig();
-            SimpleDriverDataSource ds = new SimpleDriverDataSource();
+        if (ds == null) {
+            synchronized (this) {
+                if (ds == null) {
+                    ds = new BasicDataSource();
 
-            ds.setDriverClass(org.mariadb.jdbc.Driver.class);
+                    AbstractConfiguration config = ConfigurationWrapper.getConfig();
+                    ds.setDriverClassName("org.mariadb.jdbc.Driver");
 
-            final String url = config.getString("datasource.url");
-            ds.setUrl(url);
+                    final String url = config.getString("datasource.url");
+                    ds.setUrl(url);
 
-            final String username = config.getString("datasource.username");
-            ds.setUsername(username);
+                    final String username = config.getString("datasource.username");
+                    ds.setUsername(username);
 
-            final String password = config.getString("datasource.password");
-            ds.setPassword(password);
+                    final String password = config.getString("datasource.password");
+                    ds.setPassword(password);
 
-            try {
-                Connection conn = ds.getConnection();
+                    ds.setInitialSize(2);
 
-                jdbcTemplate = new JdbcTemplate(ds);
-            } catch (SQLException e) {
-               throw new RuntimeException(e);
+                    logger.info("Created a data source with initial size of {} and max size of {}", ds.getInitialSize(),
+                            ds.getMaxTotal());
+
+                    jdbcTemplate = new JdbcTemplate(ds);
+                    jdbcTemplate.update("select 1 from dual");
+                }
             }
+        }
+        else {
+            jdbcTemplate = new JdbcTemplate(ds);
         }
 
         super.setJdbcTemplate(jdbcTemplate);
     }
+
 
     protected <T, Y> T runQuery(String query, RowMapper<T> rowMapper, Y id)
             throws DataNotFoundException {
