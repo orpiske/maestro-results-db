@@ -5,7 +5,7 @@ $(document).ready(function() {
             url: $('[data-datatables]').attr('data-api'),
             dataSrc:  ''
         },
-        order: [[ 1, 'asc' ]],
+        order: [[ 1, 'desc' ]],
         pfConfig: {
             emptyStateSelector: "#emptyState1",
             filterCaseInsensitive: true,
