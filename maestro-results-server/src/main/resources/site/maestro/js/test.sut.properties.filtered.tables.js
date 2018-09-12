@@ -5,7 +5,6 @@ $(document).ready(function() {
             url: $('[data-datatables]').attr('data-api'),
             dataSrc:  ''
         },
-        dom: "t",
         order: [[ 1, 'asc' ]],
         pfConfig: {
             emptyStateSelector: "#emptyState1",
@@ -62,7 +61,6 @@ $(document).ready(function() {
                 placeholder: "Filter By Test Tags..."
               }
             ],
-            paginationSelector: "#pagination1",
             toolbarSelector: "#toolbar1",
             selectAllSelector: 'th:first-child input[type="checkbox"]',
             colvisMenuSelector: '.table-view-pf-colvis-menu'
