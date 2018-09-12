@@ -1,11 +1,41 @@
 package org.maestro.results.dao;
 
+import org.ehcache.Cache;
+import org.ehcache.CacheManager;
+import org.ehcache.config.builders.CacheConfigurationBuilder;
+import org.ehcache.config.builders.CacheManagerBuilder;
+import org.ehcache.config.builders.ExpiryPolicyBuilder;
+import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.maestro.results.dto.Sut;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
+import java.time.Duration;
 import java.util.List;
 
 public class SutDao extends AbstractDao {
+    private static CacheManager cacheManager;
+    private static Cache<Integer, Sut> testSutCache;
+
+    public SutDao() {
+        if (cacheManager == null) {
+            synchronized (this) {
+                if (cacheManager == null) {
+                    CacheConfigurationBuilder<Integer, Sut> config = CacheConfigurationBuilder
+                            .newCacheConfigurationBuilder(Integer.class, Sut.class, ResourcePoolsBuilder.heap(30))
+                            .withExpiry(ExpiryPolicyBuilder.timeToLiveExpiration(Duration.ofMinutes(5)));
+
+                    cacheManager = CacheManagerBuilder.newCacheManagerBuilder()
+                            .withCache("testSut",config)
+                            .build();
+
+                    cacheManager.init();
+
+                    testSutCache = cacheManager.getCache("testSut", Integer.class, Sut.class);
+                }
+            }
+        }
+    }
+
     public int insert(Sut dto) {
         return runInsert(
                 "insert into sut(sut_name, sut_version, sut_jvm_info, sut_other, sut_tags) " +
@@ -36,8 +66,16 @@ public class SutDao extends AbstractDao {
     }
 
     public Sut testSut(int testId) {
-        return jdbcTemplate.queryForObject("select sut.* from sut,test where sut.sut_id = test.sut_id and test.test_id = ? group by sut_id",
-                new Object[]{testId},
-                new BeanPropertyRowMapper<>(Sut.class));
+        Sut ret = testSutCache.get(testId);
+
+        if (ret == null) {
+            ret = jdbcTemplate.queryForObject("select sut.* from sut,test where sut.sut_id = test.sut_id and test.test_id = ? group by sut_id",
+                    new Object[]{testId},
+                    new BeanPropertyRowMapper<>(Sut.class));
+
+            testSutCache.put(testId, ret);
+        }
+
+        return ret;
     }
 }
