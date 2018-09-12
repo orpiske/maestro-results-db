@@ -5,7 +5,6 @@ $(document).ready(function() {
 
     axios.get(url).then(function (response) {
         var chartData = response.data
-        console.log(chartData)
 
         var c3ChartDefaults = $().c3ChartDefaults();
         var donutChartRightConfig = c3ChartDefaults.getDefaultRelationshipDonutConfig();

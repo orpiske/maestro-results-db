@@ -4,8 +4,6 @@ $(document).ready(function() {
 
     axios.get(sutUrl).then(
         function (response) {
-//            console.log(response);
-
             $("#sutName").text(response.data.sutName);
             $("#sutVersion").text(response.data.sutVersion);
 
@@ -29,7 +27,6 @@ $(document).ready(function() {
 
     axios.get(testInfoUrl).then(
         function (response) {
-            console.log(response);
 
             $("#testId").text("ID: " + response.data.testId);
             $("#testName").text("Name: " + response.data.testName);
