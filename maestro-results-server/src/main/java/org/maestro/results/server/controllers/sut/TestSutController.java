@@ -5,7 +5,7 @@ import io.javalin.Handler;
 import org.maestro.results.dao.SutDao;
 import org.maestro.results.dto.Sut;
 
-public class TestSutControlller implements Handler {
+public class TestSutController implements Handler {
     private SutDao dao = new SutDao();
 
     @Override

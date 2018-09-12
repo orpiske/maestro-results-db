@@ -16,7 +16,7 @@ import org.maestro.results.server.controller.test.TestResourcesController;
 import org.maestro.results.server.controller.test.results.*;
 import org.maestro.results.server.controllers.sut.AllSutsController;
 import org.maestro.results.server.controllers.sut.SutController;
-import org.maestro.results.server.controllers.sut.TestSutControlller;
+import org.maestro.results.server.controllers.sut.TestSutController;
 
 import java.io.FileNotFoundException;
 
@@ -55,7 +55,7 @@ public class ResultsServer {
         app.get("/api/env/results", new AllEnvResultsController());
         app.get("/api/test", new AllTestsControlller());
         app.get("/api/test/:id", new SingleTestControlller());
-        app.get("/api/test/:id/sut", new TestSutControlller());
+        app.get("/api/test/:id/sut", new TestSutController());
         app.get("/api/test/:id/resources", new TestResourcesController());
         app.get("/api/test/:id/number/:number", new SingleTestIterationController());
         app.get("/api/results/", new AllTestsResultsController());
