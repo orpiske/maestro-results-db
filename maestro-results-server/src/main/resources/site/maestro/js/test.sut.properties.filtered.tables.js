@@ -91,16 +91,23 @@ $(document).ready(function() {
     function myFunction() {
        var table = $("#testrestable").DataTable();
 
-       console.log("4");
-       console.log( table.rows( { selected: true } ).count() );
-
-       console.log("5");
+//       console.log("4");
+//       console.log( table.rows( { selected: true } ).count() );
+//
+//       console.log("5");
        var data = table.rows( { selected: true } ).data();
-       console.log( data );
-       for (var i=0; i < data.length; i++){
-            console.log("Name: " + data[i]);
-        }
 
+       if (data.length != 2) {
+            alert("You can only compare 2 records at a time")
+            return
+       }
 
+//       console.log( data );
+//       for (var i=0; i < data.length; i++){
+//            console.log("Name: " + data[i].testId);
+//       }
+
+        window.location.href = 'compare.html?t0=' + data[0].testId + '&n0=' + data[0].testNumber + 't1=' +
+            data[1].testId + '&n1=' + data[1].testNumber;
     }
 });
