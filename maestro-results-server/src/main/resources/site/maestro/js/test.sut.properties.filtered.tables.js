@@ -98,12 +98,7 @@ $(document).ready(function() {
             return
        }
 
-//       console.log( data );
-//       for (var i=0; i < data.length; i++){
-//            console.log("Name: " + data[i].testId);
-//       }
-
-        window.location.href = 'compare.html?t0=' + data[0].testId + '&n0=' + data[0].testNumber + 't1=' +
+        window.location.href = 'compare-tests.html?t0=' + data[0].testId + '&n0=' + data[0].testNumber + 't1=' +
             data[1].testId + '&n1=' + data[1].testNumber;
     }
 });
