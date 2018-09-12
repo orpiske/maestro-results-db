@@ -7,29 +7,27 @@ $(document).ready(function() {
         var chartData = response.data
 
         var c3ChartDefaults = $().c3ChartDefaults();
-        var lineChartConfig = c3ChartDefaults.getDefaultLineConfig();
-        lineChartConfig.bindto = '#line-chart-3';
+        var lineChartConfig = c3ChartDefaults.getDefaultGroupedBarConfig();
+        lineChartConfig.bindto = '#bar-chart-3';
 
         // Latency distributions per test
         lineChartConfig.data = {
             json: chartData,
             keys: {
-                x: 'Test Number', // it's possible to specify 'x' when category axis
                 value: ['90th percentile', '95th percentile', '99th percentile']
             },
-            axis: {
-                x: {
-                    type: 'category',
-                    label: {
-                        text: 'Latency percentiles',
-                    },
-                },
-                y: {
-                    label: {
-                        text: 'Milliseconds',
-                    }
-                }
-            }
+            type: 'bar',
+            groups: [
+                ['Test Number']
+            ],
+        };
+
+        lineChartConfig.axis = {
+           y: {
+               label: {
+                   text: 'Milliseconds',
+               }
+           }
         };
 
         var lineChart = c3.generate(lineChartConfig);
