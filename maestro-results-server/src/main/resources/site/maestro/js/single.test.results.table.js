@@ -16,18 +16,20 @@ var dbColumns = [
     { data: "testRateMin" },
     { data: "testRateMax" },
     {
-        data: "testRateGeometricMean",
-        render: function (data, type, full, meta) {
-            return Number(data).toFixed(2);
-        }
-    },
-    {
         data: "testRateStandardDeviation",
         render: function (data, type, full, meta) {
              return Number(data).toFixed(2);
         }
     },
     { data: "testRateSkipCount" },
+    {
+        data: "testRateGeometricMean",
+        render: function (data, type, full, meta) {
+            return Number(data).toFixed(2);
+        }
+    },
+    { data: "testCombinedTargetRate" },
+    { data: "testTargetRate" },
     { data: "latPercentile90" },
     { data: "latPercentile95" },
     { data: "latPercentile99" },
@@ -45,8 +47,6 @@ var dbColumns = [
         }
     },
     { data: "variableSize" },
-    { data: "testTargetRate" },
-    { data: "testCombinedTargetRate" },
     { data: "apiName" },
     { data: "apiVersion" },
     { data: "limitDestinations" },
