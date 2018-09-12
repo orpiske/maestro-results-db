@@ -91,10 +91,6 @@ $(document).ready(function() {
     function myFunction() {
        var table = $("#testrestable").DataTable();
 
-//       console.log("4");
-//       console.log( table.rows( { selected: true } ).count() );
-//
-//       console.log("5");
        var data = table.rows( { selected: true } ).data();
 
        if (data.length != 2) {
