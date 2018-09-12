@@ -37,4 +37,25 @@ public class TestResultsDao extends AbstractDao {
                 new Object[]{testId, role},
                 new BeanPropertyRowMapper<>(TestResult.class));
     }
+
+    public List<TestResult> fetchForCompare(int t0, int n0, int t1, int n1) {
+        return jdbcTemplate.query("select *,lat_percentile_90 as lat_percentile90," +
+                        "lat_percentile_95 as lat_percentile95,lat_percentile_99 as lat_percentile99 " +
+                        "from test_results where (test_id = ? and test_number = ?) or (test_id = ? and test_number = ?)" +
+                        "order by test_id,test_number",
+                new Object[]{t0, n0, t1, n1},
+
+                new BeanPropertyRowMapper<>(TestResult.class));
+    }
+
+    public List<TestResult> fetchForCompare(int t0, int n0, int t1, int n1, final String role) {
+        return jdbcTemplate.query("select *,lat_percentile_90 as lat_percentile90," +
+                        "lat_percentile_95 as lat_percentile95,lat_percentile_99 as lat_percentile99 " +
+                        "from test_results where ((test_id = ? and test_number = ?) or (test_id = ? and test_number = ?)) " +
+                        "and env_resource_role = ? order by test_id,test_number",
+                new Object[]{t0, n0, t1, n1, role},
+
+                new BeanPropertyRowMapper<>(TestResult.class));
+    }
+
  }
