@@ -20,7 +20,10 @@ var dbColumns = [
     { data: "sutVersion" },
 
     { data: "testName" },
-    { data: "testResult" },
+    {
+        data: "testResult",
+        render: resultRender
+    },
 
 
     { data: "apiName" },
@@ -29,17 +32,23 @@ var dbColumns = [
     { data: "messagingProtocol" },
 
     { data: "connectionCount" },
-    { data: "testTargetRate" },
+    {
+        data: "testTargetRate",
+        render: rateRender
+    },
 
     { data: "durable" },
     { data: "limitDestinations" },
     { data: "messageSize" },
-    { data: "maxAcceptableLatency" },
+    {
+        data: "maxAcceptableLatency",
+        function (data, type, full, meta) {
+            return  '<span> ' + data + ' ms</span>'
+        }
+    },
     {
         data: "testDate",
-        render: function (data, type, full, meta) {
-                return (new Date(data)).toLocaleString();
-        }
+        render: simpleDateRender
     },
     { data: "sutTags" },
     { data: "testTags" }
