@@ -16,6 +16,7 @@ import org.maestro.results.server.controller.test.TestResourcesController;
 import org.maestro.results.server.controller.test.results.*;
 import org.maestro.results.server.controllers.compare.TestIterationComparatorController;
 import org.maestro.results.server.controllers.compare.TestPercentilesComparatorController;
+import org.maestro.results.server.controllers.compare.TestRateComparatorController;
 import org.maestro.results.server.controllers.sut.AllSutsController;
 import org.maestro.results.server.controllers.sut.SutController;
 import org.maestro.results.server.controllers.sut.TestSutController;
@@ -68,6 +69,7 @@ public class ResultsServer {
         app.get("/api/filters/test/sut/properties", new TestSutPropertiesController());
         app.get("/api/compare/results/full/:t0/:n0/:t1/:n1", new TestIterationComparatorController());
         app.get("/api/compare/results/percentiles/:t0/:n0/:t1/:n1", new TestPercentilesComparatorController());
+        app.get("/api/compare/results/rate/:role/:t0/:n0/:t1/:n1", new TestRateComparatorController());
     }
 
 }

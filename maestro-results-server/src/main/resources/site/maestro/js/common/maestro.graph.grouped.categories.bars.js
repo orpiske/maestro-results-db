@@ -1,31 +1,35 @@
-$(document).ready(function() {
-    var id = getUrlVars()["test-id"]
-
-    var url = $('[graphs]').attr('graph-api') + id
-
+function groupedBarGraph(url, element, values, groups, yLabel) {
     axios.get(url).then(function (response) {
         var chartData = response.data
 
         var c3ChartDefaults = $().c3ChartDefaults();
         var lineChartConfig = c3ChartDefaults.getDefaultGroupedBarConfig();
-        lineChartConfig.bindto = '#bar-chart-3';
+        lineChartConfig.bindto = element;
 
         // Latency distributions per test
         lineChartConfig.data = {
-            json: chartData,
+            json: chartData.Pairs,
             keys: {
-                value: ['90th percentile', '95th percentile', '99th percentile']
+                value: values
             },
             type: 'bar',
             groups: [
-                ['Test Number']
+                groups
             ],
         };
 
+        lineChartConfig.legend = {
+            position: 'right'
+        }
+
         lineChartConfig.axis = {
-           y: {
+            x: {
+                            type: 'category',
+                            categories: chartData.Categories
+            },
+            y: {
                label: {
-                   text: 'Milliseconds',
+                   text: yLabel,
                }
            }
         };
@@ -36,10 +40,4 @@ $(document).ready(function() {
       .catch(function (error) {
         console.log(error);
       });
-
-
     }
-)
-
-
-

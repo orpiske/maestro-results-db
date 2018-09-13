@@ -109,26 +109,24 @@
 
             <div class="row">
                 <!--<h2>Latency Percentile Evolution By Test Iteration</h2>-->
-                <div class="col-lg-9 col-md-9">
+                <div class="col-lg-12 col-md-12">
                     <h3>Comparison of the Latency Percentiles By Test Iteration per Node</h3>
                     <div id="line-chart-3" class="line-chart-pf" graphs graph-api="/api/compare/results/percentiles/"></div>
                 </div>
+            </div>
 
-                <!--<div class="col-lg-4 col-md-4">-->
-                    <!--<h3>Average Sender Rate By Test Iteration</h3>-->
-                    <!--<div id="line-chart-4" class="line-chart-pf" sender-rate-graph graph-api="/api/results/rate/sender/test/">-->
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <h3>Average Sender Rate By Test Iteration</h3>
+                    <div id="line-chart-4" class="line-chart-pf" sender-rate-graph graph-api="/api/compare/results/rate/sender/">
+                    </div>
+                </div>
 
-
-                    <!--</div>-->
-                <!--</div>-->
-
-                <!--<div class="col-lg-4 col-md-4">-->
-                    <!--<h3>Average Receiver Rate By Test Iteration</h3>-->
-                    <!--<div id="line-chart-5" class="line-chart-pf" receiver-rate-graph graph-api="/api/results/rate/receiver/test/"></div>-->
-                <!--</div>-->
-
-
-
+                <div class="col-lg-6 col-md-6">
+                    <h3>Average Receiver Rate By Test Iteration</h3>
+                    <div id="line-chart-5" class="line-chart-pf" receiver-rate-graph graph-api="/api/compare/results/rate/receiver/">
+                    </div>
+                </div>
             </div>
 
             <br>
@@ -256,8 +254,8 @@
 
 <script type="text/javascript" src="maestro/js/single.test.results.table.js"></script>
 <script type="text/javascript" src="maestro/js/common/maestro.url.utils.js"></script>
-<!--<script type="text/javascript" src="maestro/js/maestro.tables.by.id.js"></script>-->
-<script type="text/javascript" src="maestro/js/maestro.compare.graph.lat.percentiles.js"></script>
+<script type="text/javascript" src="maestro/js/common/maestro.graph.grouped.categories.bars.js"></script>
+
 <script type="text/javascript" src="maestro/js/maestro.compare.results.info.js"></script>
 
 <script type="text/javascript" src="maestro/js/common/maestro.graph.test.results.statistics.js"></script>

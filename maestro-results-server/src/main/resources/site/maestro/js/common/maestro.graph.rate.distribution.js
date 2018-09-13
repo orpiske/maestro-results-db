@@ -1,4 +1,4 @@
-function rateDistributionGraph(id, url, element, value) {
+function rateDistributionGraph(url, element, value) {
     axios.get(url).then(function (response) {
         var chartData = response.data
 
@@ -8,7 +8,7 @@ function rateDistributionGraph(id, url, element, value) {
 
         // Latency distributions per test
         lineChartConfig.data = {
-            json: chartData,
+            json: chartData.Pairs,
             keys: {
                 x: 'Test Number',
                 value: value

@@ -7,6 +7,7 @@ import org.jetbrains.annotations.NotNull;
 import org.maestro.common.HostTypes;
 import org.maestro.results.dao.TestResultsDao;
 import org.maestro.results.dto.TestResult;
+import org.maestro.results.server.controller.common.CategorizedResponse;
 
 import java.util.*;
 
@@ -65,29 +66,29 @@ public class TestPercentilesComparatorController implements Handler {
         }
     }
 
-    private class Resp {
-        @JsonProperty("Categories")
-        Set<String> categories = new TreeSet<>();
-
-        @JsonProperty("Pairs")
-        List<LatPair> pairs = new LinkedList<>();
-
-        public Set<String> getCategories() {
-            return categories;
-        }
-
-        public void setCategories(Set<String> categories) {
-            this.categories = categories;
-        }
-
-        public List<LatPair> getPairs() {
-            return pairs;
-        }
-
-        public void setPairs(List<LatPair> pairs) {
-            this.pairs = pairs;
-        }
-    }
+//    private class Resp {
+//        @JsonProperty("Categories")
+//        Set<String> categories = new TreeSet<>();
+//
+//        @JsonProperty("Pairs")
+//        List<LatPair> pairs = new LinkedList<>();
+//
+//        public Set<String> getCategories() {
+//            return categories;
+//        }
+//
+//        public void setCategories(Set<String> categories) {
+//            this.categories = categories;
+//        }
+//
+//        public List<LatPair> getPairs() {
+//            return pairs;
+//        }
+//
+//        public void setPairs(List<LatPair> pairs) {
+//            this.pairs = pairs;
+//        }
+//    }
 
     private TestResultsDao testResultsDao = new TestResultsDao();
 
@@ -101,12 +102,12 @@ public class TestPercentilesComparatorController implements Handler {
 
         List<TestResult> results = testResultsDao.fetchForCompare(t0, n0, t1, n1, HostTypes.RECEIVER_HOST_TYPE);
 
-        Resp resp = new Resp();
+        CategorizedResponse resp = new CategorizedResponse<>();
 
         // It does a transformation of the test results to simplify things on the front-end part of the code
         for (TestResult testResult : results) {
-            resp.pairs.add(new LatPair(testResult));
-            resp.categories.add(String.format("%d/%d %s", testResult.getTestId(), testResult.getTestNumber(),
+            resp.getPairs().add(new LatPair(testResult));
+            resp.getCategories().add(CategorizedResponse.categoryName(testResult.getTestId(), testResult.getTestNumber(),
                     testResult.getEnvResourceName()));
         }
 

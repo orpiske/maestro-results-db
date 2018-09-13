@@ -8,6 +8,8 @@ import org.maestro.results.dto.TestResult;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Set;
+import java.util.TreeSet;
 
 public class RateDistributionByTestController implements Handler {
     public class RateInfo {
@@ -36,6 +38,31 @@ public class RateDistributionByTestController implements Handler {
         }
     }
 
+    private class Resp {
+        @JsonProperty("Categories")
+        Set<String> categories = new TreeSet<>();
+
+        @JsonProperty("Pairs")
+        List<RateInfo> pairs = new LinkedList<>();
+
+        public Set<String> getCategories() {
+            return categories;
+        }
+
+        public void setCategories(Set<String> categories) {
+            this.categories = categories;
+        }
+
+        public List<RateInfo> getPairs() {
+            return pairs;
+        }
+
+        public void setPairs(List<RateInfo> pairs) {
+            this.pairs = pairs;
+        }
+    }
+
+
     private TestResultsDao testResultsDao = new TestResultsDao();
 
     @Override
@@ -45,13 +72,16 @@ public class RateDistributionByTestController implements Handler {
 
         List<TestResult> testResultList = testResultsDao.fetchOrdered(id, role);
 
-        List<RateInfo> combined = new LinkedList<>();
+        Resp resp = new Resp();
+//        List<RateInfo> combined = new LinkedList<>();
 
         // It does a transformation of the test results to simplify things on the front-end part of the code
         for (TestResult testResult : testResultList) {
-            combined.add(new RateInfo(testResult));
+            resp.pairs.add(new RateInfo(testResult));
+            resp.categories.add(String.format("%d/%d %s", testResult.getTestId(), testResult.getTestNumber(),
+                    testResult.getEnvResourceName()));
         }
 
-        context.json(combined);
+        context.json(resp);
     }
 }

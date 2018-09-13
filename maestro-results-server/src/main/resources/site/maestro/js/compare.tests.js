@@ -29,3 +29,56 @@ $(document).ready(function() {
 
     getSutInfo(tId1, 1)
 })
+
+// Bar graphs for the latency metrics
+$(document).ready(
+    function() {
+        var tId0 = getUrlVars()["t0"]
+        var tNum0 = getUrlVars()["n0"]
+        var tId1 = getUrlVars()["t1"]
+        var tNum1 = getUrlVars()["n1"]
+
+        var url = $('[graphs]').attr('graph-api') + tId0 + '/' + tNum0 + '/' + tId1 + '/' + tNum1 + '/'
+
+        var element = '#line-chart-3';
+        var values = ['90th percentile', '95th percentile', '99th percentile'];
+        var groups = [];
+
+        groupedBarGraph(url, element, values, groups, null)
+    }
+)
+
+// Bar graphs for the rate metrics
+$(document).ready(
+    function() {
+        var tId0 = getUrlVars()["t0"]
+        var tNum0 = getUrlVars()["n0"]
+        var tId1 = getUrlVars()["t1"]
+        var tNum1 = getUrlVars()["n1"]
+
+        var url = $('[sender-rate-graph]').attr('graph-api') + tId0 + '/' + tNum0 + '/' + tId1 + '/' + tNum1
+        var element = '#line-chart-4';
+        var values = ['Rate Geometric Mean'];
+        var groups = [];
+
+        groupedBarGraph(url, element, values, groups, null)
+    }
+)
+
+$(document).ready(
+    function() {
+        var tId0 = getUrlVars()["t0"]
+        var tNum0 = getUrlVars()["n0"]
+        var tId1 = getUrlVars()["t1"]
+        var tNum1 = getUrlVars()["n1"]
+
+
+        var url = $('[receiver-rate-graph]').attr('graph-api') + tId0 + '/' + tNum0 + '/' + tId1 + '/' + tNum1
+        var element = '#line-chart-5';
+        var values = ['Rate Geometric Mean'];
+        var groups = [];
+
+        groupedBarGraph(url, element, values, groups, null)
+    }
+)
+
