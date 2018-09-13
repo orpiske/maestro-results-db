@@ -49,42 +49,63 @@
 
 <main>
     <header>
-        <h1><span id="sutName"></span> <span id="sutVersion"></span> Test Results</h1>
+        <h1><span id="sutName"></span> <span id="sutVersion"></span> Test Comparison</h1>
     </header>
 
     <div class="col-sm-12">
-
-
         <div class="container-fluid">
             <div class="row">
-                <div class="col-lg-4 col-md-4">
-                    <h3>Details for the Software Under Test</h3>
+                <div class="col-lg-6 col-md-6">
+                    <h3>Details for <span id="sutName0"></span>  <span id="sutVersion0"></span> </h3>
                     <ul class="list-group">
-                        <li id="sutId" class="list-group-item"></li>
-                        <li id="sutTags" class="list-group-item"></li>
-                        <li id="sutJvmInfo" class="list-group-item"></li>
+                        <li id="sutId0" class="list-group-item"></li>
+                        <li id="sutTags0" class="list-group-item"></li>
+                        <li id="sutJvmInfo0" class="list-group-item"></li>
                     </ul>
                 </div>
 
-                <div class="col-lg-4 col-md-4">
-                    <h3>Details for the Test Execution</h3>
+                <div class="col-lg-6 col-md-6">
+                    <h3>Details for <span id="sutName1"></span> <span id="sutVersion1"></span> </h3>
                     <ul class="list-group">
-                        <li id="testId" class="list-group-item"></li>
-                        <li id="testName" class="list-group-item"></li>
-                        <li id="testTags" class="list-group-item"></li>
+                        <li id="sutId1" class="list-group-item"></li>
+                        <li id="sutTags1" class="list-group-item"></li>
+                        <li id="sutJvmInfo1" class="list-group-item"></li>
                     </ul>
                 </div>
-
-                <!--<div class="col-lg-4 col-md-4">-->
-                    <!--<h3>Test Results</h3>-->
-                    <!--<div id="test-statistics" class="example-donut-chart-right-legend" stats graph-api="/api/results/statistics/test/"></div>-->
-                <!--</div>-->
 
             </div>
+
+            <div class="row">
+                <div class="col-lg-6 col-md-6">
+                    <h3>Details for the Test Execution</h3>
+                    <ul class="list-group">
+                        <li id="testId0" class="list-group-item"></li>
+                        <li id="testName0" class="list-group-item"></li>
+                        <li id="testTags0" class="list-group-item"></li>
+                    </ul>
+                </div>
+
+                <div class="col-lg-6 col-md-6">
+                    <h3>Details for the Test Execution</h3>
+                    <ul class="list-group">
+                        <li id="testId1" class="list-group-item"></li>
+                        <li id="testName1" class="list-group-item"></li>
+                        <li id="testTags1" class="list-group-item"></li>
+                    </ul>
+                </div>
+            </div>
+
+            <!--<div class="row">-->
+                <!--<div class="col-lg-4 col-md-4">-->
+                <!--<h3>Test Results</h3>-->
+                <!--<div id="test-statistics" class="example-donut-chart-right-legend" stats graph-api="/api/results/statistics/test/"></div>-->
+                <!--</div>-->
+            <!--</div>-->
+
             <div class="row">
                 <!--<h2>Latency Percentile Evolution By Test Iteration</h2>-->
-                <div class="col-lg-6 col-md-6">
-                    <h3>Distribution of the Latency Percentiles By Test Iteration</h3>
+                <div class="col-lg-9 col-md-9">
+                    <h3>Comparison of the Latency Percentiles By Test Iteration per Node</h3>
                     <div id="line-chart-3" class="line-chart-pf" graphs graph-api="/api/compare/results/percentiles/"></div>
                 </div>
 
@@ -232,6 +253,7 @@
 <script type="text/javascript" src="maestro/js/maestro.url.utils.js"></script>
 <!--<script type="text/javascript" src="maestro/js/maestro.tables.by.id.js"></script>-->
 <script type="text/javascript" src="maestro/js/maestro.compare.graph.lat.percentiles.js"></script>
+<script type="text/javascript" src="maestro/js/maestro.compare.results.info.js"></script>
 <!--<script type="text/javascript" src="maestro/js/maestro.graph.sender.rate.distribution.js"></script>-->
 <!--<script type="text/javascript" src="maestro/js/maestro.graph.receiver.rate.distribution.js"></script>-->
 <!--<script type="text/javascript" src="maestro/js/maestro.graph.test.results.statistics.js"></script>-->
