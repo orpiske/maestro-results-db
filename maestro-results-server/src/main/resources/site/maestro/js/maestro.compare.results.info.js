@@ -44,14 +44,14 @@ function getSutInfo(id, num) {
     });
  }
 
-$(document).ready(function() {
-    var tId0 = getUrlVars()["t0"]
-    var tNum0 = getUrlVars()["n0"]
-    var tId1 = getUrlVars()["t1"]
-    var tNum1 = getUrlVars()["n1"]
-
-    getSutInfo(tId0, 0)
-    getSutInfo(tId1, 1)
-}
-
-)
+//$(document).ready(function() {
+//    var tId0 = getUrlVars()["t0"]
+//    var tNum0 = getUrlVars()["n0"]
+//    var tId1 = getUrlVars()["t1"]
+//    var tNum1 = getUrlVars()["n1"]
+//
+//    getSutInfo(tId0, 0)
+//    getSutInfo(tId1, 1)
+//}
+//
+//)
