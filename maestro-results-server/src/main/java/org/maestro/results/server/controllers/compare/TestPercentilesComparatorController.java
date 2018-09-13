@@ -3,17 +3,15 @@ package org.maestro.results.server.controllers.compare;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.javalin.Context;
 import io.javalin.Handler;
+import org.jetbrains.annotations.NotNull;
 import org.maestro.common.HostTypes;
 import org.maestro.results.dao.TestResultsDao;
 import org.maestro.results.dto.TestResult;
 
-import java.util.HashSet;
-import java.util.LinkedList;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 
 public class TestPercentilesComparatorController implements Handler {
-    private class LatPair {
+    private class LatPair implements Comparable<LatPair> {
         @JsonProperty("Test ID")
         int testId;
 
@@ -41,11 +39,35 @@ public class TestPercentilesComparatorController implements Handler {
             this.latPercentile95 = latPercentile95;
             this.latPercentile99 = latPercentile99;
         }
+
+
+        @Override
+        public int compareTo(@NotNull TestPercentilesComparatorController.LatPair latPair) {
+            if (this.testId < latPair.testId) {
+                return -1;
+            }
+            else {
+                if (this.testId > latPair.testId) {
+                    return 1;
+                }
+            }
+
+            if (this.testNumber < latPair.testNumber) {
+                return -1;
+            }
+            else {
+                if (this.testNumber > latPair.testNumber) {
+                    return 1;
+                }
+            }
+
+            return 0;
+        }
     }
 
     private class Resp {
         @JsonProperty("Categories")
-        Set<String> categories = new HashSet<>();
+        Set<String> categories = new TreeSet<>();
 
         @JsonProperty("Pairs")
         List<LatPair> pairs = new LinkedList<>();
