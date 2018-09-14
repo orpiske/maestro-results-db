@@ -19,7 +19,11 @@ $(document).ready(function() {
     var tId0 = getUrlVars()["t0"]
     var tNum0 = getUrlVars()["n0"]
 
-    getSutInfo(tId0, 0)
+    var sutUrl = "/api/test/" + tId0 + "/sut"
+    getSutInfo(sutUrl, 0)
+
+    var testInfoUrl = "/api/test/" + tId0 + "/number/" + tNum0;
+    getTestInfo(testInfoUrl, 0)
 })
 
 
@@ -27,7 +31,11 @@ $(document).ready(function() {
     var tId1 = getUrlVars()["t1"]
     var tNum1 = getUrlVars()["n1"]
 
-    getSutInfo(tId1, 1)
+    var sutUrl = "/api/test/" + tId1 + "/sut"
+    getSutInfo(sutUrl, 1)
+
+    var testInfoUrl = "/api/test/" + tId1 + "/number/" + tNum1;
+    getTestInfo(testInfoUrl, 1)
 })
 
 // Bar graphs for the latency metrics

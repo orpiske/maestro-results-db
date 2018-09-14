@@ -1,3 +1,15 @@
+// Test results info table
+$(document).ready(function() {
+    var id = getUrlVars()["test-id"]
+    var num = "0"
+
+    var sutUrl = "/api/test/" + id + "/sut"
+    getSutInfo(sutUrl, '')
+
+    var testInfoUrl = "/api/test/" + id + "/number/" + num;
+    getTestInfo(testInfoUrl, '')
+})
+
 // Test statistics donut graph
 $(document).ready(function () {
     var id = getUrlVars()["test-id"]
