@@ -24,6 +24,9 @@ $(document).ready(function() {
 
     var testInfoUrl = "/api/test/" + tId0 + "/number/" + tNum0;
     getTestInfo(testInfoUrl, 0)
+
+   var testPropertiesUrl = "/api/test/" + tId0 + "/number/" + tNum0 + "/properties";
+   getTestProperties(testPropertiesUrl, 0)
 })
 
 
@@ -36,6 +39,9 @@ $(document).ready(function() {
 
     var testInfoUrl = "/api/test/" + tId1 + "/number/" + tNum1;
     getTestInfo(testInfoUrl, 1)
+
+    var testPropertiesUrl = "/api/test/" + tId1 + "/number/" + tNum1 + "/properties";
+   getTestProperties(testPropertiesUrl, 1)
 })
 
 // Bar graphs for the latency metrics
