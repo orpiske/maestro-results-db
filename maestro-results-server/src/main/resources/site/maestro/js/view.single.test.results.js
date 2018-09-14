@@ -17,8 +17,16 @@ $(document).ready(function () {
     var element = "#test-statistics";
 
     testStatisticsDonutGraph(id, url, element)
-}
-)
+})
+
+// Env Resources Table
+$(document).ready(function () {
+    var id = getUrlVars()["test-id"]
+    var url = $('[data-envres-datatables]').attr('data-api') + id + "/resources"
+
+    envResourceInfoTable('[data-envres-datatables]', url)
+})
+
 
 // Rate distribution graphs
 $(document).ready(
