@@ -25,14 +25,7 @@ update test t inner join env_results er on t.test_id = er.test_id set t.connecti
 -- Remove the connection count from the env results
 alter table env_results drop column connection_count;
 
-create or replace view `test_result_statistics` as
-	select test_id,
-        sum(case when test_result = "success" then 1 else 0 end) as success,
-        sum(case when test_result = "success" then 0 else 1 end) as failures
-    from test_results
-    where test_valid = true
-    group by test_id;
-
+-- Ensure that the latency information is correctly set for tests
 alter table env_results modify column lat_percentile_90 DOUBLE default 0;
 alter table env_results modify column lat_percentile_95 DOUBLE default 0;
 alter table env_results modify column lat_percentile_99 DOUBLE default 0;
@@ -60,7 +53,7 @@ select
   where tmp.test_id = tfc.test_id and tmp.test_number = tfc.test_number
   group by test_id,test_number;
 
--- recreate the test_results view
+-- Recreate views modified for this release
 CREATE OR REPLACE VIEW `test_results` AS
 	SELECT
         t.test_id,
@@ -139,6 +132,18 @@ CREATE OR REPLACE VIEW `test_sut_properties_link` AS
             AND t.test_id = tp.test_id
             AND t.test_number = tp.test_number;
 
+-- Remove the deprecated view
 drop view test_parameters;
 
+
+-- Create the new statistics view 
+create or replace view `test_result_statistics` as
+	select test_id,
+        sum(case when test_result = "success" then 1 else 0 end) as success,
+        sum(case when test_result = "success" then 0 else 1 end) as failures
+    from test_results
+    where test_valid = true
+    group by test_id;
+
+-- Ensure that updated data is committed
 commit;
