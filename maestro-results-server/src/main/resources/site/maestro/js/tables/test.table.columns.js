@@ -5,7 +5,10 @@ var dbColumns = [
     },
     { data: "testNumber" },
     { data: "testName" },
-    { data: "testResult" },
+    {
+        data: "testResult",
+        render: resultRender
+    },
     { data: "testParameterId"},
     { data: "sutId"},
     {
@@ -16,8 +19,14 @@ var dbColumns = [
     },
     { data: "testDataStorageInfo" },
     { data: "testTags" },
-    { data: "testDate" },
+    {
+        data: "testDate",
+        render: simpleDateRender
+    },
     { data: "testDuration"},
-    { data: "testTargetRate"},
+    {
+        data: "testTargetRate",
+        render: rateRender
+    },
     { data: "maestroVersion"}
 ];
