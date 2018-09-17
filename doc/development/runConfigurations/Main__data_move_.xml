@@ -3,7 +3,7 @@
     <option name="MAIN_CLASS_NAME" value="org.maestro.results.main.Main" />
     <module name="maestro-results-cli" />
     <option name="PROGRAM_PARAMETERS" value="data move-test-report --dynamic-naming -f https://changeme/job -t &quot;http://performance-center.messaging.lab.eng.brq.redhat.com/~perfadm/maestro/jobs&quot; --with-download-path &quot;/*zip*/Performance_Test_Report.zip&quot; --with-tmp-path $MODULE_DIR$/target/classes/cache" />
-    <option name="VM_PARAMETERS" value="-Dorg.maestro.home=$MODULE_DIR$/target/classes/src/main/resources/" />
+    <option name="VM_PARAMETERS" value="-Dorg.maestro.home=$MODULE_DIR$/target/classes/" />
     <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
     <extension name="coverage">
       <pattern>

@@ -3,7 +3,7 @@
     <option name="MAIN_CLASS_NAME" value="org.maestro.results.main.Main" />
     <module name="maestro-results-cli" />
     <option name="PROGRAM_PARAMETERS" value="record env-resource -a insert --resource-name fake-10.host.com --os-name RHEL --os-version 7.4 --os-arch x86_64 --hw-name true --hw-model &quot;IBM x3550 M3&quot; --hw-cpu &quot;Intel Xeon X5650 @ 12x 2.66GHz&quot; --hw-ram 15873 --hw-disk-type hd" />
-    <option name="VM_PARAMETERS" value="-Dorg.maestro.home=$MODULE_DIR$/target/classes/src/main/resources/" />
+    <option name="VM_PARAMETERS" value="-Dorg.maestro.home=$MODULE_DIR$/target/classes/" />
     <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
     <extension name="coverage">
       <pattern>

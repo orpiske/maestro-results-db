@@ -3,7 +3,7 @@
     <option name="MAIN_CLASS_NAME" value="org.maestro.results.main.Main" />
     <module name="maestro-results-cli" />
     <option name="PROGRAM_PARAMETERS" value="record sut -a insert -n &quot;A-MQ Broker&quot; -v 7.0.3 -j openjdk-1.8.0 -t &quot;aio,single,linux&quot;" />
-    <option name="VM_PARAMETERS" value="-Dorg.maestro.home=$MODULE_DIR$/target/classes/src/main/resources/" />
+    <option name="VM_PARAMETERS" value="-Dorg.maestro.home=$MODULE_DIR$/target/classes/" />
     <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
     <extension name="coverage">
       <pattern>

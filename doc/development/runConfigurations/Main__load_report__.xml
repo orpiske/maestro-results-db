@@ -3,7 +3,7 @@
     <option name="MAIN_CLASS_NAME" value="org.maestro.results.main.Main" />
     <module name="maestro-results-cli" />
     <option name="PROGRAM_PARAMETERS" value="load report --env-name &quot;Development&quot; --test-name &quot;Development test&quot; --sut-id 1 --path $MODULE_DIR$/target/test-classes/data-ok/" />
-    <option name="VM_PARAMETERS" value="-Dorg.maestro.home=$MODULE_DIR$/target/classes/src/main/resources/" />
+    <option name="VM_PARAMETERS" value="-Dorg.maestro.home=$MODULE_DIR$/target/classes/" />
     <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
     <extension name="coverage">
       <pattern>

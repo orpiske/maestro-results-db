@@ -3,7 +3,7 @@
     <option name="MAIN_CLASS_NAME" value="org.maestro.results.main.Main" />
     <module name="maestro-results-cli" />
     <option name="PROGRAM_PARAMETERS" value="record test -a insert -n &quot;Development test&quot; -r success -p 1 -s 1 -l &quot;http://localhost/dev-test-01&quot; -t &quot;release,a-mq,broker&quot; -d 300 -R 0" />
-    <option name="VM_PARAMETERS" value="-Dorg.maestro.home=$MODULE_DIR$/target/classes/src/main/resources/" />
+    <option name="VM_PARAMETERS" value="-Dorg.maestro.home=$MODULE_DIR$/target/classes/" />
     <option name="WORKING_DIRECTORY" value="$MODULE_DIR$" />
     <extension name="coverage">
       <pattern>
