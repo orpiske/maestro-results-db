@@ -1,9 +1,8 @@
 var dbColumns = [
     {
         data: "testId",
-        render: function (data, type, full, meta) {
-            return '<a href=\"view-single-test-results.html?test-id=' + data + '\">' + data + '</a>';
-        }
+        render: renderTestId
+
     },
     { data: "testNumber" },
     { data: "testResult",

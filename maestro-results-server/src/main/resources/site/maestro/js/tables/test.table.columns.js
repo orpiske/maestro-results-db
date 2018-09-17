@@ -1,5 +1,8 @@
 var dbColumns = [
-    { data: "testId" },
+    {
+        data: "testId",
+        render: renderTestId
+    },
     { data: "testNumber" },
     { data: "testName" },
     { data: "testResult" },
