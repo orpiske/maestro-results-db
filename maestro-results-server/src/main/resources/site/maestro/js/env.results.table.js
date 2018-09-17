@@ -12,7 +12,6 @@ var dbColumns = [
     { data: "testRateGeometricMean"},
     { data: "testRateStandardDeviation"},
     { data: "testRateSkipCount"},
-    { data: "connectionCount"},
     { data: "latPercentile90"},
     { data: "latPercentile95"},
     { data: "latPercentile99"},
