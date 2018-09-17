@@ -13,6 +13,8 @@ public class DataMove extends Action {
     private String withTmpPath;
     private boolean dynamicNaming;
     public String testName;
+    private int initialId = 0;
+    private int finalId = 0;
 
     public DataMove(final String[] args) {
         processCommand(args);
@@ -30,6 +32,7 @@ public class DataMove extends Action {
         options.addOption(null, "test-name", true, "Update records only for [test-name]");
         options.addOption(null, "with-download-path", true, "download path for the report to be appended to the report URL");
         options.addOption(null, "with-tmp-path", true, "temp path for the downloaded reports");
+        options.addOption(null, "with-test-id-range", true, "test id range (in the form initial:final)");
         options.addOption(null, "dynamic-naming", false, "build the directory tree automagically");
 
         try {
@@ -59,6 +62,14 @@ public class DataMove extends Action {
         withTmpPath = cmdLine.getOptionValue("with-tmp-path");
         dynamicNaming = cmdLine.hasOption("dynamic-naming");
         testName = cmdLine.getOptionValue("test-name");
+        String idRange = cmdLine.getOptionValue("with-test-id-range");
+        if (idRange != null) {
+            String tmpInitialId = idRange.split(":")[0];
+            String tmpFinalId = idRange.split(":")[1];
+
+            initialId = Integer.parseInt(tmpInitialId);
+            finalId = Integer.parseInt(tmpFinalId);
+        }
     }
 
     @Override
@@ -74,7 +85,13 @@ public class DataMove extends Action {
                 mover.move(from, to);
             }
             else {
-                mover.move(from, to, testName);
+                if (finalId != initialId && finalId > initialId) {
+                    mover.move(from, to, initialId, finalId, testName);
+                }
+                else {
+                    mover.move(from, to, testName);
+                }
+
             }
         }
         catch (Exception e) {

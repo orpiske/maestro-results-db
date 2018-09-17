@@ -99,4 +99,10 @@ public class DataMover {
 
         tests.parallelStream().forEach(record -> updateRecord(record, from, to));
     }
+
+    public void move(final String from, final String to, int initialId, int finalId, final String testName) {
+        List<Test> tests = dao.fetch(initialId, finalId, testName);
+
+        tests.parallelStream().forEach(record -> updateRecord(record, from, to));
+    }
 }
