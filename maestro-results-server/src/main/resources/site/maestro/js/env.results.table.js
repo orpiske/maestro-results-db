@@ -1,19 +1,43 @@
 var dbColumns = [
     { data: "envResultsId" },
     { data: "envResourceId" },
-    { data: "testId" },
+    {
+        data: "testId",
+        render: renderTestId
+    },
     { data: "testNumber" },
     { data: "envName"},
     { data: "envResourceRole"},
-    { data: "testRateMin"},
-    { data: "testRateMax"},
+    {
+        data: "testRateMin",
+        render: rateRender
+    },
+    {
+        data: "testRateMax",
+        render: rateRender
+    },
     { data: "testRateErrorCount"},
     { data: "testRateSamples"},
-    { data: "testRateGeometricMean"},
-    { data: "testRateStandardDeviation"},
+    {
+        data: "testRateGeometricMean",
+        render: renderRoundedRate
+    },
+    {
+        data: "testRateStandardDeviation",
+        render: renderRounded
+    },
     { data: "testRateSkipCount"},
-    { data: "latPercentile90"},
-    { data: "latPercentile95"},
-    { data: "latPercentile99"},
+    {
+        data: "latPercentile90",
+        render: percentileRender
+    },
+    {
+        data: "latPercentile95",
+        render: percentileRender
+    },
+    {
+        data: "latPercentile99",
+        render: percentileRender
+    },
     { data: "error"},
 ];

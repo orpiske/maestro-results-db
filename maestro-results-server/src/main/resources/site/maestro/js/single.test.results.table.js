@@ -15,15 +15,11 @@ var dbColumns = [
     },
     {
         data: "testRateStandardDeviation",
-        render: function (data, type, full, meta) {
-             return Number(data).toFixed(2);
-        }
+        render: renderRounded
     },
     {
         data: "testRateGeometricMean",
-        render: function (data, type, full, meta) {
-            return '<span> ' + Number(data).toFixed(2) + ' msg/sec</span>'
-        }
+        render: renderRoundedRate
     },
     {
         data: "testCombinedTargetRate",

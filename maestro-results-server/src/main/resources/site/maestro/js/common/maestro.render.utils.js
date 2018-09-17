@@ -22,3 +22,16 @@ function resultRender(data, type, full, meta) {
 function simpleDateRender(data, type, full, meta) {
     return (new Date(data)).toLocaleString();
 }
+
+
+function renderTestId(data, type, full, meta) {
+    return '<a href=\"view-single-test-results.html?test-id=' + data + '\">' + data + '</a>';
+}
+
+function renderRounded(data, type, full, meta) {
+     return Number(data).toFixed(2);
+}
+
+function renderRoundedRate(data, type, full, meta) {
+    return '<span> ' + renderRounded(data, type, full, meta) + ' msg/sec</span>'
+}
