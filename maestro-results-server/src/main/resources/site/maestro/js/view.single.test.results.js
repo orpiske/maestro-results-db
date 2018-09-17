@@ -65,3 +65,13 @@ $(document).ready(
         groupedBarGraph(url, element, values, groups, yLabel)
     }
 )
+
+// Data table
+$(document).ready(
+    function() {
+        var id = getUrlVars()["test-id"]
+        var url = $('[data-datatables]').attr('data-api') + "/" + id
+
+        maestroDataTable('[data-datatables]', url)
+    }
+)
