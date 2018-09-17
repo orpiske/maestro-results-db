@@ -12,6 +12,7 @@ public class DataMove extends Action {
     private String withDownloadPath;
     private String withTmpPath;
     private boolean dynamicNaming;
+    public String testName;
 
     public DataMove(final String[] args) {
         processCommand(args);
@@ -26,6 +27,7 @@ public class DataMove extends Action {
         options.addOption("h", "help", false, "prints the help");
         options.addOption("f", "from", true, "from URL");
         options.addOption("t", "to", true, "to url");
+        options.addOption(null, "test-name", true, "Update records only for [test-name]");
         options.addOption(null, "with-download-path", true, "download path for the report to be appended to the report URL");
         options.addOption(null, "with-tmp-path", true, "temp path for the downloaded reports");
         options.addOption(null, "dynamic-naming", false, "build the directory tree automagically");
@@ -56,6 +58,7 @@ public class DataMove extends Action {
         withDownloadPath = cmdLine.getOptionValue("with-download-path");
         withTmpPath = cmdLine.getOptionValue("with-tmp-path");
         dynamicNaming = cmdLine.hasOption("dynamic-naming");
+        testName = cmdLine.getOptionValue("test-name");
     }
 
     @Override
@@ -67,7 +70,12 @@ public class DataMove extends Action {
             mover.setTmpPath(withTmpPath);
             mover.setDynamicNaming(dynamicNaming);
 
-            mover.move(from, to);
+            if (testName == null) {
+                mover.move(from, to);
+            }
+            else {
+                mover.move(from, to, testName);
+            }
         }
         catch (Exception e) {
             e.printStackTrace();
