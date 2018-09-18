@@ -6,12 +6,23 @@
 
 echo "Unpacking $1"
 
-dir=$(dirname $1)
-cd $dir
+dir="$(dirname $1)"
+cd "${dir}"
+if [[ $? != 0 ]] ; then
+    echo "Unable to enter directory from ${dir}"
+    exit 1
+fi
 
+filename="$(basename $1)"
+unzip "${filename}"
 
-filename=$(basename $1)
-unzip $filename
+if [[ $? != 0 ]] ; then
+    echo "Unable to extract files from ${filename}"
+    exit 1
+fi
 
-mv Performance_Test_Report/* .
-rm -rf Performance_Test_Report
+for reportDir in * ; do
+    if [[ -d "${reportDir}" ]] ; then
+        mv "${reportDir}"/* .  && rm -rf "${reportDir}"
+    fi
+done
