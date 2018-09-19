@@ -1,9 +1,9 @@
 package org.maestro.results.main.actions.xunit;
 
 import org.maestro.results.dao.TestDao;
-import org.maestro.results.dao.TestPropertiesDao;
+import org.maestro.results.dao.TestResultsDao;
 import org.maestro.results.dto.Test;
-import org.maestro.results.dto.TestProperties;
+import org.maestro.results.dto.TestResult;
 import org.maestro.results.dto.xunit.TestCase;
 import org.maestro.results.dto.xunit.TestSuite;
 import org.maestro.results.dto.xunit.TestSuites;
@@ -14,16 +14,16 @@ import java.time.Duration;
 import java.util.List;
 
 public class XUnitGenerator {
+    private TestResultsDao testResultsDao = new TestResultsDao();
     private TestDao testDao = new TestDao();
-    private TestPropertiesDao testPropertiesDao = new TestPropertiesDao();
 
-    public TestSuites convertToTestSuites(final List<Test> testList) {
+    public TestSuites convertToTestSuites(final List<TestResult> testList) {
         TestSuite testSuite = new TestSuite();
         testSuite.setId("1");
         testSuite.setTests(testList.size());
 
-        for (Test test : testList) {
-            TestProperties testProperties = testPropertiesDao.fetch(test.getTestId(), test.getTestNumber());
+        for (TestResult testResult : testList) {
+            Test test = testDao.fetch(testResult.getTestId(), testResult.getTestNumber());
 
             TestCase testCase = new TestCase();
 
@@ -31,8 +31,8 @@ public class XUnitGenerator {
             testCase.setClassName("singlepoint.FixedRate");
 
             // TODO: move the connection count info to Test
-            String name = testProperties.getMessagingProtocol() + "-s-" + testProperties.getMessageSize() + "-c-undef"
-                    + (testProperties.isDurable() ? "-" : "-non-") + "durable-";
+            String name = testResult.getMessagingProtocol() + "-s-" + testResult.getMessageSize() + "-c-" + testResult.getConnectionCount()
+                    + (testResult.isDurable() ? "-" : "-non-") + "durable";
 
             testCase.setName(name);
             testCase.setTime(Duration.ofSeconds(test.getTestDuration()));
@@ -48,11 +48,12 @@ public class XUnitGenerator {
 
 
     public int generate(final File fileName, int testId) {
-        List<Test> testList = testDao.fetch(testId);
+        List<TestResult> testList = testResultsDao.fetch(testId);
 
         TestSuites testSuites = convertToTestSuites(testList);
 
         XunitWriter xunitWriter = new XunitWriter();
+
         xunitWriter.saveToXML(fileName, testSuites);
 
         return 0;
