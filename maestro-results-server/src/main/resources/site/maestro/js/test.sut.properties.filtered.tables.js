@@ -6,6 +6,7 @@ $(document).ready(function() {
             dataSrc:  ''
         },
         order: [[ 1, 'desc' ]],
+        dom: "tpi",
         pfConfig: {
             emptyStateSelector: "#emptyState1",
             filterCaseInsensitive: true,
@@ -67,7 +68,8 @@ $(document).ready(function() {
           },
           select: {
               selector: 'td:first-child input[type="checkbox"]',
-              style: 'multi'
+              style: 'multi',
+              info: false
            },
     });
 
