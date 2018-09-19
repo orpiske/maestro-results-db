@@ -4,6 +4,7 @@ import org.maestro.results.dao.TestDao;
 import org.maestro.results.dao.TestResultsDao;
 import org.maestro.results.dto.Test;
 import org.maestro.results.dto.TestResult;
+import org.maestro.results.dto.xunit.Failure;
 import org.maestro.results.dto.xunit.TestCase;
 import org.maestro.results.dto.xunit.TestSuite;
 import org.maestro.results.dto.xunit.TestSuites;
@@ -17,28 +18,38 @@ public class XUnitGenerator {
     private TestResultsDao testResultsDao = new TestResultsDao();
     private TestDao testDao = new TestDao();
 
-    public TestSuites convertToTestSuites(final List<TestResult> testList) {
+    public TestSuites convertToTestSuites(final Test test) {
         TestSuite testSuite = new TestSuite();
         testSuite.setId("1");
-        testSuite.setTests(testList.size());
+        testSuite.setTests(1);
 
-        for (TestResult testResult : testList) {
-            Test test = testDao.fetch(testResult.getTestId(), testResult.getTestNumber());
 
-            TestCase testCase = new TestCase();
+        List<TestResult> testResultList = testResultsDao.fetch(test.getTestId(), test.getTestNumber());
 
-            testCase.setAssertions(1);
-            testCase.setClassName("singlepoint.FixedRate");
+        TestCase testCase = new TestCase();
 
-            // TODO: move the connection count info to Test
-            String name = testResult.getMessagingProtocol() + "-s-" + testResult.getMessageSize() + "-c-" + testResult.getConnectionCount()
-                    + (testResult.isDurable() ? "-" : "-non-") + "durable";
+        testCase.setAssertions(1);
+        testCase.setClassName("singlepoint.FixedRate");
 
-            testCase.setName(name);
-            testCase.setTime(Duration.ofSeconds(test.getTestDuration()));
+        TestResult testResult = testResultList.get(0);
 
-            testSuite.getTestCaseList().add(testCase);
+        String name = testResult.getMessagingProtocol() + (testResult.isDurable() ? "-" : "-non-") + "durable" +
+                "-ld-" + testResult.getLimitDestinations() + "-s-" + testResult.getMessageSize() +
+                (testResult.isVariableSize() ? "-variable-size" : "-non-variable-size") + "-c-" +
+                testResult.getConnectionCount();
+
+        testCase.setName(name);
+        testCase.setTime(Duration.ofSeconds(test.getTestDuration()));
+
+        for (TestResult others : testResultList) {
+            if (others.getTestResult() == "failure") {
+                Failure failure = new Failure();
+
+                testCase.setFailure(failure);
+            }
         }
+
+        testSuite.getTestCaseList().add(testCase);
 
         TestSuites testSuites = new TestSuites();
         testSuites.getTestSuiteList().add(testSuite);
@@ -47,10 +58,11 @@ public class XUnitGenerator {
     }
 
 
-    public int generate(final File fileName, int testId) {
-        List<TestResult> testList = testResultsDao.fetch(testId);
+    public int generate(final File fileName, int testId, int testNumber) {
+        Test test = testDao.fetch(testId, testNumber);
 
-        TestSuites testSuites = convertToTestSuites(testList);
+
+        TestSuites testSuites = convertToTestSuites(test);
 
         XunitWriter xunitWriter = new XunitWriter();
 

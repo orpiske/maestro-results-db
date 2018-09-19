@@ -10,6 +10,7 @@ public class ExportAction extends Action {
     private Options options;
     private String output;
     private int testId;
+    private int testNumber;
 
     public ExportAction(final String[] args) {
         processCommand(args);
@@ -23,7 +24,8 @@ public class ExportAction extends Action {
 
         options.addOption("h", "help", false, "prints the help");
         options.addOption("o", "output", true, "output directory");
-        options.addOption("t", "test-id", true, "test name [Release, Baseline - defaults to Baseline]");
+        options.addOption("t", "test-id", true, "test id");
+        options.addOption("n", "test-number", true, "test number");
 
         try {
             cmdLine = parser.parse(options, args);
@@ -49,6 +51,15 @@ public class ExportAction extends Action {
         }
 
         testId = Integer.parseInt(strTestId);
+
+
+        String strTestNumber = cmdLine.getOptionValue('n');
+        if (strTestNumber == null) {
+            System.err.println("Test Number is mandatory. Use option '-n' to inform it");
+            help(options, -1);
+        }
+
+        testNumber = Integer.parseInt(strTestNumber);
     }
 
     @Override
@@ -57,7 +68,7 @@ public class ExportAction extends Action {
 
         XUnitGenerator xUnitGenerator = new XUnitGenerator();
 
-        xUnitGenerator.generate(outputFile, testId);
+        xUnitGenerator.generate(outputFile, testId, testNumber);
 
         return 0;
     }
