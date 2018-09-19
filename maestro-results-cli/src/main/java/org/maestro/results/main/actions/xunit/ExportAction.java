@@ -1,9 +1,12 @@
 package org.maestro.results.main.actions.xunit;
 
 import org.apache.commons.cli.*;
+import org.apache.commons.io.FileUtils;
+import org.maestro.common.exceptions.MaestroException;
 import org.maestro.results.main.Action;
 
 import java.io.File;
+import java.io.IOException;
 
 public class ExportAction extends Action {
     private CommandLine cmdLine;
@@ -67,6 +70,12 @@ public class ExportAction extends Action {
         File outputFile = new File(output, "maestro.xunit.xml");
 
         XUnitGenerator xUnitGenerator = new XUnitGenerator();
+
+        try {
+            FileUtils.forceMkdirParent(outputFile);
+        } catch (IOException e) {
+            throw new MaestroException("Unable to create report directory");
+        }
 
         xUnitGenerator.generate(outputFile, testId, testNumber);
 
