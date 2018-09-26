@@ -8,7 +8,7 @@ Maestro Results UI
  
 ```
 cd maestro-results-server/src/main/resources/site/resources
-bower install patternfly
+bower install patternfly axios datatables.net-select-dt
 ```
 
 
