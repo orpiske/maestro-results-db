@@ -24,8 +24,8 @@ function groupedBarGraph(url, element, values, groups, yLabel) {
 
         lineChartConfig.axis = {
             x: {
-                            type: 'category',
-                            categories: chartData.Categories
+                type: 'category',
+                categories: chartData.Categories
             },
             y: {
                label: {
