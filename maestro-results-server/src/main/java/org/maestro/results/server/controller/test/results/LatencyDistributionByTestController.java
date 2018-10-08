@@ -8,7 +8,6 @@ import org.maestro.results.dao.TestResultsDao;
 import org.maestro.results.dto.TestResult;
 import org.maestro.results.server.controller.common.CategorizedResponse;
 
-import java.util.LinkedList;
 import java.util.List;
 
 public class LatencyDistributionByTestController implements Handler {
@@ -47,12 +46,12 @@ public class LatencyDistributionByTestController implements Handler {
         List<TestResult> testResultList = testResultsDao.fetch(id, HostTypes.RECEIVER_HOST_TYPE);
 
         CategorizedResponse response = new CategorizedResponse<>();
-//        List<LatPair> combined = new LinkedList<>();
 
         // It does a transformation of the test results to simplify things on the front-end part of the code
         for (TestResult testResult : testResultList) {
             response.getPairs().add(new LatPair(testResult));
-            response.getCategories().add("Test Number");
+            response.getCategories().add(CategorizedResponse.categoryName(testResult.getTestId(), testResult.getTestNumber(),
+                    testResult.getEnvResourceName()));
         }
 
         context.json(response);
