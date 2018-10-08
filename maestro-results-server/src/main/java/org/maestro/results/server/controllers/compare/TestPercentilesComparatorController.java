@@ -66,30 +66,6 @@ public class TestPercentilesComparatorController implements Handler {
         }
     }
 
-//    private class Resp {
-//        @JsonProperty("Categories")
-//        Set<String> categories = new TreeSet<>();
-//
-//        @JsonProperty("Pairs")
-//        List<LatPair> pairs = new LinkedList<>();
-//
-//        public Set<String> getCategories() {
-//            return categories;
-//        }
-//
-//        public void setCategories(Set<String> categories) {
-//            this.categories = categories;
-//        }
-//
-//        public List<LatPair> getPairs() {
-//            return pairs;
-//        }
-//
-//        public void setPairs(List<LatPair> pairs) {
-//            this.pairs = pairs;
-//        }
-//    }
-
     private TestResultsDao testResultsDao = new TestResultsDao();
 
     @Override
