@@ -1,0 +1,23 @@
+{
+  "name": "maestro",
+  "homepage": "https://github.com/maestro-performance/maestro-rsults-db",
+  "authors": [
+    "Otavio Rodolfo Piske <opiske@redhat.com>"
+  ],
+  "description": "Maestro Results Server",
+  "main": "",
+  "license": "Apache 2.0",
+  "private": true,
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "axios": "^0.18.0",
+    "datatables.net-select-dt": "^1.2.7",
+    "patternfly": "^3.54.2"
+  }
+}
