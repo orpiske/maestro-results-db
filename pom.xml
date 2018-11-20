@@ -80,6 +80,7 @@
     </build>
 
     <modules>
+        <module>maestro-legacy</module>
         <module>maestro-results-common</module>
         <module>maestro-results-dao</module>
         <module>maestro-results-xunit</module>

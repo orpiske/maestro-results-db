@@ -43,6 +43,12 @@
         </dependency>
 
         <dependency>
+            <groupId>com.hubspot.jinjava</groupId>
+            <artifactId>jinjava</artifactId>
+            <version>2.3.4</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.maestro</groupId>
             <artifactId>maestro-common</artifactId>
             <version>${maestro.version}</version>
@@ -58,6 +64,12 @@
             <groupId>org.maestro</groupId>
             <artifactId>maestro-reports</artifactId>
             <version>${maestro.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.maestro.db</groupId>
+            <artifactId>maestro-legacy</artifactId>
+            <version>${project.version}</version>
         </dependency>
 
         <dependency>

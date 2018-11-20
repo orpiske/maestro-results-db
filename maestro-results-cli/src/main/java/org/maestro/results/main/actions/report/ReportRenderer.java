@@ -9,6 +9,7 @@ import org.maestro.reports.AbstractRenderer;
 import static org.maestro.results.main.actions.report.RenderUtils.*;
 
 
+@Deprecated
 public class ReportRenderer extends AbstractRenderer {
     private final String templateName;
     private final String resourceName;

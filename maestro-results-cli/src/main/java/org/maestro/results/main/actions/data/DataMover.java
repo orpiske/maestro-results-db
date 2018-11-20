@@ -2,9 +2,9 @@ package org.maestro.results.main.actions.data;
 
 import org.maestro.results.dao.TestDao;
 import org.maestro.results.dto.Test;
-import org.maestro.contrib.utils.Downloader;
 import org.apache.commons.io.FileUtils;
-import org.maestro.contrib.utils.resource.exceptions.ResourceExchangeException;
+import org.maestro.legacy.utils.Downloader;
+import org.maestro.legacy.utils.resource.exceptions.ResourceExchangeException;
 
 import java.io.File;
 import java.io.IOException;
