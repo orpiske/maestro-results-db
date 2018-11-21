@@ -50,7 +50,13 @@
 
         <dependency>
             <groupId>org.maestro</groupId>
-            <artifactId>maestro-reports</artifactId>
+            <artifactId>maestro-reports-common</artifactId>
+            <version>${maestro.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.maestro</groupId>
+            <artifactId>maestro-reports-server</artifactId>
             <version>${maestro.version}</version>
         </dependency>
 
@@ -101,6 +107,7 @@
             <artifactId>slf4j-log4j12</artifactId>
             <version>1.7.25</version>
         </dependency>
+
     </dependencies>
 
     <build>
