@@ -1,32 +1,36 @@
 package org.maestro.results.server.main;
 
-import org.apache.commons.configuration.ConfigurationException;
 import org.maestro.common.ConfigurationWrapper;
 import org.maestro.common.Constants;
-import org.maestro.common.LogConfigurator;
+import org.maestro.reports.server.main.ReportsTool;
 
-import java.io.FileNotFoundException;
 
-public class ResultsServer {
-    static {
-        LogConfigurator.defaultForDaemons();
+public class ResultsServer extends ReportsTool {
+    public ResultsServer(String[] args) {
+        super(args);
     }
 
-    public static void main(String[] args) {
+    protected int run() {
+        return run(new ResultsToolLauncher(getDataDir(), isOffline(), getMaestroUrl(), getHost()));
+    }
 
+    /**
+     * Running this as a debug is something like:
+     * java -m mqtt://maestro-broker:1883
+     *      -d /storage/data
+     */
+    public static void main(String[] args) {
         try {
             ConfigurationWrapper.initConfiguration(Constants.MAESTRO_CONFIG_DIR, "maestro-results-server.properties");
-        } catch (FileNotFoundException e) {
-            System.out.println("The server configuration file was not found");
+        } catch (Exception e) {
+            System.err.println("Unable to initialize configuration file: " + e.getMessage());
+            e.printStackTrace();
             System.exit(1);
-        } catch (ConfigurationException e) {
-            System.out.println("The server configuration file is invalid");
-            System.exit(2);
         }
 
-        ExtendedReportsServer reportsServer = new ExtendedReportsServer();
+        ResultsServer reportsTool = new ResultsServer(args);
 
-        reportsServer.start();
+        System.exit(reportsTool.run());
     }
 
 }
