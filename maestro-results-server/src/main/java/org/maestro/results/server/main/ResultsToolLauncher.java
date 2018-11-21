@@ -2,6 +2,7 @@ package org.maestro.results.server.main;
 
 import org.maestro.reports.server.ReportsServer;
 import org.maestro.reports.server.main.DefaultToolLauncher;
+import org.maestro.results.server.collector.ExtendedCollector;
 
 import java.io.File;
 import java.util.concurrent.CountDownLatch;
@@ -13,7 +14,12 @@ public class ResultsToolLauncher extends DefaultToolLauncher {
     }
 
     @Override
-    protected ReportsServer startServer(CountDownLatch latch) {
+    protected void startCollector(final CountDownLatch latch) {
+        super.startCollector(latch, new ExtendedCollector(getMaestroUrl(), getPeerInfo(), getDataDir()));
+    }
+
+    @Override
+    protected ReportsServer startServer(final CountDownLatch latch) {
         ExtendedReportsServer reportsServer = new ExtendedReportsServer();
 
         super.startServer(latch, reportsServer);
