@@ -2,6 +2,8 @@ package org.maestro.results.server.main;
 
 
 import io.javalin.Javalin;
+import org.apache.commons.configuration.AbstractConfiguration;
+import org.maestro.common.ConfigurationWrapper;
 import org.maestro.reports.server.DefaultReportsServer;
 import org.maestro.results.server.controller.env.resources.AllEnvResourcesController;
 import org.maestro.results.server.controller.env.results.AllEnvResultsController;
@@ -16,16 +18,24 @@ import org.maestro.results.server.controllers.sut.SutController;
 import org.maestro.results.server.controllers.sut.TestSutController;
 
 public class ExtendedReportsServer extends DefaultReportsServer {
+    private static final AbstractConfiguration config = ConfigurationWrapper.getConfig();
+    private final Javalin app;
 
-    @Override
+    public ExtendedReportsServer() {
+        super();
+
+        final int port = config.getInteger("maestro.results.server", 7000);
+
+        app = Javalin.create()
+                .port(port)
+                .enableStaticFiles("/site-extra")
+                .enableCorsForAllOrigins()
+                .disableStartupBanner();
+
+        registerUris();
+    }
+
     protected void registerUris() {
-        super.registerUris();
-
-        final Javalin app = getServerInstance();
-
-        app.enableStaticFiles("/site");
-
-
         app.get("/api/sut/", new AllSutsController());
         app.get("/api/sut/:id", new SutController());
         app.get("/api/env/resource", new AllEnvResourcesController());
@@ -51,5 +61,7 @@ public class ExtendedReportsServer extends DefaultReportsServer {
     @Override
     public void start() {
         super.start();
+
+        app.start();
     }
 }
