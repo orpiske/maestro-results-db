@@ -86,6 +86,12 @@
 
         <dependency>
             <groupId>org.maestro.db</groupId>
+            <artifactId>maestro-results-loader</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.maestro.db</groupId>
             <artifactId>maestro-results-xunit</artifactId>
             <version>${project.version}</version>
         </dependency>

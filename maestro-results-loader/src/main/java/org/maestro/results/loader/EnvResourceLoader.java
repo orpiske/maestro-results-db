@@ -1,4 +1,4 @@
-package org.maestro.results.main.actions.load.loaders;
+package org.maestro.results.loader;
 
 import org.maestro.results.dao.EnvResourceDao;
 import org.maestro.results.dao.EnvResultsDao;

@@ -1,4 +1,4 @@
-package org.maestro.results.main.actions.load;
+package org.maestro.results.loader;
 
 import org.maestro.results.dao.TestDao;
 import org.maestro.results.dto.Test;

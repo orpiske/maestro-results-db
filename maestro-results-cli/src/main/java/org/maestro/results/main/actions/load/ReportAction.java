@@ -1,6 +1,7 @@
 package org.maestro.results.main.actions.load;
 
 import org.maestro.results.dto.Test;
+import org.maestro.results.loader.ReportLoader;
 import org.maestro.results.main.Action;
 import org.apache.commons.cli.*;
 

@@ -1,12 +1,9 @@
-package org.maestro.results.main.actions.load;
+package org.maestro.results.loader;
 
 import org.maestro.results.dao.TestDao;
 import org.maestro.results.dto.Test;
-import org.maestro.results.main.actions.load.loaders.EnvResourceLoader;
-import org.maestro.results.main.actions.load.loaders.FailConditionLoader;
-import org.maestro.results.main.actions.load.loaders.TestMsgPropertyLoader;
-import org.maestro.results.main.actions.load.utils.PropertyUtils;
 import org.apache.commons.io.FileUtils;
+import org.maestro.results.loader.utils.PropertyUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 

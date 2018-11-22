@@ -79,6 +79,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.maestro.db</groupId>
+            <artifactId>maestro-results-loader</artifactId>
+            <version>${project.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>com.fasterxml.jackson.core</groupId>
             <artifactId>jackson-databind</artifactId>
             <version>2.9.6</version>
