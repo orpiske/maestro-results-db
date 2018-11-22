@@ -1,6 +1,6 @@
 function envResourceInfoTable(element, url) {
 
-    var dbColumns2 = [
+    var extraEnvResourceInfoColumns = [
         { data: "envResourceId" },
         { data: "envResourceName" },
         { data: "envResourceOsName" },
@@ -19,7 +19,7 @@ function envResourceInfoTable(element, url) {
         searching: false,
         paging: false,
         info: false,
-        columns: dbColumns2,
+        columns: extraEnvResourceInfoColumns,
         ajax: {
             url: url,
             dataSrc:  ''

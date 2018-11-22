@@ -1,6 +1,6 @@
 $(document).ready(function() {
     $('[data-datatables]').DataTable({
-        columns: dbColumns,
+        columns: extraSutPropertiesColumns,
         ajax: {
             url: $('[data-datatables]').attr('data-api'),
             dataSrc:  ''

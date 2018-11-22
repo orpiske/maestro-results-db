@@ -1,4 +1,4 @@
-var dbColumns = [
+var extraEnvResultsColumns = [
     { data: "envResultsId" },
     { data: "envResourceId" },
     {

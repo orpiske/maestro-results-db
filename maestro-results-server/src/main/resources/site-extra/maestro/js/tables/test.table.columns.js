@@ -1,4 +1,4 @@
-var dbColumns = [
+var extraTestTableColumns = [
     {
         data: "testId",
         render: renderTestId

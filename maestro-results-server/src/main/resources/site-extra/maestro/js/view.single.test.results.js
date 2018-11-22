@@ -72,6 +72,6 @@ $(document).ready(
         var id = getUrlVars()["test-id"]
         var url = $('[data-datatables]').attr('data-api') + "/" + id
 
-        maestroDataTable('[data-datatables]', url)
+        maestroDataTable('[data-datatables]', url, extraSingleTestResultColumns)
     }
 )

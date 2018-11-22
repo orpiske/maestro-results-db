@@ -44,15 +44,15 @@ public class ExtendedReportsServer extends DefaultReportsServer {
         app.get("/api/test/:id/properties", new TestPropertiesController());
         app.get("/api/test/:id/number/:number", new SingleTestIterationController());
         app.get("/api/test/:id/number/:number/properties", new SingleTestPropertiesController());
-        app.get("/api/site/", new AllTestsResultsController());
-        app.get("/api/site/test/:id", new SingleTestResultsController());
-        app.get("/api/site/latency/test/:id", new LatencyDistributionByTestController());
-        app.get("/api/site/statistics/test/:id", new TestResultsStatisticsController());
-        app.get("/api/site/rate/:role/test/:id", new RateDistributionByTestController());
-        app.get("/api/filters/test/sut/properties", new TestSutPropertiesController());
-        app.get("/api/compare/site/full/:t0/:n0/:t1/:n1", new TestIterationComparatorController());
-        app.get("/api/compare/site/percentiles/:t0/:n0/:t1/:n1", new TestPercentilesComparatorController());
-        app.get("/api/compare/site/rate/:role/:t0/:n0/:t1/:n1", new TestRateComparatorController());
+        app.get("/api/results/", new AllTestsResultsController());
+        app.get("/api/results/test/:id", new SingleTestResultsController());
+        app.get("/api/results/latency/test/:id", new LatencyDistributionByTestController());
+        app.get("/api/results/statistics/test/:id", new TestResultsStatisticsController());
+        app.get("/api/results/rate/:role/test/:id", new RateDistributionByTestController());
+        app.get("/api/results/test/sut/properties", new TestSutPropertiesController());
+        app.get("/api/compare/results/full/:t0/:n0/:t1/:n1", new TestIterationComparatorController());
+        app.get("/api/compare/results/percentiles/:t0/:n0/:t1/:n1", new TestPercentilesComparatorController());
+        app.get("/api/compare/results/rate/:role/:t0/:n0/:t1/:n1", new TestRateComparatorController());
     }
 
     @Override

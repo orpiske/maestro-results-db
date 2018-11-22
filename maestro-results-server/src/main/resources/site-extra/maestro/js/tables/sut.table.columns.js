@@ -1,4 +1,4 @@
-var dbColumns = [
+var extraSutColumns = [
     { data: "sutId" },
     { data: "sutName" },
     { data: "sutVersion" },

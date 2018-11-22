@@ -1,4 +1,4 @@
-var dbColumns = [
+var extraSutPropertiesColumns = [
     { data: null,
       className: "table-view-pf-select",
       render: function (data, type, full, meta) {

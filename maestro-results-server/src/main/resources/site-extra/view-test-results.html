@@ -73,108 +73,110 @@
 
 </nav>
 
-<main>
-    <header>
-        <h1>Tests Results</h1>
+<main class="container-fluid">
+    <header class="col-sm-12">
+        <h2>Tests Results</h2>
     </header>
 
     <div class="col-sm-12">
-        <div class="row">
-            <div class="alert alert-info">
-                <span class="pficon pficon-info"></span>
-                You can select up to <strong>2 records</strong> for comparison.
+        <div class="container-fluid">
+            <div class="row">
+                <div class="alert alert-info">
+                    <span class="pficon pficon-info"></span>
+                    You can select up to <strong>2 records</strong> for comparison.
+                </div>
+
+                <div class="alert alert-info">
+                    <span class="pficon pficon-info"></span>
+                    You can combine multiple data <strong>filters</strong> to select the test results you want to display.
+                </div>
             </div>
 
-            <div class="alert alert-info">
-                <span class="pficon pficon-info"></span>
-                You can combine multiple data <strong>filters</strong> to select the test results you want to display.
-            </div>
-        </div>
+            <div class="row toolbar-pf table-view-pf-toolbar" id="toolbar1">
+                <div class="col-sm-12">
+                    <form class="toolbar-pf-actions">
+                        <div class="form-group toolbar-pf-filter">
+                            <label class="sr-only" for="filter">Product Name</label>
+                            <div class="input-group">
+                                <div class="input-group-btn">
+                                    <button type="button" class="btn btn-default dropdown-toggle" id="filter"
+                                            data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Product Name
+                                        <span class="caret"></span></button>
+                                    <ul class="dropdown-menu">
+                                        <li><a href="#" id="filter1">Product Name</a></li>
+                                        <li><a href="#" id="filter2">Product Version</a></li>
+                                        <li><a href="#" id="filter3">Test Name</a></li>
+                                        <li><a href="#" id="filter4">Test Result</a></li>
+                                        <li><a href="#" id="filter5">API Name</a></li>
+                                        <li><a href="#" id="filter6">API Version</a></li>
+                                        <li><a href="#" id="filter7">Protocol</a></li>
+                                        <li><a href="#" id="filter8">Connection Count</a></li>
+                                        <li><a href="#" id="filter9">Durable</a></li>
+                                        <li><a href="#" id="filter10">Limit Destinations</a></li>
+                                        <li><a href="#" id="filter11">Message Size</a></li>
+                                        <li><a href="#" id="filter12">SUT Tags</a></li>
+                                        <li><a href="#" id="filter13">Test Tags</a></li>
 
-        <div class="row toolbar-pf table-view-pf-toolbar" id="toolbar1">
-            <div class="col-sm-12">
-                <form class="toolbar-pf-actions">
-                    <div class="form-group toolbar-pf-filter">
-                        <label class="sr-only" for="filter">Product Name</label>
-                        <div class="input-group">
-                            <div class="input-group-btn">
-                                <button type="button" class="btn btn-default dropdown-toggle" id="filter"
-                                        data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Product Name
-                                    <span class="caret"></span></button>
-                                <ul class="dropdown-menu">
-                                    <li><a href="#" id="filter1">Product Name</a></li>
-                                    <li><a href="#" id="filter2">Product Version</a></li>
-                                    <li><a href="#" id="filter3">Test Name</a></li>
-                                    <li><a href="#" id="filter4">Test Result</a></li>
-                                    <li><a href="#" id="filter5">API Name</a></li>
-                                    <li><a href="#" id="filter6">API Version</a></li>
-                                    <li><a href="#" id="filter7">Protocol</a></li>
-                                    <li><a href="#" id="filter8">Connection Count</a></li>
-                                    <li><a href="#" id="filter9">Durable</a></li>
-                                    <li><a href="#" id="filter10">Limit Destinations</a></li>
-                                    <li><a href="#" id="filter11">Message Size</a></li>
-                                    <li><a href="#" id="filter12">SUT Tags</a></li>
-                                    <li><a href="#" id="filter13">Test Tags</a></li>
-
-                                </ul>
+                                    </ul>
+                                </div>
+                                <input type="text" class="form-control" placeholder="Filter By Product Name..."
+                                       autocomplete="off" id="filterInput">
                             </div>
-                            <input type="text" class="form-control" placeholder="Filter By Product Name..."
-                                   autocomplete="off" id="filterInput">
                         </div>
-                    </div>
-                    <div class="form-group">
-                        <button class="btn btn-default" type="button" id="compareb1">Compare</button>
-                    </div>
-                </form>
+                        <div class="form-group">
+                            <button class="btn btn-default" type="button" id="compareb1">Compare</button>
+                        </div>
+                    </form>
 
-                <div class="row toolbar-pf-results">
-                    <div class="col-sm-9">
-                        <div class="hidden">
-                            <h5>0 Results</h5>
-                            <p>Active filters:</p>
-                            <ul class="list-inline"></ul>
-                            <p><a href="#">Clear All Filters</a></p>
+                    <div class="row toolbar-pf-results">
+                        <div class="col-sm-9">
+                            <div class="hidden">
+                                <h5>0 Results</h5>
+                                <p>Active filters:</p>
+                                <ul class="list-inline"></ul>
+                                <p><a href="#">Clear All Filters</a></p>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+            <table class="table table-striped table-bordered table-hover" id="testrestable" data-datatables
+                   data-api="/api/results">
+                <thead>
+                <tr>
+                    <th>
+                    </th>
+                    <th>Test ID</th>
+                    <th>Test Number</th>
+
+                    <th>SUT Name</th>
+                    <th>SUT Version</th>
+
+                    <th>Test Name</th>
+                    <th>Test Result</th>
+
+                    <th>API Name</th>
+                    <th>API Version</th>
+
+                    <th>Protocol</th>
+
+                    <th>Connection Count</th>
+                    <th>Target Rate</th>
+
+
+                    <th>Durable</th>
+                    <th>Limit Destinations</th>
+                    <th>Message Size</th>
+                    <th>Maximum Acceptable Latency</th>
+
+                    <th>Test Date</th>
+                    <th>SUT Tags</th>
+                    <th>Test Tags</th>
+                </tr>
+                </thead>
+            </table>
         </div>
-
-        <table class="table table-striped table-bordered table-hover" id="testrestable" data-datatables
-               data-api="/api/filters/test/sut/properties">
-            <thead>
-            <tr>
-                <th>
-                </th>
-                <th>Test ID</th>
-                <th>Test Number</th>
-
-                <th>SUT Name</th>
-                <th>SUT Version</th>
-
-                <th>Test Name</th>
-                <th>Test Result</th>
-
-                <th>API Name</th>
-                <th>API Version</th>
-
-                <th>Protocol</th>
-
-                <th>Connection Count</th>
-                <th>Target Rate</th>
-
-
-                <th>Durable</th>
-                <th>Limit Destinations</th>
-                <th>Message Size</th>
-                <th>Maximum Acceptable Latency</th>
-
-                <th>Test Date</th>
-                <th>SUT Tags</th>
-                <th>Test Tags</th>
-            </tr>
-            </thead>
-        </table>
     </div>
 </main>
 
@@ -206,6 +208,7 @@
 <script type="text/javascript" src="resources/bower_components/axios/dist/axios.min.js"></script>
 
 <script type="text/javascript" src="maestro/js/common/maestro.render.utils.js"></script>
+<script type="text/javascript" src="maestro/js/common/maestro.extra.render.utils.js"></script>
 
 <script type="text/javascript" src="maestro/js/tables/test.sut.properties.table.columns.js"></script>
 <script type="text/javascript" src="maestro/js/test.sut.properties.filtered.tables.js"></script>
