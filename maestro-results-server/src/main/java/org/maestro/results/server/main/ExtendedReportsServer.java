@@ -36,7 +36,7 @@ public class ExtendedReportsServer extends DefaultReportsServer {
         app.get("/api/sut/", new AllSutsController());
         app.get("/api/sut/:id", new SutController());
         app.get("/api/env/resource", new AllEnvResourcesController());
-        app.get("/api/env/site", new AllEnvResultsController());
+        app.get("/api/env/results", new AllEnvResultsController());
         app.get("/api/test", new AllTestsControlller());
         app.get("/api/test/:id", new SingleTestControlller());
         app.get("/api/test/:id/sut", new TestSutController());
