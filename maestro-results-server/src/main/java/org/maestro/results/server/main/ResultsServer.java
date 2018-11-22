@@ -2,10 +2,15 @@ package org.maestro.results.server.main;
 
 import org.maestro.common.ConfigurationWrapper;
 import org.maestro.common.Constants;
+import org.maestro.common.LogConfigurator;
 import org.maestro.reports.server.main.ReportsTool;
 
 
 public class ResultsServer extends ReportsTool {
+    static {
+        LogConfigurator.defaultForDaemons();
+    }
+
     public ResultsServer(String[] args) {
         super(args);
     }

@@ -24,10 +24,7 @@ public class ExtendedReportsServer extends DefaultReportsServer {
     public ExtendedReportsServer() {
         super();
 
-        final int port = config.getInteger("maestro.results.server", 7000);
-
-        app = Javalin.create()
-                .port(port)
+        app = getServerInstance()
                 .enableStaticFiles("/site-extra")
                 .enableCorsForAllOrigins()
                 .disableStartupBanner();
