@@ -1,5 +1,6 @@
 package org.maestro.results.main.actions.report;
 
+import org.maestro.results.exceptions.DataNotFoundException;
 import org.maestro.results.main.Action;
 import org.apache.commons.cli.*;
 
@@ -62,7 +63,12 @@ public class ReportAllAction extends Action {
             reportRunner.createReport();
         }
         else {
-            reportRunner.createReport(sutId);
+            try {
+                reportRunner.createReport(sutId);
+            } catch (DataNotFoundException e) {
+                e.printStackTrace();
+                return 1;
+            }
         }
 
         return 0;

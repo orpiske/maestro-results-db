@@ -12,7 +12,7 @@ public class SutController implements Handler {
     @Override
     public void handle(Context context) throws Exception {
         int id = Integer.parseInt(context.param("id"));
-        Sut sut = sutDao.fetchById(id).get(0);
+        Sut sut = sutDao.fetchById(id);
 
         context.json(sut);
     }

@@ -52,10 +52,12 @@ public class Test {
         this.testResult = testResult;
     }
 
+    @Deprecated
     public int getTestParameterId() {
         return testParameterId;
     }
 
+    @Deprecated
     public void setTestParameterId(int testParameterId) {
         this.testParameterId = testParameterId;
     }

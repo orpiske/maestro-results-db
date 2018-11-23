@@ -7,6 +7,7 @@ import org.ehcache.config.builders.CacheManagerBuilder;
 import org.ehcache.config.builders.ExpiryPolicyBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.maestro.results.dto.Sut;
+import org.maestro.results.exceptions.DataNotFoundException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 
 import java.time.Duration;
@@ -42,10 +43,15 @@ public class SutDao extends AbstractDao {
                         "values(:sutName, :sutVersion, :sutJvmInfo, :sutOther, :sutTags)", dto);
     }
 
-    public List<Sut> fetchById(int id) {
-        return jdbcTemplate.query("select * from sut where sut_id = ?",
-                new Object[] { id },
-                new BeanPropertyRowMapper<>(Sut.class));
+    public int insertWithId(Sut dto) {
+        return EasyRunner.runInsert(getNamedParameterJdbcTemplate(),
+                "insert into sut(sut_id, sut_name, sut_version, sut_jvm_info, sut_other, sut_tags) " +
+                        "values(:sutId, :sutName, :sutVersion, :sutJvmInfo, :sutOther, :sutTags)", dto);
+    }
+
+    public Sut fetchById(int id) throws DataNotFoundException {
+        return EasyRunner.runQuery(jdbcTemplate,"select * from sut where sut_id = ?",
+                new BeanPropertyRowMapper<>(Sut.class), id);
     }
 
     public List<Sut> fetch() {
@@ -53,6 +59,14 @@ public class SutDao extends AbstractDao {
                 new BeanPropertyRowMapper<>(Sut.class));
     }
 
+
+    public Sut fetch(final String sutName, final String sutVersion) throws DataNotFoundException {
+        return EasyRunner.runQuery(jdbcTemplate, "select * from sut where sut_name = ? and sut_version = ?",
+                new BeanPropertyRowMapper<>(Sut.class), sutName, sutVersion);
+    }
+
+
+    @Deprecated
     public List<Sut> fetchDistinct() {
         return jdbcTemplate.query("select * from sut group by sut_name, sut_version order by sut_id",
                 new BeanPropertyRowMapper<>(Sut.class));

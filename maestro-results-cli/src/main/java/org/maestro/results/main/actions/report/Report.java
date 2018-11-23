@@ -3,6 +3,7 @@ package org.maestro.results.main.actions.report;
 import org.maestro.results.common.ReportConfig;
 import org.maestro.results.dao.SutDao;
 import org.maestro.results.dto.Sut;
+import org.maestro.results.exceptions.DataNotFoundException;
 import org.maestro.results.main.actions.report.exceptions.EmptyResultSet;
 import org.maestro.common.ConfigurationWrapper;
 import org.apache.commons.configuration.AbstractConfiguration;
@@ -14,6 +15,7 @@ import java.io.File;
 import java.nio.charset.StandardCharsets;
 import java.util.*;
 
+@Deprecated
 public class Report {
     private static final Logger logger = LoggerFactory.getLogger(Report.class);
     private static final AbstractConfiguration config = ConfigurationWrapper.getConfig();
@@ -33,8 +35,8 @@ public class Report {
         this.testName = testName;
     }
 
-    private void createReport(List<Sut> sutList) {
-        sutList.parallelStream().forEach(this::createReportForSut);
+    private void createReport(Sut sutList) {
+        createReportForSut(sutList);
 
         logger.debug("Number of reports created: {}", protocolReportsList.size());
 
@@ -68,16 +70,16 @@ public class Report {
         }
     }
 
-    void createReport(int sutId) {
-        List<Sut> sutList = sutDao.fetchById(sutId);
+    void createReport(int sutId) throws DataNotFoundException {
+       Sut sutList = sutDao.fetchById(sutId);
 
-        createReport(sutList);
+       createReport(sutList);
     }
 
     void createReport() {
-        List<Sut> sutList = sutDao.fetchDistinct();
-
-        createReport(sutList);
+//        List<Sut> sutList = sutDao.fetchDistinct();
+//
+//        createReport(sutDao.);
     }
 
     private void createReportForSut(final Sut sut) {
