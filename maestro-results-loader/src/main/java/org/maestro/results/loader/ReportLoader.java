@@ -1,7 +1,6 @@
 package org.maestro.results.loader;
 
 import org.maestro.results.dto.Test;
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -20,51 +19,22 @@ public class ReportLoader {
     }
 
 
-    private void loadFromDir(final File dir, final List<File> files) {
-        test.setTestNumber(Integer.parseInt(dir.getName()));
-
+    public void loadFromDir(final File dir, final List<File> files, final String hostName, final String hostRole) {
         TestProcessor tp = new TestProcessor(test);
 
         logger.info("Adding a new test record from data from dir {}", dir);
 
-        tp.loadTest(dir);
-
-        // Create a list of unique hosts reported in the test
-        Set<File> testHosts = new LinkedHashSet<>();
-        files.forEach(file -> testHosts.add(file.getParentFile()));
+        tp.loadTest();
 
         // Load test data for each host
         PropertiesProcessor pp = new PropertiesProcessor(test, envName);
-        testHosts.forEach(host -> pp.loadTest(host));
+
+        pp.loadTest(dir, files, hostName, hostRole);
     }
 
+    public void load(final File reportDir, final String hostName, final String hostRole) {
+        File[] tmp = reportDir.listFiles();
 
-    public void loadFiles(final File directory) {
-        Iterator<File> iterator = FileUtils.iterateFiles(directory, new String[] { "properties"}, true);
-        Map<File, List<File>> cache = new HashMap<>();
-
-        logger.info("Searching for properties file from directory {}", directory);
-        while (iterator.hasNext()) {
-            File file = iterator.next();
-
-            File parent = file.getParentFile().getParentFile();
-            List<File> subFiles = cache.get(parent);
-            if (subFiles == null) {
-                subFiles = new LinkedList<>();
-            }
-
-            if (file.getName().equals("test.properties")) {
-                logger.trace("Adding file {}", file);
-                subFiles.add(file);
-
-                cache.put(parent, subFiles);
-                logger.trace("Processing directory {}", parent);
-            }
-            else {
-                logger.trace("Ignoring unhandled properties file {}", file.getName());
-            }
-        }
-
-        cache.forEach(this::loadFromDir);
+        loadFromDir(reportDir, Arrays.asList(tmp), hostName, hostRole);
     }
 }

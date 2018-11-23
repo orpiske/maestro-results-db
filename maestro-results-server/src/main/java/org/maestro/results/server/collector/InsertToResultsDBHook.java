@@ -13,6 +13,7 @@ import org.maestro.results.loader.ReportLoader;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
+import java.io.File;
 import java.util.List;
 
 public class InsertToResultsDBHook implements PostAggregationHook {
@@ -20,41 +21,25 @@ public class InsertToResultsDBHook implements PostAggregationHook {
     private SutDao sutDao = new SutDao();
 
     /*
-    private int testId;
-    private int testNumber;
-    private String testName;
-    private String testResult;
-    private int testParameterId;
-    private int sutId;
-    private String testReportLink;
-    private String testDataStorageInfo;
-    private String testTags;
-    private Date testDate;
-    private int testDuration;
-    private String testDurationType;
-    private int testTargetRate;
-    private String maestroVersion = Constants.VERSION;
+     Converts a report to a test. Skipped items are read from the properties file:
+     test duration, duration type and target rate.
      */
-
-    private Test convertReportToTest(final Report report) {
+    private Test convertReportToTest(final Report report, final Sut sut) {
         Test test = new Test();
 
         test.setTestId(report.getTestId());
         test.setTestNumber(report.getTestNumber());
         test.setTestName(report.getTestName());
         test.setTestResult(report.getTestResult());
-//        ????
-//        test.setSutId();
+        test.setSutId(sut.getSutId());
+
         // Not needed
         test.setTestReportLink("");
         test.setTestDataStorageInfo("");
 
         test.setTestTags(report.getTestDescription());
         test.setTestDate(report.getTestDate());
-//        Read from the properties file
-//        test.setTestDuration(report.get);
-//        test.setTestDurationType()
-//        test.setTestTargetRate();
+
         test.setMaestroVersion(Constants.VERSION);
 
         return test;
@@ -123,12 +108,12 @@ public class InsertToResultsDBHook implements PostAggregationHook {
          */
         Report first = list.get(0);
 
-        ReportLoader loader = new ReportLoader(convertReportToTest(first), sutDetails.getLabName());
+        ReportLoader loader = new ReportLoader(convertReportToTest(first, sut), sutDetails.getLabName());
 
-//        testExecutionInfo.getTest().
+        for (Report report : list) {
+            logger.info("Loading the new test record for {}", report);
 
-//        for (Report report : list) {
-//            logger.info("Running the post aggregation for {}", report);
-//        }
+            loader.load(new File(report.getLocation()), report.getTestHost(), report.getTestHostRole());
+        }
     }
 }

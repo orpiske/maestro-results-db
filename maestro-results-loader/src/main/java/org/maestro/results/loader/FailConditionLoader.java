@@ -6,7 +6,6 @@ import org.maestro.results.dto.TestFailCondition;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
-import java.io.File;
 import java.util.Map;
 
 public class FailConditionLoader {
@@ -20,25 +19,25 @@ public class FailConditionLoader {
         dao = new TestFailConditionDao();
     }
 
-    public void load(final File reportFile, final Map<String, Object> properties) {
+    public void load(final String hostName, final Map<String, Object> properties) {
         String[] failConditions = {"fcl"};
 
-        logger.debug("Recording fail conditions: {}", reportFile);
+        logger.debug("Recording fail conditions for: {}", hostName);
 
         for (String failCondition : failConditions) {
             String value = (String) properties.get(failCondition);
             if (value != null) {
-                insertTestFailCondition(reportFile, failCondition, value);
+                insertTestFailCondition(hostName, failCondition, value);
             }
         }
     }
 
-    private void insertTestFailCondition(final File reportFile, final String failCondition, final String value) {
+    private void insertTestFailCondition(final String hostName, final String failCondition, final String value) {
         TestFailCondition dto = new TestFailCondition();
 
         dto.setTestId(test.getTestId());
         dto.setTestNumber(test.getTestNumber());
-        dto.setTestFailConditionResourceName(reportFile.getName());
+        dto.setTestFailConditionResourceName(hostName);
         dto.setTestFailConditionName(failCondition);
         dto.setTestFailConditionValue(value);
 
