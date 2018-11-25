@@ -11,7 +11,7 @@ os:
   - linux
 language:
   - java
-script: mvn -PPackage package
+script: mkdir tmp && cd tmp && git clone https://github.com/maestro-performance/maestro-java.git -B devel && cd maestro-java && mvn install && cd ../../ && mvn -PPackage package
 
 after_success:
     - sh -c "curl --ftp-create-dirs -T ./target/maestro-results-*-bin.tar.gz -u $FTP_USER:$FTP_PASSWORD $FTP_ENDPOINT/maestro-results-db-devel-bin.tar.gz"
