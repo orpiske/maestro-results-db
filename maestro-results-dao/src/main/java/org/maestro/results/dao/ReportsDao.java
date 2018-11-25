@@ -1,6 +1,5 @@
 package org.maestro.results.dao;
 
-import org.maestro.results.common.ReportConfig;
 import org.maestro.results.dto.TestReportRecord;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.RowCallbackHandler;
@@ -54,9 +53,8 @@ public class ReportsDao extends AbstractDao {
      */
     public List<TestReportRecord> contentedScalabilityReport(final String sutName, final String sutVersion,
                                                              final String messagingProtocol, final String role,
-                                                             boolean durable, int messageSize, final String testName) {
-        String connectionCounts = ReportConfig.getJoinedString(testName, "report.connectionCounts");
-        String limitDestination = ReportConfig.getString(testName, "report.contentedScalability.limitDestination");
+                                                             boolean durable, int messageSize, final String testName,
+                                                             final String connectionCounts, final String limitDestination) {
 
         return jdbcTemplate.query("select tr.sut_name,tr.sut_version,tr.sut_tags,tr.test_tags,tr.test_result,tr.error,tr.connection_count,tp.limit_destinations," +
                 "tp.message_size,tp.api_name,tp.api_version,tp.messaging_protocol,tp.durable,tr.test_rate_min,tr.test_rate_max," +
@@ -94,9 +92,8 @@ public class ReportsDao extends AbstractDao {
      */
     public List<TestReportRecord> destinationScalabilityReport(final String sutName, final String sutVersion,
                                                                final String messagingProtocol, final String role,
-                                                               boolean durable, int messageSize, final String testName) {
-        String destinationString = ReportConfig.getJoinedString(testName, "report.limitDestinations");
-        String connectionCount = ReportConfig.getString(testName, "report.destinationScalability.connectionCount");
+                                                               boolean durable, int messageSize, final String testName,
+                                                               final String destinationString, final String connectionCount) {
 
         return jdbcTemplate.query("select tr.sut_name,tr.sut_version,tr.sut_tags,tr.test_tags,tr.test_result,tr.error,tr.connection_count,tp.limit_destinations, " +
                 "tp.message_size,tp.api_name,tp.api_version,tp.messaging_protocol,tp.durable,tr.test_rate_min,tr.test_rate_max, " +

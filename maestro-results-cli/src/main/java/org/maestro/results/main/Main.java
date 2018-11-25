@@ -79,16 +79,8 @@ public class Main {
                 program = new DataProgram();
                 break;
             }
-            case "load": {
-                program = new LoadProgram();
-                break;
-            }
             case "record": {
                 program = new RecordProgram();
-                break;
-            }
-            case "report": {
-                program = new ReportProgram();
                 break;
             }
             case "xunit": {

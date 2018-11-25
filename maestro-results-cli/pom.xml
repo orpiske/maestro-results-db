@@ -61,12 +61,6 @@
         </dependency>
 
         <dependency>
-            <groupId>org.maestro</groupId>
-            <artifactId>maestro-reports</artifactId>
-            <version>${maestro.version}</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.maestro.db</groupId>
             <artifactId>maestro-legacy</artifactId>
             <version>${project.version}</version>
