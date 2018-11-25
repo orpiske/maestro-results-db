@@ -17,7 +17,7 @@ RUN cd maestro-results-db && ./mvnw -DskipTests=true -PPackage clean package
 ENV MAESTRO_APP_ROOT /opt/maestro
 RUN mkdir -p ${MAESTRO_APP_ROOT}
 WORKDIR ${MAESTRO_APP_ROOT}
-ENV MAESTRO_WORKER_TYPE results-results-server
+ENV MAESTRO_WORKER_TYPE results-server
 RUN mkdir -p maestro-${MAESTRO_WORKER_TYPE} && tar --strip-components=1 -xvf /root/build/maestro-results-db/maestro-${MAESTRO_WORKER_TYPE}/target/maestro-${MAESTRO_WORKER_TYPE}-${MAESTRO_VERSION}-bin.tar.gz -C maestro-${MAESTRO_WORKER_TYPE}
 
 # Base image for everything
@@ -33,13 +33,13 @@ WORKDIR ${MAESTRO_APP_ROOT}
 RUN yum install -y java-1.8.0-openjdk-headless unzip which ntp rsync && yum clean all
 
 ## Worker ##
-FROM maestro-base AS maestro-results-server
-ENV MAESTRO_WORKER_TYPE maestro-results-server
+FROM maestro-results-db-base AS maestro-results-server
+ENV MAESTRO_WORKER_TYPE results-server
 MAINTAINER Otavio Rodolfo Piske <angusyoung@gmail.com>
 LABEL MAESTRO_WORKER_TYPE=${MAESTRO_WORKER_TYPE}
 COPY --from=buildimg ${MAESTRO_APP_ROOT}/maestro-${MAESTRO_WORKER_TYPE} maestro-${MAESTRO_WORKER_TYPE}
 
-ADD ${MAESTRO_WORKER_TYPE}/log4j.properties ${MAESTRO_APP_ROOT}/maestro-${MAESTRO_WORKER_TYPE}/config/log4j.properties
-ADD ${MAESTRO_WORKER_TYPE}/maestro-${MAESTRO_WORKER_TYPE}.properties ${MAESTRO_APP_ROOT}/maestro-${MAESTRO_WORKER_TYPE}/config/maestro-${MAESTRO_WORKER_TYPE}.properties
+ADD maestro-${MAESTRO_WORKER_TYPE}/log4j.properties ${MAESTRO_APP_ROOT}/maestro-${MAESTRO_WORKER_TYPE}/config/log4j.properties
+ADD maestro-${MAESTRO_WORKER_TYPE}/maestro-${MAESTRO_WORKER_TYPE}.properties ${MAESTRO_APP_ROOT}/maestro-${MAESTRO_WORKER_TYPE}/config/maestro-${MAESTRO_WORKER_TYPE}.properties
 # ADD ${MAESTRO_WORKER_TYPE}/maestro-container-wrapper.sh /usr/bin/maestro-container-wrapper
 CMD [ "sh", "-c", "/usr/bin/maestro-container-wrapper"]
