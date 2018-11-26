@@ -1,14 +1,15 @@
 package org.maestro.results.main.actions.xunit;
 
+import org.maestro.common.xunit.Failure;
+import org.maestro.common.xunit.TestCase;
+import org.maestro.common.xunit.TestSuite;
+import org.maestro.common.xunit.TestSuites;
+import org.maestro.common.xunit.writer.XunitWriter;
 import org.maestro.results.dao.TestDao;
 import org.maestro.results.dao.TestResultsDao;
 import org.maestro.results.dto.Test;
 import org.maestro.results.dto.TestResult;
-import org.maestro.results.dto.xunit.Failure;
-import org.maestro.results.dto.xunit.TestCase;
-import org.maestro.results.dto.xunit.TestSuite;
-import org.maestro.results.dto.xunit.TestSuites;
-import org.maestro.results.xunit.XunitWriter;
+
 
 import java.io.File;
 import java.time.Duration;
