@@ -1,5 +1,6 @@
 package org.maestro.results.main.actions.record;
 
+import org.maestro.reports.dao.exceptions.DataNotFoundException;
 import org.maestro.results.dao.TestDao;
 import org.maestro.results.dto.Test;
 import org.maestro.results.main.Action;
@@ -67,11 +68,17 @@ public class TestAction extends Action {
     }
 
     private int view() {
-        TestDao dao = new TestDao();
-        List<Test> failConditions = dao.fetch();
+        try {
+            TestDao dao = new TestDao();
+            List<Test> failConditions = dao.fetch();
 
-        failConditions.stream().forEach(item -> System.out.println("Test: " + item));
-        return 0;
+            failConditions.stream().forEach(item -> System.out.println("Test: " + item));
+            return 0;
+        }
+        catch (DataNotFoundException e) {
+            System.err.println("Data not found");
+            return 1;
+        }
     }
 
     @Override

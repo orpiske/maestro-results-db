@@ -7,8 +7,10 @@ import org.ehcache.config.builders.CacheManagerBuilder;
 import org.ehcache.config.builders.ExpiryPolicyBuilder;
 import org.ehcache.config.builders.ResourcePoolsBuilder;
 import org.maestro.results.dto.Sut;
-import org.maestro.results.exceptions.DataNotFoundException;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+
+import org.maestro.reports.dao.exceptions.DataNotFoundException;
+import org.maestro.reports.dao.AbstractDao;
 
 import java.time.Duration;
 import java.util.List;
@@ -44,48 +46,34 @@ public class SutDao extends AbstractDao {
     }
 
     public int insertWithId(Sut dto) {
-        return EasyRunner.runInsert(getNamedParameterJdbcTemplate(),
-                "insert into sut(sut_id, sut_name, sut_version, sut_jvm_info, sut_other, sut_tags) " +
-                        "values(:sutId, :sutName, :sutVersion, :sutJvmInfo, :sutOther, :sutTags)", dto);
+        return runInsert("insert into sut(sut_id, sut_name, sut_version, sut_jvm_info, sut_other, sut_tags) " +
+                        "values(:sutIdc, :sutName, :sutVersion, :sutJvmInfo, :sutOther, :sutTags)", dto);
     }
 
     public Sut fetchById(int id) throws DataNotFoundException {
-        return EasyRunner.runQuery(jdbcTemplate,"select * from sut where sut_id = ?",
+        return runQuery("select * from sut where sut_id = ?",
                 new BeanPropertyRowMapper<>(Sut.class), id);
     }
 
-    public List<Sut> fetch() {
-        return jdbcTemplate.query("select * from sut",
+    public List<Sut> fetch() throws DataNotFoundException {
+        return runQueryMany("select * from sut",
                 new BeanPropertyRowMapper<>(Sut.class));
     }
 
 
     public Sut fetch(final String sutName, final String sutVersion) throws DataNotFoundException {
-        return EasyRunner.runQuery(jdbcTemplate, "select * from sut where sut_name = ? and sut_version = ?",
+        return runQuery("select * from sut where sut_name = ? and sut_version = ?",
                 new BeanPropertyRowMapper<>(Sut.class), sutName, sutVersion);
     }
 
 
-    @Deprecated
-    public List<Sut> fetchDistinct() {
-        return jdbcTemplate.query("select * from sut group by sut_name, sut_version order by sut_id",
-                new BeanPropertyRowMapper<>(Sut.class));
-    }
-
-
-    public List<String> fetchSutTags(final String sutName, final String sutVersion) {
-        return jdbcTemplate.queryForList("select sut_tags from sut where sut_name = ? and sut_version = ?",
-                new Object[]{ sutName, sutVersion },
-                String.class);
-    }
-
-    public Sut testSut(int testId) {
+    public Sut testSut(int testId) throws DataNotFoundException {
         Sut ret = testSutCache.get(testId);
 
         if (ret == null) {
-            ret = jdbcTemplate.queryForObject("select sut.* from sut,test where sut.sut_id = test.sut_id and test.test_id = ? group by sut_id",
-                    new Object[]{testId},
-                    new BeanPropertyRowMapper<>(Sut.class));
+            ret = runQuery("select sut.* from sut,test where sut.sut_id = test.sut_id and test.test_id = ? group by sut_id",
+                    new BeanPropertyRowMapper<>(Sut.class),
+                    testId);
 
             testSutCache.put(testId, ret);
         }

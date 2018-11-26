@@ -4,6 +4,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import io.javalin.Context;
 import io.javalin.Handler;
 import org.jetbrains.annotations.NotNull;
+import org.maestro.reports.dao.exceptions.DataNotFoundException;
 import org.maestro.results.dao.TestResultsDao;
 import org.maestro.results.dto.TestResult;
 import org.maestro.results.server.controller.common.CategorizedResponse;
@@ -76,26 +77,36 @@ public class TestRateComparatorController implements Handler {
     private TestResultsDao testResultsDao = new TestResultsDao();
 
     @Override
-    public void handle(Context context) throws Exception {
-        int t0 = Integer.parseInt(context.param("t0"));
-        int n0 = Integer.parseInt(context.param("n0"));
+    public void handle(Context context) {
+        try {
+            int t0 = Integer.parseInt(context.param("t0"));
+            int n0 = Integer.parseInt(context.param("n0"));
 
-        int t1 = Integer.parseInt(context.param("t1"));
-        int n1 = Integer.parseInt(context.param("n1"));
+            int t1 = Integer.parseInt(context.param("t1"));
+            int n1 = Integer.parseInt(context.param("n1"));
 
-        String role = context.param("role");
+            String role = context.param("role");
 
-        List<TestResult> results = testResultsDao.fetchForCompare(t0, n0, t1, n1, role);
+            List<TestResult> results = testResultsDao.fetchForCompare(t0, n0, t1, n1, role);
 
-        CategorizedResponse resp = new CategorizedResponse<>();
+            CategorizedResponse resp = new CategorizedResponse<>();
 
-        // It does a transformation of the test results to simplify things on the front-end part of the code
-        for (TestResult testResult : results) {
-            resp.getPairs().add(new RatePair(testResult));
-            resp.getCategories().add(CategorizedResponse.categoryName(testResult.getTestId(), testResult.getTestNumber(),
-                    testResult.getEnvResourceName()));
+            // It does a transformation of the test results to simplify things on the front-end part of the code
+            for (TestResult testResult : results) {
+                resp.getPairs().add(new RatePair(testResult));
+                resp.getCategories().add(CategorizedResponse.categoryName(testResult.getTestId(), testResult.getTestNumber(),
+                        testResult.getEnvResourceName()));
+            }
+
+            context.json(resp);
         }
-
-        context.json(resp);
+        catch (DataNotFoundException e) {
+            context.status(404);
+            context.result(String.format("Not found: %s", e.getMessage()));
+        }
+        catch (Throwable t) {
+            context.status(500);
+            context.result(String.format("Internal server error: %s", t.getMessage()));
+        }
     }
 }

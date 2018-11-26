@@ -1,5 +1,6 @@
 package org.maestro.results.main.actions.record;
 
+import org.maestro.reports.dao.exceptions.DataNotFoundException;
 import org.maestro.results.dao.TestMsgPropertyDao;
 import org.maestro.results.dto.TestMsgProperty;
 import org.maestro.results.main.Action;
@@ -60,11 +61,17 @@ public class TestMsgPropertyAction extends Action {
     }
 
     private int view() {
-        TestMsgPropertyDao dao = new TestMsgPropertyDao();
-        List<TestMsgProperty> failConditions = dao.fetch();
+        try {
+            TestMsgPropertyDao dao = new TestMsgPropertyDao();
+            List<TestMsgProperty> failConditions = dao.fetch();
 
-        failConditions.stream().forEach(item -> System.out.println("Test message property: " + item));
-        return 0;
+            failConditions.stream().forEach(item -> System.out.println("Test message property: " + item));
+            return 0;
+        }
+        catch (DataNotFoundException e) {
+            System.err.println("Data not found");
+            return 1;
+        }
     }
 
     @Override

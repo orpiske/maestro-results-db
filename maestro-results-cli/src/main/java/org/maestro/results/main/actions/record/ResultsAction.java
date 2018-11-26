@@ -1,5 +1,6 @@
 package org.maestro.results.main.actions.record;
 
+import org.maestro.reports.dao.exceptions.DataNotFoundException;
 import org.maestro.results.dao.EnvResultsDao;
 import org.maestro.results.dto.EnvResults;
 import org.maestro.results.main.Action;
@@ -86,10 +87,17 @@ public class ResultsAction extends Action {
 
     private int view() {
         EnvResultsDao dao = new EnvResultsDao();
-        List<EnvResults> results = dao.fetch();
+        List<EnvResults> results;
+        try {
+            results = dao.fetch();
 
-        results.stream().forEach(item -> System.out.println("Env results: " + item));
-        return 0;
+            results.stream().forEach(item -> System.out.println("Env results: " + item));
+            return 0;
+        } catch (DataNotFoundException e) {
+            System.err.println("There are not results in the database");
+
+            return 1;
+        }
     }
 
     @Override

@@ -12,6 +12,9 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import java.time.Duration;
 import java.util.List;
 
+import org.maestro.reports.dao.exceptions.DataNotFoundException;
+import org.maestro.reports.dao.AbstractDao;
+
 public class TestSutPropertiesLinkDao extends AbstractDao {
     private static CacheManager cacheManager;
     private static Cache<Integer, List> allResultsCache;
@@ -36,11 +39,11 @@ public class TestSutPropertiesLinkDao extends AbstractDao {
         }
     }
 
-    public List<TestSutPropertiesLink> fetch() {
+    public List<TestSutPropertiesLink> fetch() throws DataNotFoundException {
         List<TestSutPropertiesLink> ret = allResultsCache.get(0);
 
         if (ret == null) {
-            ret = jdbcTemplate.query("select * from test_sut_properties_link",
+            ret = runQueryMany("select * from test_sut_properties_link",
                     new BeanPropertyRowMapper<>(TestSutPropertiesLink.class));
 
             allResultsCache.put(0, ret);

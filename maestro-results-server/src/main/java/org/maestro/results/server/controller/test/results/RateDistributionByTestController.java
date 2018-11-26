@@ -3,6 +3,7 @@ package org.maestro.results.server.controller.test.results;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.javalin.Context;
 import io.javalin.Handler;
+import org.maestro.reports.dao.exceptions.DataNotFoundException;
 import org.maestro.results.dao.TestResultsDao;
 import org.maestro.results.dto.TestResult;
 
@@ -66,22 +67,31 @@ public class RateDistributionByTestController implements Handler {
     private TestResultsDao testResultsDao = new TestResultsDao();
 
     @Override
-    public void handle(Context context) throws Exception {
-        int id = Integer.parseInt(context.param("id"));
-        String role = context.param("role");
+    public void handle(Context context) {
+        try {
+            int id = Integer.parseInt(context.param("id"));
+            String role = context.param("role");
 
-        List<TestResult> testResultList = testResultsDao.fetchOrdered(id, role);
+            List<TestResult> testResultList = testResultsDao.fetchOrdered(id, role);
 
-        Resp resp = new Resp();
-//        List<RateInfo> combined = new LinkedList<>();
+            Resp resp = new Resp();
 
-        // It does a transformation of the test results to simplify things on the front-end part of the code
-        for (TestResult testResult : testResultList) {
-            resp.pairs.add(new RateInfo(testResult));
-            resp.categories.add(String.format("%d/%d %s", testResult.getTestId(), testResult.getTestNumber(),
-                    testResult.getEnvResourceName()));
+            // It does a transformation of the test results to simplify things on the front-end part of the code
+            for (TestResult testResult : testResultList) {
+                resp.pairs.add(new RateInfo(testResult));
+                resp.categories.add(String.format("%d/%d %s", testResult.getTestId(), testResult.getTestNumber(),
+                        testResult.getEnvResourceName()));
+            }
+
+            context.json(resp);
         }
-
-        context.json(resp);
+        catch (DataNotFoundException e) {
+            context.status(404);
+            context.result(String.format("Not found: %s", e.getMessage()));
+        }
+        catch (Throwable t) {
+            context.status(500);
+            context.result(String.format("Internal server error: %s", t.getMessage()));
+        }
     }
 }

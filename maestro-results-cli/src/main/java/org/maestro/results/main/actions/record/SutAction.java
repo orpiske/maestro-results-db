@@ -1,5 +1,6 @@
 package org.maestro.results.main.actions.record;
 
+import org.maestro.reports.dao.exceptions.DataNotFoundException;
 import org.maestro.results.dao.SutDao;
 import org.maestro.results.dto.Sut;
 import org.maestro.results.main.Action;
@@ -59,10 +60,16 @@ public class SutAction extends Action {
 
     private int view() {
         SutDao dao = new SutDao();
-        List<Sut> failConditions = dao.fetch();
+        try {
+            List<Sut> failConditions = dao.fetch();
 
-        failConditions.stream().forEach(item -> System.out.println("SUT: " + item));
-        return 0;
+            failConditions.stream().forEach(item -> System.out.println("SUT: " + item));
+            return 0;
+        } catch (DataNotFoundException e) {
+            System.err.println("Data not found");
+
+            return 1;
+        }
     }
 
     @Override

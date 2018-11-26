@@ -12,6 +12,9 @@ import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import java.time.Duration;
 import java.util.List;
 
+import org.maestro.reports.dao.exceptions.DataNotFoundException;
+import org.maestro.reports.dao.AbstractDao;
+
 public class TestResultsStatisticsDao extends AbstractDao {
     private static CacheManager cacheManager;
     private static Cache<Integer, TestResultStatistics> testResultStatisticsCache;
@@ -36,18 +39,18 @@ public class TestResultsStatisticsDao extends AbstractDao {
         }
     }
 
-    public List<TestResultStatistics> fetch() {
-        return jdbcTemplate.query("select * from test_results_statistics",
+    public List<TestResultStatistics> fetch() throws DataNotFoundException {
+        return runQueryMany("select * from test_results_statistics",
                 new BeanPropertyRowMapper<>(TestResultStatistics.class));
     }
 
-    public TestResultStatistics successFailureCount(int testId) {
+    public TestResultStatistics successFailureCount(int testId) throws DataNotFoundException {
         TestResultStatistics ret = testResultStatisticsCache.get(testId);
 
         if (ret == null) {
-            ret = jdbcTemplate.queryForObject("select * from test_results_statistics where test_id = ?",
-                    new Object[] { testId },
-                    new BeanPropertyRowMapper<>(TestResultStatistics.class));
+            ret = runQuery("select * from test_results_statistics where test_id = ?",
+                    new BeanPropertyRowMapper<>(TestResultStatistics.class),
+                    testId);
 
             testResultStatisticsCache.put(testId, ret);
         }

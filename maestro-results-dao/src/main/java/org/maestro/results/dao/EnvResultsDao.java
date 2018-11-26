@@ -1,7 +1,11 @@
 package org.maestro.results.dao;
 
+
 import org.maestro.results.dto.EnvResults;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
+
+import org.maestro.reports.dao.exceptions.DataNotFoundException;
+import org.maestro.reports.dao.AbstractDao;
 
 import java.util.List;
 
@@ -18,16 +22,10 @@ public class EnvResultsDao extends AbstractDao {
                 dto);
     }
 
-    public List<EnvResults> fetchById(int id) {
-        return jdbcTemplate.query("select *,lat_percentile_90 as lat_percentile90," +
-                "lat_percentile_95 as lat_percentile95,lat_percentile_99 as lat_percentile99 from env_results " +
-                "where env_results_id = ?",
-                new Object[] { id },
-                new BeanPropertyRowMapper<>(EnvResults.class));
-    }
 
-    public List<EnvResults> fetch() {
-        return jdbcTemplate.query("select *,lat_percentile_90 as lat_percentile90," +
+
+    public List<EnvResults> fetch() throws DataNotFoundException {
+        return runQueryMany("select *,lat_percentile_90 as lat_percentile90," +
                 "lat_percentile_95 as lat_percentile95,lat_percentile_99 as lat_percentile99 from env_results",
                 new BeanPropertyRowMapper<>(EnvResults.class));
     }

@@ -1,5 +1,6 @@
 package org.maestro.results.main.actions.record;
 
+import org.maestro.reports.dao.exceptions.DataNotFoundException;
 import org.maestro.results.dao.EnvResourceDao;
 import org.maestro.results.dto.EnvResource;
 import org.maestro.results.main.Action;
@@ -69,11 +70,18 @@ public class EnvironmentAction extends Action {
     }
 
     private int view() {
-        EnvResourceDao dao = new EnvResourceDao();
-        List<EnvResource> resources = dao.fetch();
+        try {
+            EnvResourceDao dao = new EnvResourceDao();
+            List<EnvResource> resources = dao.fetch();
 
-        resources.stream().forEach(item -> System.out.println("Environment resources: " + item));
-        return 0;
+            resources.stream().forEach(item -> System.out.println("Environment resources: " + item));
+            return 0;
+        }
+        catch (DataNotFoundException e) {
+            System.err.println("Data not found");
+
+            return 1;
+        }
     }
 
     @Override

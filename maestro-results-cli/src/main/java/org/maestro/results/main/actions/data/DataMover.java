@@ -1,5 +1,6 @@
 package org.maestro.results.main.actions.data;
 
+import org.maestro.reports.dao.exceptions.DataNotFoundException;
 import org.maestro.results.dao.TestDao;
 import org.maestro.results.dto.Test;
 import org.apache.commons.io.FileUtils;
@@ -88,21 +89,28 @@ public class DataMover {
     }
 
     public void move(final String from, final String to) {
-        List<Test> tests = dao.fetch();
+        try {
+            List<Test> tests = dao.fetch();
 
-        tests.parallelStream().forEach(record -> updateRecord(record, from, to));
+            tests.parallelStream().forEach(record -> updateRecord(record, from, to));
+        } catch (DataNotFoundException e) {
+            System.err.println("Data not found");
+        }
     }
 
 
     public void move(final String from, final String to, final String testName) {
-        List<Test> tests = dao.fetch(testName);
 
-        tests.parallelStream().forEach(record -> updateRecord(record, from, to));
     }
 
     public void move(final String from, final String to, int initialId, int finalId, final String testName) {
-        List<Test> tests = dao.fetch(initialId, finalId, testName);
+        try {
+            List<Test> tests = dao.fetch(initialId, finalId, testName);
 
-        tests.parallelStream().forEach(record -> updateRecord(record, from, to));
+            tests.parallelStream().forEach(record -> updateRecord(record, from, to));
+        } catch (DataNotFoundException e) {
+            System.err.println("Data not found");
+        }
+
     }
 }

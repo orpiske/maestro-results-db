@@ -1,12 +1,10 @@
 package org.maestro.results.loader;
 
-import org.maestro.common.HostTypes;
+import org.maestro.reports.dao.exceptions.DataNotFoundException;
 import org.maestro.results.dao.EnvResourceDao;
 import org.maestro.results.dao.EnvResultsDao;
 import org.maestro.results.dto.EnvResource;
-import org.maestro.results.dto.EnvResults;
 import org.maestro.results.dto.Test;
-import org.maestro.results.exceptions.DataNotFoundException;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
