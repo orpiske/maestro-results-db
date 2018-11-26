@@ -86,9 +86,9 @@ public class ResultsAction extends Action {
 
     private int view() {
         EnvResultsDao dao = new EnvResultsDao();
-        List<EnvResults> failConditions = dao.fetch();
+        List<EnvResults> results = dao.fetch();
 
-        failConditions.stream().forEach(item -> System.out.println("Env results: " + item));
+        results.stream().forEach(item -> System.out.println("Env results: " + item));
         return 0;
     }
 
