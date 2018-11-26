@@ -54,6 +54,12 @@
         </dependency>
 
         <dependency>
+            <groupId>org.maestro</groupId>
+            <artifactId>maestro-reports-dao</artifactId>
+            <version>${maestro.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.maestro.db</groupId>
             <artifactId>maestro-results-common</artifactId>
             <version>${project.version}</version>

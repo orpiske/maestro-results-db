@@ -15,6 +15,19 @@ public class ResultsServer extends ReportsTool {
         super(args);
     }
 
+    @Override
+    protected void initConfig() {
+        System.out.println("Overriding maestro original configuration");
+
+        try {
+            ConfigurationWrapper.initConfiguration(Constants.MAESTRO_CONFIG_DIR, "maestro-results-server.properties");
+        } catch (Exception e) {
+            System.err.println("Unable to initialize configuration file: " + e.getMessage());
+            e.printStackTrace();
+            System.exit(1);
+        }
+    }
+
     protected int run() {
         return run(new ResultsToolLauncher(getDataDir(), isOffline(), getMaestroUrl(), getHost()));
     }
@@ -25,14 +38,6 @@ public class ResultsServer extends ReportsTool {
      *      -d /storage/data
      */
     public static void main(String[] args) {
-        try {
-            ConfigurationWrapper.initConfiguration(Constants.MAESTRO_CONFIG_DIR, "maestro-results-server.properties");
-        } catch (Exception e) {
-            System.err.println("Unable to initialize configuration file: " + e.getMessage());
-            e.printStackTrace();
-            System.exit(1);
-        }
-
         ResultsServer reportsTool = new ResultsServer(args);
 
         System.exit(reportsTool.run());
