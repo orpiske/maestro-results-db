@@ -16,23 +16,29 @@ import org.maestro.results.server.controllers.compare.TestRateComparatorControll
 import org.maestro.results.server.controllers.sut.AllSutsController;
 import org.maestro.results.server.controllers.sut.SutController;
 import org.maestro.results.server.controllers.sut.TestSutController;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public class ExtendedReportsServer extends DefaultReportsServer {
-    private static final AbstractConfiguration config = ConfigurationWrapper.getConfig();
-    private final Javalin app;
+    private static final Logger logger = LoggerFactory.getLogger(ExtendedReportsServer.class);
 
     public ExtendedReportsServer() {
         super();
-
-        app = getServerInstance()
-                .enableStaticFiles("/site-extra")
-                .enableCorsForAllOrigins()
-                .disableStartupBanner();
-
-        registerUris();
     }
 
-    protected void registerUris() {
+    @Override
+    protected void configure(final Javalin app) {
+        super.configure(app);
+
+        app.enableStaticFiles("/site-extra");
+    }
+
+    @Override
+    protected void registerUris(final Javalin app) {
+        super.registerUris(app);
+
+        logger.debug("Registering results server URIs");
+
         app.get("/api/sut/", new AllSutsController());
         app.get("/api/sut/:id", new SutController());
         app.get("/api/env/resource", new AllEnvResourcesController());
@@ -53,12 +59,5 @@ public class ExtendedReportsServer extends DefaultReportsServer {
         app.get("/api/compare/results/full/:t0/:n0/:t1/:n1", new TestIterationComparatorController());
         app.get("/api/compare/results/percentiles/:t0/:n0/:t1/:n1", new TestPercentilesComparatorController());
         app.get("/api/compare/results/rate/:role/:t0/:n0/:t1/:n1", new TestRateComparatorController());
-    }
-
-    @Override
-    public void start() {
-        super.start();
-
-        app.start();
     }
 }
