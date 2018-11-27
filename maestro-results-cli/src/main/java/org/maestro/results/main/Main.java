@@ -50,9 +50,6 @@ public class Main {
             System.err.println("The action is missing!");
             help(1);
         }
-        else {
-            System.out.println("Running " + args[0]);
-        }
 
         String first = args[0];
         String[] newArgs = copyOfRange(args, 1, args.length);
@@ -69,8 +66,6 @@ public class Main {
             System.exit(1);
         }
 
-
-
         Program program;
         switch (first) {
             case "data": {
@@ -86,6 +81,7 @@ public class Main {
                 break;
             }
             default: {
+                System.err.println("Invalid action");
                 help(1);
                 return;
             }
