@@ -14,7 +14,7 @@ import java.util.List;
 public class TestDao extends AbstractDao {
     private static final Logger logger = LoggerFactory.getLogger(TestDao.class);
 
-    public int insert(Test dto) {
+    public int insert(final Test dto) {
         return runInsert(
                 "insert into test(test_name, test_number, test_result, sut_id, " +
                         "test_report_link, test_data_storage_info, test_tags, test_date, test_duration, test_target_rate, " +
@@ -23,12 +23,15 @@ public class TestDao extends AbstractDao {
                         ":testDataStorageInfo, :testTags, now(), :testDuration, :testTargetRate, :maestroVersion)", dto);
     }
 
-    public void update(Test dto) {
+    public void update(final Test dto) {
         runUpdate(
-                "update test set test_name=:testName, test_number=:testNumber, test_result=:testResult, sut_id=:sutId, " +
-                        "test_report_link=:testReportLink, test_data_storage_info=:testDataStorageInfo, test_tags=:testTags, " +
-                        "test_date=:testDate, test_duration=:testDuration, test_target_rate=:testTargetRate " +
-                        "where test_id=:testId and test_number=:testNumber", dto);
+                "update test set test_name = ?, test_number = ?, test_result = ?, sut_id = ?, " +
+                        "test_report_link = ?, test_data_storage_info = ?, test_tags = ?, " +
+                        "test_date = ?, test_duration = ?, test_target_rate = ? " +
+                        "where test_id = ? and test_number = ?", dto.getTestName(), dto.getTestNumber(),
+                dto.getTestResult(), dto.getSutId(), dto.getTestReportLink(), dto.getTestDataStorageInfo(),
+                dto.getTestTags(), dto.getTestDate(), dto.getTestDuration(), dto.getTestTargetRate(), dto.getTestId(),
+                dto.getTestNumber());
     }
 
 
