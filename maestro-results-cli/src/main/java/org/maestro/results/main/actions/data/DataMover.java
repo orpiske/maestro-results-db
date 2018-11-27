@@ -43,7 +43,7 @@ public class DataMover {
 
             System.err.println("Downloading records from " + downloadUrl);
             if (!downloadReports(test, downloadUrl)) {
-                return;
+                test.setTestDataStorageInfo("orphaned");
             }
         }
 
@@ -63,14 +63,14 @@ public class DataMover {
         try {
             FileUtils.forceMkdirParent(new File(path));
         } catch (IOException e) {
-            e.printStackTrace();
+            System.err.println("Unable to create the parent directories for path " + path);
             return false;
         }
 
         try {
             Downloader.download(oldUrl, path, false);
         } catch (ResourceExchangeException e) {
-            e.printStackTrace();
+            System.err.println("Unable to download the files from  " + oldUrl);
             return false;
         }
         return true;
