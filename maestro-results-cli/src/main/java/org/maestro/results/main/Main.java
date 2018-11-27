@@ -35,7 +35,7 @@ public class Main {
         System.out.println("Usage: maestro-cli <action>\n");
 
         System.out.println("Actions:");
-        System.out.println("   data-move");
+        System.out.println("   data");
         System.out.println("   load");
         System.out.println("   record");
         System.out.println("   report");
