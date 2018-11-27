@@ -36,9 +36,7 @@ public class Main {
 
         System.out.println("Actions:");
         System.out.println("   data");
-        System.out.println("   load");
         System.out.println("   record");
-        System.out.println("   report");
         System.out.println("   xunit");
         System.out.println("----------");
         System.out.println("   help");
