@@ -23,6 +23,7 @@ fi
 
 for reportDir in * ; do
     if [[ -d "${reportDir}" ]] ; then
+        echo "Erasing bogus directory ${reportDir}"
         mv "${reportDir}"/* .  && rm -rf "${reportDir}"
     fi
 done
