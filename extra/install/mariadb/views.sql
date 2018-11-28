@@ -4,7 +4,7 @@ select
     tmp.test_number,
     MAX(IF(tmp.test_msg_property_name = "apiName", tmp.test_msg_property_value, NULL)) AS api_name,
     MAX(IF(tmp.test_msg_property_name = "apiVersion", tmp.test_msg_property_value, NULL)) AS api_version,
-    MAX(IF(tmp.test_msg_property_name = "durable", IF(tmp.test_msg_property_value = "true", true, false), NULL)) AS durable,
+    MAX(IF(tmp.test_msg_property_name = "durable", IF(tmp.test_msg_property_value = "true", true, false), false)) AS durable,
     MAX(IF(tmp.test_msg_property_name = "limitDestinations", CAST(tmp.test_msg_property_value AS INTEGER), NULL)) AS limit_destinations,
     MAX(IF(tmp.test_msg_property_name = "messageSize", CAST(tmp.test_msg_property_value AS INTEGER), NULL)) AS message_size,
     MAX(IF(tmp.test_msg_property_name = "protocol", tmp.test_msg_property_value, NULL)) AS messaging_protocol,
