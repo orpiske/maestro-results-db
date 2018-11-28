@@ -15,7 +15,7 @@ The web resources are located in `maestro-results-server/src/main/resources/site
 dependencies are defined in the bower.json file. 
 
 ```
-cd maestro-results-server/src/main/resources/site/resources
+cd maestro-results-server/src/main/resources/site-extra/resources
 bower install
 ```
 
