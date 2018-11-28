@@ -88,10 +88,6 @@ public class DataMove extends Action {
                 if (finalId != initialId && finalId > initialId) {
                     mover.move(from, to, initialId, finalId, testName);
                 }
-                else {
-                    mover.move(from, to, testName);
-                }
-
             }
         }
         catch (Exception e) {

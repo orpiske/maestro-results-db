@@ -99,10 +99,6 @@ public class DataMover {
     }
 
 
-    public void move(final String from, final String to, final String testName) {
-
-    }
-
     public void move(final String from, final String to, int initialId, int finalId, final String testName) {
         try {
             List<Test> tests = dao.fetch(initialId, finalId, testName);
