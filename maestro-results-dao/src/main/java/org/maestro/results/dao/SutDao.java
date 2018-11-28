@@ -61,9 +61,9 @@ public class SutDao extends AbstractDao {
     }
 
 
-    public Sut fetch(final String sutName, final String sutVersion) throws DataNotFoundException {
-        return runQuery("select * from sut where sut_name = ? and sut_version = ?",
-                new BeanPropertyRowMapper<>(Sut.class), sutName, sutVersion);
+    public Sut fetch(final String sutName, final String sutVersion, final String sutTags) throws DataNotFoundException {
+        return runQuery("select * from sut where sut_name = ? and sut_version = ? and sut_tags = ?",
+                new BeanPropertyRowMapper<>(Sut.class), sutName, sutVersion, sutTags);
     }
 
 
