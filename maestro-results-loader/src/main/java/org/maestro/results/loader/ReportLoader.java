@@ -18,13 +18,17 @@ public class ReportLoader {
         this.envName = envName;
     }
 
-
-    public void loadFromDir(final File dir, final List<File> files, final String hostName, final String hostRole) {
+    public void recordTest() {
         TestProcessor tp = new TestProcessor(test);
 
-        logger.info("Adding a new test record from data from dir {}", dir);
+        logger.info("Adding a new test record");
 
         tp.loadTest();
+
+    }
+
+    public void loadFromDir(final File dir, final List<File> files, final String hostName, final String hostRole) {
+        logger.info("Loading test data from dir {}", dir);
 
         // Load test data for each host
         PropertiesProcessor pp = new PropertiesProcessor(test, envName);

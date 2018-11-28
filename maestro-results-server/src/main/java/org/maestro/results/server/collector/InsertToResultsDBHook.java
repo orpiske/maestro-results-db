@@ -54,7 +54,7 @@ public class InsertToResultsDBHook implements PostAggregationHook {
                 sut = sutDao.fetchById(sutDetails.getSutId());
                 logger.info("Located a sut record for the requested SUT ID {}", sutDetails.getSutId());
             } else {
-                sut = sutDao.fetch(sutDetails.getSutName(), sutDetails.getSutVersion());
+                sut = sutDao.fetch(sutDetails.getSutName(), sutDetails.getSutVersion(), sutDetails.getSutTags());
                 logger.info("Located a sut record for {} version {}", sutDetails.getSutName(),
                         sutDetails.getSutVersion());
             }
@@ -110,6 +110,8 @@ public class InsertToResultsDBHook implements PostAggregationHook {
             Report first = list.get(0);
 
             ReportLoader loader = new ReportLoader(convertReportToTest(first, sut), sutDetails.getLabName());
+
+            loader.recordTest();
 
             for (Report report : list) {
                 logger.info("Loading new test record for {}", report);
