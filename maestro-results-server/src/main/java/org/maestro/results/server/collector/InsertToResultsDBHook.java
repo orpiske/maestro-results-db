@@ -92,28 +92,33 @@ public class InsertToResultsDBHook implements PostAggregationHook {
 
     @Override
     public void exec(final TestExecutionInfo testExecutionInfo, final List<Report> list) {
-        if (!testExecutionInfo.hasSutDetails()) {
-            logger.warn("The test cannot be added to the results DB because the SUT details are missing");
+        try {
+            if (!testExecutionInfo.hasSutDetails()) {
+                logger.warn("The test cannot be added to the results DB because the SUT details are missing");
 
-            return;
+                return;
+            }
+
+            SutDetails sutDetails = testExecutionInfo.getSutDetails();
+            Sut sut = getSutFromDetails(sutDetails);
+
+            /*
+             Obs: uses the report information, because the Test object in the TestExecutionInfo does not
+             contain the actual test ID and test number (it only contains the *requested* ones, but not
+             the actual ones).
+             */
+            Report first = list.get(0);
+
+            ReportLoader loader = new ReportLoader(convertReportToTest(first, sut), sutDetails.getLabName());
+
+            for (Report report : list) {
+                logger.info("Loading new test record for {}", report);
+
+                loader.load(new File(report.getLocation()), report.getTestHost(), report.getTestHostRole());
+            }
         }
-
-        SutDetails sutDetails = testExecutionInfo.getSutDetails();
-        Sut sut = getSutFromDetails(sutDetails);
-
-        /*
-         Obs: uses the report information, because the Test object in the TestExecutionInfo does not
-         contain the actual test ID and test number (it only contains the *requested* ones, but not
-         the actual ones).
-         */
-        Report first = list.get(0);
-
-        ReportLoader loader = new ReportLoader(convertReportToTest(first, sut), sutDetails.getLabName());
-
-        for (Report report : list) {
-            logger.info("Loading the new test record for {}", report);
-
-            loader.load(new File(report.getLocation()), report.getTestHost(), report.getTestHostRole());
+        catch (Throwable t) {
+            logger.error("Unable to insert data into the results DB: {}", t.getMessage(), t);
         }
     }
 }
