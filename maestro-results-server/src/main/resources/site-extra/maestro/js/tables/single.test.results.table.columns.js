@@ -64,8 +64,6 @@ var extraSingleTestResultColumns = [
     },
     {
         data: "testReportLink",
-        render: function (data, type, full, meta) {
-            return '<a href=\"' + data + '\">Link</a>';
-        }
+        render: renderTestFull
     },
 ];
