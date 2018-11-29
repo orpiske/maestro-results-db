@@ -10,7 +10,7 @@ clean:
 	docker rmi -f maestro-results-server
 
 build:
-	cd maestro-results-db && docker build --build-arg MAESTRO_VERSION=${MAESTRO_VERSION} --build-arg MAESTRO_BRANCH=${MAESTRO_BRANCH} -t maestroperf/maestro-results-server:${MAESTRO_VERSION} -t maestroperf/maestro-worker:${MAESTRO_LABEL_VERSION}  --target maestro-results-server .
+	cd maestro-results-db && docker build --build-arg MAESTRO_VERSION=${MAESTRO_VERSION} --build-arg MAESTRO_BRANCH=${MAESTRO_BRANCH} -t maestroperf/maestro-results-server:${MAESTRO_VERSION} -t maestroperf/maestro-results-server:${MAESTRO_LABEL_VERSION}  --target maestro-results-server .
 
 push: build
 	docker push maestroperf/maestro-results-server:${MAESTRO_VERSION}
