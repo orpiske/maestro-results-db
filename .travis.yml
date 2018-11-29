@@ -17,6 +17,18 @@ script: mvn -PPackage package
 after_success:
     - sh -c "curl --ftp-create-dirs -T ./target/maestro-results-*-bin.tar.gz -u $FTP_USER:$FTP_PASSWORD $FTP_ENDPOINT/maestro-results-db-devel-bin.tar.gz"
 
+deploy:
+  # push edge to docker hub
+  - provider: script
+    script: bash docker_push edge
+    on:
+      branch: devel
+  # push stable to docker hub
+  - provider: script
+    script: bash docker_push stable
+    on:
+      branch: master
+
 addons:
   coverity_scan:
     project:
