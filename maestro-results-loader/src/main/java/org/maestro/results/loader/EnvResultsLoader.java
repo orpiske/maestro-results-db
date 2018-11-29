@@ -61,18 +61,6 @@ public class EnvResultsLoader {
             envResults.setTestRateMin(rateMin.intValue());
         }
 
-        String rateErrorCountStr = (String) properties.get("rateErrorCount");
-        if (rateErrorCountStr != null) {
-            envResults.setTestRateErrorCount(Integer.parseInt(rateErrorCountStr));
-        }
-
-        String rateSamplesStr = (String) properties.get("rateSamples");
-        if (rateSamplesStr != null) {
-            Double rateSamples = Double.parseDouble(rateSamplesStr);
-            envResults.setTestRateSamples(rateSamples.intValue());
-        }
-
-
         String rateGeometricMeanStr = (String) properties.get("rateGeometricMean");
         if (rateGeometricMeanStr != null) {
             envResults.setTestRateGeometricMean(Double.parseDouble(rateGeometricMeanStr));
@@ -83,10 +71,6 @@ public class EnvResultsLoader {
             envResults.setTestRateStandardDeviation(Double.parseDouble(rateStandardDeviationStr));
         }
 
-        String rateSkipCountStr = (String) properties.get("rateSkipCount");
-        if (rateSkipCountStr != null) {
-            envResults.setTestRateSkipCount(Integer.parseInt(rateSkipCountStr));
-        }
 
         String latPercentile90 = (String) properties.get("latency90th");
         if (latPercentile90 != null) {

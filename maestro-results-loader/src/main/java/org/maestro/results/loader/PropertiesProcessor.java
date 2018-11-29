@@ -1,21 +1,21 @@
 package org.maestro.results.loader;
 
-import org.apache.commons.io.FilenameUtils;
 import org.maestro.common.PropertyUtils;
 import org.maestro.results.dao.TestDao;
 import org.maestro.results.dto.EnvResource;
-import org.maestro.results.dto.EnvResults;
 import org.maestro.results.dto.Test;
-import org.apache.commons.io.FileUtils;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
 import java.io.File;
 
-import java.util.Collection;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
+import static org.maestro.results.loader.LatencyStatisticsReader.*;
+import static org.maestro.results.loader.RateStatisticsReader.*;
+
 
 public class PropertiesProcessor {
     private static final Logger logger = LoggerFactory.getLogger(PropertiesProcessor.class);
@@ -39,14 +39,28 @@ public class PropertiesProcessor {
         testDao = new TestDao();
     }
 
+
+
     public void loadTest(final File reportDir, final List<File> files, final String hostName, final String hostRole) {
         logger.debug("Loading host-specific properties: {}", reportDir);
         Map<String, Object> properties = new HashMap<>();
 
-        // First, load all the properties from all the files in the report dir into a map
+        /*
+          First, load all the properties from all the files in the report dir into a map. This is not, really, the
+          best way to do it, but I believe there's still some cross-references between different data which I hope
+          to tackle in future versions.
+        */
         files.stream()
                 .filter(f -> f.getName().endsWith(".properties"))
                 .forEach(f -> PropertyUtils.loadProperties(f, properties));
+
+        files.stream()
+                .filter(f -> f.getName().endsWith(".hdr"))
+                .forEach(f -> loadLatencyStatistics(f, properties));
+
+        files.stream()
+                .filter(f -> f.getName().endsWith(".dat"))
+                .forEach(f -> loadRateStatistics(f, properties));
 
         // then use the contents of that map to cross the data and load into the DB
 

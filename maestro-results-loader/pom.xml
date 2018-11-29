@@ -19,6 +19,18 @@
         </dependency>
 
         <dependency>
+            <groupId>org.maestro</groupId>
+            <artifactId>maestro-plotter-latency</artifactId>
+            <version>${maestro.version}</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.maestro</groupId>
+            <artifactId>maestro-plotter-rate</artifactId>
+            <version>${maestro.version}</version>
+        </dependency>
+
+        <dependency>
             <groupId>org.maestro.db</groupId>
             <artifactId>maestro-results-dao</artifactId>
             <version>${project.version}</version>
