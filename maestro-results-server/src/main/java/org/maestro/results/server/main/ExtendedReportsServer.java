@@ -28,9 +28,9 @@ public class ExtendedReportsServer extends DefaultReportsServer {
 
     @Override
     protected void configure(final Javalin app) {
-        super.configure(app);
-
         app.enableStaticFiles("/site-extra");
+
+        super.configure(app);
     }
 
     @Override
