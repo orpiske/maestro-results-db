@@ -6,6 +6,6 @@ if [[ ${MAESTRO_TYME_SYNC} == "true" ]] ; then
 fi
 
 MAESTRO_BROKER=${MAESTRO_BROKER:-mqtt://broker:1883}
-MAESTRO_DATA_DIR=${MAESTRO_DATA_DIR:-/maestro/maestro-results-server/data}
+MAESTRO_DATA_DIR=${MAESTRO_DATA_DIR:-/maestro/data}
 
 ${MAESTRO_APP_ROOT}/maestro-results-server/bin/maestro-results-server -m ${MAESTRO_BROKER} -d ${MAESTRO_DATA_DIR}
