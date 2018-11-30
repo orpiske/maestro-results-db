@@ -166,12 +166,10 @@
                                     <type>jar</type>
                                     <overWrite>true</overWrite>
                                     <outputDirectory>${project.build.directory}/classes</outputDirectory>
-                                    <includes>**/*</includes>
+                                    <includes>site/**/*</includes>
+                                    <excludes>site/index.html</excludes>
                                 </artifactItem>
                             </artifactItems>
-                            <includes>site/*</includes>
-                            <excludes>site/index.html</excludes>
-                            <outputDirectory>${project.build.directory}/wars</outputDirectory>
                             <overWriteReleases>false</overWriteReleases>
                             <overWriteSnapshots>true</overWriteSnapshots>
                         </configuration>
