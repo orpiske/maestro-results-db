@@ -21,7 +21,6 @@ import org.slf4j.LoggerFactory;
 
 public class ExtendedReportsServer extends DefaultReportsServer {
     private static final Logger logger = LoggerFactory.getLogger(ExtendedReportsServer.class);
-    private static final AbstractConfiguration config = ConfigurationWrapper.getConfig();
 
     public ExtendedReportsServer() {
         super();
@@ -29,13 +28,9 @@ public class ExtendedReportsServer extends DefaultReportsServer {
 
     @Override
     protected void configure(final Javalin app) {
-        int port = config.getInteger("maestro.reports.server", 6500);
+        app.enableStaticFiles("/site-extra");
 
-        app.port(port)
-                .enableStaticFiles("/site-extra")
-                .enableStaticFiles("/reports/site")
-                .enableCorsForAllOrigins()
-                .disableStartupBanner();
+        super.configure(app);
     }
 
     @Override
