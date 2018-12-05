@@ -10,7 +10,7 @@
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <api.version.site>1.5</api.version.site>
-        <maestro.version>1.5.0-SNAPSHOT</maestro.version>
+        <maestro.version>1.5.0</maestro.version>
     </properties>
 
     <repositories>
