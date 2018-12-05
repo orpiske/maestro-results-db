@@ -78,8 +78,15 @@
 			</includes>
 		</fileSet>
 		<fileSet>
-			<directory>${project.basedir}/src/main/resources/templates</directory>
-			<outputDirectory>/templates</outputDirectory>
+			<directory>${project.basedir}/../extra/docker-compose</directory>
+			<outputDirectory>/deploy/docker-compose</outputDirectory>
+			<includes>
+				<include>**/*.*</include>
+			</includes>
+		</fileSet>
+		<fileSet>
+			<directory>${project.basedir}/../extra/kubernetes</directory>
+			<outputDirectory>/deploy/kubernetes</outputDirectory>
 			<includes>
 				<include>**/*.*</include>
 			</includes>
