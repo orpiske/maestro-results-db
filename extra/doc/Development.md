@@ -11,8 +11,8 @@ Use the following command to build Maestro:
 This should generate the following tarball files:
 
 ```
-./maestro-results-server/target/maestro-results-server-1.5.0-SNAPSHOT-bin.tar.gz
-./maestro-results-cli/target/maestro-results-cli-1.5.0-SNAPSHOT-bin.tar.gz
+./maestro-results-server/target/maestro-results-server-1.5.0-bin.tar.gz
+./maestro-results-cli/target/maestro-results-cli-1.5.0-bin.tar.gz
 ```
 
 Run Configurations for IntelliJ
