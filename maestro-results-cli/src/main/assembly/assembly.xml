@@ -95,6 +95,13 @@
 			<directory>${project.build.directory}/site</directory>
 			<outputDirectory>docs</outputDirectory>
 		</fileSet>
+		<fileSet>
+			<directory>${project.basedir}/../extra/install</directory>
+			<outputDirectory>/deploy/install</outputDirectory>
+			<includes>
+				<include>**/*.*</include>
+			</includes>
+		</fileSet>
 	</fileSets>
 
 	<includeBaseDirectory>true</includeBaseDirectory>
