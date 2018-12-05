@@ -8,8 +8,8 @@ LABEL MAESTRO_VERSION=${MAESTRO_VERSION}
 RUN yum install -y java-1.8.0-openjdk-devel which unzip zip wget
 ENV JAVA_HOME /etc/alternatives/jre
 WORKDIR /root/build
-RUN wget https://github.com/maestro-performance/maestro-java/archive/${MAESTRO_BRANCH}.zip -O maestro-java.zip && unzip maestro-java.zip && ln -s maestro-java-${MAESTRO_BRANCH} maestro-java
-RUN cd maestro-java && ./mvnw -DskipTests=true clean install
+#RUN wget https://github.com/maestro-performance/maestro-java/archive/${MAESTRO_BRANCH}.zip -O maestro-java.zip && unzip maestro-java.zip && ln -s maestro-java-${MAESTRO_BRANCH} maestro-java
+#RUN cd maestro-java && ./mvnw -DskipTests=true clean install
 WORKDIR /root/build
 RUN wget https://github.com/maestro-performance/maestro-results-db/archive/${MAESTRO_BRANCH}.zip -O maestro-results-db.zip && unzip maestro-results-db.zip && ln -s maestro-results-db-${MAESTRO_BRANCH} maestro-results-db
 RUN cd maestro-results-db && ./mvnw -DskipTests=true -PPackage clean package
