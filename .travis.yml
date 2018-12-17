@@ -25,7 +25,7 @@ deploy:
       branch: devel
   # push stable to docker hub
   - provider: script
-    script: bash docker_push stable maestro-results-db-1.5.1
+    script: bash docker_push stable maestro-results-db-1.5.2
     on:
       branch: master
 
