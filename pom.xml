@@ -5,7 +5,7 @@
     <groupId>org.maestro.db</groupId>
     <artifactId>maestro-results-db</artifactId>
     <packaging>pom</packaging>
-    <version>1.5.2-SNAPSHOT</version>
+    <version>1.5.2</version>
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -23,7 +23,7 @@
     <scm>
         <developerConnection>scm:git:git@github.com:maestro-performance/maestro-results-db.git</developerConnection>
         <url>https://github.com/maestro-performance/maestro-results-db</url>
-        <tag>HEAD</tag>
+        <tag>maestro-results-db-1.5.2</tag>
     </scm>
 
     <licenses>
