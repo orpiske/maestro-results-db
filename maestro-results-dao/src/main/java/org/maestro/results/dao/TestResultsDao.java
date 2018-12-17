@@ -14,11 +14,14 @@ public class TestResultsDao extends AbstractDao {
     private static final Logger logger = LoggerFactory.getLogger(TestResultsDao.class);
 
     public List<TestResult> fetch() throws DataNotFoundException {
-        return runQueryMany("select * from test_results", new BeanPropertyRowMapper<>(TestResult.class));
+        return runQueryMany("select * from test_results where test_valid = true",
+                new BeanPropertyRowMapper<>(TestResult.class));
     }
 
     public List<TestResult> fetch(int testId) throws DataNotFoundException {
-        return runQueryMany("select *,lat_percentile_90 as lat_percentile90,lat_percentile_95 as lat_percentile95,lat_percentile_99 as lat_percentile99 from test_results where test_id = ?",
+        return runQueryMany("select *,lat_percentile_90 as lat_percentile90," +
+                        "lat_percentile_95 as lat_percentile95,lat_percentile_99 as lat_percentile99 " +
+                        "from test_results where test_id = ?",
                 new BeanPropertyRowMapper<>(TestResult.class),
                 testId);
     }
