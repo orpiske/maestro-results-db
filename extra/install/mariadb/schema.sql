@@ -292,6 +292,23 @@ CREATE TABLE IF NOT EXISTS `maestro`.`test_results_statistics` (`test_id` INT, `
 -- -----------------------------------------------------
 CREATE TABLE IF NOT EXISTS `maestro`.`test_sut_properties_link` (`test_id` INT, `test_number` INT, `sut_id` INT, `sut_tags` INT, `sut_name` INT, `sut_version` INT, `test_result` INT, `connection_count` INT, `test_name` INT, `test_tags` INT, `test_target_rate` INT, `api_name` INT, `api_version` INT, `durable` INT, `limit_destinations` INT, `message_size` INT, `messaging_protocol` INT, `max_acceptable_latency` INT, `test_date` INT);
 
+
+CREATE OR REPLACE VIEW `test_properties` AS
+select
+    tmp.test_id,
+    tmp.test_number,
+    MAX(IF(tmp.test_msg_property_name = "apiName", tmp.test_msg_property_value, NULL)) AS api_name,
+    MAX(IF(tmp.test_msg_property_name = "apiVersion", tmp.test_msg_property_value, NULL)) AS api_version,
+    MAX(IF(tmp.test_msg_property_name = "durable", IF(tmp.test_msg_property_value = "true", true, false), false)) AS durable,
+    MAX(IF(tmp.test_msg_property_name = "limitDestinations", CAST(tmp.test_msg_property_value AS INTEGER), -1)) AS limit_destinations,
+    MAX(IF(tmp.test_msg_property_name = "messageSize", CAST(tmp.test_msg_property_value AS INTEGER), -1)) AS message_size,
+    MAX(IF(tmp.test_msg_property_name = "protocol", tmp.test_msg_property_value, NULL)) AS messaging_protocol,
+    MAX(IF(tmp.test_msg_property_name = "variableSize", IF(tmp.test_msg_property_value = "1", true, false), false)) AS variable_size,
+    MAX(IF(tfc.test_fail_condition_name = "fcl", CAST(tfc.test_fail_condition_value AS INTEGER), -1)) AS max_acceptable_latency
+from test_msg_property tmp, test_fail_condition tfc
+where tmp.test_id = tfc.test_id and tmp.test_number = tfc.test_number
+group by test_id,test_number;
+
 -- -----------------------------------------------------
 -- View `maestro`.`test_results`
 -- -----------------------------------------------------
@@ -450,17 +467,10 @@ USE `maestro`;
 
 DELIMITER $$
 USE `maestro`$$
-CREATE DEFINER = CURRENT_USER TRIGGER `maestro`.`test_BEFORE_UPDATE` BEFORE UPDATE ON `test` FOR EACH ROW
+CREATE OR REPLACE DEFINER = CURRENT_USER TRIGGER `maestro`.`test_BEFORE_UPDATE` BEFORE UPDATE ON `test` FOR EACH ROW
 BEGIN
 	INSERT INTO test_history select *,now() as test_update_date from test where test_id = NEW.test_id and test_number = NEW.test_number;
 END$$
-
-USE `maestro`$$
-CREATE DEFINER = CURRENT_USER TRIGGER `reports`.`report_BEFORE_UPDATE` BEFORE UPDATE ON `report` FOR EACH ROW
-BEGIN
-	INSERT INTO report_history select *,now() as report_update_history from report where report_id = NEW.report_id;
-END$$
-
 
 DELIMITER ;
 

@@ -38,14 +38,7 @@ Then create the tables:
 
 ``````
 cd doc/mariadb
-mysql -u maestro my.db.hostname.com -p maestro < ./schema.sql
-``````
-
-Then create the views:
-
-``````
-cd doc/mariadb
-mysql -u maestro my.db.hostname.com -p maestro < ./views.sql
+mysql -u maestro -h my.db.hostname.com -p maestro < ./schema.sql
 ``````
 
 Maestro ResultsDB Deployment: Quick Start Using Docker 
