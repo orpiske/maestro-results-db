@@ -315,107 +315,54 @@ group by test_id,test_number;
 DROP TABLE IF EXISTS `maestro`.`test_results`;
 USE `maestro`;
 CREATE OR REPLACE VIEW `test_results` AS
-    SELECT
-        t.test_id,
-        t.test_number,
-        sut.sut_id,
-        sut.sut_tags,
-        sut.sut_name,
-        sut.sut_version,
-        t.test_result,
-        er.error,
-        t.test_valid,
-        res.env_resource_name,
-        er.env_resource_role,
-        er.test_rate_min,
-        er.test_rate_max,
-        er.test_rate_geometric_mean,
-        er.test_rate_standard_deviation,
-        er.test_rate_skip_count,
-        er.lat_percentile_90,
-        er.lat_percentile_95,
-        er.lat_percentile_99,
-        t.test_date,
-        t.test_name,
-        t.test_tags,
-        t.test_report_link,
-        t.connection_count,
-        t.test_target_rate,
-        (t.test_target_rate * t.connection_count) as test_combined_target_rate,
-        tp.api_name,
-        tp.api_version,
-        tp.durable,
-        tp.limit_destinations,
-        tp.message_size,
-        tp.messaging_protocol,
-        tp.max_acceptable_latency
-    FROM
-        test t,
-        env_results er,
-        env_resource res,
-        sut,
-        test_properties tp
-    WHERE
+SELECT
+    t.test_id,
+    t.test_number,
+    sut.sut_id,
+    sut.sut_tags,
+    sut.sut_name,
+    sut.sut_version,
+    t.test_result,
+    er.error,
+    t.test_valid,
+    res.env_resource_name,
+    er.env_resource_role,
+    er.test_rate_min,
+    er.test_rate_max,
+    er.test_rate_geometric_mean,
+    er.test_rate_standard_deviation,
+    er.test_rate_skip_count,
+    er.lat_percentile_90,
+    er.lat_percentile_95,
+    er.lat_percentile_99,
+    t.test_date,
+    t.test_name,
+    t.test_tags,
+    t.test_report_link,
+    t.connection_count,
+    t.test_target_rate,
+    (t.test_target_rate * t.connection_count) as test_combined_target_rate,
+    tp.api_name,
+    tp.api_version,
+    tp.durable,
+    tp.limit_destinations,
+    tp.message_size,
+    tp.messaging_protocol,
+    tp.max_acceptable_latency
+FROM
+    test t,
+    env_results er,
+    env_resource res,
+    sut,
+    test_properties tp
+WHERE
         t.test_id = er.test_id
-            AND t.test_number = er.test_number
-            AND er.env_resource_id = res.env_resource_id
-            AND t.sut_id = sut.sut_id
-            AND t.test_id = tp.test_id
-            AND t.test_number = tp.test_number;
+          AND t.test_number = er.test_number
+          AND er.env_resource_id = res.env_resource_id
+          AND t.sut_id = sut.sut_id
+          AND t.test_id = tp.test_id
+          AND t.test_number = tp.test_number;
 
--- -----------------------------------------------------
--- View `maestro`.`test_results`
--- -----------------------------------------------------
-DROP TABLE IF EXISTS `maestro`.`test_results`;
-USE `maestro`;
-CREATE OR REPLACE VIEW `test_results` AS
-    SELECT
-        t.test_id,
-        t.test_number,
-        sut.sut_id,
-        sut.sut_tags,
-        sut.sut_name,
-        sut.sut_version,
-        t.test_result,
-        er.error,
-        t.test_valid,
-        res.env_resource_name,
-        er.env_resource_role,
-        er.test_rate_min,
-        er.test_rate_max,
-        er.test_rate_geometric_mean,
-        er.test_rate_standard_deviation,
-        er.test_rate_skip_count,
-        er.lat_percentile_90,
-        er.lat_percentile_95,
-        er.lat_percentile_99,
-        t.test_date,
-        t.test_name,
-        t.test_tags,
-        t.test_report_link,
-        t.connection_count,
-        t.test_target_rate,
-        (t.test_target_rate * t.connection_count) as test_combined_target_rate,
-        tp.api_name,
-        tp.api_version,
-        tp.durable,
-        tp.limit_destinations,
-        tp.message_size,
-        tp.messaging_protocol,
-        tp.max_acceptable_latency
-    FROM
-        test t,
-        env_results er,
-        env_resource res,
-        sut,
-        test_properties tp
-    WHERE
-        t.test_id = er.test_id
-            AND t.test_number = er.test_number
-            AND er.env_resource_id = res.env_resource_id
-            AND t.sut_id = sut.sut_id
-            AND t.test_id = tp.test_id
-            AND t.test_number = tp.test_number;
 
 -- -----------------------------------------------------
 -- View `maestro`.`test_results_statistics`
